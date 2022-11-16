@@ -1,0 +1,15 @@
+.mainMenuTopBttn {
+  margin-left: 50%;
+  padding: 2vh 100px 2vh 100px;
+  left: -960px;
+  width: 1720px;
+}
+
+.mainMenuTopBttn img {
+  height: 8vh;
+}
+
+.mainMenuBox {
+  display: none;
+  width: 640px;
+}

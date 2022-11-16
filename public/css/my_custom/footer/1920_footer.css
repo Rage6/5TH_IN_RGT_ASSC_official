@@ -1,0 +1,6 @@
+.footer {
+  padding: 1vh 0 0 0;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 12vh;
+}
