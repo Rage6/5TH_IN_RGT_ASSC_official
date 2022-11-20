@@ -16,6 +16,8 @@
 }
 
 .mainTitle {
+  display: flex;
+  flex-direction: column;
   margin: 0 0 10vh 0;
   padding-top: 5vh;
   text-align: center;
@@ -24,11 +26,12 @@
 }
 
 .dateAndLocation {
-  margin-left: 45%;
+  --backgroundImage: calc(90vh * 0.256);
+  margin-left: var(--backgroundImage);
+  width: calc(100vw - var(--backgroundImage));
   color: white;
   font-size: 1.5rem;
   text-align: center;
-  width: 55%;
 }
 
 .reunionDate {
@@ -69,15 +72,18 @@
 }
 
 .regBttn {
-  margin: 20vh 0 0 43%;
+  --backgroundImage: calc(90vh * 0.256);
+  margin: 5vh 0 0 43%;
+  margin-left: calc(var(--backgroundImage) + 1vw);
+  width: calc(96vw - var(--backgroundImage));
   border-radius: 10px;
-  padding: 10px 5%;
+  padding: 10px 1vw;
   text-align: center;
   color: white;
   font-family: 'Special Elite', cursive;
   font-size: 1.5rem;
   background-color: rgba(0,100,0,1);
-  width: 45%;
+  /* width: 45%; */
   cursor: pointer;
 }
 

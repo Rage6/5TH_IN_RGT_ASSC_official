@@ -146,4 +146,8 @@ class ReunionController extends Controller
     {
         //
     }
+
+    public function checkBilling(Request $request) {
+      return $request->user()->redirectToBillingPortal(route('reunion/check-billing'));
+    }
 }

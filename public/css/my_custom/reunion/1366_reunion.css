@@ -6,6 +6,7 @@
   margin-left: 35%;
   margin-bottom: 8vh;
   padding-top: 8vh;
+  display: block;
   font-size: 5.5rem;
   width: 60%;
 }
@@ -24,12 +25,16 @@
 }
 
 .regBttn {
-  margin: 6vh 0 0 48%;
+  --backgroundImage: calc(88vh * 0.51);
+  margin: 6vh 0 0 0;
+  margin-left: calc(var(--backgroundImage) + 2vw);
   border-radius: 25px;
-  padding: 15px 5%;
+  padding: 15px 2vw;
   font-size: 3rem;
   line-height: 4rem;
-  width: 30%;
+  /* width: 30%; */
+  font-size: 2.7rem;
+  width: calc(92vw - var(--backgroundImage));
 }
 
 .regForm button {
@@ -48,9 +53,10 @@
 }
 
 .dateAndLocation {
-  margin-left: 43%;
+  --backgroundImage: calc(88vh * 0.51);
+  margin-left: var(--backgroundImage);
   font-size: 2.7rem;
-  width: 57%;
+  width: calc(100vw - var(--backgroundImage));
 }
 
 .regRow {

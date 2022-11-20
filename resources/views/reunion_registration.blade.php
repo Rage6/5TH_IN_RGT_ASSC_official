@@ -818,7 +818,7 @@
                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
               </form> -->
-              <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+              <!-- <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
                 <input type="hidden" name="cmd" value="_s-xclick">
                 <input type="hidden" name="hosted_button_id" value="N3WC58JSCKEP6">
                 <input type="hidden" name="shopping_url" value="http://fifth-infantry-regiment-assoc.herokuapp.com/reunion">
@@ -844,7 +844,8 @@
                 <input type="hidden" name="currency_code" value="USD">
                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-              </form>
+              </form> -->
+
             </div>
           </div>
           <div class="paymentBox">
@@ -895,6 +896,9 @@
           </div>
         </div>
         <div class="policy">
+          <div>
+            
+          </div>
           <u>Reunion Cancellation Policy</u>: Members will not be reimbursed for costs incurred by the Association when  cancellations are made in less than 30 days before the reunion except in the case of death related reasons.
         </div>
       </div>

@@ -3,11 +3,13 @@
 }
 
 .mainTitle {
-  margin-left: 35%;
+  --backgroundImage: calc(88vh * 0.51);
+  margin-left: calc(var(--backgroundImage) + 2vw);
   margin-bottom: 8vh;
   padding-top: 8vh;
+  display: block;
   font-size: 5.5rem;
-  width: 60%;
+  width: calc(92vw - var(--backgroundImage));
 }
 
 .regIntro {
@@ -20,12 +22,17 @@
 }
 
 .regBttn {
+  --backgroundImage: calc(88vh * 0.51);
+  /* In the bttnMargin variable below, the 70vw is based on the desired button width (26vw) and left/right paddings (2vw) subtracted from the total width, 100vw. Subtracting the image's width (backgroundImage) gives the sum of left/right margins, so dividing by two gives one margin. Finally, adding the backgroundImage width uses the desired margin-left immediately past the background image  */
+  --bttnMargins: calc(calc(calc(70vw - var(--backgroundImage)) / 2) + var(--backgroundImage));
   margin: 6vh 0 0 48%;
+  margin-left: var(--bttnMargins);
   border-radius: 25px;
-  padding: 15px 5%;
+  padding: 15px 2vw;
   font-size: 3rem;
   line-height: 4rem;
-  width: 30%;
+  /* width: 30%; */
+  width: 26vw;
 }
 
 .regForm button {
@@ -44,9 +51,10 @@
 }
 
 .dateAndLocation {
-  margin-left: 35%;
+  --backgroundImage: calc(88vh * 0.51);
+  margin-left: var(--backgroundImage);
   font-size: 2.7rem;
-  width: 65%;
+  width: calc(100vw - var(--backgroundImage));
 }
 
 .regRow {
