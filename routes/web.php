@@ -23,5 +23,12 @@ Route::prefix('/home')->group(function() {
 
 Route::prefix('reunion')->group(function() {
   Route::get('',[App\Http\Controllers\ReunionController::class,'index']);
-  Route::get('check-billing',[App\Http\Controllers\ReunionController::class,'checkBilling']);
+});
+
+Route::prefix('items')->group(function() {
+  Route::get('',[App\Http\Controllers\ItemController::class,'index'])->name('items.all');
+  Route::post('add-to-cart',[App\Http\Controllers\ItemController::class,'add'])->name('items.add');
+  Route::get('cart',[App\Http\Controllers\ItemController::class,'cart'])->name('items.cart');
+  Route::get('{item}',[App\Http\Controllers\ItemController::class,'show'])->name('items.single');
+  Route::post('submit-purchase',[App\Http\Controllers\ItemController::class,'submit'])->name('items.create');
 });
