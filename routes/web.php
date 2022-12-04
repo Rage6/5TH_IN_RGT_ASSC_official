@@ -29,6 +29,7 @@ Route::prefix('items')->group(function() {
   Route::get('',[App\Http\Controllers\ItemController::class,'index'])->name('items.all');
   Route::post('add-to-cart',[App\Http\Controllers\ItemController::class,'add'])->name('items.add');
   Route::get('cart',[App\Http\Controllers\ItemController::class,'cart'])->name('items.cart');
+  Route::post('make-purchase',[App\Http\Controllers\ItemController::class,'purchase'])->name('items.purchase');
   Route::get('{item}',[App\Http\Controllers\ItemController::class,'show'])->name('items.single');
-  Route::post('submit-purchase',[App\Http\Controllers\ItemController::class,'submit'])->name('items.create');
+  // Route::post('submit-purchase',[App\Http\Controllers\ItemController::class,'submit'])->name('items.create');
 });

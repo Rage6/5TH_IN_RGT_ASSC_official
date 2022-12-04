@@ -21,7 +21,7 @@ class ItemController extends Controller
       $purpose = $_GET['purpose'];
       // $all_items = Item::all();
       $cart = $request->session()->get('cart');
-      $all_items = Item::where('purpose','reunion-registration')->get();
+      $all_items = Item::where('purpose',$purpose)->get();
       $this_user = Auth::user();
       if (Auth::user()) {
         $unread_count = DB::table('messages')
@@ -53,6 +53,7 @@ class ItemController extends Controller
 
     public function cart(Request $request)
     {
+      $intent = auth()->user()->createSetupIntent();
       $this_user = Auth::user();
       $cart = $request->session()->get('cart');
       if ($this_user) {
@@ -64,6 +65,7 @@ class ItemController extends Controller
           ->count();
         return view('cart',[
           'cart' => $cart,
+          'intent' => $intent,
           'unread_count' => $unread_count,
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
@@ -73,6 +75,7 @@ class ItemController extends Controller
       } else {
         return view('cart',[
           'cart' => $cart,
+          'intent' => $intent,
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'cart_content'
@@ -96,6 +99,49 @@ class ItemController extends Controller
       };
       $cart = $request->session()->put('cart',$init_cart);
       return redirect('/items/cart');
+    }
+
+    public function purchase(Request $request)
+    {
+      // $plan = Item::find($request->plan);
+
+      $plan_A = Item::find(6);
+      $plan_B = Item::find(7);
+      $array_A = [6,$plan_A];
+      $array_B = [7,$plan_B];
+      $all_array = [$array_A, $array_B];
+
+      $this_user = Auth::user();
+      $paymentMethod = $request->payment_method;
+
+      foreach ($all_array as $one_array) {
+        $this_user->createOrGetStripeCustomer();
+        $this_user->updateDefaultPaymentMethod($paymentMethod);
+        $this_user->charge(100, $request->payment_method);
+      };
+
+      if (Auth::user()) {
+        $unread_count = DB::table('messages')
+          ->where([
+            ['messages.received_id',Auth::user()->id],
+            ['messages.is_read','==',0]
+          ])
+          ->count();
+        return view('reunion_registration',[
+          'unread_count' => $unread_count,
+          'style' => 'reunion_style',
+          'js' => '/js/my_custom/reunion/reunion.js',
+          'content' => 'reunion_content',
+          'this_user' => $this_user
+        ]);
+      } else {
+        return view('reunion_registration',[
+          'style' => 'reunion_style',
+          'js' => '/js/my_custom/reunion/reunion.js',
+          'content' => 'reunion_content',
+          'this_user' => $this_user
+        ]);
+      };
     }
 
     /**
@@ -196,10 +242,10 @@ class ItemController extends Controller
     {
       // $plan = Item::find($request->plan);
 
-      $plan_A = Item::find(1);
-      $plan_B = Item::find(4);
-      $array_A = [1,$plan_A];
-      $array_B = [4,$plan_B];
+      $plan_A = Item::find(6);
+      $plan_B = Item::find(7);
+      $array_A = [6,$plan_A];
+      $array_B = [7,$plan_B];
       $all_array = [$array_A, $array_B];
 
       $this_user = Auth::user();

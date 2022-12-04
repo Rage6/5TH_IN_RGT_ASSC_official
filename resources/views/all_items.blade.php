@@ -66,33 +66,39 @@
         <form method="POST" action="{{ route('items.add') }}">
           @csrf
           @php $count = 0 @endphp
-          @foreach($all_items as $item)
-            <div class="col-md-6">
-              <div class="card mb-3">
-                <div class="card-body">
+          <table>
+            <th>
+              <td>Name</td>
+              <td>Price</td>
+              <td>Description</td>
+              <td>Quantity</td>
+            </th>
+            @foreach($all_items as $item)
+              <tr class="card mb-3">
+                <td>
                   <input type="hidden" name="item_id_{{ $count }}" value="{{ $item->id }}">
-                  <h5 class="card-title">
-                    {{ $item->name }}
-                    <input type="hidden" name="item_name_{{ $count }}" value="{{ $item->name }}">
-                  </h5>
-                  <div class="card-header">
-                    {{ $item->price }}
-                    <input type="hidden" name="item_price_{{ $count }}" value="{{ $item->price }}" readonly>
-                  </div>
-                  <p class="card-text">
-                    {{ $item->description }}
-                  </p>
-                  <div>
-                    How many?: <input type="number" name="item_count_{{ $count }}" value="0">
-                  </div>
-                </div>
-              </div>
-            </div>
-            @php $count++ @endphp
-          @endforeach
+                </td>
+                <td class="card-title">
+                  {{ $item->name }}
+                  <input type="hidden" name="item_name_{{ $count }}" value="{{ $item->name }}">
+                </td>
+                <td class="card-header">
+                  {{ $item->price }}
+                  <input type="hidden" name="item_price_{{ $count }}" value="{{ $item->price }}" readonly>
+                </td>
+                <td class="card-text">
+                  {{ $item->description }}
+                </td>
+                <td>
+                  <input type="number" name="item_count_{{ $count }}" value="0">
+                </td>
+              </tr>
+              @php $count++ @endphp
+            @endforeach
+          </table>
           <input type="hidden" name="count" value="{{ $count }}">
           <button class="btn btn-primary pull-right">
-            UPDATE CART
+            CHECK CART BEFORE PURCHASES
           </button>
         </form>
       </div>
