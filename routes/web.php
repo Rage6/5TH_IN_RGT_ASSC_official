@@ -22,7 +22,7 @@ Route::prefix('/home')->group(function() {
 });
 
 Route::prefix('reunion')->group(function() {
-  Route::get('',[App\Http\Controllers\ReunionController::class,'index']);
+  Route::get('',[App\Http\Controllers\ReunionController::class,'index'])->name('reunion.index');
 });
 
 Route::prefix('items')->group(function() {

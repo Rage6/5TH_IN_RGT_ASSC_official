@@ -63,14 +63,14 @@
   <div class="main">
     <div class="content">
       <div class="row">
-        @if ($cart)
+        @if ($count > 0)
           @foreach($cart as $item)
             @if ($item[3] > 0)
               <div class="col-md-6">
                 <div class="card mb-3">
                   <div class="card-body">
                     <div>
-                      {{ $item[3] }} x {{ $item[2] }} - ${{ $item[1] }}
+                      {{ $item[3] }} x ${{ $item[2] }} - {{ $item[1] }} ||  <b><a href="/items?purpose={{ $item[4] }}">CHANGE</a></b>
                     </div>
                   </div>
                 </div>
@@ -81,12 +81,16 @@
           <div>
             No items selected
           </div>
+          <div>
+            <a href="/items?purpose={{ $purpose }}"><< Return to the store</a>
+          </div>
         @endif
       </div>
       <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
           @csrf
           <input type="hidden" name="payment_method" class="payment-method">
           <input class="StripeElement mb-3" name="card_holder_name" placeholder="Card holder name" required>
+          <input type="hidden" name="text_cart" value="{{ $text_cart }}">
           <div class="col-lg-4 col-md-6">
               <div id="card-element"></div>
           </div>
@@ -97,6 +101,7 @@
               </button>
           </div>
       </form>
+      <!-- <pre>{{ var_dump($cart); }}</pre> -->
     </div>
     @include ('footer.content')
   </div>

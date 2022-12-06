@@ -20,8 +20,21 @@ class ItemController extends Controller
     {
       $purpose = $_GET['purpose'];
       // $all_items = Item::all();
-      $cart = $request->session()->get('cart');
+      $current_cart = $request->session()->get('cart');
       $all_items = Item::where('purpose',$purpose)->get();
+      if ($current_cart) {
+        foreach ($all_items as $one_item) {
+          $one_item->count = 0;
+          for ($i = 0; count($current_cart) > $i; $i++) {
+            if (intval($current_cart[$i][0]) == $one_item->id) {
+              $one_item->count = $current_cart[$i][3];
+              if ($one_item->count == null) {
+                $one_item->count = 0;
+              };
+            };
+          };
+        };
+      };
       $this_user = Auth::user();
       if (Auth::user()) {
         $unread_count = DB::table('messages')
@@ -51,11 +64,40 @@ class ItemController extends Controller
       };
     }
 
+    public function add(Request $request)
+    {
+      $this_user = Auth::user();
+      $init_cart = [];
+      $count = $request->count;
+      $purpose = $request->purpose;
+      for ($i = 0; $i < $count; $i++) {
+        $a = [
+          $request['item_id_'.$i],
+          $request['item_name_'.$i],
+          $request['item_price_'.$i],
+          $request['item_count_'.$i],
+          $request['item_return_'.$i]
+        ];
+        $init_cart[] = $a;
+      };
+      $cart = $request->session()->put('cart',$init_cart);
+      return redirect('/items/cart?purpose='.$purpose);
+    }
+
     public function cart(Request $request)
     {
+      $purpose = $_GET['purpose'];
       $intent = auth()->user()->createSetupIntent();
       $this_user = Auth::user();
       $cart = $request->session()->get('cart');
+      $text_cart = "";
+      $count = 0;
+      for ($i = 0; $i < count($cart); $i++) {
+        $text_cart = $text_cart.strval($i)."[]=".strval($cart[$i][0])."&".strval($i)."[]=".strval($cart[$i][1])."&".strval($i)."[]=".strval($cart[$i][2])."&".strval($i)."[]=".strval($cart[$i][3])."&".strval($i)."[]=".strval($cart[$i][4]."&");
+        if (intval($cart[$i][3]) > 0) {
+          $count++;
+        };
+      };
       if ($this_user) {
         $unread_count = DB::table('messages')
           ->where([
@@ -70,7 +112,10 @@ class ItemController extends Controller
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'cart_content',
-          'this_user' => $this_user
+          'this_user' => $this_user,
+          'text_cart' => $text_cart,
+          'count' => $count,
+          'purpose' => $purpose
         ]);
       } else {
         return view('cart',[
@@ -78,47 +123,39 @@ class ItemController extends Controller
           'intent' => $intent,
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
-          'content' => 'cart_content'
+          'content' => 'cart_content',
+          'text_cart' => $text_cart,
+          'count' => $count,
+          'purpose' => $purpose
         ]);
       };
-    }
-
-    public function add(Request $request)
-    {
-      $this_user = Auth::user();
-      $init_cart = [];
-      $count = $request->count;
-      for ($i = 0; $i < $count; $i++) {
-        $a = [
-          $request['item_id_'.$i],
-          $request['item_name_'.$i],
-          $request['item_price_'.$i],
-          $request['item_count_'.$i]
-        ];
-        $init_cart[] = $a;
-      };
-      $cart = $request->session()->put('cart',$init_cart);
-      return redirect('/items/cart');
     }
 
     public function purchase(Request $request)
     {
       // $plan = Item::find($request->plan);
 
-      $plan_A = Item::find(6);
-      $plan_B = Item::find(7);
-      $array_A = [6,$plan_A];
-      $array_B = [7,$plan_B];
-      $all_array = [$array_A, $array_B];
+      // $plan_A = Item::find(6);
+      // $plan_B = Item::find(7);
+      // $array_A = [6,$plan_A];
+      // $array_B = [7,$plan_B];
+      // $all_array = [$array_A, $array_B];
+
+      parse_str($request->text_cart,$all_array);
 
       $this_user = Auth::user();
       $paymentMethod = $request->payment_method;
 
       foreach ($all_array as $one_array) {
+        $one_id = intval($one_array[0]);
+        $one_item = Item::find($one_id);
+        $one_price = $one_item->price;
         $this_user->createOrGetStripeCustomer();
         $this_user->updateDefaultPaymentMethod($paymentMethod);
-        $this_user->charge(100, $request->payment_method);
+        $this_user->charge($one_price * 100, $request->payment_method);
       };
+
+      $request->session()->forget('cart');
 
       if (Auth::user()) {
         $unread_count = DB::table('messages')

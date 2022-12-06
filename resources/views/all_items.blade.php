@@ -90,17 +90,24 @@
                   {{ $item->description }}
                 </td>
                 <td>
-                  <input type="number" name="item_count_{{ $count }}" value="0">
+                  <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}">
                 </td>
+                <input type="hidden" name="item_return_{{ $count }}" value="{{ $item->purpose }}">
               </tr>
               @php $count++ @endphp
             @endforeach
           </table>
           <input type="hidden" name="count" value="{{ $count }}">
+          <input type="hidden" name="purpose" value="{{ $purpose }}">
           <button class="btn btn-primary pull-right">
-            CHECK CART BEFORE PURCHASES
+            CHECKOUT
           </button>
         </form>
+        <div>
+          <a href="{{ route($purpose) }}">
+            << Continue Shopping
+          </a>
+        </div>
       </div>
     </div>
     @include ('footer.content')
