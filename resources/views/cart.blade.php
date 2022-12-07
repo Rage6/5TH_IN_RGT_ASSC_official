@@ -86,21 +86,26 @@
           </div>
         @endif
       </div>
-      <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
-          @csrf
-          <input type="hidden" name="payment_method" class="payment-method">
-          <input class="StripeElement mb-3" name="card_holder_name" placeholder="Card holder name" required>
-          <input type="hidden" name="text_cart" value="{{ $text_cart }}">
-          <div class="col-lg-4 col-md-6">
-              <div id="card-element"></div>
-          </div>
-          <div id="card-errors" role="alert"></div>
-          <div class="form-group mt-3">
-              <button type="submit" class="btn btn-primary pay">
-                  Purchase
-              </button>
-          </div>
-      </form>
+      @if ($count > 0)
+        <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
+            @csrf
+            <input type="hidden" name="payment_method" class="payment-method">
+            <input class="StripeElement mb-3" name="card_holder_name" placeholder="Card holder name" required>
+            <input type="hidden" name="text_cart" value="{{ $text_cart }}">
+            <div class="col-lg-4 col-md-6">
+                <div id="card-element"></div>
+            </div>
+            <div id="card-errors" role="alert"></div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary pay">
+                    Purchase
+                </button>
+            </div>
+        </form>
+        <div>
+          <a href="/items?purpose={{ $purpose }}"><< Return to the store</a>
+        </div>
+      @endif
       <!-- <pre>{{ var_dump($cart); }}</pre> -->
     </div>
     @include ('footer.content')

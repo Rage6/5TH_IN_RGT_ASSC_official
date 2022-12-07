@@ -90,7 +90,11 @@
                   {{ $item->description }}
                 </td>
                 <td>
-                  <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}">
+                  @if ($item->count)
+                    <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}">
+                  @else
+                    <input type="number" name="item_count_{{ $count }}" value="0">
+                  @endif
                 </td>
                 <input type="hidden" name="item_return_{{ $count }}" value="{{ $item->purpose }}">
               </tr>

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Item;
+use App\Models\User;
 
 class ItemController extends Controller
 {
@@ -21,6 +22,7 @@ class ItemController extends Controller
       $purpose = $_GET['purpose'];
       // $all_items = Item::all();
       $current_cart = $request->session()->get('cart');
+      $current_guest = $request->session()->get('guest');
       $all_items = Item::where('purpose',$purpose)->get();
       if ($current_cart) {
         foreach ($all_items as $one_item) {
@@ -35,7 +37,6 @@ class ItemController extends Controller
           };
         };
       };
-      $this_user = Auth::user();
       if (Auth::user()) {
         $unread_count = DB::table('messages')
           ->where([
@@ -49,8 +50,8 @@ class ItemController extends Controller
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'all_items_content',
-          'this_user' => $this_user,
-          'purpose' => $purpose
+          'purpose' => $purpose,
+          'current_cart' => $current_cart
         ]);
       } else {
         return view('all_items',[
@@ -58,15 +59,14 @@ class ItemController extends Controller
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'all_items_content',
-          'this_user' => $this_user,
-          'purpose' => $purpose
+          'purpose' => $purpose,
+          'current_cart' => $current_cart
         ]);
       };
     }
 
     public function add(Request $request)
     {
-      $this_user = Auth::user();
       $init_cart = [];
       $count = $request->count;
       $purpose = $request->purpose;
@@ -87,8 +87,34 @@ class ItemController extends Controller
     public function cart(Request $request)
     {
       $purpose = $_GET['purpose'];
-      $intent = auth()->user()->createSetupIntent();
-      $this_user = Auth::user();
+      if (Auth::user()) {
+        $intent = auth()->user()->createSetupIntent();
+      } elseif ($request->session()->get('guest')) {
+        // $this_user = $request->session()->get('guest');
+        $this_user = User::find($request->session()->get('guest')->id);
+        $intent = $this_user->createSetupIntent();
+      } else {
+        $all_characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $random_password = '';
+        for ($i = 0; $i < 20; $i++) {
+          $index = rand(0, strlen($all_characters) - 1);
+          $random_password .= $all_characters[$index];
+        };
+        $guest_user = new User();
+        $guest_user->first_name = "Guest";
+        $guest_user->last_name = time();
+        $guest_user->email = "guest@email.com";
+        $guest_user->password = "guest_".$random_password;
+        $guest_user->save();
+        $new_guest = User::where('password',$guest_user->password)->first();
+        $guest = $request->session()->put('guest',$new_guest);
+        $intent = $new_guest->createSetupIntent();
+      };
+      if (Auth::user()) {
+        $this_user = Auth::user();
+      } elseif ($request->session()->get('guest')) {
+        $this_user = User::find($request->session()->get('guest')->id);
+      };
       $cart = $request->session()->get('cart');
       $text_cart = "";
       $count = 0;
@@ -98,7 +124,7 @@ class ItemController extends Controller
           $count++;
         };
       };
-      if ($this_user) {
+      if (Auth::user()) {
         $unread_count = DB::table('messages')
           ->where([
             ['messages.received_id',Auth::user()->id],
@@ -112,7 +138,6 @@ class ItemController extends Controller
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'cart_content',
-          'this_user' => $this_user,
           'text_cart' => $text_cart,
           'count' => $count,
           'purpose' => $purpose
@@ -143,7 +168,11 @@ class ItemController extends Controller
 
       parse_str($request->text_cart,$all_array);
 
-      $this_user = Auth::user();
+      if (Auth::user()) {
+        $this_user = Auth::user();
+      } else {
+        $this_user = User::find($request->session()->get('guest')->id);
+      };
       $paymentMethod = $request->payment_method;
 
       foreach ($all_array as $one_array) {
@@ -156,6 +185,7 @@ class ItemController extends Controller
       };
 
       $request->session()->forget('cart');
+      $request->session()->forget('guest');
 
       if (Auth::user()) {
         $unread_count = DB::table('messages')
