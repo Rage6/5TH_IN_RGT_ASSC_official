@@ -47,7 +47,7 @@ class ItemController extends Controller
         return view('all_items',[
           'all_items' => $all_items,
           'unread_count' => $unread_count,
-          'style' => 'reunion_style',
+          'style' => 'items_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'all_items_content',
           'purpose' => $purpose,

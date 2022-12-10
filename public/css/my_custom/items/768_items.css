@@ -1,0 +1,51 @@
+.mainTitle {
+  margin-left: 35%;
+  margin-bottom: 8vh;
+  padding-top: 7vh;
+  font-size: 4.5rem;
+  width: 60%;
+}
+
+.regBttn {
+  margin: 15vh 0 0 38%;
+  border-radius: 25px;
+  padding: 15px 5%;
+  font-size: 3rem;
+  line-height: 4rem;
+  width: 45%;
+}
+
+.dateAndLocation {
+  font-size: 2.7rem;
+}
+
+.regRow {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 20vh 20vh 20vh;
+}
+
+.boxContent {
+  grid-template-columns: repeat(2,47%);
+  column-gap: 6%;
+  row-gap: 60px;
+}
+
+.paymentBox:last-child {
+  border-bottom: none;
+}
+
+#hotelReservation {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.hotelMap {
+  height: 38vh;
+}
+
+.reservationRow {
+  grid-template-columns: 40% 40%;
+  grid-row-gap: 50px;
+  justify-content: space-between;
+}

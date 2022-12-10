@@ -1,0 +1,53 @@
+.main {
+  padding-top: 10vh;
+  background: repeating-linear-gradient(
+      -45deg,
+      grey,
+      white 100px,
+      grey 130px,
+      white 180px,
+      grey 300px,
+      white 410px,
+      grey 550px)
+}
+
+.content {
+  min-height: 90vh;
+}
+
+.mainTitle {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 10vh 0;
+  padding-top: 5vh;
+  text-align: center;
+  font-size: 2.5rem;
+  font-family: 'Vollkorn SC', sans-serif;
+}
+
+.itemHeader {
+  display: none;
+}
+
+.gridItems {
+  display: grid;
+  grid-template-areas:
+    "name name"
+    "price count"
+    "description description"
+}
+
+.gridName {
+  grid-area: name;
+}
+
+.gridPrice {
+  grid-area: price;
+}
+.gridCount {
+  grid-area: count;
+}
+
+.gridDescription {
+  grid-area: description;
+}
