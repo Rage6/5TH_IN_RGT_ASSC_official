@@ -29,25 +29,51 @@
   display: none;
 }
 
-.gridItems {
+.itemList {
+  margin: 0 5% 25px 5%;
+  padding-top: 25px;
+}
+
+.gridItem {
+  margin-bottom: 10px;
+  border: 1px solid black;
+  /* padding: 20px 5%; */
   display: grid;
   grid-template-areas:
     "name name"
     "price count"
-    "description description"
+    "description description";
+  grid-template-columns: 50% 50%;
+  background-color: white;
 }
 
 .gridName {
+  padding: 10px 5%;
   grid-area: name;
+  color: white;
+  text-align: center;
+  background-color: red;
 }
 
 .gridPrice {
   grid-area: price;
+  margin: 5px 0 0 5%;
+  text-align: center;
+  width: 95%;
 }
 .gridCount {
   grid-area: count;
+  margin: 5px 5% 0 0;
+  text-align: center;
+  width: 95%;
+}
+
+.gridCount input {
+  width: 30%;
 }
 
 .gridDescription {
   grid-area: description;
+  margin: 10px 5% 15px 5%;
+  width: 90%;
 }

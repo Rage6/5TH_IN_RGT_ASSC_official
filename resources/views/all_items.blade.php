@@ -66,30 +66,32 @@
         <form method="POST" action="{{ route('items.add') }}">
           @csrf
           @php $count = 0 @endphp
-          <div>
+          <div class="itemList">
             <div class="itemHeader">
               <div class="nameGrid">Name</div>
               <div class="nameGrid">Description</div>
               <div class="nameGrid">Price</div>
               <div class="nameGrid">Quantity</div>
-            </div>
+            </div class="itemList">
             @foreach($all_items as $item)
-              <div class="gridItems">
+              <div class="gridItem">
                 <div>
                   <input type="hidden" name="item_id_{{ $count }}" value="{{ $item->id }}">
                 </div>
                 <div class="gridName">
-                  {{ $item->name }}
+                  <div>{{ $item->name }}</div>
                   <input type="hidden" name="item_name_{{ $count }}" value="{{ $item->name }}">
                 </div>
                 <div class="gridDescription">
                   {{ $item->description }}
                 </div>
                 <div class="gridPrice">
-                  {{ $item->price }}
+                  <div>Price</div>
+                  <div>${{ $item->price }}</div>
                   <input type="hidden" name="item_price_{{ $count }}" value="{{ $item->price }}" readonly>
                 </div>
                 <div class="gridCount">
+                  <div>Quantity</div>
                   @if ($item->count)
                     <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}">
                   @else
