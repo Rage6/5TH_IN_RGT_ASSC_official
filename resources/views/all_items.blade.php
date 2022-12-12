@@ -62,60 +62,75 @@
 @section('all_items_content')
   <div class="main">
     <div class="content">
+      <div class="mainTitle">
+        {{ $title }}
+      </div>
       <div>
         <form method="POST" action="{{ route('items.add') }}">
           @csrf
           @php $count = 0 @endphp
-          <div class="itemList">
-            <div class="itemHeader">
+          <div>
+            <div class="itemDirections">
+              <a href="{{ route($purpose) }}">
+                << RETURN
+              </a>
+              <!-- <button>
+                CHECKOUT
+              </button> -->
+              <input type="submit" value="CHECKOUT"/>
+            </div>
+            <!-- <div class="itemHeader">
               <div class="nameGrid">Name</div>
               <div class="nameGrid">Description</div>
               <div class="nameGrid">Price</div>
               <div class="nameGrid">Quantity</div>
-            </div class="itemList">
-            @foreach($all_items as $item)
-              <div class="gridItem">
-                <div>
-                  <input type="hidden" name="item_id_{{ $count }}" value="{{ $item->id }}">
+            </div class="itemList"> -->
+            <div class="itemList">
+              @foreach($all_items as $item)
+                <div class="gridItem">
+                  <div>
+                    <input type="hidden" name="item_id_{{ $count }}" value="{{ $item->id }}">
+                  </div>
+                  <div class="gridName">
+                    <div>{{ $item->name }}</div>
+                    <input type="hidden" name="item_name_{{ $count }}" value="{{ $item->name }}">
+                  </div>
+                  <div class="gridDescription">
+                    {{ $item->description }}
+                  </div>
+                  <div class="gridPrice">
+                    <div>Price</div>
+                    <div>${{ $item->price }}</div>
+                    <input type="hidden" name="item_price_{{ $count }}" value="{{ $item->price }}" readonly>
+                  </div>
+                  <div class="gridCount">
+                    <div>Quantity</div>
+                    @if ($item->count)
+                      <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}">
+                    @else
+                      <input type="number" name="item_count_{{ $count }}" value="0">
+                    @endif
+                  </div>
+                  <div>
+                    <input type="hidden" name="item_return_{{ $count }}" value="{{ $item->purpose }}">
+                  </div>
                 </div>
-                <div class="gridName">
-                  <div>{{ $item->name }}</div>
-                  <input type="hidden" name="item_name_{{ $count }}" value="{{ $item->name }}">
-                </div>
-                <div class="gridDescription">
-                  {{ $item->description }}
-                </div>
-                <div class="gridPrice">
-                  <div>Price</div>
-                  <div>${{ $item->price }}</div>
-                  <input type="hidden" name="item_price_{{ $count }}" value="{{ $item->price }}" readonly>
-                </div>
-                <div class="gridCount">
-                  <div>Quantity</div>
-                  @if ($item->count)
-                    <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}">
-                  @else
-                    <input type="number" name="item_count_{{ $count }}" value="0">
-                  @endif
-                </div>
-                <div>
-                  <input type="hidden" name="item_return_{{ $count }}" value="{{ $item->purpose }}">
-                </div>
-              </div>
-              @php $count++ @endphp
-            @endforeach
+                @php $count++ @endphp
+              @endforeach
+            </div>
           </div>
           <input type="hidden" name="count" value="{{ $count }}">
           <input type="hidden" name="purpose" value="{{ $purpose }}">
-          <button>
+          <input type="hidden" name="title" value="{{ $title }}">
+          <!-- <button>
             CHECKOUT
-          </button>
+          </button> -->
         </form>
-        <div>
+        <!-- <div>
           <a href="{{ route($purpose) }}">
             << Continue Shopping
           </a>
-        </div>
+        </div> -->
       </div>
     </div>
     @include ('footer.content')

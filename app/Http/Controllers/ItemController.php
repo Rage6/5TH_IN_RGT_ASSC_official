@@ -20,6 +20,7 @@ class ItemController extends Controller
     public function index(Request $request)
     {
       $purpose = $_GET['purpose'];
+      $title = str_replace("%20"," ",$_GET['title']);
       // $all_items = Item::all();
       $current_cart = $request->session()->get('cart');
       $current_guest = $request->session()->get('guest');
@@ -48,18 +49,20 @@ class ItemController extends Controller
           'all_items' => $all_items,
           'unread_count' => $unread_count,
           'style' => 'items_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
+          'js' => '/js/my_custom/items/items.js',
           'content' => 'all_items_content',
           'purpose' => $purpose,
+          'title' => $title,
           'current_cart' => $current_cart
         ]);
       } else {
         return view('all_items',[
           'all_items' => $all_items,
-          'style' => 'reunion_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
+          'style' => 'items_style',
+          'js' => '/js/my_custom/items/items.js',
           'content' => 'all_items_content',
           'purpose' => $purpose,
+          'title' => $title,
           'current_cart' => $current_cart
         ]);
       };
@@ -70,23 +73,32 @@ class ItemController extends Controller
       $init_cart = [];
       $count = $request->count;
       $purpose = $request->purpose;
+      $title = str_replace("%20"," ",$request->title);
       for ($i = 0; $i < $count; $i++) {
+        if ($request['item_return_'.$i] == $purpose) {
+          $request['item_shop_'.$i] = $request->title;
+        };
+        if (!$request['item_shop_'.$i]) {
+          $request['item_shop_'.$i] = null;
+        };
         $a = [
           $request['item_id_'.$i],
           $request['item_name_'.$i],
           $request['item_price_'.$i],
           $request['item_count_'.$i],
-          $request['item_return_'.$i]
+          $request['item_return_'.$i],
+          $request['item_shop_'.$i]
         ];
         $init_cart[] = $a;
       };
       $cart = $request->session()->put('cart',$init_cart);
-      return redirect('/items/cart?purpose='.$purpose);
+      return redirect('/items/cart?purpose='.$purpose.'&title='.$title);
     }
 
     public function cart(Request $request)
     {
       $purpose = $_GET['purpose'];
+      $title = str_replace("%20"," ",$_GET['title']);;
       if (Auth::user()) {
         $intent = auth()->user()->createSetupIntent();
       } elseif ($request->session()->get('guest')) {
@@ -119,7 +131,7 @@ class ItemController extends Controller
       $text_cart = "";
       $count = 0;
       for ($i = 0; $i < count($cart); $i++) {
-        $text_cart = $text_cart.strval($i)."[]=".strval($cart[$i][0])."&".strval($i)."[]=".strval($cart[$i][1])."&".strval($i)."[]=".strval($cart[$i][2])."&".strval($i)."[]=".strval($cart[$i][3])."&".strval($i)."[]=".strval($cart[$i][4]."&");
+        $text_cart = $text_cart.strval($i)."[]=".strval($cart[$i][0])."&".strval($i)."[]=".strval($cart[$i][1])."&".strval($i)."[]=".strval($cart[$i][2])."&".strval($i)."[]=".strval($cart[$i][3])."&".strval($i)."[]=".strval($cart[$i][4])."&".strval($i)."[]=".strval($cart[$i][5]);
         if (intval($cart[$i][3]) > 0) {
           $count++;
         };
@@ -140,7 +152,8 @@ class ItemController extends Controller
           'content' => 'cart_content',
           'text_cart' => $text_cart,
           'count' => $count,
-          'purpose' => $purpose
+          'purpose' => $purpose,
+          'title' => $title
         ]);
       } else {
         return view('cart',[
@@ -151,7 +164,8 @@ class ItemController extends Controller
           'content' => 'cart_content',
           'text_cart' => $text_cart,
           'count' => $count,
-          'purpose' => $purpose
+          'purpose' => $purpose,
+          'title' => $title
         ]);
       };
     }

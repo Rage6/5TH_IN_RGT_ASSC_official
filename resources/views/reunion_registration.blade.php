@@ -895,7 +895,7 @@
           </div>
         </div>
         <div class="policy">
-          <a href="{{ route('items.all',['purpose'=>'reunion.index']) }}">
+          <a href="{{ route('items.all',['purpose'=>'reunion.index','title'=>'Reunion Fee and Options']) }}">
             <button>
               SEE REUNION COSTS & OPTIONS
             </button>

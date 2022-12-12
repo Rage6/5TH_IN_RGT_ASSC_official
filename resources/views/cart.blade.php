@@ -62,6 +62,9 @@
 @section('cart_content')
   <div class="main">
     <div class="content">
+      <div class="mainTitle">
+        {{ $title }}
+      </div>
       <div class="row">
         @if ($count > 0)
           @foreach($cart as $item)
@@ -70,7 +73,7 @@
                 <div class="card mb-3">
                   <div class="card-body">
                     <div>
-                      {{ $item[3] }} x ${{ $item[2] }} - {{ $item[1] }} ||  <b><a href="/items?purpose={{ $item[4] }}">CHANGE</a></b>
+                      {{ $item[3] }} x ${{ $item[2] }} - {{ $item[1] }} ||  <b><a href="/items?purpose={{ $item[4] }}&title={{ $item[5] }}">CHANGE</a></b>
                     </div>
                   </div>
                 </div>
@@ -82,7 +85,7 @@
             No items selected
           </div>
           <div>
-            <a href="/items?purpose={{ $purpose }}"><< Return to the store</a>
+            <a href="/items?purpose={{ $purpose }}&title={{ $title }}"><< Return to the store</a>
           </div>
         @endif
       </div>
@@ -103,7 +106,7 @@
             </div>
         </form>
         <div>
-          <a href="/items?purpose={{ $purpose }}"><< Return to the store</a>
+          <a href="/items?purpose={{ $purpose }}&title={{ $title }}"><< Return to '{{ $title }}'</a>
         </div>
       @endif
       <!-- <pre>{{ var_dump($cart); }}</pre> -->
