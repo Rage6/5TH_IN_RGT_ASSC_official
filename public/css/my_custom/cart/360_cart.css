@@ -1,0 +1,90 @@
+.main {
+  padding-top: 10vh;
+  background: repeating-linear-gradient(
+      -45deg,
+      grey,
+      white 100px,
+      grey 130px,
+      white 180px,
+      grey 300px,
+      white 410px,
+      grey 550px)
+}
+
+.content {
+  min-height: 90vh;
+}
+
+.mainTitle {
+  display: flex;
+  flex-direction: column;
+  margin: 0 5% 10vh 5%;
+  padding-top: 5vh;
+  text-align: center;
+  font-size: 2.5rem;
+  font-family: 'Vollkorn SC', sans-serif;
+}
+
+.cartList {
+  margin: 0 3% 10px 3%;
+  padding: 10px 2%;
+  background-color: white;
+}
+
+.cartItem {
+  margin: 0 0 10px 0;
+  border: 1px dashed black;
+  padding: 3px 3px 10px 3px;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: repeat(2, auto) 40px;
+  grid-template-areas:
+    "name name"
+    "quantity cost"
+    "change change";
+  /* width: 96%; */
+}
+
+.cartItem .quantity {
+  grid-area: quantity;
+}
+
+.cartItem .cost {
+  grid-area: cost;
+}
+
+.cartItem .name {
+  grid-area: name;
+  color: white;
+  text-align: center;
+  background-color: green;
+}
+
+.cartItem .cost, .cartItem .quantity {
+  text-align: center;
+}
+
+.cartItem .change {
+  padding-top: 20px;
+  padding-right: 5%;
+  grid-area: change;
+  text-align: right;
+}
+
+.cartItem .change a span {
+  border-radius: 15px;
+  padding: 7px;
+  color: white;
+  background-color: red;
+}
+
+.cartItem:last-of-type {
+  margin-bottom: 0;
+}
+
+.creditCardForm {
+  margin: 0 3% 10px 3%;
+  padding: 10px 2%;
+  color: white;
+  background-color: green;
+}

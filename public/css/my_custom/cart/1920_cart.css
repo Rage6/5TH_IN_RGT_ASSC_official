@@ -1,0 +1,10 @@
+.main {
+  padding-top: 12vh;
+}
+
+.mainTitle {
+  margin-left: 20%;
+  display: block;
+  font-size: 4.5rem;
+  width: 60%;
+}

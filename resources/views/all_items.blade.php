@@ -74,17 +74,8 @@
               <a href="{{ route($purpose) }}">
                 << RETURN
               </a>
-              <!-- <button>
-                CHECKOUT
-              </button> -->
               <input type="submit" value="CHECKOUT"/>
             </div>
-            <!-- <div class="itemHeader">
-              <div class="nameGrid">Name</div>
-              <div class="nameGrid">Description</div>
-              <div class="nameGrid">Price</div>
-              <div class="nameGrid">Quantity</div>
-            </div class="itemList"> -->
             <div class="itemList">
               @foreach($all_items as $item)
                 <div class="gridItem">
@@ -122,15 +113,7 @@
           <input type="hidden" name="count" value="{{ $count }}">
           <input type="hidden" name="purpose" value="{{ $purpose }}">
           <input type="hidden" name="title" value="{{ $title }}">
-          <!-- <button>
-            CHECKOUT
-          </button> -->
         </form>
-        <!-- <div>
-          <a href="{{ route($purpose) }}">
-            << Continue Shopping
-          </a>
-        </div> -->
       </div>
     </div>
     @include ('footer.content')

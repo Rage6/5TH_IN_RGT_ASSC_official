@@ -3,19 +3,19 @@
 @section('reunion_style')
   <!-- Welcome Styles -->
   <!-- Default CSS files; 0px -> 360px-->
-  <link rel="stylesheet" type="text/css" href="/css/my_custom/reunion/360_reunion.css">
+  <link rel="stylesheet" type="text/css" href="/css/my_custom/cart/360_cart.css">
   <!-- 361px -> 375px-->
-  <link rel="stylesheet" media="screen and (min-width: 361px) and (max-width: 375px)" type="text/css" href="/css/my_custom/reunion/375_reunion.css">
+  <link rel="stylesheet" media="screen and (min-width: 361px) and (max-width: 375px)" type="text/css" href="/css/my_custom/cart/375_cart.css">
   <!-- 376px -> 414px-->
-  <link rel="stylesheet" media="screen and (min-width: 376px) and (max-width: 414px)" type="text/css" href="/css/my_custom/reunion/414_reunion.css">
+  <link rel="stylesheet" media="screen and (min-width: 376px) and (max-width: 414px)" type="text/css" href="/css/my_custom/cart/414_cart.css">
   <!-- 415px -> 768px-->
-  <link rel="stylesheet" media="screen and (min-width: 415px) and (max-width: 768px)" type="text/css" href="/css/my_custom/reunion/768_reunion.css">
+  <link rel="stylesheet" media="screen and (min-width: 415px) and (max-width: 768px)" type="text/css" href="/css/my_custom/cart/768_cart.css">
   <!-- 769px -> 1366px-->
-  <link rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 1366px)" type="text/css" href="/css/my_custom/reunion/1366_reunion.css">
+  <link rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 1366px)" type="text/css" href="/css/my_custom/cart/1366_cart.css">
   <!-- 1367px -> 1920px-->
-  <link rel="stylesheet" media="screen and (min-width: 1367px) and (max-width: 1920px)" type="text/css" href="/css/my_custom/reunion/1920_reunion.css">
+  <link rel="stylesheet" media="screen and (min-width: 1367px) and (max-width: 1920px)" type="text/css" href="/css/my_custom/cart/1920_cart.css">
   <!-- 1921px and Greater -->
-  <link rel="stylesheet" media="screen and (min-width: 1921px)" type="text/css" href="/css/my_custom/reunion/past_1920_reunion.css">
+  <link rel="stylesheet" media="screen and (min-width: 1921px)" type="text/css" href="/css/my_custom/cart/past_1920_cart.css">
   <script>
     function openAndCloseForm() {
       let currentDisplay = document.getElementById("reunionForm").style.display;
@@ -63,23 +63,45 @@
   <div class="main">
     <div class="content">
       <div class="mainTitle">
-        {{ $title }}
+        Checkout
       </div>
-      <div class="row">
+      <div class="cartList">
         @if ($count > 0)
+          @php
+            $total_cost = 0;
+          @endphp
           @foreach($cart as $item)
+            @php
+              $item_cost = $item[3] * $item[2];
+              $total_cost += $item_cost;
+            @endphp
             @if ($item[3] > 0)
-              <div class="col-md-6">
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div>
-                      {{ $item[3] }} x ${{ $item[2] }} - {{ $item[1] }} ||  <b><a href="/items?purpose={{ $item[4] }}&title={{ $item[5] }}">CHANGE</a></b>
-                    </div>
+                <div class="cartItem">
+                  <div class="quantity">
+                    <div class="cartItemName">Quantity</div>
+                    <div class="cartItemValue">{{ $item[3] }}</div>
+                  </div>
+                  <div class="cost">
+                    <div class="cartItemName">Cost</div>
+                    <div class="cartItemValue">${{ $item[2] }}</div>
+                  </div>
+                  <div class="name">
+                    <!-- <div class="cartItemName">Product Name</div> -->
+                    <div class="cartItemValue">{{ $item[1] }}</div>
+                  </div>
+                  <div class="change">
+                    <a href="/items?purpose={{ $item[4] }}&title={{ $item[5] }}">
+                      <span>
+                        CHANGE
+                      </span>
+                    </a>
                   </div>
                 </div>
-              </div>
             @endif
           @endforeach
+          <div>
+            TOTAL COST: ${{ $total_cost }}
+          </div>
         @else
           <div>
             No items selected
@@ -90,26 +112,24 @@
         @endif
       </div>
       @if ($count > 0)
-        <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
-            @csrf
-            <input type="hidden" name="payment_method" class="payment-method">
-            <input class="StripeElement mb-3" name="card_holder_name" placeholder="Card holder name" required>
-            <input type="hidden" name="text_cart" value="{{ $text_cart }}">
-            <div class="col-lg-4 col-md-6">
-                <div id="card-element"></div>
-            </div>
-            <div id="card-errors" role="alert"></div>
-            <div class="form-group mt-3">
-                <button type="submit" class="btn btn-primary pay">
-                    Purchase
-                </button>
-            </div>
-        </form>
-        <div>
-          <a href="/items?purpose={{ $purpose }}&title={{ $title }}"><< Return to '{{ $title }}'</a>
+        <div class="creditCardForm">
+          <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
+              @csrf
+              <input type="hidden" name="payment_method" class="payment-method">
+              <input class="StripeElement mb-3" name="card_holder_name" placeholder="Card holder name" required>
+              <input type="hidden" name="text_cart" value="{{ $text_cart }}">
+              <div class="col-lg-4 col-md-6">
+                  <div id="card-element"></div>
+              </div>
+              <div id="card-errors" role="alert"></div>
+              <div class="form-group mt-3">
+                  <button type="submit" class="btn btn-primary pay">
+                      PAY NOW
+                  </button>
+              </div>
+          </form>
         </div>
       @endif
-      <!-- <pre>{{ var_dump($cart); }}</pre> -->
     </div>
     @include ('footer.content')
   </div>
