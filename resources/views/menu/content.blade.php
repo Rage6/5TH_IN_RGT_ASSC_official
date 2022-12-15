@@ -5,13 +5,21 @@
     </a>
     <div class="userBox">
       @auth
-      <a href="{{ url('/home#mail') }}">
+      <!-- <a href="{{ url('/home#mail') }}">
         <div class="mailBox">
           <div></div>
           <div>{{ $unread_count }}</div>
         </div>
-      </a>
+      </a> -->
       @endauth
+      @if ($cart_count > 0)
+        <a href="{{ url('/items/cart') }}">
+          <div class="cartBox">
+            <div></div>
+            <div>{{ $cart_count }}</div>
+          </div>
+        </a>
+      @endif
       <div id="mainMenuTopBttn" class="mainMenuTopSquare">
         <div></div>
         <div></div>

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Request;
+// use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -24,8 +24,15 @@ class ReunionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+      $cart_count = 0;
+      $cart_content = $request->session()->get('cart');
+      if ($cart_content) {
+        for ($i = 0; $i < count($cart_content); $i++) {
+          $cart_count += intval($cart_content[$i][3]);
+        };
+      };
       $this_user = Auth::user();
       if (Auth::user()) {
         $unread_count = DB::table('messages')
@@ -39,14 +46,16 @@ class ReunionController extends Controller
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'reunion_content',
-          'this_user' => $this_user
+          'this_user' => $this_user,
+          'cart_count' => $cart_count
         ]);
       } else {
         return view('reunion_registration',[
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'reunion_content',
-          'this_user' => $this_user
+          'this_user' => $this_user,
+          'cart_count' => $cart_count
         ]);
       };
     }

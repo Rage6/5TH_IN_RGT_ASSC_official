@@ -63,7 +63,7 @@
   <div class="main">
     <div class="content">
       <div class="mainTitle">
-        Checkout
+        Review The Cart
       </div>
       <div class="cartList">
         @if ($count > 0)
@@ -102,13 +102,20 @@
           <div>
             TOTAL COST: ${{ $total_cost }}
           </div>
+          @if ($purpose && $title)
+            <div>
+              <a href="/items?purpose={{ $purpose }}&title={{ $title }}"><< Return to the '{{ $title }}' store</a>
+            </div>
+          @endif
         @else
           <div>
             No items selected
           </div>
-          <div>
-            <a href="/items?purpose={{ $purpose }}&title={{ $title }}"><< Return to the store</a>
-          </div>
+          @if ($purpose && $title)
+            <div>
+              <a href="/items?purpose={{ $purpose }}&title={{ $title }}"><< Return to the '{{ $title }}' store</a>
+            </div>
+          @endif
         @endif
       </div>
       @if ($count > 0)

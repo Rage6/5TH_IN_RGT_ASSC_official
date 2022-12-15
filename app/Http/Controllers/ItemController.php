@@ -19,8 +19,20 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-      $purpose = $_GET['purpose'];
-      $title = str_replace("%20"," ",$_GET['title']);
+      $cart_count = 0;
+      $cart_content = $request->session()->get('cart');
+      if ($cart_content) {
+        for ($i = 0; $i < count($cart_content); $i++) {
+          $cart_count += intval($cart_content[$i][3]);
+        };
+      };
+      if (isset($_GET['purpose']) && isset($_GET['title'])) {
+        $purpose = $_GET['purpose'];
+        $title = str_replace("%20"," ",$_GET['title']);
+      } else {
+        $purpose = null;
+        $title = null;
+      };
       // $all_items = Item::all();
       $current_cart = $request->session()->get('cart');
       $current_guest = $request->session()->get('guest');
@@ -53,7 +65,8 @@ class ItemController extends Controller
           'content' => 'all_items_content',
           'purpose' => $purpose,
           'title' => $title,
-          'current_cart' => $current_cart
+          'current_cart' => $current_cart,
+          'cart_count' => $cart_count
         ]);
       } else {
         return view('all_items',[
@@ -63,7 +76,8 @@ class ItemController extends Controller
           'content' => 'all_items_content',
           'purpose' => $purpose,
           'title' => $title,
-          'current_cart' => $current_cart
+          'current_cart' => $current_cart,
+          'cart_count' => $cart_count
         ]);
       };
     }
@@ -97,8 +111,20 @@ class ItemController extends Controller
 
     public function cart(Request $request)
     {
-      $purpose = $_GET['purpose'];
-      $title = str_replace("%20"," ",$_GET['title']);;
+      $cart_count = 0;
+      $cart_content = $request->session()->get('cart');
+      if ($cart_content) {
+        for ($i = 0; $i < count($cart_content); $i++) {
+          $cart_count += intval($cart_content[$i][3]);
+        };
+      };
+      if (isset($_GET['purpose']) && isset($_GET['title'])) {
+        $purpose = $_GET['purpose'];
+        $title = str_replace("%20"," ",$_GET['title']);
+      } else {
+        $purpose = null;
+        $title = null;
+      };
       if (Auth::user()) {
         $intent = auth()->user()->createSetupIntent();
       } elseif ($request->session()->get('guest')) {
@@ -147,6 +173,7 @@ class ItemController extends Controller
           'cart' => $cart,
           'intent' => $intent,
           'unread_count' => $unread_count,
+          'cart_count' => $cart_count,
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'cart_content',
@@ -159,6 +186,7 @@ class ItemController extends Controller
         return view('cart',[
           'cart' => $cart,
           'intent' => $intent,
+          'cart_count' => $cart_count,
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'cart_content',
@@ -172,6 +200,13 @@ class ItemController extends Controller
 
     public function purchase(Request $request)
     {
+      $cart_count = 0;
+      $cart_content = $request->session()->get('cart');
+      if ($cart_content) {
+        for ($i = 0; $i < count($cart_content); $i++) {
+          $cart_count += intval($cart_content[$i][3]);
+        };
+      };
       // $plan = Item::find($request->plan);
 
       // $plan_A = Item::find(6);
@@ -213,14 +248,16 @@ class ItemController extends Controller
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'reunion_content',
-          'this_user' => $this_user
+          'this_user' => $this_user,
+          'cart_count' => $cart_count
         ]);
       } else {
         return view('reunion_registration',[
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'reunion_content',
-          'this_user' => $this_user
+          'this_user' => $this_user,
+          'cart_count' => $cart_count
         ]);
       };
     }

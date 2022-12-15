@@ -13,8 +13,15 @@ class WelcomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+      $cart_count = 0;
+      $cart_content = $request->session()->get('cart');
+      if ($cart_content) {
+        for ($i = 0; $i < count($cart_content); $i++) {
+          $cart_count += intval($cart_content[$i][3]);
+        };
+      }
       if (Auth::user()) {
         $unread_count = DB::table('messages')
           ->where([
@@ -24,12 +31,14 @@ class WelcomeController extends Controller
           ->count();
         return view('welcome',[
           'unread_count' => $unread_count,
+          'cart_count' => $cart_count,
           'style' => 'welcome_style',
           'js' => '/js/my_custom/welcome/welcome.js',
           'content' => 'welcome_content'
         ]);
       } else {
         return view('welcome',[
+          'cart_count' => $cart_count,
           'style' => 'welcome_style',
           'js' => '/js/my_custom/welcome/welcome.js',
           'content' => 'welcome_content'

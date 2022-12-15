@@ -85,6 +85,31 @@ a {
   font-size: 1rem;
 }
 
+.cartBox {
+  margin-top: 1vh;
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-template-columns: 8vw;
+  height: 7vh;
+  cursor: pointer;
+}
+
+.cartBox div {
+  text-align: center;
+}
+
+.cartBox div:first-of-type {
+  background-image: url('/images/shopping-cart.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.cartBox div:last-of-type {
+  font-size: 1rem;
+  color: #d3d3d3;
+}
+
 .mainMenuBttn {
   padding: 8px 5%;
   color: white;
