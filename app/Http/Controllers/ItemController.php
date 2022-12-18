@@ -157,7 +157,17 @@ class ItemController extends Controller
       $text_cart = "";
       $count = 0;
       for ($i = 0; $i < count($cart); $i++) {
-        $text_cart = $text_cart.strval($i)."[]=".strval($cart[$i][0])."&".strval($i)."[]=".strval($cart[$i][1])."&".strval($i)."[]=".strval($cart[$i][2])."&".strval($i)."[]=".strval($cart[$i][3])."&".strval($i)."[]=".strval($cart[$i][4])."&".strval($i)."[]=".strval($cart[$i][5]);
+        if ($i != 0) {
+          $text_cart = $text_cart."&";
+        };
+        $text_cart =
+        $text_cart
+        .strval($i)."[]=".strval($cart[$i][0])."&" // id
+        .strval($i)."[]=".strval($cart[$i][1])."&" // name
+        .strval($i)."[]=".strval($cart[$i][2])."&" // price
+        .strval($i)."[]=".strval($cart[$i][3])."&" // quantity
+        .strval($i)."[]=".strval($cart[$i][4])."&" // return route
+        .strval($i)."[]=".strval($cart[$i][5]);    // return page title
         if (intval($cart[$i][3]) > 0) {
           $count++;
         };
@@ -225,12 +235,15 @@ class ItemController extends Controller
       $paymentMethod = $request->payment_method;
 
       foreach ($all_array as $one_array) {
-        $one_id = intval($one_array[0]);
-        $one_item = Item::find($one_id);
-        $one_price = $one_item->price;
-        $this_user->createOrGetStripeCustomer();
-        $this_user->updateDefaultPaymentMethod($paymentMethod);
-        $this_user->charge($one_price * 100, $request->payment_method);
+        if (intval($one_array[3]) > 0) {
+          $one_id = intval($one_array[0]);
+          $one_quantity = intval($one_array[3]);
+          $one_item = Item::find($one_id);
+          $one_price = $one_item->price;
+          $this_user->createOrGetStripeCustomer();
+          $this_user->updateDefaultPaymentMethod($paymentMethod);
+          $this_user->charge($one_quantity * $one_price * 100, $request->payment_method);
+        };
       };
 
       $request->session()->forget('cart');
@@ -243,22 +256,24 @@ class ItemController extends Controller
             ['messages.is_read','==',0]
           ])
           ->count();
-        return view('reunion_registration',[
-          'unread_count' => $unread_count,
-          'style' => 'reunion_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
-          'content' => 'reunion_content',
-          'this_user' => $this_user,
-          'cart_count' => $cart_count
-        ]);
+        // return view('reunion_registration',[
+        //   'unread_count' => $unread_count,
+        //   'style' => 'reunion_style',
+        //   'js' => '/js/my_custom/reunion/reunion.js',
+        //   'content' => 'reunion_content',
+        //   'this_user' => $this_user,
+        //   'cart_count' => $cart_count
+        // ]);
+        return redirect ('/');
       } else {
-        return view('reunion_registration',[
-          'style' => 'reunion_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
-          'content' => 'reunion_content',
-          'this_user' => $this_user,
-          'cart_count' => $cart_count
-        ]);
+        // return view('reunion_registration',[
+        //   'style' => 'reunion_style',
+        //   'js' => '/js/my_custom/reunion/reunion.js',
+        //   'content' => 'reunion_content',
+        //   'this_user' => $this_user,
+        //   'cart_count' => $cart_count
+        // ]);
+        return redirect ('/');
       };
     }
 

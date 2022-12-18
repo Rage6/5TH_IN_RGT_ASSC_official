@@ -97,9 +97,9 @@
                   <div class="gridCount">
                     <div>Quantity</div>
                     @if ($item->count)
-                      <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}">
+                      <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}" min="0">
                     @else
-                      <input type="number" name="item_count_{{ $count }}" value="0">
+                      <input type="number" name="item_count_{{ $count }}" value="0" min="0">
                     @endif
                   </div>
                   <div>
