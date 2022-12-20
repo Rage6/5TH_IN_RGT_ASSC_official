@@ -156,21 +156,25 @@ class ItemController extends Controller
       $cart = $request->session()->get('cart');
       $text_cart = "";
       $count = 0;
-      for ($i = 0; $i < count($cart); $i++) {
-        if ($i != 0) {
-          $text_cart = $text_cart."&";
+      if ($cart) {
+        for ($i = 0; $i < count($cart); $i++) {
+          if ($i != 0) {
+            $text_cart = $text_cart."&";
+          };
+          $text_cart =
+          $text_cart
+          .strval($i)."[]=".strval($cart[$i][0])."&" // id
+          .strval($i)."[]=".strval($cart[$i][1])."&" // name
+          .strval($i)."[]=".strval($cart[$i][2])."&" // price
+          .strval($i)."[]=".strval($cart[$i][3])."&" // quantity
+          .strval($i)."[]=".strval($cart[$i][4])."&" // return route
+          .strval($i)."[]=".strval($cart[$i][5]);    // return page title
+          if (intval($cart[$i][3]) > 0) {
+            $count++;
+          };
         };
-        $text_cart =
-        $text_cart
-        .strval($i)."[]=".strval($cart[$i][0])."&" // id
-        .strval($i)."[]=".strval($cart[$i][1])."&" // name
-        .strval($i)."[]=".strval($cart[$i][2])."&" // price
-        .strval($i)."[]=".strval($cart[$i][3])."&" // quantity
-        .strval($i)."[]=".strval($cart[$i][4])."&" // return route
-        .strval($i)."[]=".strval($cart[$i][5]);    // return page title
-        if (intval($cart[$i][3]) > 0) {
-          $count++;
-        };
+      } else {
+        $text_cart = "expired";
       };
       if (Auth::user()) {
         $unread_count = DB::table('messages')

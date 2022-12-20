@@ -102,6 +102,35 @@
           <div>
             TOTAL COST: ${{ $total_cost }}
           </div>
+          <div>
+            <div>
+              Payment Options
+            </div>
+            <div class="creditCardForm">
+              <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
+                  @csrf
+                  <input type="hidden" name="payment_method" class="payment-method">
+                  <input type="hidden" name="text_cart" value="{{ $text_cart }}">
+                  <input class="StripeElement mb-3" name="card_holder_name" placeholder="Card holder name" required>
+                  <div id="card-element"></div>
+                  <div id="card-errors" role="alert"></div>
+                  <div>
+                      <button type="submit">
+                          PAY NOW
+                      </button>
+                  </div>
+              </form>
+            </div>
+          </div>
+          @if ($purpose && $title)
+            <div>
+              <a href="/items?purpose={{ $purpose }}&title={{ $title }}"><< Return to the '{{ $title }}' store</a>
+            </div>
+          @endif
+        @elseif ($text_cart == "expired")
+          <div>
+            Sorry, but your cart has expired. This occurs if nothing is done on the website for 15+ minutes.
+          </div>
           @if ($purpose && $title)
             <div>
               <a href="/items?purpose={{ $purpose }}&title={{ $title }}"><< Return to the '{{ $title }}' store</a>
@@ -119,7 +148,7 @@
         @endif
       </div>
       @if ($count > 0)
-        <div class="creditCardForm">
+        <!-- <div class="creditCardForm">
           <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
               @csrf
               <input type="hidden" name="payment_method" class="payment-method">
@@ -135,7 +164,7 @@
                   </button>
               </div>
           </form>
-        </div>
+        </div> -->
       @endif
     </div>
     @include ('footer.content')
