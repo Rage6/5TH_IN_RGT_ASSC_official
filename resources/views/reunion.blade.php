@@ -175,14 +175,6 @@
             <button>REGISTER</button>
           </form>
         </div>
-        <!-- <div>
-          <div class="regPart">
-            PART 2
-          </div>
-          <div>
-
-          </div>
-        </div> -->
       </div>
       <div class="regRow">
         <div class="regSection hotelSection">
@@ -241,15 +233,11 @@
               Location:
             </div>
             <div class="boxSubcontent">
-              <!-- Hotel Elegant&eacute; Conference & Event Center</br>
-              2886 S. Circle Drive</br>
-              Colorado Springs, CO 80906</br> -->
               Embassy Suites Colorado Springs</br>
               7290 Commerce Center Drive,</br>
               Colorado Springs, CO, 80919</br>
             </div>
             <div class="hotelMap">
-              <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4117.256067646065!2d-104.7978941686085!3d38.7980823243563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87134462d12b8335%3A0x9b5a074af68729fe!2s2886%20S%20Circle%20Dr%2C%20Colorado%20Springs%2C%20CO%2080906!5e0!3m2!1sen!2sus!4v1634250360925!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe> -->
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3103.4452133814566!2d-104.81607328466578!3d38.93665625223428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87134e6e6f594951%3A0x3a98a2a746854c62!2sEmbassy%20Suites%20by%20Hilton%20Colorado%20Springs!5e0!3m2!1sen!2sus!4v1642640943331!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
           </div>
@@ -281,23 +269,6 @@
                 Cost:
               </div>
               <div class="boxSubcontent">
-                <!-- <ul>
-                  <li>King or Double Queen room:
-                    <ul>
-                      <li>Single/Double - $119</li>
-                      <li>Triple - $129</li>
-                      <li>Quadruple - $139</li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul>
-                  <li>Loft Suite:
-                    <ul>
-                      <li>Single/Double - $119</li>
-                      <li>Triple/Quadruple - $209</li>
-                    </ul>
-                  </li>
-                </ul> -->
                 <ul>
                   <li>King 2 Room Suite - $129</li>
                   <li>Queens 2 Room Suite - $139</li>
@@ -313,14 +284,10 @@
               <div class="rowIntro">To make a reservation:</div>
               <div class="reservationRow">
                 <a href="https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.hilton.com%2Fen%2Fbook%2Freservation%2Fdeeplink%2F%3Fctyhocn%3DCOSCCES%26groupCode%3DCESX5I%26arrivaldate%3D2022-08-23%26departuredate%3D2022-08-28%26cid%3DOM%2CWW%2CHILTONLINK%2CEN%2CDirectLink%26fromId%3DHILTONLINKDIRECT&data=04%7C01%7CSheri.Neely%40Hilton.com%7C3f2b4922d4064723085408d9db8e0ea4%7C660292d2cfd54a3db7a7e8f7ee458a0a%7C0%7C0%7C637782225433341539%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=EXpEdvfMdIJEiTZmhgnjkw7GZS%2FXxqlniScPS5aacdE%3D&reserved=0" target="_blank" style="cursor:pointer">
-                  <div class="reserveBttn">BOOK ONLINE</div>
-                </a>
-                <!-- <div>
-                  <div>
-                    <u>Book By Email</u>
+                  <div class="reserveBttn">
+                    BOOK ONLINE
                   </div>
-                  <div>mcm09reservations1@mcmelegante.com</div>
-                </div> -->
+                </a>
                 <div>
                   <div>
                     <u>Book By Phone</u>
@@ -356,9 +323,6 @@
               Riding Tour @ Garden of the Gods (2 - 3:30)
             </div>
             <div class="reunionBoxImg winery"></div>
-            <!-- <div class="boxSubcontent">
-              TBA
-            </div> -->
           </div>
           <div class="boxTotal">
             <div class="boxSubtitle">
@@ -371,9 +335,6 @@
                 <li>
                   <u>Garden of the Gods Special</u>: Assorted Roast Beef, Ham, and Turkey Sandwiches, Soup of the Day, Creamy Potato Salad, Assorted Dessert, Bars, Beverage Station
                 </li>
-                <!-- <li>
-                  <u>Gateway Rock Grill Out</u>: 1/3lb Hamburgers and 1/4lb All Beef Franks, Crisp House Chips, Hamburger and Hot dog Fixings, Assorted Dessert Bars, Beverage Station
-                </li> -->
               </ul>
               <div>
                 NOTE: Lunch prices will be included in the tour total cost
@@ -386,13 +347,13 @@
               <div class="boxSubcontent">
                 $79 (Tour + Lunch)
               </div>
-              <!-- <a href="{{ url('/reunion?submitted') }}"> -->
-              <div
-                class="reserveBttn"
-                onclick="clickSection('payment','button')">
-                PAY HERE
-              </div>
-              <!-- </a> -->
+              <a href="{{ route('items.all',['purpose'=>'reunion.index','title'=>'Reunion Fee and Options']) }}">
+                <div
+                  class="reserveBttn"
+                  onclick="clickSection('payment','button')">
+                  ADD TO CART
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -435,13 +396,12 @@
               <div style="margin-bottom:30px">
                 To pay for this event and/or any other events during this reunion, click below.
               </div>
-              <!-- <a href="http://bobcat.ws/dulles-virginia-reunion-shopping-cart.html" target="_blank" style="cursor:pointer"> -->
+              <a href="{{ route('items.all',['purpose'=>'reunion.index','title'=>'Reunion Fee and Options']) }}" style="cursor:pointer">
                 <div
-                  class="reserveBttn"
-                  onclick="clickSection('payment','button')">
-                  PAY HERE
+                  class="reserveBttn">
+                  ADD TO CART
                 </div>
-              <!-- </a> -->
+              </a>
             </div>
           </div>
           <div class="reunionBoxImg memorialCollage collageImgB">
@@ -460,33 +420,6 @@
           Friday, Aug. 26th, 9:00 am - 4:00 pm
         </div>
         <div class="boxContent">
-          <!-- <div class="boxTotal">
-            <div class="boxSubtitle">
-              National Army Museum
-            </div>
-            <div class="boxSubcontent">
-              The National Museum of the United States Army will serve as the capstone of the Army Museum Enterprise and provide the only comprehensive portrayal of Army history and traditions.  The National Army Museum will celebrate the selfless service and sacrifice of over 30 million men and women who have worn the Army uniform since 1775.  The Museum will be a technological marvel incorporating the latest advances in museum exhibits while providing advanced educational opportunities that will capture the attention of visitors old and young.  As the Army’s national landmark, the Museum will honor United States Soldiers – past, present, and future – and provide an interactive educational experience explaining the Army’s role in creating and defending our nation, as well as the Army’s social initiatives and contributions for more than 240 years.
-            </div>
-          </div>
-          <div class="boxTotal">
-            <div class="boxSubtitle">
-              Total Cost
-            </div>
-            <div class="boxSubcontent">
-              <ul>
-                <li>
-                  $89 per person. This includes the museum's memorial service, a catered luncheon, and self-guided tour.
-                </li>
-              </ul>
-              <div style="margin-bottom:30px">
-                To pay for this event and/or any other events during this reunion, click below.
-              </div>
-              <a href="http://bobcat.ws/dulles-virginia-reunion-shopping-cart.html" target="_blank" style="cursor:pointer">
-                <div class="reserveBttn">FEE & MEAL</div>
-              </a>
-            </div>
-            <div class="reunionBoxImg army_museum"></div>
-          </div> -->
           <div class="boxTotal">
             <div class="boxSubtitle">
               TBA
@@ -505,16 +438,12 @@
                   TBA
                 </li>
               </ul>
-              <!-- <div style="margin-bottom:30px">
-                To pay for this event and/or any other events during this reunion, click below.
-              </div> -->
-              <!-- <a href="http://bobcat.ws/dulles-virginia-reunion-shopping-cart.html" target="_blank" style="cursor:pointer"> -->
+              <a href="{{ route('items.all',['purpose'=>'reunion.index','title'=>'Reunion Fee and Options']) }}">
                 <div
-                  class="reserveBttn"
-                  onclick="clickSection('payment','button')">
-                  PAY HERE
+                  class="reserveBttn">
+                  ADD TO CART
                 </div>
-              <!-- </a> -->
+              </a>
             </div>
             <div class="reunionBoxImg army_museum"></div>
           </div>
@@ -555,12 +484,8 @@
               <div class="mealList">
                 <div>Chicken Piccata: Sautéed with Lemon, Capers & White Wine, Linguini, Roasted Broccoli and Apple Cobbler</div>
                 <div>$39</div>
-                <!-- <div>Brilled Tilapia: herb & butter crusted white fish, garlic butter, lemon crown</div>
-                <div>$49</div> -->
                 <div>Ribeye Steak: Sautéed Mushrooms, Gouda Mashed Potatoes, Fresh Vegetables and Apple Cobbler</div>
                 <div>$59</div>
-                <!-- <div>Vegetable Wellington: grilled vegetables, boursin cheese, parmesan-wrapped pastry</div>
-                <div>$49</div> -->
               </div>
               <div>
                 Each meal also includes: salad w/ choice of dressing, assorted rolls and butter, chef's choice of a soup, vegetables, and dessert.
@@ -601,12 +526,12 @@
                 </div>
               </div>
             </div>
-            <div
-              class="reserveBttn"
-              onclick="clickSection('payment','button')">
-              PAY HERE
-            </div>
-            <!-- <div class="reunionBoxImg shuttle"></div> -->
+            <a href="{{ route('items.all',['purpose'=>'reunion.index','title'=>'Reunion Fee and Options']) }}">
+              <div
+                class="reserveBttn">
+                ADD TO CART
+              </div>
+            </a>
           </div>
         </div>
       </div>
@@ -618,38 +543,28 @@
           Registration Fee & Event Costs
         </div>
         <div class="boxContent">
+          The following is a summary of all of the options that can be paid for before the reunion. The a) registration fee and b) banguet payment is REQUIRED, while all other opportunities are optional.
+        </div>
+        <div class="boxContent">
           <div class="paymentBox">
             <div class="boxSubtitle">
               Registration Fee
             </div>
             <div class="boxSubcontent">
-              <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="6HXT4WU8WSSMN">
-                <input type="hidden" name="shopping_url" value="http://fifth-infantry-regiment-assoc.herokuapp.com/reunion">
-                <table>
-                  <tr>
-                    <td>
-                      <input type="hidden" name="on0" value="Type of Registration">Type of Registration
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <select name="os0">
-                        <option value="Single Registration">
-                          Single Registration $15.00 USD
-                        </option>
-                        <option value="Couple Registration">
-                          Couple Registration $25.00 USD
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-                </table>
-                <input type="hidden" name="currency_code" value="USD">
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-              </form>
+              <div>
+                Types of Registration
+              </div>
+              <ul>
+                <li>
+                  Single Registration $15.00 USD
+                </li>
+                <li>
+                  Couple Registration $25.00 USD
+                </li>
+              </ul>
+            </div>
+            <div>
+              REQUIRED
             </div>
           </div>
           <div class="paymentBox">
@@ -657,71 +572,14 @@
               Wednesday - Olympic Museum, Garden of the Gods, and Lunch
             </div>
             <div class="boxSubcontent">
-              <!-- <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="9PD5E67DSBXC6">
-                <input type="hidden" name="shopping_url" value="http://fifth-infantry-regiment-assoc.herokuapp.com/reunion">
-                <table>
-                  <tr>
-                    <td>
-                      <input type="hidden" name="on0" value="Tour Selections">
-                      Tour Selections
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <select name="os0">
-                        <option value="Olympic & Garden of Gods">Olympic & Garden of Gods $79.00 USD</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="hidden" name="on1" value="Trading Post Meal Option">
-                      Trading Post Meal Option
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <select name="os1" required>
-                        <option value="">SELECT A MEAL</option>
-                        <option value="Garden of the Gods Special">
-                          Garden of the Gods Special
-                        </option>
-                        <option value="Gateway Rock Grill Out">
-                          Gateway Rock Grill Out
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-                </table>
-                <input type="hidden" name="currency_code" value="USD">
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-              </form> -->
-              <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="9PD5E67DSBXC6">
-                <table>
-                  <tr>
-                    <td>
-                      <input type="hidden" name="on0" value="Tour Selections">Tour Selections
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <select name="os0">
-                        <option value="Olympic & Garden of Gods">
-                          Olympic & Garden of Gods $79.00 USD
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-                </table>
-                <input type="hidden" name="currency_code" value="USD">
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-              </form>
+              <div>
+                Tour Selections
+              </div>
+              <ul>
+                <li>
+                  Olympic & Garden of Gods $79.00 USD
+                </li>
+              </ul>
             </div>
           </div>
           <div class="paymentBox">
@@ -729,34 +587,17 @@
               Thursday - Royal Gorge Route Railroad
             </div>
             <div class="boxSubcontent">
-              <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="YW3VSAECRN63Y">
-                <input type="hidden" name="shopping_url" value="http://fifth-infantry-regiment-assoc.herokuapp.com/reunion">
-                <table>
-                  <tr>
-                    <td>
-                      <input type="hidden" name="on0" value="Tour Selections">
-                      Tour Selections
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <select name="os0">
-                        <option value="Club Car Option">
-                          Club Car Option $109.00 USD
-                        </option>
-                        <option value="Vista Dome Car Option">
-                          Vista Dome Car Option $125.00 USD
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-                </table>
-                <input type="hidden" name="currency_code" value="USD">
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-              </form>
+              <div>
+                Tour Selections
+              </div>
+              <ul>
+                <li>
+                  Club Car Option $109.00 USD
+                </li>
+                <li>
+                  Vista Dome Car Option $125.00 USD
+                </li>
+              </ul>
             </div>
           </div>
           <div class="paymentBox">
@@ -764,31 +605,14 @@
               Friday - Memorial Service
             </div>
             <div class="boxSubcontent">
-              <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="KFRQDZUAMXPL4">
-                <input type="hidden" name="shopping_url" value="http://fifth-infantry-regiment-assoc.herokuapp.com/reunion">
-                <table>
-                  <tr>
-                    <td>
-                      <input type="hidden" name="on0" value="Memorial Service & Lunch">
-                      Memorial Service & Lunch
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <select name="os0">
-                        <option value="Memorial Service & Lunch">
-                          Memorial Service & Lunch $69.00 USD
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-                </table>
-                <input type="hidden" name="currency_code" value="USD">
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-              </form>
+              <div>
+                Memorial Service & Lunch
+              </div>
+              <ul>
+                <li>
+                  Memorial Service & Lunch $69.00 USD
+                </li>
+              </ul>
             </div>
           </div>
           <div class="paymentBox">
@@ -796,55 +620,16 @@
               Saturday - Banquet Dinner Choices
             </div>
             <div class="boxSubcontent">
-              <!-- <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="N3WC58JSCKEP6">
-                <table>
-                  <tr>
-                    <td>
-                      <input type="hidden" name="on0" value="Entree Choice">Entree Choice
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <select name="os0">
-                        <option value="Ribeye Steak">Ribeye Steak $59.00 USD</option>
-                        <option value="Chicken Piccata">Chicken Piccata $39.00 USD</option>
-                      </select>
-                    </td>
-                  </tr>
-                </table>
-                <input type="hidden" name="currency_code" value="USD">
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-              </form> -->
-              <!-- <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="N3WC58JSCKEP6">
-                <input type="hidden" name="shopping_url" value="http://fifth-infantry-regiment-assoc.herokuapp.com/reunion">
-                <table>
-                  <tr>
-                    <td>
-                      <input type="hidden" name="on0" value="Entree Choice">Entree Choice
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <select name="os0">
-                        <option value="Ribeye Steak">
-                          Ribeye Steak $59.00 USD
-                        </option>
-                        <option value="Chicken Piccata">
-                          Chicken Piccata $39.00 USD
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-                </table>
-                <input type="hidden" name="currency_code" value="USD">
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-              </form> -->
+              <div>
+                Entree Choice
+              </div>
+              <ul>
+                <li>Ribeye Steak $59.00 USD</li>
+                <li>Chicken Piccata $39.00 USD</li>
+              </ul>
+            </div>
+            <div>
+              REQUIRED
             </div>
           </div>
           <div class="paymentBox">
@@ -856,37 +641,20 @@
                 If you wish to make a donation to help cover the expenses in hospitality room, any amount appreciated.
               </div>
               <div>
-                <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                  <input type="hidden" name="cmd" value="_s-xclick">
-                  <input type="hidden" name="hosted_button_id" value="TUL2YF3JGK45L">
-                  <input type="hidden" name="shopping_url" value="http://fifth-infantry-regiment-assoc.herokuapp.com/reunion">
-                  <table>
-                    <tr>
-                      <td>
-                        <input type="hidden" name="on0" value="Donation Amount">
-                        Donation Amount
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <select name="os0">
-                          <option value="PVT. Level Donation">
-                            PVT. Level Donation $25.00 USD
-                          </option>
-                          <option value="CPL. Level Donation">
-                            CPL. Level Donation $50.00 USD
-                          </option>
-                          <option value="SGT. Level Donation">
-                            SGT. Level Donation $100.00 USD
-                          </option>
-                        </select>
-                      </td>
-                    </tr>
-                  </table>
-                  <input type="hidden" name="currency_code" value="USD">
-                  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                  <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-                </form>
+                <div>
+                  Donation Amount
+                </div>
+                <ul>
+                  <li>
+                    PVT. Level Donation $25.00 USD
+                  </li>
+                  <li>
+                    CPL. Level Donation $50.00 USD
+                  </li>
+                  <li>
+                    SGT. Level Donation $100.00 USD
+                  </li>
+                </ul>
               </div>
               <div>
                 For information, contact Carolyn Kethcart: <a href="mailto:carolynjk@bobcat.ws">carolynjk@bobcat.ws</a>
@@ -896,11 +664,14 @@
         </div>
         <div class="policy">
           <a href="{{ route('items.all',['purpose'=>'reunion.index','title'=>'Reunion Fee and Options']) }}">
-            <button>
-              SEE REUNION COSTS & OPTIONS
-            </button>
+            <div
+              class="reserveBttn">
+              REUNION CART
+            </div>
           </a>
-          <u>Reunion Cancellation Policy</u>: Members will not be reimbursed for costs incurred by the Association when  cancellations are made in less than 30 days before the reunion except in the case of death related reasons.
+          <div>
+            <u>Reunion Cancellation Policy</u>: Members will not be reimbursed for costs incurred by the Association when  cancellations are made in less than 30 days before the reunion except in the case of death related reasons.
+          </div>
         </div>
       </div>
     </div>

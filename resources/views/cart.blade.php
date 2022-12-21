@@ -67,6 +67,11 @@
       </div>
       <div class="cartList">
         @if ($count > 0)
+          <form method="GET" action="{{ route('items.clear') }}">
+            <button>
+              EMPTY YOUR CART
+            </button>
+          </form>
           @php
             $total_cost = 0;
           @endphp

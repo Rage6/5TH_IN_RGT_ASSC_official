@@ -260,23 +260,26 @@ class ItemController extends Controller
             ['messages.is_read','==',0]
           ])
           ->count();
-        // return view('reunion_registration',[
-        //   'unread_count' => $unread_count,
-        //   'style' => 'reunion_style',
-        //   'js' => '/js/my_custom/reunion/reunion.js',
-        //   'content' => 'reunion_content',
-        //   'this_user' => $this_user,
-        //   'cart_count' => $cart_count
-        // ]);
         return redirect ('/');
       } else {
-        // return view('reunion_registration',[
-        //   'style' => 'reunion_style',
-        //   'js' => '/js/my_custom/reunion/reunion.js',
-        //   'content' => 'reunion_content',
-        //   'this_user' => $this_user,
-        //   'cart_count' => $cart_count
-        // ]);
+        return redirect ('/');
+      };
+    }
+
+    public function clear(Request $request)
+    {
+      $request->session()->forget('cart');
+      $request->session()->forget('guest');
+
+      if (Auth::user()) {
+        $unread_count = DB::table('messages')
+          ->where([
+            ['messages.received_id',Auth::user()->id],
+            ['messages.is_read','==',0]
+          ])
+          ->count();
+        return redirect ('/');
+      } else {
         return redirect ('/');
       };
     }
@@ -398,7 +401,7 @@ class ItemController extends Controller
             ['messages.is_read','==',0]
           ])
           ->count();
-        return view('reunion_registration',[
+        return view('reunion',[
           'unread_count' => $unread_count,
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
@@ -406,7 +409,7 @@ class ItemController extends Controller
           'this_user' => $this_user
         ]);
       } else {
-        return view('reunion_registration',[
+        return view('reunion',[
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'reunion_content',

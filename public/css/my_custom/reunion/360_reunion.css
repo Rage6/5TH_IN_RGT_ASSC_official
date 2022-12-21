@@ -35,7 +35,7 @@
 }
 
 .reunionDate {
-  border-radius: 20px 0 0 0;
+  /* border-radius: 20px 0 0 0; */
   padding: 3vh 0 1vh 0;
   background:
     linear-gradient(
@@ -46,7 +46,7 @@
 }
 
 .reunionLocation {
-  border-radius: 0 0 0 20px;
+  /* border-radius: 0 0 0 20px; */
   padding: 1vh 0 3vh 0;
   background:
     linear-gradient(

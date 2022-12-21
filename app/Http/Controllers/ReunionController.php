@@ -41,7 +41,7 @@ class ReunionController extends Controller
             ['messages.is_read','==',0]
           ])
           ->count();
-        return view('reunion_registration',[
+        return view('reunion',[
           'unread_count' => $unread_count,
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
@@ -50,7 +50,7 @@ class ReunionController extends Controller
           'cart_count' => $cart_count
         ]);
       } else {
-        return view('reunion_registration',[
+        return view('reunion',[
           'style' => 'reunion_style',
           'js' => '/js/my_custom/reunion/reunion.js',
           'content' => 'reunion_content',
