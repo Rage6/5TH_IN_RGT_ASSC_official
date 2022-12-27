@@ -1,7 +1,7 @@
 <div class="menuBody">
   <div class="mainMenuTopBttn">
     <a class="mainMenuLink" href="{{ url('/') }}">
-      <img src="/images/welcome/5INF_crest-min.png"/>
+      <img src="{{ config('app.url_ext') }}/images/welcome/5INF_crest-min.png"/>
     </a>
     <div class="userBox">
       @auth

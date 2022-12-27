@@ -33,14 +33,14 @@ class WelcomeController extends Controller
           'unread_count' => $unread_count,
           'cart_count' => $cart_count,
           'style' => 'welcome_style',
-          'js' => '/js/my_custom/welcome/welcome.js',
+          'js' => config('app.url_ext').'/js/my_custom/welcome/welcome.js',
           'content' => 'welcome_content'
         ]);
       } else {
         return view('welcome',[
           'cart_count' => $cart_count,
           'style' => 'welcome_style',
-          'js' => '/js/my_custom/welcome/welcome.js',
+          'js' => config('app.url_ext').'/js/my_custom/welcome/welcome.js',
           'content' => 'welcome_content'
         ]);
       };
