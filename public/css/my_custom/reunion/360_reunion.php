@@ -1,3 +1,12 @@
+<?php
+  header("Content-type: text/css");
+
+  $url_ext = "/public";
+  if (!$_SERVER['SERVER_NAME'] == "www.new.bobcat.ws") {
+    $url_ext = "";
+  };
+?>
+
 .main {
   padding-top: 10vh;
   background: repeating-linear-gradient(
@@ -61,7 +70,7 @@
   text-align: center;
   height: 80vh;
   background:
-    url('/images/registration/COA_right_half.png'),
+    url('<?php echo($url_ext) ?>/images/registration/COA_right_half.png'),
     linear-gradient(
       rgba(255,255,255,0.5),
       rgba(255,255,255,0.5)),

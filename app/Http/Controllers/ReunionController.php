@@ -44,7 +44,7 @@ class ReunionController extends Controller
         return view('reunion',[
           'unread_count' => $unread_count,
           'style' => 'reunion_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
+          'js' => config('app.url_ext').'/js/my_custom/reunion/reunion.js',
           'content' => 'reunion_content',
           'this_user' => $this_user,
           'cart_count' => $cart_count
@@ -52,7 +52,7 @@ class ReunionController extends Controller
       } else {
         return view('reunion',[
           'style' => 'reunion_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
+          'js' => config('app.url_ext').'/js/my_custom/reunion/reunion.js',
           'content' => 'reunion_content',
           'this_user' => $this_user,
           'cart_count' => $cart_count
