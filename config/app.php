@@ -212,4 +212,10 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    /*
+    I added this because the URL in production is slightly different, which makes the path to everything (CSS, JS, etc.) slightly different. This should adjust these paths so that they change when they need to. - N.V. 27DEC2022
+    */
+    'url_ext' => env('APP_URL_EXTENSION'),
+
+
 ];
