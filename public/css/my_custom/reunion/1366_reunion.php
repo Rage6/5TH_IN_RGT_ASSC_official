@@ -1,3 +1,12 @@
+<?php
+  header("Content-type: text/css");
+
+  $url_ext = "/public";
+  if ($_SERVER['SERVER_NAME'] != "www.new.bobcat.ws") {
+    $url_ext = "";
+  };
+?>
+
 .main {
   padding-top: 12vh;
 }
@@ -14,11 +23,11 @@
 .regIntro {
   padding: 4vh 0;
   background:
-    url('/images/welcome/5INF_COA-min.png'),
+    url('<?php echo($url_ext) ?>/images/welcome/5INF_COA-min.png'),
     linear-gradient(
       rgba(255,255,255,0.5),
       rgba(255,255,255,0.5)),
-    url('/images/registration/collage.png');
+    url('<?php echo($url_ext) ?>/images/registration/collage.png');
   background-repeat: no-repeat, no-repeat, repeat;
   background-size: auto 100%, cover, auto;
   background-position: left, center, left;

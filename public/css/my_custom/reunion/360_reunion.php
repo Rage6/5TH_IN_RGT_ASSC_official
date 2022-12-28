@@ -2,7 +2,7 @@
   header("Content-type: text/css");
 
   $url_ext = "/public";
-  if (!$_SERVER['SERVER_NAME'] == "www.new.bobcat.ws") {
+  if ($_SERVER['SERVER_NAME'] != "www.new.bobcat.ws") {
     $url_ext = "";
   };
 ?>
@@ -74,7 +74,7 @@
     linear-gradient(
       rgba(255,255,255,0.5),
       rgba(255,255,255,0.5)),
-    url('/images/registration/collage.png');
+    url('<?php echo($url_ext) ?>/images/registration/collage.png');
   background-repeat: no-repeat, no-repeat, repeat;
   background-size: auto 100%, cover, auto;
   background-position: left, center, left;
@@ -262,7 +262,7 @@
     linear-gradient(
       rgba(0,0,0,0.8),
       rgba(0,0,0,0.3)),
-    url('/images/registration/queen.jpg');
+    url('<?php echo($url_ext) ?>/images/registration/queen.jpg');
 }
 
 .dayOneSection {
@@ -270,7 +270,7 @@
     linear-gradient(
       rgba(0,100,0,0.8),
       rgba(0,100,0,0.3)),
-    url('/images/registration/day_one.jpeg');
+    url('<?php echo($url_ext) ?>/images/registration/day_one.jpeg');
 }
 
 .dayTwoSection {
@@ -278,7 +278,7 @@
     linear-gradient(
       rgba(139,0,0,0.8),
       rgba(139,0,0,0.3)),
-    url('/images/registration/day_two.jpeg');
+    url('<?php echo($url_ext) ?>/images/registration/day_two.jpeg');
 }
 
 .dayThreeSection {
@@ -288,7 +288,7 @@
     linear-gradient(
       rgba(255,255,255,0.8),
       rgba(255,255,255,0.3)),
-    url('/images/registration/day_three.jpeg');
+    url('<?php echo($url_ext) ?>/images/registration/day_three.jpeg');
 }
 
 .dayThreeSection .reunionSectBttn {
@@ -300,7 +300,7 @@
     linear-gradient(
       rgba(0,0,0,0.8),
       rgba(0,0,0,0.3)),
-    url('/images/registration/day_four.jpeg');
+    url('<?php echo($url_ext) ?>/images/registration/day_four.jpeg');
 }
 
 .paymentSection {
@@ -308,7 +308,7 @@
     linear-gradient(
       rgba(0,100,0,0.8),
       rgba(0,100,0,0.3)),
-    url('/images/registration/payments.jpeg');
+    url('<?php echo($url_ext) ?>/images/registration/payments.jpeg');
 }
 
 .reunionSectBox {
@@ -433,11 +433,11 @@
 }
 
 .shuttle {
-  background-image: url("/images/registration/olympic.jpg");
+  background-image: url('<?php echo($url_ext) ?>/images/registration/olympic.jpg');
 }
 
 .winery {
-  background-image: url("/images/registration/Balanced-Rock.jpg");
+  background-image: url('<?php echo($url_ext) ?>/images/registration/Balanced-Rock.jpg');
 }
 
 .memorialList {
@@ -450,7 +450,7 @@
 }
 
 .listBullet {
-  background-image: url('/images/registration/white-star-icon-13.png');
+  background-image: url('<?php echo($url_ext) ?>/images/registration/white-star-icon-13.png');
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -481,19 +481,19 @@
 }
 
 .upperLeft {
-  background-image: url('/images/registration/railroad-ul.jpg');
+  background-image: url('<?php echo($url_ext) ?>/images/registration/railroad-ul.jpg');
 }
 
 .upperRight {
-  background-image: url('/images/registration/railroad-ur.jpg');
+  background-image: url('<?php echo($url_ext) ?>/images/registration/railroad-ur.jpg');
 }
 
 .lowerLeft {
-  background-image: url('/images/registration/railroad-ll.jpeg');
+  background-image: url('<?php echo($url_ext) ?>/images/registration/railroad-ll.jpeg');
 }
 
 .lowerRight {
-  background-image: url('/images/registration/railroad-lr.jpeg');
+  background-image: url('<?php echo($url_ext) ?>/images/registration/railroad-lr.jpeg');
 }
 
 .army_museum {
