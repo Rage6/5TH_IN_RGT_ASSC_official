@@ -2,7 +2,7 @@
   header("Content-type: text/css");
 
   $url_ext = "/public";
-  if ($_SERVER['SERVER_NAME'] != "www.new.bobcat.ws") {
+  if ($_SERVER['SERVER_NAME'] != "new.bobcat.ws") {
     $url_ext = "";
   };
 ?>

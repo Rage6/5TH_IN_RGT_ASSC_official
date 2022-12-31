@@ -61,7 +61,7 @@ class ItemController extends Controller
           'all_items' => $all_items,
           'unread_count' => $unread_count,
           'style' => 'items_style',
-          'js' => '/js/my_custom/items/items.js',
+          'js' => '/'.config('app.url_ext').'js/my_custom/items/items.js',
           'content' => 'all_items_content',
           'purpose' => $purpose,
           'title' => $title,
@@ -72,7 +72,7 @@ class ItemController extends Controller
         return view('all_items',[
           'all_items' => $all_items,
           'style' => 'items_style',
-          'js' => '/js/my_custom/items/items.js',
+          'js' => '/'.config('app.url_ext').'js/my_custom/items/items.js',
           'content' => 'all_items_content',
           'purpose' => $purpose,
           'title' => $title,
@@ -189,7 +189,7 @@ class ItemController extends Controller
           'unread_count' => $unread_count,
           'cart_count' => $cart_count,
           'style' => 'reunion_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
+          'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
           'content' => 'cart_content',
           'text_cart' => $text_cart,
           'count' => $count,
@@ -202,7 +202,7 @@ class ItemController extends Controller
           'intent' => $intent,
           'cart_count' => $cart_count,
           'style' => 'reunion_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
+          'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
           'content' => 'cart_content',
           'text_cart' => $text_cart,
           'count' => $count,
@@ -272,12 +272,12 @@ class ItemController extends Controller
       $request->session()->forget('guest');
 
       if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
+        // $unread_count = DB::table('messages')
+        //   ->where([
+        //     ['messages.received_id',Auth::user()->id],
+        //     ['messages.is_read','==',0]
+        //   ])
+        //   ->count();
         return redirect ('/');
       } else {
         return redirect ('/');
@@ -404,14 +404,14 @@ class ItemController extends Controller
         return view('reunion',[
           'unread_count' => $unread_count,
           'style' => 'reunion_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
+          'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
           'content' => 'reunion_content',
           'this_user' => $this_user
         ]);
       } else {
         return view('reunion',[
           'style' => 'reunion_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
+          'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
           'content' => 'reunion_content',
           'this_user' => $this_user
         ]);
