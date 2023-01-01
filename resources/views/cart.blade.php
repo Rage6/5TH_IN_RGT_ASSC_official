@@ -184,6 +184,7 @@
               fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
               fontSmoothing: 'antialiased',
               fontSize: '16px',
+              backgroundColor: 'white',
               '::placeholder': {
                   color: '#aab7c4'
               }
