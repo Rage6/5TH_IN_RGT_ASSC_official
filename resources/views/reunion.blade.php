@@ -67,10 +67,10 @@
           <span>Bobcat</span> <span>Reunion</span>
         </div>
         <div class="reunionDate dateAndLocation">
-          August 23 - 28
+          September 12 - 17
         </div>
         <div class="reunionLocation dateAndLocation">
-          Colorado Springs, CO
+          Valley Forge, PA
         </div>
         <div class="regBttn" id="regBttn" onclick="openAndCloseForm()">
           Register Now!
@@ -233,12 +233,12 @@
               Location:
             </div>
             <div class="boxSubcontent">
-              Embassy Suites Colorado Springs</br>
-              7290 Commerce Center Drive,</br>
-              Colorado Springs, CO, 80919</br>
+              DoubleTree Suites</br>
+              640 Fountain Road,</br>
+              Plymouth Meeting, PA 19462</br>
             </div>
             <div class="hotelMap">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3103.4452133814566!2d-104.81607328466578!3d38.93665625223428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87134e6e6f594951%3A0x3a98a2a746854c62!2sEmbassy%20Suites%20by%20Hilton%20Colorado%20Springs!5e0!3m2!1sen!2sus!4v1642640943331!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3050.987951693675!2d-75.2844821846131!3d40.120271979400734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6bc46066972b7%3A0x54cbba6532d492d5!2sDoubleTree%20Suites%20by%20Hilton%20Hotel%20Philadelphia%20West!5e0!3m2!1sen!2sus!4v1672693714051!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
           <div>
@@ -249,9 +249,6 @@
               <ul>
                 <li>
                   Free parking
-                </li>
-                <li>
-                  Free 2-hour Cocktail (5-7) Nightly
                 </li>
                 <li>
                   Breakfast for 2 included in Room Rate​
@@ -270,8 +267,8 @@
               </div>
               <div class="boxSubcontent">
                 <ul>
-                  <li>King 2 Room Suite - $129</li>
-                  <li>Queens 2 Room Suite - $139</li>
+                  <li>King 2 Room Suite - $109</li>
+                  <li>Queens 2 Room Suite - $109</li>
                 </ul>
               </div>
             </div>
@@ -283,7 +280,7 @@
             <div class="boxSubcontent">
               <div class="rowIntro">To make a reservation:</div>
               <div class="reservationRow">
-                <a href="https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.hilton.com%2Fen%2Fbook%2Freservation%2Fdeeplink%2F%3Fctyhocn%3DCOSCCES%26groupCode%3DCESX5I%26arrivaldate%3D2022-08-23%26departuredate%3D2022-08-28%26cid%3DOM%2CWW%2CHILTONLINK%2CEN%2CDirectLink%26fromId%3DHILTONLINKDIRECT&data=04%7C01%7CSheri.Neely%40Hilton.com%7C3f2b4922d4064723085408d9db8e0ea4%7C660292d2cfd54a3db7a7e8f7ee458a0a%7C0%7C0%7C637782225433341539%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&sdata=EXpEdvfMdIJEiTZmhgnjkw7GZS%2FXxqlniScPS5aacdE%3D&reserved=0" target="_blank" style="cursor:pointer">
+                <a href="https://www.hilton.com/en/book/reservation/deeplink/?ctyhocn=PHLGHDT&groupCode=CDTRAR&arrivaldate=2023-09-12&departuredate=2023-09-17&cid=OM,WW,HILTONLINK,EN,DirectLink&fromId=HILTONLINKDIRECT" target="_blank" style="cursor:pointer">
                   <div class="reserveBttn">
                     BOOK ONLINE
                   </div>
@@ -293,7 +290,7 @@
                     <u>Book By Phone</u>
                   </div>
                   <div>
-                    Call (719) 599-9100 and, when booking, tell them "5th Infantry Regiment Association". Booking prices are good up to 3 days before and after the reunion dates. Reservations must be made by Friday, July 22nd, 2022.
+                    Call (610)-834-8300 and, when booking, tell them "5th Infantry Regiment Association". Booking prices are good up to 3 days before and after the reunion dates. Reservations must be made by Friday, August 12, 2023.
                   </div>
                 </div>
               </div>
@@ -306,30 +303,29 @@
         data-section="wednesday"
         data-type="box">
         <div class="boxTitle">
-          Wednesday, Aug. 24th, 10:00 am - 3:30 pm
+          Wednesday, Sept. 13th, 9:00 am - 3:00 pm
         </div>
         <div class="boxContent">
           <div class="boxTotal">
             <div class="boxSubtitle">
-              U.S. Olympic & Paralympic Museum (10 - 12)
+              Valley Forge Guided Ride
             </div>
-            <div class="boxSubcontent">
+            <!-- <div class="boxSubcontent">
               With 60,000 square feet of space, the new <a href="https://usopm.org" target="_blank">U.S. Olympic & Paralympic Museum</a> is a top attraction in downtown Colorado Springs — Olympic City USA. The museum showcases the history of some of America’s greatest athletes and features artifacts, interactive exhibits and immersive technology that embody the Olympic and Paralympic movements. The 12 galleries will take you on a journey through the personal struggles and career-defining moments of Team USA's athletes.
             </div>
-            <div class="reunionBoxImg shuttle"></div>
+            <div class="reunionBoxImg shuttle"></div> -->
           </div>
           <div class="boxTotal">
             <div class="boxSubtitle">
-              Riding Tour @ Garden of the Gods (2 - 3:30)
+              Wine Tasting
             </div>
-            <div class="reunionBoxImg winery"></div>
+            <!-- <div class="reunionBoxImg winery"></div> -->
           </div>
           <div class="boxTotal">
             <div class="boxSubtitle">
-              Lunch (12:30 - 2)
+              Lunch
             </div>
-            <div class="boxSubcontent">
-              <!-- Make your lunch selection in the shopping cart. Choice of our picnic-style wraps include: -->
+            <!-- <div class="boxSubcontent">
               Lunches will be found at the "Garden of the Gods Trading Post". The lunch options include:
               <ul>
                 <li>
@@ -347,14 +343,7 @@
               <div class="boxSubcontent">
                 $79 (Tour + Lunch)
               </div>
-              <a href="{{ route('items.all',['purpose'=>'reunion.index','title'=>'Reunion Fee and Options']) }}">
-                <div
-                  class="reserveBttn"
-                  onclick="clickSection('payment','button')">
-                  ADD TO CART
-                </div>
-              </a>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -363,15 +352,15 @@
         data-section="thursday"
         data-type="box">
         <div class="boxTitle">
-          Thursday, Aug. 25th, 9:00 am - 4:00 pm
+          Thursday, Sept. 14th, 8:30 am - 3:30 pm
         </div>
         <div class="boxContent">
           <div class="boxTotal">
             <div class="boxSubtitle">
-              Royal Gorge Route Railroad
+              Philadelphia City Tour with Guide
             </div>
             <div class="boxSubcontent">
-              This is Colorado's first and only full-service railroad dining experience. The Royal Gorge Route Railroad features beautifully restored mid-century coach, dining, bar and lounge, and dome cars with luxurious seating. Take in the panoramic views from your seat or the open-air car. Full bar and extensive, well-curated wine list always available. A $20 food voucher will be issued per person toward the purchase of their meal along with their ticket.
+              Visit Independence Hall Congress Hall, the Liberty Bell and much more that Philadelphia has to offer. Choose lunch on your own for a local Philadelphia Cheese Steak.
             </div>
             <div class="reunionBoxImg memorialCollage collageImgA">
               <div class="oneCorner upperLeft"></div>
@@ -385,23 +374,7 @@
               Total Cost
             </div>
             <div class="boxSubcontent">
-              <ul>
-                <li>
-                  Vista Dome Option: $125
-                </li>
-                <li>
-                  Club Car Option: $109
-                </li>
-              </ul>
-              <div style="margin-bottom:30px">
-                To pay for this event and/or any other events during this reunion, click below.
-              </div>
-              <a href="{{ route('items.all',['purpose'=>'reunion.index','title'=>'Reunion Fee and Options']) }}" style="cursor:pointer">
-                <div
-                  class="reserveBttn">
-                  ADD TO CART
-                </div>
-              </a>
+
             </div>
           </div>
           <div class="reunionBoxImg memorialCollage collageImgB">
@@ -417,23 +390,23 @@
         data-section="friday"
         data-type="box">
         <div class="boxTitle">
-          Friday, Aug. 26th, 9:00 am - 4:00 pm
+          Friday, Sept. 15th, 9:00 am - 3:00 pm
         </div>
         <div class="boxContent">
           <div class="boxTotal">
             <div class="boxSubtitle">
-              TBA
+              Bobcat Memorial Service
             </div>
             <div class="boxSubcontent">
-              TBA
+              A memorial service for our unit will take place at George Washington Memorial Chapel at Valley Forge. There will be a memorial luncheon at Maggiano’s Little Italy close by.
             </div>
           </div>
           <div class="boxTotal">
             <div class="boxSubtitle">
-              Total Cost
+              Total Cost: $69
             </div>
             <div class="boxSubcontent">
-              <ul>
+              <!-- <ul>
                 <li>
                   TBA
                 </li>
@@ -443,7 +416,7 @@
                   class="reserveBttn">
                   ADD TO CART
                 </div>
-              </a>
+              </a> -->
             </div>
             <div class="reunionBoxImg army_museum"></div>
           </div>
