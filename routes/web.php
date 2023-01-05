@@ -23,6 +23,7 @@ Route::prefix('/home')->group(function() {
 
 Route::prefix('reunion')->group(function() {
   Route::get('',[App\Http\Controllers\ReunionController::class,'index'])->name('reunion.index');
+  Route::post('registration',[App\Http\Controllers\ReunionController::class,'post'])->name('reunion.register');
 });
 
 Route::prefix('items')->group(function() {

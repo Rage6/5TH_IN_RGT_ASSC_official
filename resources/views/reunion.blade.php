@@ -64,13 +64,18 @@
     <div class="content">
       <div class="regIntro">
         <div class="mainTitle">
-          <span>Bobcat</span> <span>Reunion</span>
+          <span>{{ $reunion_main->title }}</span>
         </div>
+        @php
+          $months = [
+            'January','February','March','April','May','June','July','August','September','October','November','December'
+          ];
+        @endphp
         <div class="reunionDate dateAndLocation">
-          September 12 - 17
+          {{ $months[intval(substr($reunion_main->first_day,-5,2)) - 1] }} {{ substr($reunion_main->first_day,-2,2) }} - {{ substr($reunion_main->last_day,-2,2) }}
         </div>
         <div class="reunionLocation dateAndLocation">
-          Valley Forge, PA
+          {{ $reunion_main->location }}
         </div>
         <div class="regBttn" id="regBttn" onclick="openAndCloseForm()">
           Register Now!
@@ -177,6 +182,17 @@
         </div>
       </div>
       <div class="regRow">
+        @foreach ($all_subevents as $one_subevent)
+          <div class="regSection {{ explode(',',$one_subevent->classes)[0] }}">
+            <div
+              class="reunionSectBttn"
+              data-section="{{ str_replace('Section','',$one_subevent->classes) }}"
+              data-type="button"
+              onclick="clickSection('{{ str_replace('Section','',$one_subevent->classes) }}','button')">{{ strtoupper($one_subevent->title) }}</div>
+          </div>
+        @endforeach
+      </div>
+      <!-- <div class="regRow">
         <div class="regSection hotelSection">
           <div
             class="reunionSectBttn"
@@ -219,8 +235,22 @@
             data-type="button"
             onclick="clickSection('payment','button')">PAYMENT OPTIONS</div>
         </div>
-      </div>
-      <div
+      </div> -->
+      @foreach ($all_subevents as $one_subcontent)
+        <div
+          class="{{ str_replace('Section','',$one_subcontent->classes) }}Box reunionSectBox"
+          data-section="{{ str_replace('Section','',$one_subcontent->classes) }}"
+          data-type="box">
+          <div class="boxTitle">
+            {{ $one_subcontent->title }}
+          </div>
+          <div class="boxContent {{ str_replace('Section','',$one_subcontent->classes) }}Content">
+            {{ $one_subcontent->start_time }}
+          </div>
+        </div>
+      @endforeach
+
+      <!-- <div
         class="hotelBox reunionSectBox"
         data-section="hotel"
         data-type="box">
@@ -297,8 +327,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div
+      </div> -->
+      <!-- <div
         class="reunionSectBox wednesdayBox"
         data-section="wednesday"
         data-type="box">
@@ -310,22 +340,22 @@
             <div class="boxSubtitle">
               Valley Forge Guided Ride
             </div>
-            <!-- <div class="boxSubcontent">
+            <div class="boxSubcontent">
               With 60,000 square feet of space, the new <a href="https://usopm.org" target="_blank">U.S. Olympic & Paralympic Museum</a> is a top attraction in downtown Colorado Springs — Olympic City USA. The museum showcases the history of some of America’s greatest athletes and features artifacts, interactive exhibits and immersive technology that embody the Olympic and Paralympic movements. The 12 galleries will take you on a journey through the personal struggles and career-defining moments of Team USA's athletes.
             </div>
-            <div class="reunionBoxImg shuttle"></div> -->
+            <div class="reunionBoxImg shuttle"></div>
           </div>
           <div class="boxTotal">
             <div class="boxSubtitle">
               Wine Tasting
             </div>
-            <!-- <div class="reunionBoxImg winery"></div> -->
+            <div class="reunionBoxImg winery"></div>
           </div>
           <div class="boxTotal">
             <div class="boxSubtitle">
               Lunch
             </div>
-            <!-- <div class="boxSubcontent">
+            <div class="boxSubcontent">
               Lunches will be found at the "Garden of the Gods Trading Post". The lunch options include:
               <ul>
                 <li>
@@ -343,11 +373,11 @@
               <div class="boxSubcontent">
                 $79 (Tour + Lunch)
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
-      </div>
-      <div
+      </div> -->
+      <!-- <div
         class="reunionSectBox thursdayBox"
         data-section="thursday"
         data-type="box">
@@ -384,8 +414,8 @@
             <div class="oneCorner lowerRight"></div>
           </div>
         </div>
-      </div>
-      <div
+      </div> -->
+      <!-- <div
         class="reunionSectBox fridayBox"
         data-section="friday"
         data-type="box">
@@ -406,7 +436,7 @@
               Total Cost: $69
             </div>
             <div class="boxSubcontent">
-              <!-- <ul>
+              <ul>
                 <li>
                   TBA
                 </li>
@@ -416,13 +446,13 @@
                   class="reserveBttn">
                   ADD TO CART
                 </div>
-              </a> -->
+              </a>
             </div>
             <div class="reunionBoxImg army_museum"></div>
           </div>
         </div>
-      </div>
-      <div
+      </div> -->
+      <!-- <div
         class="reunionSectBox hotelBox"
         data-section="saturday"
         data-type="box">
@@ -507,8 +537,8 @@
             </a>
           </div>
         </div>
-      </div>
-      <div
+      </div> -->
+      <!-- <div
         class="reunionSectBox wednesdayBox"
         data-section="payment"
         data-type="box">
@@ -646,7 +676,7 @@
             <u>Reunion Cancellation Policy</u>: Members will not be reimbursed for costs incurred by the Association when  cancellations are made in less than 30 days before the reunion except in the case of death related reasons.
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     @include ('footer.content')
   </div>
