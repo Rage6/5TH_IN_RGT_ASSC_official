@@ -16,6 +16,7 @@ class Subevent extends Model
       'iframe_map_src',
       'classes',
       'description',
+      'location',
       'image_src',
       'event_parent_id',
       'subevent_parent_id'

@@ -331,8 +331,21 @@
   font-size: 1.3rem;
 }
 
+.boxContent div {
+  margin-bottom: 25px;
+}
+
+.boxContent div:last-child {
+  margin-bottom: 0px;
+}
+
 .hotelContent {
 
+}
+
+.hotelContent div iframe {
+  height: 450px;
+  width: 100%;
 }
 
 .boxContent a {

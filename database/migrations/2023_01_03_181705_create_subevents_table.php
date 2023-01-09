@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('iframe_map_src',1000)->nullable();
             $table->string('classes')->nullable();
             $table->string('description',10000)->nullable();
+            $table->string('location')->nullable();
             $table->string('image_src')->nullable();
             $table->integer('event_parent_id')->nullable();
             $table->integer('subevent_parent_id')->nullable();

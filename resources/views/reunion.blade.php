@@ -237,6 +237,21 @@
         </div>
       </div> -->
       @foreach ($all_subevents as $one_subcontent)
+        @php
+        // Be sure that the inputs for this column includes 'htmlentities()' to make sure that the user doesn't include unallowed html tags
+          $swapCharacters = [
+            ["/div-start/","<div>"],
+            ["/div-end/","</div>"],
+            ["/b/","</br>"],
+            ["/unorder-start/","<ul>"],
+            ["/unorder-end/","</ul>"],
+            ["/order-start/","<ol>"],
+            ["/order-end/","</ol>"],
+            ["/row-start/","<li>"],
+            ["/row-end/","</li>"],
+            ["","php"],
+          ];
+        @endphp
         <div
           class="{{ str_replace('Section','',$one_subcontent->classes) }}Box reunionSectBox"
           data-section="{{ str_replace('Section','',$one_subcontent->classes) }}"
@@ -246,6 +261,31 @@
           </div>
           <div class="boxContent {{ str_replace('Section','',$one_subcontent->classes) }}Content">
             {{ $one_subcontent->start_time }}
+            @if ($one_subcontent->location)
+              @php
+                $html_location = $one_subcontent->location;
+                for ($i = 0; $i < count($swapCharacters); $i++) {
+                  $html_location = str_replace($swapCharacters[$i][0],$swapCharacters[$i][1],$html_location);
+                };
+              @endphp
+              {!! $html_location !!}
+            @endif
+            @if ($one_subcontent->iframe_map_src)
+              <div>
+                <iframe src="{{ $one_subcontent->iframe_map_src }}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            @endif
+            @if ($one_subcontent->description)
+              @php
+                $html_description = $one_subcontent->description;
+                for ($i = 0; $i < count($swapCharacters); $i++) {
+                  $html_description = str_replace($swapCharacters[$i][0],$swapCharacters[$i][1],$html_description);
+                };
+              @endphp
+              <div>
+                {!! $html_description !!}
+              </div>
+            @endif
           </div>
         </div>
       @endforeach
