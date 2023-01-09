@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('classes')->nullable();
             $table->string('description',10000)->nullable();
             $table->string('location')->nullable();
+            $table->string('is_payment')->nullable()->default(null);
             $table->string('image_src')->nullable();
             $table->integer('event_parent_id')->nullable();
             $table->integer('subevent_parent_id')->nullable();

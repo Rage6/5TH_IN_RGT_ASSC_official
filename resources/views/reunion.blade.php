@@ -183,13 +183,26 @@
       </div>
       <div class="regRow">
         @foreach ($all_subevents as $one_subevent)
-          <div class="regSection {{ explode(',',$one_subevent->classes)[0] }}">
-            <div
-              class="reunionSectBttn"
-              data-section="{{ str_replace('Section','',$one_subevent->classes) }}"
-              data-type="button"
-              onclick="clickSection('{{ str_replace('Section','',$one_subevent->classes) }}','button')">{{ strtoupper($one_subevent->title) }}</div>
-          </div>
+          @if ($one_subevent->is_payment == null)
+            <div class="regSection {{ explode(',',$one_subevent->classes)[0] }}">
+              <div
+                class="reunionSectBttn"
+                data-section="{{ str_replace('Section','',$one_subevent->classes) }}"
+                data-type="button"
+                onclick="clickSection('{{ str_replace('Section','',$one_subevent->classes) }}','button')">{{ strtoupper($one_subevent->title) }}</div>
+            </div>
+          @else
+            @php
+              $param_array = explode(";",$one_subevent->is_payment);
+            @endphp
+            <div class="regSection {{ explode(',',$one_subevent->classes)[0] }}">
+              <a href="{{ route('items.all',['purpose'=> $param_array[0],'title'=>$param_array[1]]) }}">
+                <div class="reunionSectBttn">
+                  {{ strtoupper($one_subevent->title) }}
+                </div>
+              </a>
+            </div>
+          @endif
         @endforeach
       </div>
       <!-- <div class="regRow">
@@ -238,18 +251,34 @@
       </div> -->
       @foreach ($all_subevents as $one_subcontent)
         @php
-        // Be sure that the inputs for this column includes 'htmlentities()' to make sure that the user doesn't include unallowed html tags
+          // Be sure that the inputs for this column includes 'htmlentities()' to make sure that the user doesn't include unallowed html tags
           $swapCharacters = [
             ["/div-start/","<div>"],
             ["/div-end/","</div>"],
-            ["/b/","</br>"],
+            ["/br/","</br>"],
+            ["/u-start/","<u>"],
+            ["/u-end/","</u>"],
             ["/unorder-start/","<ul>"],
             ["/unorder-end/","</ul>"],
             ["/order-start/","<ol>"],
             ["/order-end/","</ol>"],
             ["/row-start/","<li>"],
             ["/row-end/","</li>"],
-            ["","php"],
+            ["","php"]
+          ];
+          $all_months = [
+            ["01", "Jan."],
+            ["02", "Feb."],
+            ["03", "Mar."],
+            ["04", "Apr."],
+            ["05", "May"],
+            ["06", "Jun."],
+            ["07", "Jul."],
+            ["08", "Aug."],
+            ["09", "Sept."],
+            ["10", "Oct."],
+            ["11", "Nov."],
+            ["12", "Dec."]
           ];
         @endphp
         <div
@@ -260,7 +289,38 @@
             {{ $one_subcontent->title }}
           </div>
           <div class="boxContent {{ str_replace('Section','',$one_subcontent->classes) }}Content">
-            {{ $one_subcontent->start_time }}
+            @php
+              $month = null;
+              for ($a = 0; $a < count($all_months); $a++) {
+                if ($all_months[$a][0] == substr($one_subcontent->start_time,5,2)) {
+                  $month = $all_months[$a][1];
+                };
+              };
+              $suffix = "th";
+              if (substr($one_subcontent->start_time,8,2) == "01") {
+                $suffix = "st";
+              } else if (substr($one_subcontent->start_time,8,2) == "02") {
+                $suffix = "nd";
+              } else if (substr($one_subcontent->start_time,8,2) == "03") {
+                $suffix = "rd";
+              } else if (substr($one_subcontent->start_time,8,2) == "21") {
+                $suffix = "st";
+              } else if (substr($one_subcontent->start_time,8,2) == "22") {
+                $suffix = "nd";
+              } else if (substr($one_subcontent->start_time,8,2) == "23") {
+                $suffix = "rd";
+              } else if (substr($one_subcontent->start_time,8,2) == "31") {
+                $suffix = "st";
+              };
+            @endphp
+            @if ($one_subcontent->start_time)
+              <div class="boxTime">
+                {{ $month }} {{ substr($one_subcontent->start_time,8,2) }}{{ $suffix }}, {{ substr($one_subcontent->start_time,11,5) }}
+                @if ($one_subcontent->end_time) 
+                  - {{ substr($one_subcontent->end_time,11,5) }}
+                @endif
+              </div>
+            @endif
             @if ($one_subcontent->location)
               @php
                 $html_location = $one_subcontent->location;

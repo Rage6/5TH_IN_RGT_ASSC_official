@@ -251,6 +251,10 @@
   font-family: 'Bellefair', serif;
 }
 
+.regSection a {
+  color: white !important;
+}
+
 .reunionSectBttn {
   border: 2px solid white;
   padding: 5px;
@@ -337,6 +341,10 @@
 
 .boxContent div:last-child {
   margin-bottom: 0px;
+}
+
+.boxTime {
+  text-align: center;
 }
 
 .hotelContent {
