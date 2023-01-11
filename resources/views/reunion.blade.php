@@ -264,7 +264,8 @@
             ["/order-end/","</ol>"],
             ["/row-start/","<li>"],
             ["/row-end/","</li>"],
-            ["","php"]
+            ["","php"],
+            ["","SQL"]
           ];
           $all_months = [
             ["01", "Jan."],
@@ -286,9 +287,6 @@
           data-section="{{ str_replace('Section','',$one_subcontent->classes) }}"
           data-type="box">
           <div class="boxTitle">
-            {{ $one_subcontent->title }}
-          </div>
-          <div class="boxContent {{ str_replace('Section','',$one_subcontent->classes) }}Content">
             @php
               $month = null;
               for ($a = 0; $a < count($all_months); $a++) {
@@ -313,14 +311,15 @@
                 $suffix = "st";
               };
             @endphp
+            {{ $one_subcontent->title }}
             @if ($one_subcontent->start_time)
-              <div class="boxTime">
-                {{ $month }} {{ substr($one_subcontent->start_time,8,2) }}{{ $suffix }}, {{ substr($one_subcontent->start_time,11,5) }}
-                @if ($one_subcontent->end_time) 
-                  - {{ substr($one_subcontent->end_time,11,5) }}
-                @endif
-              </div>
+              , {{ $month }} {{ substr($one_subcontent->start_time,8,2) }}{{ $suffix }}, {{ substr($one_subcontent->start_time,11,5) }}
+              @if ($one_subcontent->end_time)
+                - {{ substr($one_subcontent->end_time,11,5) }}
+              @endif
             @endif
+          </div>
+          <div class="boxContent {{ str_replace('Section','',$one_subcontent->classes) }}Content">
             @if ($one_subcontent->location)
               @php
                 $html_location = $one_subcontent->location;
@@ -328,11 +327,9 @@
                   $html_location = str_replace($swapCharacters[$i][0],$swapCharacters[$i][1],$html_location);
                 };
               @endphp
-              {!! $html_location !!}
-            @endif
-            @if ($one_subcontent->iframe_map_src)
               <div>
-                <iframe src="{{ $one_subcontent->iframe_map_src }}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <u>Location:</u>
+                {!! $html_location !!}
               </div>
             @endif
             @if ($one_subcontent->description)
@@ -342,8 +339,11 @@
                   $html_description = str_replace($swapCharacters[$i][0],$swapCharacters[$i][1],$html_description);
                 };
               @endphp
+              {!! $html_description !!}
+            @endif
+            @if ($one_subcontent->iframe_map_src)
               <div>
-                {!! $html_description !!}
+                <iframe src="{{ $one_subcontent->iframe_map_src }}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
             @endif
           </div>

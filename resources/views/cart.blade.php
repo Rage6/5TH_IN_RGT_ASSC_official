@@ -67,64 +67,68 @@
       </div>
       <div class="cartList">
         @if ($count > 0)
-          <form method="GET" action="{{ route('items.clear') }}">
-            <button>
-              EMPTY YOUR CART
-            </button>
-          </form>
-          @php
-            $total_cost = 0;
-          @endphp
-          @foreach($cart as $item)
-            @php
-              $item_cost = $item[3] * $item[2];
-              $total_cost += $item_cost;
-            @endphp
-            @if ($item[3] > 0)
-                <div class="cartItem">
-                  <div class="quantity">
-                    <div class="cartItemName">Quantity</div>
-                    <div class="cartItemValue">{{ $item[3] }}</div>
-                  </div>
-                  <div class="cost">
-                    <div class="cartItemName">Cost</div>
-                    <div class="cartItemValue">${{ $item[2] }}</div>
-                  </div>
-                  <div class="name">
-                    <!-- <div class="cartItemName">Product Name</div> -->
-                    <div class="cartItemValue">{{ $item[1] }}</div>
-                  </div>
-                  <div class="change">
-                    <a href="/items?purpose={{ $item[4] }}&title={{ $item[5] }}">
-                      <span>
-                        CHANGE
-                      </span>
-                    </a>
-                  </div>
-                </div>
-            @endif
-          @endforeach
-          <div>
-            TOTAL COST: ${{ $total_cost }}
-          </div>
-          <div>
+          <div class="cartFilled">
             <div>
-              Payment Options
-            </div>
-            <div class="creditCardForm">
-              <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
-                  @csrf
-                  <input type="hidden" name="payment_method" class="payment-method">
-                  <input type="hidden" name="text_cart" value="{{ $text_cart }}">
-                  <input class="StripeElement mb-3" name="card_holder_name" placeholder="Card holder name" required>
-                  <div id="card-element"></div>
-                  <div id="card-errors" role="alert"></div>
-                  <div>
-                      <button type="submit">
-                          PAY NOW
-                      </button>
-                  </div>
+              <form class="emptyCart" method="GET" action="{{ route('items.clear') }}">
+                <button>
+                  EMPTY YOUR CART
+                </button>
               </form>
+              @php
+                $total_cost = 0;
+              @endphp
+              @foreach($cart as $item)
+                @php
+                  $item_cost = $item[3] * $item[2];
+                  $total_cost += $item_cost;
+                @endphp
+                @if ($item[3] > 0)
+                    <div class="cartItem">
+                      <div class="quantity">
+                        <div class="cartItemName">Quantity</div>
+                        <div class="cartItemValue">{{ $item[3] }}</div>
+                      </div>
+                      <div class="cost">
+                        <div class="cartItemName">Cost</div>
+                        <div class="cartItemValue">${{ $item[2] }}</div>
+                      </div>
+                      <div class="name">
+                        <!-- <div class="cartItemName">Product Name</div> -->
+                        <div class="cartItemValue">{{ $item[1] }}</div>
+                      </div>
+                      <div class="change">
+                        <a href="/items?purpose={{ $item[4] }}&title={{ $item[5] }}">
+                          <span>
+                            CHANGE
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                @endif
+              @endforeach
+              <div>
+                TOTAL COST: ${{ $total_cost }}
+              </div>
+            </div>
+            <div>
+              <div>
+                Credit Card Payment
+              </div>
+              <div class="creditCardForm">
+                <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
+                    @csrf
+                    <input type="hidden" name="payment_method" class="payment-method">
+                    <input type="hidden" name="text_cart" value="{{ $text_cart }}">
+                    <input class="StripeElement mb-3 cardInput" name="card_holder_name" placeholder="Card holder name" required>
+                    <div id="card-element" class="cardInput"></div>
+                    <div id="card-errors" class="cardInput" role="alert"></div>
+                    <div>
+                        <button type="submit">
+                            PAY NOW
+                        </button>
+                    </div>
+                </form>
+              </div>
             </div>
           </div>
           @if ($purpose && $title)
@@ -152,25 +156,6 @@
           @endif
         @endif
       </div>
-      @if ($count > 0)
-        <!-- <div class="creditCardForm">
-          <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
-              @csrf
-              <input type="hidden" name="payment_method" class="payment-method">
-              <input class="StripeElement mb-3" name="card_holder_name" placeholder="Card holder name" required>
-              <input type="hidden" name="text_cart" value="{{ $text_cart }}">
-              <div class="col-lg-4 col-md-6">
-                  <div id="card-element"></div>
-              </div>
-              <div id="card-errors" role="alert"></div>
-              <div class="form-group mt-3">
-                  <button type="submit" class="btn btn-primary pay">
-                      PAY NOW
-                  </button>
-              </div>
-          </form>
-        </div> -->
-      @endif
     </div>
     @include ('footer.content')
   </div>

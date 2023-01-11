@@ -393,25 +393,32 @@
       rgba(0,0,0,0.8));
 }
 
-.wednesdayBox {
+.dayOneBox {
   color: white;
   background: linear-gradient(
       rgba(0,100,0,0.7),
       rgba(0,100,0,0.7));
 }
 
-.thursdayBox {
+.dayTwoBox {
   color: white;
   background: linear-gradient(
       rgba(139,0,0,0.8),
       rgba(139,0,0,0.8));
 }
 
-.fridayBox {
+.dayThreeBox {
   color: black;
   background: linear-gradient(
       rgba(255,255,255,0.7),
       rgba(255,255,255,0.7));
+}
+
+.dayFourBox {
+  color: white;
+  background: linear-gradient(
+      rgba(0,0,0,0.8),
+      rgba(0,0,0,0.8));
 }
 
 .boxSubtitle {

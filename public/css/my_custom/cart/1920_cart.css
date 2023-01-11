@@ -8,3 +8,8 @@
   font-size: 4.5rem;
   width: 60%;
 }
+
+.cartFilled {
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
