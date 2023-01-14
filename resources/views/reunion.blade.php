@@ -120,26 +120,26 @@
               <div class="regFormHalf">
                 <div class='radioTypeBox'>
                   <div>
-                    Do you plan on attending: the US Olympic Museum & Garden of the Gods Tour (lunch included)?
+                    Do you plan on attending the Valley Forge Tour?
                   </div>
                   <input type='radio' name='event_one' value='Yes'/><span>Yes</span>
                   <input checked type='radio' name='event_one' value='No'/><span>No</span>
                 </div>
                 <div class='radioTypeBox'>
                   <div>
-                    Do you plan on attending: the Royal Gorge Railroad Tour ($20 lunch voucher)?
+                    Do you plan on attending the Philadelphia City Tour?
                   </div>
                   <input type='radio' name='event_two' value='Yes'/><span>Yes</span>
                   <input checked type='radio' name='event_two' value='No'/><span>No</span>
                 </div>
                 <div class='radioTypeBox'>
                   <div>
-                    Do you plan on attending: the Memorial Service at Fort Carson?
+                    Do you plan on attending the Memorial Service at George Washington Memorial?
                   </div>
                   <input type='radio' name='event_three' value='Yes'/><span>Yes</span>
                   <input checked type='radio' name='event_three' value='No'/><span>No</span>
                 </div>
-                <div class='radioTypeBox'>
+                <!-- <div class='radioTypeBox'>
                   <div>
                     Do you have a military ID?
                   </div>
@@ -152,7 +152,7 @@
                   </div>
                   <input type='radio' name='comp_mil_id' value='Yes'/><span>Yes</span>
                   <input checked type='radio' name='comp_mil_id' value='No'/><span>No</span>
-                </div>
+                </div> -->
                 <div class='radioTypeBox'>
                   <div>
                     Do you plan on attending the ladies breakfast 9am Saturday morning? There is no charge.

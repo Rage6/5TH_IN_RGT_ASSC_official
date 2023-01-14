@@ -274,7 +274,7 @@
     linear-gradient(
       rgba(0,100,0,0.8),
       rgba(0,100,0,0.3)),
-    url('<?php echo($url_ext) ?>/images/registration/day_one.jpg');
+    url('<?php echo($url_ext) ?>/images/registration/day_one.jpeg');
 }
 
 .dayTwoSection {
@@ -282,7 +282,7 @@
     linear-gradient(
       rgba(139,0,0,0.8),
       rgba(139,0,0,0.3)),
-    url('<?php echo($url_ext) ?>/images/registration/day_two.jpg');
+    url('<?php echo($url_ext) ?>/images/registration/day_two.jpeg');
 }
 
 .dayThreeSection {
@@ -292,7 +292,7 @@
     linear-gradient(
       rgba(255,255,255,0.8),
       rgba(255,255,255,0.3)),
-    url('<?php echo($url_ext) ?>/images/registration/day_three.jpg');
+    url('<?php echo($url_ext) ?>/images/registration/day_three.jpeg');
 }
 
 .dayThreeSection .reunionSectBttn {

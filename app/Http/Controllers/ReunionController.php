@@ -83,8 +83,8 @@ class ReunionController extends Controller
       $new_submission->event_one = $request->event_one;
       $new_submission->event_two = $request->event_two;
       $new_submission->event_three = $request->event_three;
-      $new_submission->mil_id = $request->mil_id;
-      $new_submission->comp_mil_id = $request->comp_mil_id;
+      // $new_submission->mil_id = $request->mil_id;
+      // $new_submission->comp_mil_id = $request->comp_mil_id;
       $new_submission->ladies_breakfast = $request->ladies_breakfast;
       $new_submission->driving = $request->driving;
       $new_submission->first_reunion = $request->first_reunion;
