@@ -26,6 +26,10 @@ Route::prefix('reunion')->group(function() {
   Route::post('registration',[App\Http\Controllers\ReunionController::class,'post'])->name('reunion.register');
 });
 
+Route::prefix('history')->group(function() {
+  Route::get('timeline',[App\Http\Controllers\HistoryController::class,'index'])->name('history.timeline');
+});
+
 Route::prefix('items')->group(function() {
   Route::get('',[App\Http\Controllers\ItemController::class,'index'])->name('items.all');
   Route::post('add-to-cart',[App\Http\Controllers\ItemController::class,'add'])->name('items.add');

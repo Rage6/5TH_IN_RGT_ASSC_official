@@ -1,0 +1,77 @@
+.timelineBar {
+  height: 6vh;
+  width: 2160px;
+}
+
+.timelineBar div {
+  font-size: 1.2rem;
+  width: 180px;
+}
+
+.timelineBar a div {
+  font-size: 1.2rem;
+  width: 180px;
+  height: 100%;
+}
+
+.segmentLinks {
+  display: flex;
+  justify-content: space-between;
+}
+
+.linkBox {
+  width: 48%;
+}
+
+.segmentImg {
+  height: 25vh;
+  width: 40%;
+}
+
+.imgLeft {
+  margin: 0 5% 2vh 0;
+  float: left;
+}
+
+.imgRight {
+  margin: 0 0 2vh 5%;
+  float: right;
+}
+
+.referenceList {
+  font-size: 1.2rem;
+}
+
+.benCuiAlbumRow {
+  display: block;
+}
+
+.benCuiRight {
+  padding-left: 3%;
+  float: right;
+}
+
+.benCuiLeft {
+  padding-right: 3%;
+  float: left;
+}
+
+.casualtyBox {
+  margin-left: 2%;
+  float: right;
+  width: 45%;
+}
+
+.allVideoBttn {
+  width: 50%;
+}
+
+.forumPanelBox {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.onePanelBox {
+  width: 45%;
+}

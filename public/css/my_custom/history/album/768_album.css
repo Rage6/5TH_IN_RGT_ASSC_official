@@ -1,0 +1,23 @@
+.mainBody {
+  padding-top: 10vh;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      grey,
+      white 100px,
+      grey 130px,
+      white 180px,
+      grey 300px,
+      white 410px,
+      grey 550px);
+}
+
+.allImgBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.oneImgBox {
+  width: 27%;
+}
