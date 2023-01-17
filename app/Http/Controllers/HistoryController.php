@@ -34,14 +34,14 @@ class HistoryController extends Controller
            'all_items' => $all_items,
            'unread_count' => $unread_count,
            'style' => 'history_style',
-           'js' => '/js/my_custom/history/history.js',
+           'js' => '/'.env('APP_URL_EXTENSION').'js/my_custom/history/history.js',
            'content' => 'history_content',
            'cart_count' => $cart_count
          ]);
       } else {
         return view('history',[
           'style' => 'history_style',
-          'js' => '/js/my_custom/history/history.js',
+          'js' => '/'.env('APP_URL_EXTENSION').'js/my_custom/history/history.js',
           'content' => 'history_content',
           'cart_count' => $cart_count
         ]);

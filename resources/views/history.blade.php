@@ -3,19 +3,19 @@
 @section('history_style')
   <!-- History Styles -->
   <!-- Default CSS files; 0px -> 360px-->
-  <link rel="stylesheet" type="text/css" href="/css/my_custom/history/360_history.css">
+  <link rel="stylesheet" type="text/css" href="/{{ config('app.url_ext') }}css/my_custom/history/360_history.php">
   <!-- 361px -> 375px-->
-  <link rel="stylesheet" media="screen and (min-width: 361px) and (max-width: 375px)" type="text/css" href="/css/my_custom/history/375_history.css">
+  <link rel="stylesheet" media="screen and (min-width: 361px) and (max-width: 375px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/375_history.css">
   <!-- 376px -> 414px-->
-  <link rel="stylesheet" media="screen and (min-width: 375px) and (max-width: 414px)" type="text/css" href="/css/my_custom/history/414_history.css">
+  <link rel="stylesheet" media="screen and (min-width: 375px) and (max-width: 414px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/414_history.css">
   <!-- 415px -> 768px-->
-  <link rel="stylesheet" media="screen and (min-width: 415px) and (max-width: 768px)" type="text/css" href="/css/my_custom/history/768_history.css">
+  <link rel="stylesheet" media="screen and (min-width: 415px) and (max-width: 768px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/768_history.css">
   <!-- 769px -> 1366px-->
-  <link rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 1366px)" type="text/css" href="/css/my_custom/history/1366_history.css">
+  <link rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 1366px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/1366_history.css">
   <!-- 1367px -> 1920px-->
-  <link rel="stylesheet" media="screen and (min-width: 1367px) and (max-width: 1920px)" type="text/css" href="/css/my_custom/history/1920_history.css">
+  <link rel="stylesheet" media="screen and (min-width: 1367px) and (max-width: 1920px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/1920_history.css">
   <!-- 1921px and Greater -->
-  <link rel="stylesheet" media="screen and (min-width: 1921px)" type="text/css" href="/css/my_custom/history/past_1920_history.css">
+  <link rel="stylesheet" media="screen and (min-width: 1921px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/past_1920_history.css">
   @include ('footer.style')
 @stop
 
@@ -77,7 +77,7 @@
         <div class="segmentTitle"><u>War of 1812</u></div>
         <div class="segmentContent">
           <div class="segmentWords">
-            <div class="segmentImg imgLeft imgSmall" style="background-image:url('../../../images/history/BattleofLundysLane.jpg')">
+            <div class="segmentImg imgLeft imgSmall img1812">
             </div>
             <p>
               At the onset of the War of 1812, the 5th Infantry was assigned to Winder’s Brigade, U.S. Army of the South.  In the spring of 1813, Winder’s troops marched north to Ontario, Canada to exploit the British defeat at Fort George.  British regulars executed a daring nighttime attack on the brigade forcing it to withdraw to Fort George.  The 5th Infantry participated in the successful defense of Plattsburgh, New York in September, 1814 and then marched north to the Niagara frontier.  The regiment’s victorious assault at Cook’s Mills, on 19 October, 1814 was the last encounter between regular forces in Canada.
@@ -113,7 +113,7 @@
         <div class="segmentContent">
           <div class="segmentTitle"><u>Mexican War</u></div>
           <div class="segmentWords">
-            <div class="segmentImg imgRight imgSmall" style="background-image:url('../../../images/history/Palo_Alto_nebel.jpg')">
+            <div class="segmentImg imgRight imgSmall imgMexican">
             </div>
             <p>
               After the war, the Fifth Infantry was sent to the northwest frontier to help explore and protect the massive new territory acquired before and after the War of 1812.  It built Fort Snelling, participated in the Black Hawk War and suffered through the cold of twenty-six Michigan winters.  In 1845, the regiment was ordered to march south to Corpus Christi, Texas to join Zachary Taylor’s “Army of Observation.”
@@ -131,7 +131,7 @@
         <div class="segmentContent">
           <div class="segmentTitle"><u>Civil War</u></div>
           <div class="segmentWords">
-            <div class="segmentImg imgLeft imgExtraSmall" style="background-image:url('../../../images/history/Burning-of-Wagon-Train-at-Apache-Canyon.jpg')">
+            <div class="segmentImg imgLeft imgExtraSmall imgCivilWar">
             </div>
             <p>
               When the Civil War began in 1861, the 5th Infantry was distributed among several posts in New Mexico.  Twenty-two officers of the regiment went east to serve in the Union Army and nine officers of the regiment resigned their commissions and joined the Confederates.  The remaining officers and men remained in New Mexico under the overall command of Brigadier General Edward Canby.
@@ -159,7 +159,7 @@
             <p>
               In October, 1868, 5th Infantry Headquarters was established at Ft. Riley, Kansas.  The companies were scattered among several Kansas posts.  The following March, Colonel Nelson Miles assumed command of the regiment.
             </p>
-            <div class="segmentImg imgRight imgSmall" style="background-image:url('../../../images/history/Montana_1879.jpg')">
+            <div class="segmentImg imgRight imgSmall imgIndianWar">
             </div>
             <p>
               The Indian tribes in the southwest had become bolder and stronger while the U.S. government had been preoccupied with the Civil War. Following a number of hostile actions by Kiowa and Southern Cheyenne warriors, Miles’ 5th Infantry, accompanied by the 10th and 14th Cavalry Regiments, skirmished with the hostile Indians in the Texas Panhandle.  Both tribes surrendered in early 1875.
