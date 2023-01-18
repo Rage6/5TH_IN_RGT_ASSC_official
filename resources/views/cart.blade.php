@@ -117,6 +117,7 @@
               <div class="creditCardForm">
                 <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
                     @csrf
+                    <input class="StripeElement mb-3 cardInput" type="text" name="payment_email" placeholder="Email address" required>
                     <input type="hidden" name="payment_method" class="payment-method">
                     <input type="hidden" name="text_cart" value="{{ $text_cart }}">
                     <input class="StripeElement mb-3 cardInput" name="card_holder_name" placeholder="Card holder name" required>

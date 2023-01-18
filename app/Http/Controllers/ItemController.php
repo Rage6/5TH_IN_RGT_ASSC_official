@@ -235,6 +235,7 @@ class ItemController extends Controller
         $this_user = Auth::user();
       } else {
         $this_user = User::find($request->session()->get('guest')->id);
+        $this_user->email = $request->payment_email;
       };
       $paymentMethod = $request->payment_method;
 
