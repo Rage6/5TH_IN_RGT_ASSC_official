@@ -264,6 +264,11 @@
             ["/order-end/","</ol>"],
             ["/row-start/","<li>"],
             ["/row-end/","</li>"],
+            ["/a-start-open/","<a target='_blank' href='"],
+            ["/a-start-close/","'>"],
+            ["/a-end/","</a>"],
+            ["/button-start/","<span style='background-color:white;color:black;margin-left:10%;padding:5px;border-radius:15px'>"],
+            ["/button-end/","</span>"],
             ["","php"],
             ["","SQL"]
           ];
