@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 // Below is added by Nicholas Vogt
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+
+use App\Mail\InvoiceEmail;
+
 use App\Models\Item;
 use App\Models\User;
+
+use Illuminate\Support\Facades\App;
 
 class ItemController extends Controller
 {
@@ -249,6 +255,25 @@ class ItemController extends Controller
           $this_user->updateDefaultPaymentMethod($paymentMethod);
           $this_user->charge($one_quantity * $one_price * 100, $request->payment_method);
         };
+      };
+
+      $purchase_list = ["Email: ".$this_user->email];
+      foreach ($all_array as $one_array) {
+        if (intval($one_array[3]) > 0) {
+          $one_id = intval($one_array[0]);
+          $one_quantity = intval($one_array[3]);
+          $one_item = Item::find($one_id);
+          $one_price = $one_item->price;
+          $one_sum_price = $one_quantity * $one_price;
+          $purchase_list[] = $one_item->name.": $".$one_item->price." x ".$one_quantity." = $".$one_sum_price;
+        };
+      };
+      if (App::environment() == 'local') {
+        $invoice_email_test = explode(',',env('REUNION_EMAIL_TEST'));
+        Mail::to($invoice_email_test)->send(new InvoiceEmail($purchase_list));
+      } else {
+        $invoice_email_official = explode(',',env('REUNION_EMAIL_OFFICIAL'));
+        Mail::to($invoice_email_official)->send(new InvoiceEmail($purchase_list));
       };
 
       $request->session()->forget('cart');
