@@ -220,6 +220,13 @@ class ItemController extends Controller
 
     public function purchase(Request $request)
     {
+      $request->validate([
+        'payment_email'    => 'required|string',
+        'mailing_address' => 'nullable|string',
+        'payment_method'   => 'required',
+        'text_cart'        => 'required|string',
+        'card_holder_name' => 'required|string'
+      ]);
       $cart_count = 0;
       $cart_content = $request->session()->get('cart');
       if ($cart_content) {
@@ -239,25 +246,34 @@ class ItemController extends Controller
 
       if (Auth::user()) {
         $this_user = Auth::user();
+        $this_user->mailing_address = $request->mailing_address;
       } else {
         $this_user = User::find($request->session()->get('guest')->id);
         $this_user->email = $request->payment_email;
+        $this_user->mailing_address = $request->mailing_address;
       };
       $paymentMethod = $request->payment_method;
 
+      $this_user->createOrGetStripeCustomer();
+      $this_user->updateDefaultPaymentMethod($paymentMethod);
+      $total_cost = 0;
       foreach ($all_array as $one_array) {
         if (intval($one_array[3]) > 0) {
           $one_id = intval($one_array[0]);
           $one_quantity = intval($one_array[3]);
           $one_item = Item::find($one_id);
           $one_price = $one_item->price;
-          $this_user->createOrGetStripeCustomer();
-          $this_user->updateDefaultPaymentMethod($paymentMethod);
-          $this_user->charge($one_quantity * $one_price * 100, $request->payment_method);
+          $one_total = $one_quantity * $one_price * 100;
+          $total_cost += $one_total;
         };
       };
+      $this_user->charge($total_cost, $request->payment_method);
 
-      $purchase_list = ["Email: ".$this_user->email];
+      $purchase_list = [
+        "Card Holder Name: ".$request->card_holder_name,
+        "Email Address: ".$this_user->email,
+        "Mailing Address: ".$this_user->mailing_address
+      ];
       foreach ($all_array as $one_array) {
         if (intval($one_array[3]) > 0) {
           $one_id = intval($one_array[0]);
@@ -270,6 +286,7 @@ class ItemController extends Controller
       };
       if (App::environment() == 'local') {
         $invoice_email_test = explode(',',env('REUNION_EMAIL_TEST'));
+        $invoice_email_test[] = $this_user->email;
         Mail::to($invoice_email_test)->send(new InvoiceEmail($purchase_list));
       } else {
         $invoice_email_official = explode(',',env('REUNION_EMAIL_OFFICIAL'));

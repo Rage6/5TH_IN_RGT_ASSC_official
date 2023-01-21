@@ -121,6 +121,7 @@
                     <input type="hidden" name="payment_method" class="payment-method">
                     <input type="hidden" name="text_cart" value="{{ $text_cart }}">
                     <input class="StripeElement mb-3 cardInput" name="card_holder_name" placeholder="Card holder name" required>
+                    <input class="StripeElement mb-3 cardInput" type="text" name="mailing_address" placeholder="Mailing Address (if necessary)"/>
                     <div id="card-element" class="cardInput"></div>
                     <div id="card-errors" class="cardInput" role="alert"></div>
                     <div>

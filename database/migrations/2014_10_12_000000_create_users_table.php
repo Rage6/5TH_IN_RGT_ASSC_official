@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('veteran_img')->nullable();
             $table->boolean('deceased')->default(0);
             $table->boolean('admin')->default('0');
+            $table->string('mailing_address')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
