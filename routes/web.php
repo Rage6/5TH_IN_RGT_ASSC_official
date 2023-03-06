@@ -26,6 +26,11 @@ Route::prefix('reunion')->group(function() {
   Route::post('registration',[App\Http\Controllers\ReunionController::class,'post'])->name('reunion.register');
 });
 
+Route::prefix('registration')->group(function() {
+  Route::get('',[App\Http\Controllers\RegistrationController::class,'index'])->name('registration.index');
+  Route::post('submit-membership',[App\Http\Controllers\RegistrationController::class,'post'])->name('registration.post');
+});
+
 Route::prefix('history')->group(function() {
   Route::get('timeline',[App\Http\Controllers\HistoryController::class,'index'])->name('history.timeline');
 });
