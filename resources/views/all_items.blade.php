@@ -91,15 +91,32 @@
                   </div>
                   <div class="gridPrice">
                     <div>Price</div>
-                    <div>${{ $item->price }}</div>
-                    <input type="hidden" name="item_price_{{ $count }}" value="{{ $item->price }}" readonly>
+                    @if ($item->adjustable_price)
+                      @if (!$current_cart)
+                        <input type="number" name="item_price_{{ $count }}" min="0" value="{{ $item->price }}">
+                      @else
+                        @foreach ($current_cart as $cart_item)
+                          @if (intval($cart_item[0]) == $item->id)
+                            <input type="number" name="item_price_{{ $count }}" min="0" value="{{ $cart_item[2] }}">
+                          @endif
+                        @endforeach
+                      @endif
+                    @else
+                      <div>${{ $item->price }}</div>
+                      <input type="hidden" name="item_price_{{ $count }}" min="0" value="{{ $item->price }}" readonly>
+                    @endif
                   </div>
                   <div class="gridCount">
                     <div>Quantity</div>
-                    @if ($item->count)
-                      <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}" min="0">
+                    @if (!$item->set_quantity)
+                      @if ($item->count)
+                        <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}" min="0">
+                      @else
+                        <input type="number" name="item_count_{{ $count }}" value="0" min="0">
+                      @endif
                     @else
-                      <input type="number" name="item_count_{{ $count }}" value="0" min="0">
+                      <span>{{ $item->set_quantity }}</span>
+                      <input type="hidden" name="item_count_{{ $count }}" value="{{ $item->set_quantity }}" readonly>
                     @endif
                   </div>
                   <div>
@@ -116,6 +133,12 @@
         </form>
       </div>
     </div>
+    <pre>
+      @php
+        var_dump($current_cart);
+        var_dump($session);
+      @endphp
+    </pre>
     @include ('footer.content')
   </div>
 @stop

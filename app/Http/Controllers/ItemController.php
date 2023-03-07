@@ -26,10 +26,15 @@ class ItemController extends Controller
     public function index(Request $request)
     {
       $cart_count = 0;
+
       $cart_content = $request->session()->get('cart');
       if ($cart_content) {
         for ($i = 0; $i < count($cart_content); $i++) {
-          $cart_count += intval($cart_content[$i][3]);
+          if (intval($cart_content[$i][2]) > 0) {
+            $cart_count += intval($cart_content[$i][3]);
+          } else {
+            $cart_content[$i][2] = "0";
+          };
         };
       };
       if (isset($_GET['purpose']) && isset($_GET['title'])) {
@@ -40,15 +45,15 @@ class ItemController extends Controller
         $title = null;
       };
       // $all_items = Item::all();
-      $current_cart = $request->session()->get('cart');
+      // $current_cart = $request->session()->get('cart');
       $current_guest = $request->session()->get('guest');
       $all_items = Item::where('purpose',$purpose)->get();
-      if ($current_cart) {
+      if ($cart_content) {
         foreach ($all_items as $one_item) {
           $one_item->count = 0;
-          for ($i = 0; count($current_cart) > $i; $i++) {
-            if (intval($current_cart[$i][0]) == $one_item->id) {
-              $one_item->count = $current_cart[$i][3];
+          for ($i = 0; count($cart_content) > $i; $i++) {
+            if (intval($cart_content[$i][0]) == $one_item->id) {
+              $one_item->count = $cart_content[$i][3];
               if ($one_item->count == null) {
                 $one_item->count = 0;
               };
@@ -71,7 +76,8 @@ class ItemController extends Controller
           'content' => 'all_items_content',
           'purpose' => $purpose,
           'title' => $title,
-          'current_cart' => $current_cart,
+          'current_cart' => $cart_content,
+          'session' => $request->session()->get('cart'),
           'cart_count' => $cart_count
         ]);
       } else {
@@ -82,7 +88,8 @@ class ItemController extends Controller
           'content' => 'all_items_content',
           'purpose' => $purpose,
           'title' => $title,
-          'current_cart' => $current_cart,
+          'current_cart' => $cart_content,
+          'session' => $request->session()->get('cart'),
           'cart_count' => $cart_count
         ]);
       };
@@ -121,7 +128,11 @@ class ItemController extends Controller
       $cart_content = $request->session()->get('cart');
       if ($cart_content) {
         for ($i = 0; $i < count($cart_content); $i++) {
-          $cart_count += intval($cart_content[$i][3]);
+          if (intval($cart_content[$i][2]) > 0) {
+            $cart_count += intval($cart_content[$i][3]);
+          } else {
+            $cart_content[$i][2] = 0;
+          };
         };
       };
       if (isset($_GET['purpose']) && isset($_GET['title'])) {
@@ -159,13 +170,17 @@ class ItemController extends Controller
       } elseif ($request->session()->get('guest')) {
         $this_user = User::find($request->session()->get('guest')->id);
       };
-      $cart = $request->session()->get('cart');
+      // $cart = $request->session()->get('cart');
+      $cart = $cart_content;
       $text_cart = "";
       $count = 0;
       if ($cart) {
         for ($i = 0; $i < count($cart); $i++) {
           if ($i != 0) {
             $text_cart = $text_cart."&";
+          };
+          if ($cart[$i][2] == 0) {
+            $cart[$i][3] = 0;
           };
           $text_cart =
           $text_cart
@@ -194,6 +209,8 @@ class ItemController extends Controller
           'intent' => $intent,
           'unread_count' => $unread_count,
           'cart_count' => $cart_count,
+          'cart_content' => $cart_content,
+          'session' => $request->session()->get('cart'),
           'style' => 'reunion_style',
           'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
           'content' => 'cart_content',
@@ -207,6 +224,8 @@ class ItemController extends Controller
           'cart' => $cart,
           'intent' => $intent,
           'cart_count' => $cart_count,
+          'cart_content' => $cart_content,
+          'session' => $request->session()->get('cart'),
           'style' => 'reunion_style',
           'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
           'content' => 'cart_content',
@@ -231,7 +250,11 @@ class ItemController extends Controller
       $cart_content = $request->session()->get('cart');
       if ($cart_content) {
         for ($i = 0; $i < count($cart_content); $i++) {
-          $cart_count += intval($cart_content[$i][3]);
+          if (intval($cart_content[$i][2]) > 0) {
+            $cart_count += intval($cart_content[$i][3]);
+          } else {
+            $cart_content[$i][2] = "0";
+          };
         };
       };
       // $plan = Item::find($request->plan);
@@ -263,6 +286,9 @@ class ItemController extends Controller
           $one_quantity = intval($one_array[3]);
           $one_item = Item::find($one_id);
           $one_price = $one_item->price;
+          if ($one_item->adjustable_price == 1) {
+            $one_price = intval($one_array[2]);
+          };
           $one_total = $one_quantity * $one_price * 100;
           $total_cost += $one_total;
         };
@@ -280,8 +306,11 @@ class ItemController extends Controller
           $one_quantity = intval($one_array[3]);
           $one_item = Item::find($one_id);
           $one_price = $one_item->price;
+          if ($one_item->adjustable_price == 1) {
+            $one_price = intval($one_array[2]);
+          };
           $one_sum_price = $one_quantity * $one_price;
-          $purchase_list[] = $one_item->name.": $".$one_item->price." x ".$one_quantity." = $".$one_sum_price;
+          $purchase_list[] = $one_item->name.": $".$one_price." x ".$one_quantity." = $".$one_sum_price;
         };
       };
       if (App::environment() == 'local') {

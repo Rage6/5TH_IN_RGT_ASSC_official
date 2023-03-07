@@ -14,6 +14,8 @@ class Item extends Model
         'slug',
         'stripe_plan',
         'price',
+        'adjustable_price',
+        'set_quantity',
         'description',
     ];
 }

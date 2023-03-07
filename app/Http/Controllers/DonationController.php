@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class WelcomeController extends Controller
+use Illuminate\Support\Facades\Auth;
+
+class DonationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,9 @@ class WelcomeController extends Controller
             $cart_content[$i][2] = 0;
           };
         };
-      }
+      };
+
+      $this_user = Auth::user();
       if (Auth::user()) {
         $unread_count = DB::table('messages')
           ->where([
@@ -33,21 +35,23 @@ class WelcomeController extends Controller
             ['messages.is_read','==',0]
           ])
           ->count();
-        return view('welcome',[
+        return view('donation_intro',[
           'unread_count' => $unread_count,
-          'cart_count' => $cart_count,
-          'style' => 'welcome_style',
-          'js' => config('app.url_ext').'/js/my_custom/welcome/welcome.js',
-          'content' => 'welcome_content'
+          'style' => 'donation_style',
+          'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
+          'content' => 'donation_content',
+          'this_user' => $this_user,
+          'cart_count' => $cart_count
         ]);
       } else {
-        return view('welcome',[
-          'cart_count' => $cart_count,
-          'style' => 'welcome_style',
-          'js' => config('app.url_ext').'/js/my_custom/welcome/welcome.js',
-          'content' => 'welcome_content'
+        return view('donation_intro',[
+          'style' => 'donation_style',
+          'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
+          'content' => 'donation_content',
+          'this_user' => $this_user,
+          'cart_count' => $cart_count
         ]);
-      };
+      }
     }
 
     /**

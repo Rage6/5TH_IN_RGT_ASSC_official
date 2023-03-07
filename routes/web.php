@@ -31,6 +31,11 @@ Route::prefix('registration')->group(function() {
   Route::post('submit-membership',[App\Http\Controllers\RegistrationController::class,'post'])->name('registration.post');
 });
 
+Route::prefix('donations')->group(function() {
+  Route::get('',[App\Http\Controllers\DonationController::class, 'index'])->name('donation.index');
+  Route::get('scholarship',[App\Http\Controllers\DonationController::class, 'scholarship'])->name('donation.scholarship');
+});
+
 Route::prefix('history')->group(function() {
   Route::get('timeline',[App\Http\Controllers\HistoryController::class,'index'])->name('history.timeline');
 });
