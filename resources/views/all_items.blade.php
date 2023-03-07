@@ -133,12 +133,6 @@
         </form>
       </div>
     </div>
-    <pre>
-      @php
-        var_dump($current_cart);
-        var_dump($session);
-      @endphp
-    </pre>
     @include ('footer.content')
   </div>
 @stop

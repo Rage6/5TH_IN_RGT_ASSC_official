@@ -159,13 +159,6 @@
         @endif
       </div>
     </div>
-    <pre>
-      @php
-        var_dump($cart_content);
-        var_dump($session);
-        var_dump($text_cart);
-      @endphp
-    </pre>
     @include ('footer.content')
   </div>
   <script src="https://js.stripe.com/v3/"></script>
