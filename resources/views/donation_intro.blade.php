@@ -42,7 +42,7 @@
         <div class="mainTitle">
           Our</br> Donations
         </div>
-        <a href="{{ route('items.all',[
+        <a class="regBttn" href="{{ route('items.all',[
           'purpose' => 'donation.index',
           'title' => 'Scholarship%20Options'
         ]) }}">
@@ -54,7 +54,7 @@
 
       <div class="regRow">
         <div class="regSection" style="background:rgba(139,0,0,0.8)">
-          <div class="regSubtitle">
+          <!-- <div class="regSubtitle">
             Purpose & Values
           </div>
           <div>
@@ -92,10 +92,10 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="regSection" style="background:rgba(255,255,255,0.8);color:black">
-          <div class="regSubtitle">
+          <!-- <div class="regSubtitle">
             Benefits & Opportunities
           </div>
           <div>
@@ -122,10 +122,10 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="regSection" style="background:rgba(0,100,0,0.8)">
-          <div class="regSubtitle">
+          <!-- <div class="regSubtitle">
             Qualifications &</br> Pricing Options
           </div>
           <div>
@@ -187,7 +187,7 @@
                 <div class="costNumbers">$100 once</div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
