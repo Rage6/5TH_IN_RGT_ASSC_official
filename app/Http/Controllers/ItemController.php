@@ -300,6 +300,7 @@ class ItemController extends Controller
         "Email Address: ".$this_user->email,
         "Mailing Address: ".$this_user->mailing_address
       ];
+      $overall_total = 0;
       foreach ($all_array as $one_array) {
         if (intval($one_array[3]) > 0) {
           $one_id = intval($one_array[0]);
@@ -311,8 +312,15 @@ class ItemController extends Controller
           };
           $one_sum_price = $one_quantity * $one_price;
           $purchase_list[] = $one_item->name.": $".$one_price." x ".$one_quantity." = $".$one_sum_price;
+          $overall_total += $one_sum_price;
         };
       };
+      $transaction_fee = $overall_total * 0.029 + 0.3;
+      $final_total = $overall_total - $transaction_fee;
+      $purchase_list[] = "-------------------";
+      $purchase_list[] = "Total: $".$overall_total;
+      $purchase_list[] = "Transaction Fee: $".$transaction_fee;
+      $purchase_list[] = "FINAL TOTAL: $".$final_total;
       if (App::environment() == 'local') {
         $invoice_email_test = explode(',',env('REUNION_EMAIL_TEST'));
         $invoice_email_test[] = $this_user->email;

@@ -46,9 +46,9 @@
         </a>
         <div class="mainMenuSubBttn">+ Newsletters</div>
         <div class="mainMenuSubBttn">+ Merchandise</div>
-        <a href="{{ url('/donations') }}">
+        <!-- <a href="{{ url('/donations') }}"> -->
           <div class="mainMenuSubBttn">+ Our Donations</div>
-        </a>
+        <!-- </a> -->
       </div>
     </div>
     <div>
