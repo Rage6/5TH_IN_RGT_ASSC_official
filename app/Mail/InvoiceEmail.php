@@ -14,6 +14,7 @@ class InvoiceEmail extends Mailable
     // public $data;
     // public $new_content;
     public $new_invoice;
+    public $email_title;
 
     /**
      * Create a new message instance.
@@ -22,11 +23,12 @@ class InvoiceEmail extends Mailable
      */
     // public function __construct($data)
     // public function __construct($new_content)
-    public function __construct($new_invoice)
+    public function __construct($new_invoice, $email_title)
     {
         // $this->data = $data;
         // $this->email_content = $new_content;
         $this->invoice = $new_invoice;
+        $this->subject = $email_title;
     }
 
     /**
@@ -42,7 +44,7 @@ class InvoiceEmail extends Mailable
 
       // return $this->from($this->new_email)
       return $this->view('emails.invoice')
-                  ->subject("Reunion Payment Invoice")
+                  ->subject($this->subject)
                   ->with([ 'content' => $this->invoice ]);
     }
 }

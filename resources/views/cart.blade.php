@@ -122,6 +122,8 @@
                     <input type="hidden" name="text_cart" value="{{ $text_cart }}">
                     <input class="StripeElement mb-3 cardInput" name="card_holder_name" placeholder="Card holder name" required>
                     <input class="StripeElement mb-3 cardInput" type="text" name="mailing_address" placeholder="Mailing Address (if necessary)"/>
+                    <input type="hidden" name="email_title" value="{{ $title }}">
+                    <input type="hidden" name="get_email_list" value="{{ $purpose }}">
                     <div id="card-element" class="cardInput"></div>
                     <div id="card-errors" class="cardInput" role="alert"></div>
                     <div>

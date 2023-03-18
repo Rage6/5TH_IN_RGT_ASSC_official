@@ -241,10 +241,12 @@ class ItemController extends Controller
     {
       $request->validate([
         'payment_email'    => 'required|string',
-        'mailing_address' => 'nullable|string',
+        'mailing_address'  => 'nullable|string',
         'payment_method'   => 'required',
         'text_cart'        => 'required|string',
-        'card_holder_name' => 'required|string'
+        'card_holder_name' => 'required|string',
+        'email_title'      => 'required|string',
+        'get_email_list'   => 'required|string'
       ]);
       $cart_count = 0;
       $cart_content = $request->session()->get('cart');
@@ -321,13 +323,28 @@ class ItemController extends Controller
       $purchase_list[] = "Total: $".$overall_total;
       $purchase_list[] = "Transaction Fee: $".$transaction_fee;
       $purchase_list[] = "FINAL TOTAL: $".$final_total;
+
+      if ($request->get_email_list == "registration.index") {
+        if (App::environment() == 'local') {
+          $email_list_test = 'MEMBERSHIP_EMAIL_TEST';
+        } else {
+          $email_list_official = 'MEMBERSHIP_EMAIL_OFFICIAL';
+        };
+      } elseif ($request->get_email_list == "reunion.index") {
+        if (App::environment() == 'local') {
+          $email_list_test = 'REUNION_EMAIL_TEST';
+        } else {
+          $email_list_official = 'REUNION_EMAIL_OFFICIAL';
+        };
+      };
+
       if (App::environment() == 'local') {
-        $invoice_email_test = explode(',',env('REUNION_EMAIL_TEST'));
+        $invoice_email_test = explode(',',env($email_list_test));
         $invoice_email_test[] = $this_user->email;
-        Mail::to($invoice_email_test)->send(new InvoiceEmail($purchase_list));
+        Mail::to($invoice_email_test)->send(new InvoiceEmail($purchase_list, $request->email_title));
       } else {
-        $invoice_email_official = explode(',',env('REUNION_EMAIL_OFFICIAL'));
-        Mail::to($invoice_email_official)->send(new InvoiceEmail($purchase_list));
+        $invoice_email_official = explode(',',env($email_list_official));
+        Mail::to($invoice_email_official)->send(new InvoiceEmail($purchase_list, $request->email_title));
       };
 
       $request->session()->forget('cart');
