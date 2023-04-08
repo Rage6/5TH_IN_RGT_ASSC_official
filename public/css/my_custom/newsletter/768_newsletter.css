@@ -1,0 +1,9 @@
+.mainTitle {
+  font-size: 3.2rem;
+  margin-bottom: 20vh;
+}
+
+.initBttn {
+  margin: 0 0 5vh 50%;
+  width: calc(40% - 1px);
+}

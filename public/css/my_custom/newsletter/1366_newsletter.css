@@ -1,0 +1,27 @@
+.main {
+  padding-top: 12vh;
+}
+
+.content {
+  min-height: 88vh;
+}
+
+.initIntro {
+  height: 88vh;
+}
+
+.mainTitle {
+  margin-bottom: 8vh;
+  padding-left: 5%;
+  text-align: left;
+  font-size: 3.4rem;
+}
+
+.initBttn {
+  margin: 0 0 5vh 65%;
+  border-right: 1px solid white;
+  border-radius: 10px;
+  font-size: 1.7rem;
+  text-align: center;
+  width: 20%;
+}

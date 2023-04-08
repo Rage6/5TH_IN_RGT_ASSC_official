@@ -44,7 +44,9 @@
         <a href="{{ url('/reunion') }}">
           <div class="mainMenuSubBttn">+ Reunion</div>
         </a>
-        <div class="mainMenuSubBttn">+ Newsletters</div>
+        <a href="{{ url('/newsletter') }}">
+          <div class="mainMenuSubBttn">+ Newsletters</div>
+        </a>
         <div class="mainMenuSubBttn">+ Merchandise</div>
         <!-- <a href="{{ url('/donations') }}"> -->
           <div class="mainMenuSubBttn">+ Our Donations</div>
