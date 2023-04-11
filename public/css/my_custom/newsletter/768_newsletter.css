@@ -7,3 +7,31 @@
   margin: 0 0 5vh 50%;
   width: calc(40% - 1px);
 }
+
+.allSections {
+  display: grid;
+  grid-template-areas:
+    "search about"
+    "contact contact";
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 45vh auto;
+}
+
+.searchEl {
+  height: inherit;
+}
+
+.searchTitle {
+  margin-bottom: 15px;
+  height: inherit;
+}
+
+.contactIntro {
+  margin-left: calc(50% - 165px);
+  width: 330px;
+}
+
+.contactList {
+  flex-direction: row;
+  justify-content: space-around;
+}

@@ -27,7 +27,7 @@
           The Bobcat Bulletin
         </div>
         <div class="initBttn">
-          <a href="{{ url('/newsletters/'.$most_recent->year.'/'.$most_recent->filename) }}" target="_blank">The Latest Edition</a>
+          <a href="{{ url('/newsletters/'.$most_recent->year.'/'.$most_recent->filename) }}" target="_blank">Current Edition</a>
         </div>
         <div class="initBttn" id="pastBttn" onclick="scrollDown('pastEl')">
           Past Editions
@@ -38,36 +38,12 @@
         <div class="initBttn" id="aboutBttn" onclick="scrollDown('aboutEl')">
           About Our Bulletin
         </div>
-        <div class="initBttn" id="contactBttn" onclick="scrollDown('contactBttn')">
-          <a href="{{ url('/newsletters/SPR_2023_newsletter.pdf') }}" target="_blank">
-            Contact The Editor
-          </a>
+        <div class="initBttn" id="contactBttn" onclick="scrollDown('contactEl')">
+          Contact The Editor
         </div>
       </div>
-      <div>
-        <div class="section" id="aboutEl" style="background:rgba(139,0,0,0.8)">
-          <div class="sectionTitle">
-            About Our Bulletin
-          </div>
-          <div>
-            The association publishes an informative and interesting newsletter sent to chapter members four times a year. It is very much a member's newsletter and the Chapter President strongly encourages broad member participation. The newsletter provides members the opportunity to:
-            <ul>
-              <li>
-                Share their wartime experiences
-              </li>
-              <li>
-                Send out requests for information on friends they have lost contact with
-              </li>
-              <li>
-                Use a forum for interesting events/articles/wartime photos and other items of interest they would like to see published.
-              </li>
-            </ul>
-            Send items for publication in our letter to:</br>
-            Mail: Fred Deverse 138 Glenrise Road, Swanton, MD 21561</br>
-            Email: Fred Deverse
-          </div>
-        </div>
-        <div class="section searchEl" id="pastEl" style="background:rgba(255,255,255,0.8);color:black">
+      <div class="allSections">
+        <div class="section searchEl" id="pastEl">
           <div class="searchTitle">
             <div class="sectionTitle">
               Find A Past Bulletin
@@ -110,6 +86,25 @@
             @endforeach
           </div>
         </div>
+        <div class="section aboutEl" id="aboutEl">
+          <div class="sectionTitle">
+            About Our Bulletin
+          </div>
+          <div>
+            The association publishes an informative and interesting newsletter sent to chapter members four times a year. It is very much a member's newsletter and the Chapter President strongly encourages broad member participation. The newsletter provides members the opportunity to:
+            <ul>
+              <li>
+                Share their wartime experiences
+              </li>
+              <li>
+                Send out requests for information on friends they have lost contact with
+              </li>
+              <li>
+                Use a forum for interesting events/articles/wartime photos and other items of interest they would like to see published.
+              </li>
+            </ul>
+          </div>
+        </div>
         <!-- <div class="section" style="background:rgba(0,100,0,0.8)">
           <div class="sectionTitle">
             See A Sample Edition
@@ -118,6 +113,26 @@
             The Bobcat Bulletin's editions, both past and current, are exclusively for Bobcat members. However, anyone can see a full example of one by clicking here.
           </div>
         </div> -->
+        <div class="section contactEl" id="contactEl">
+          <div class="sectionTitle">
+            Contact The Editor
+          </div>
+          <div class="contactIntro">
+            Do you want to contribute to our bulletin? Feel free to send items for publication to:
+          </div>
+          <div class="contactList">
+            <div class="contactEntry">
+              <u>Mail</u></br>
+              Fred Deverse</br>
+              138 Glenrise Road</br>
+              Swanton, MD 21561
+            </div>
+            <div class="contactEntry">
+              <u>Email</u></br>
+              fpd@Bobcat.ws
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- </div> -->
