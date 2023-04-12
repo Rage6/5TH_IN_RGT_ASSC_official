@@ -17,5 +17,6 @@ class Item extends Model
         'adjustable_price',
         'set_quantity',
         'description',
+        'is_donation'
     ];
 }

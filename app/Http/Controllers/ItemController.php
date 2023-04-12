@@ -47,7 +47,11 @@ class ItemController extends Controller
       // $all_items = Item::all();
       // $current_cart = $request->session()->get('cart');
       $current_guest = $request->session()->get('guest');
-      $all_items = Item::where('purpose',$purpose)->get();
+      if ($purpose == "donation.index") {
+        $all_items = Item::where('is_donation',1)->get();
+      } else {
+        $all_items = Item::where('purpose',$purpose)->get();
+      };
       if ($cart_content) {
         foreach ($all_items as $one_item) {
           $one_item->count = 0;

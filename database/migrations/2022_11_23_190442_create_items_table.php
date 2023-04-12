@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('stripe_item');
             $table->integer('price');
             $table->string('description');
+            $table->boolean('is_donation')->default(0);
             $table->timestamps();
         });
     }

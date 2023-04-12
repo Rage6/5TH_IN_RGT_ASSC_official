@@ -90,7 +90,7 @@
                     {{ $item->description }}
                   </div>
                   <div class="gridPrice">
-                    <div>Price</div>
+                    <div>Price (USD)</div>
                     @if ($item->adjustable_price)
                       @if (!$current_cart)
                         <input type="number" name="item_price_{{ $count }}" min="0" value="{{ $item->price }}">

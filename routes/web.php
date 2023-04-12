@@ -33,7 +33,6 @@ Route::prefix('registration')->group(function() {
 
 Route::prefix('donations')->group(function() {
   Route::get('',[App\Http\Controllers\DonationController::class, 'index'])->name('donation.index');
-  Route::get('scholarship',[App\Http\Controllers\DonationController::class, 'scholarship'])->name('donation.scholarship');
 });
 
 Route::prefix('newsletter')->group(function() {
