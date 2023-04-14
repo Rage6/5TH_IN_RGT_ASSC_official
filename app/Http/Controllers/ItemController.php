@@ -340,6 +340,12 @@ class ItemController extends Controller
         } else {
           $email_list_official = 'REUNION_EMAIL_OFFICIAL';
         };
+      } elseif ($request->get_email_list == "donation.index") {
+        if (App::environment() == 'local') {
+          $email_list_test = 'DONATION_EMAIL_TEST';
+        } else {
+          $email_list_official = 'DONATION_EMAIL_OFFICIAL';
+        };
       };
 
       if (App::environment() == 'local') {
