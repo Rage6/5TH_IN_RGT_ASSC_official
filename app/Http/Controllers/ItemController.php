@@ -324,9 +324,9 @@ class ItemController extends Controller
       $transaction_fee = $overall_total * 0.029 + 0.3;
       $final_total = $overall_total - $transaction_fee;
       $purchase_list[] = "-------------------";
-      $purchase_list[] = "Total: $".$overall_total;
-      $purchase_list[] = "Transaction Fee: $".$transaction_fee;
-      $purchase_list[] = "FINAL TOTAL: $".$final_total;
+      $purchase_list[] = "Total: $".round($overall_total,2);
+      $purchase_list[] = "Transaction Fee: $".round($transaction_fee,2);
+      $purchase_list[] = "FINAL TOTAL: $".round($final_total,2);
 
       if ($request->get_email_list == "registration.index") {
         if (App::environment() == 'local') {
