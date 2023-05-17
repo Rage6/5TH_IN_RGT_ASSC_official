@@ -39,34 +39,15 @@ class ReunionController extends Controller
       $this_user = Auth::user();
       $reunion = Event::where('slug',env('CURRENT_REUNION'))->first();
       $subevents = Subevent::where('event_parent_id',$reunion->id)->get();
-      if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
-        return view('reunion',[
-          'unread_count' => $unread_count,
-          'style' => 'reunion_style',
-          'js' => config('app.url_ext').'/js/my_custom/reunion/reunion.js',
-          'content' => 'reunion_content',
-          'this_user' => $this_user,
-          'cart_count' => $cart_count,
-          'reunion_main' => $reunion,
-          'all_subevents' => $subevents
-        ]);
-      } else {
-        return view('reunion',[
-          'style' => 'reunion_style',
-          'js' => config('app.url_ext').'/js/my_custom/reunion/reunion.js',
-          'content' => 'reunion_content',
-          'this_user' => $this_user,
-          'cart_count' => $cart_count,
-          'reunion_main' => $reunion,
-          'all_subevents' => $subevents
-        ]);
-      };
+      return view('reunion',[
+        'style' => 'reunion_style',
+        'js' => config('app.url_ext').'/js/my_custom/reunion/reunion.js',
+        'content' => 'reunion_content',
+        'this_user' => $this_user,
+        'cart_count' => $cart_count,
+        'reunion_main' => $reunion,
+        'all_subevents' => $subevents
+      ]);
     }
 
     public function post(Request $request)

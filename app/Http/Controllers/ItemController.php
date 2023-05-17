@@ -65,38 +65,17 @@ class ItemController extends Controller
           };
         };
       };
-      if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
-        return view('all_items',[
-          'all_items' => $all_items,
-          'unread_count' => $unread_count,
-          'style' => 'items_style',
-          'js' => '/'.config('app.url_ext').'js/my_custom/items/items.js',
-          'content' => 'all_items_content',
-          'purpose' => $purpose,
-          'title' => $title,
-          'current_cart' => $cart_content,
-          'session' => $request->session()->get('cart'),
-          'cart_count' => $cart_count
-        ]);
-      } else {
-        return view('all_items',[
-          'all_items' => $all_items,
-          'style' => 'items_style',
-          'js' => '/'.config('app.url_ext').'js/my_custom/items/items.js',
-          'content' => 'all_items_content',
-          'purpose' => $purpose,
-          'title' => $title,
-          'current_cart' => $cart_content,
-          'session' => $request->session()->get('cart'),
-          'cart_count' => $cart_count
-        ]);
-      };
+      return view('all_items',[
+        'all_items' => $all_items,
+        'style' => 'items_style',
+        'js' => '/'.config('app.url_ext').'js/my_custom/items/items.js',
+        'content' => 'all_items_content',
+        'purpose' => $purpose,
+        'title' => $title,
+        'current_cart' => $cart_content,
+        'session' => $request->session()->get('cart'),
+        'cart_count' => $cart_count
+      ]);
     }
 
     public function add(Request $request)
@@ -201,44 +180,20 @@ class ItemController extends Controller
       } else {
         $text_cart = "expired";
       };
-      if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
-        return view('cart',[
-          'cart' => $cart,
-          'intent' => $intent,
-          'unread_count' => $unread_count,
-          'cart_count' => $cart_count,
-          'cart_content' => $cart_content,
-          'session' => $request->session()->get('cart'),
-          'style' => 'reunion_style',
-          'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
-          'content' => 'cart_content',
-          'text_cart' => $text_cart,
-          'count' => $count,
-          'purpose' => $purpose,
-          'title' => $title
-        ]);
-      } else {
-        return view('cart',[
-          'cart' => $cart,
-          'intent' => $intent,
-          'cart_count' => $cart_count,
-          'cart_content' => $cart_content,
-          'session' => $request->session()->get('cart'),
-          'style' => 'reunion_style',
-          'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
-          'content' => 'cart_content',
-          'text_cart' => $text_cart,
-          'count' => $count,
-          'purpose' => $purpose,
-          'title' => $title
-        ]);
-      };
+      return view('cart',[
+        'cart' => $cart,
+        'intent' => $intent,
+        'cart_count' => $cart_count,
+        'cart_content' => $cart_content,
+        'session' => $request->session()->get('cart'),
+        'style' => 'reunion_style',
+        'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
+        'content' => 'cart_content',
+        'text_cart' => $text_cart,
+        'count' => $count,
+        'purpose' => $purpose,
+        'title' => $title
+      ]);
     }
 
     public function purchase(Request $request)
@@ -360,17 +315,8 @@ class ItemController extends Controller
       $request->session()->forget('cart');
       $request->session()->forget('guest');
 
-      if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
-        return redirect ('/');
-      } else {
-        return redirect ('/');
-      };
+      return redirect ('/');
+
     }
 
     public function clear(Request $request)
@@ -378,17 +324,7 @@ class ItemController extends Controller
       $request->session()->forget('cart');
       $request->session()->forget('guest');
 
-      if (Auth::user()) {
-        // $unread_count = DB::table('messages')
-        //   ->where([
-        //     ['messages.received_id',Auth::user()->id],
-        //     ['messages.is_read','==',0]
-        //   ])
-        //   ->count();
-        return redirect ('/');
-      } else {
-        return redirect ('/');
-      };
+      return redirect ('/');
     }
 
     /**
@@ -423,32 +359,15 @@ class ItemController extends Controller
       $item = Item::find($id);
       $this_user = Auth::user();
       $intent = auth()->user()->createSetupIntent();
-      if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
-        return view('subscription',[
-          'item' => $item,
-          'intent' => $intent,
-          'unread_count' => $unread_count,
-          'style' => 'reunion_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
-          'content' => 'one_item_content',
-          'this_user' => $this_user
-        ]);
-      } else {
-        return view('subscription',[
-          'item' => $items,
-          'intent' => $intent,
-          'style' => 'reunion_style',
-          'js' => '/js/my_custom/reunion/reunion.js',
-          'content' => 'one_item_content',
-          'this_user' => $this_user
-        ]);
-      };
+
+      return view('subscription',[
+        'item' => $items,
+        'intent' => $intent,
+        'style' => 'reunion_style',
+        'js' => '/js/my_custom/reunion/reunion.js',
+        'content' => 'one_item_content',
+        'this_user' => $this_user
+      ]);
     }
 
     /**
@@ -501,27 +420,12 @@ class ItemController extends Controller
         $subscription = $request->user()->newSubscription($one_array[0], $one_array[1]->stripe_item)->create($request->token);
       };
 
-      if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
-        return view('reunion',[
-          'unread_count' => $unread_count,
-          'style' => 'reunion_style',
-          'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
-          'content' => 'reunion_content',
-          'this_user' => $this_user
-        ]);
-      } else {
-        return view('reunion',[
-          'style' => 'reunion_style',
-          'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
-          'content' => 'reunion_content',
-          'this_user' => $this_user
-        ]);
-      };
+      return view('reunion',[
+        'style' => 'reunion_style',
+        'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
+        'content' => 'reunion_content',
+        'this_user' => $this_user
+      ]);
+
     }
 }

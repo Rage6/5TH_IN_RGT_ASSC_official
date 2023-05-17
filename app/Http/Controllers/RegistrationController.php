@@ -43,32 +43,14 @@ class RegistrationController extends Controller
         ->get();
 
       $this_user = Auth::user();
-      if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
-        return view('member_registration',[
-          'unread_count' => $unread_count,
-          'style' => 'registration_style',
-          'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
-          'content' => 'registration_content',
-          'this_user' => $this_user,
-          'cart_count' => $cart_count,
-          'modern_conflicts' => $modern_conflicts
-        ]);
-      } else {
-        return view('member_registration',[
-          'style' => 'registration_style',
-          'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
-          'content' => 'registration_content',
-          'this_user' => $this_user,
-          'cart_count' => $cart_count,
-          'modern_conflicts' => $modern_conflicts
-        ]);
-      };
+      return view('member_registration',[
+        'style' => 'registration_style',
+        'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
+        'content' => 'registration_content',
+        'this_user' => $this_user,
+        'cart_count' => $cart_count,
+        'modern_conflicts' => $modern_conflicts
+      ]);
     }
 
     public function post(Request $request)

@@ -52,3 +52,26 @@ Route::prefix('items')->group(function() {
   Route::get('{item}',[App\Http\Controllers\ItemController::class,'show'])->name('items.single');
   // Route::post('submit-purchase',[App\Http\Controllers\ItemController::class,'submit'])->name('items.create');
 });
+
+Route::middleware('auth')->group(function() {
+
+  Route::prefix('/home')->group(function() {
+    Route::get('', [App\Http\Controllers\HomeController::class,'index'])->name('home');
+  });
+
+  Route::middleware('access')->group(function() {
+
+    Route::prefix('/admin')->group(function() {
+      Route::get('', [App\Http\Controllers\AdminController::class,'index'])->name('admin.index');
+    });
+
+    Route::middleware(['permission:Assign Roles To Members'])->group(function() {
+      // Lists all members IOT select a member and change their roles
+      Route::get('assign-roles', [App\Http\Controllers\AdminController::class,'all_members'])->name('admin.roles');
+      // Show which roles that a certain member is assigned with
+      Route::get('assign-roles/{id}', [App\Http\Controllers\AdminController::class,'member_roles'])->name('admin.assign');
+      // Show which roles that a certain member is assigned with
+      Route::post('assign-roles/{id}', [App\Http\Controllers\AdminController::class,'assign_roles'])->name('admin.assign');
+    });
+  });
+});

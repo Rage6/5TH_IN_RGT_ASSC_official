@@ -25,29 +25,14 @@ class WelcomeController extends Controller
             $cart_content[$i][2] = 0;
           };
         };
-      }
-      if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
-        return view('welcome',[
-          'unread_count' => $unread_count,
-          'cart_count' => $cart_count,
-          'style' => 'welcome_style',
-          'js' => config('app.url_ext').'/js/my_custom/welcome/welcome.js',
-          'content' => 'welcome_content'
-        ]);
-      } else {
-        return view('welcome',[
-          'cart_count' => $cart_count,
-          'style' => 'welcome_style',
-          'js' => config('app.url_ext').'/js/my_custom/welcome/welcome.js',
-          'content' => 'welcome_content'
-        ]);
       };
+      return view('welcome',[
+        'cart_count' => $cart_count,
+        'style' => 'welcome_style',
+        'js' => config('app.url_ext').'/js/my_custom/welcome/welcome.js',
+        'content' => 'welcome_content'
+      ]);
+
     }
 
     /**

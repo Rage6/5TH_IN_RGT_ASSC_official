@@ -46,4 +46,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function all_user_roles() {
+      return $this->belongsToMany('App\Models\Role');
+    }
+
+    // For example, this function is used by the 'UserRole.php' middleware that I made.
+    public function check_for_role($role_title) {
+      foreach ($this->all_user_roles as $one_role) {
+        if ($one_role->title == $role_title) {
+          return true;
+        };
+      };
+      return false;
+    }
+
+    public function check_for_permission($permission_label) {
+      foreach ($this->all_user_roles as $one_role) {
+        $all_permissions = Role::find($one_role->id)->all_role_permissions;
+        foreach ($all_permissions as $one_permission) {
+          if ($one_permission->label == $permission_label) {
+            return true;
+          };
+        };
+      };
+      return false;
+    }
 }

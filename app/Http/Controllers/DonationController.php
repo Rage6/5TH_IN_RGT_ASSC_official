@@ -28,30 +28,14 @@ class DonationController extends Controller
       };
 
       $this_user = Auth::user();
-      if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
-        return view('donation_intro',[
-          'unread_count' => $unread_count,
-          'style' => 'donation_style',
-          'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
-          'content' => 'donation_content',
-          'this_user' => $this_user,
-          'cart_count' => $cart_count
-        ]);
-      } else {
-        return view('donation_intro',[
-          'style' => 'donation_style',
-          'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
-          'content' => 'donation_content',
-          'this_user' => $this_user,
-          'cart_count' => $cart_count
-        ]);
-      }
+      
+      return view('donation_intro',[
+        'style' => 'donation_style',
+        'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
+        'content' => 'donation_content',
+        'this_user' => $this_user,
+        'cart_count' => $cart_count
+      ]);
     }
 
     /**

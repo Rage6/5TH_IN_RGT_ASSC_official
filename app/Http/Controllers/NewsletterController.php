@@ -30,34 +30,15 @@ class NewsletterController extends Controller
       $this_user = Auth::user();
       $all_bulletins = Bulletin::orderBy('year','desc')->orderBy('season_order','desc')->get();
       $most_recent = Bulletin::orderBy('year','desc')->orderBy('season_order','desc')->first();
-      if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
-        return view('newsletter',[
-          'unread_count' => $unread_count,
-          'style' => 'newsletter_style',
-          'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
-          'content' => 'newsletter_content',
-          'this_user' => $this_user,
-          'cart_count' => $cart_count,
-          'all_bulletins' => $all_bulletins,
-          'most_recent' => $most_recent
-        ]);
-      } else {
-        return view('newsletter',[
-          'style' => 'newsletter_style',
-          'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
-          'content' => 'newsletter_content',
-          'this_user' => $this_user,
-          'cart_count' => $cart_count,
-          'all_bulletins' => $all_bulletins,
-          'most_recent' => $most_recent
-        ]);
-      };
+      return view('newsletter',[
+        'style' => 'newsletter_style',
+        'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
+        'content' => 'newsletter_content',
+        'this_user' => $this_user,
+        'cart_count' => $cart_count,
+        'all_bulletins' => $all_bulletins,
+        'most_recent' => $most_recent
+      ]);
     }
 
     /**
