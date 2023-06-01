@@ -254,7 +254,7 @@ class ItemController extends Controller
           $total_cost += $one_total;
         };
       };
-      $this_user->charge($total_cost, $request->payment_method);
+      // $this_user->charge($total_cost, $request->payment_method);
 
       $purchase_list = [
         "Card Holder Name: ".$request->card_holder_name,
@@ -301,6 +301,12 @@ class ItemController extends Controller
         } else {
           $email_list_official = 'DONATION_EMAIL_OFFICIAL';
         };
+      } else {
+        if (App::environment() == 'local') {
+          $email_list_test = 'nvogt10@gmail.com,failed@test.com';
+        } else {
+          $email_list_official = 'nvogt10@gmail.com,failed@official';
+        };
       };
 
       if (App::environment() == 'local') {
@@ -311,6 +317,8 @@ class ItemController extends Controller
         $invoice_email_official = explode(',',env($email_list_official));
         Mail::to($invoice_email_official)->send(new InvoiceEmail($purchase_list, $request->email_title));
       };
+
+      $this_user->charge($total_cost, $request->payment_method);
 
       $request->session()->forget('cart');
       $request->session()->forget('guest');
