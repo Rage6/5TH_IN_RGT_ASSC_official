@@ -78,6 +78,15 @@
             </div>
             <div class="itemList">
               @foreach($all_items as $item)
+                <!-- This gets the current price and amount -->
+                @php
+                  for ($i = 0; $i < count($cookie_test); $i++) {
+                    if ($cookie_test[$i][0] == $item->id) {
+                      $price = $cookie_test[$i][2];
+                      $amount = $cookie_test[$i][3];
+                    };
+                  };
+                @endphp
                 <div class="gridItem">
                   <div>
                     <input type="hidden" name="item_id_{{ $count }}" value="{{ $item->id }}">
@@ -92,14 +101,10 @@
                   <div class="gridPrice">
                     <div>Price (USD)</div>
                     @if ($item->adjustable_price)
-                      @if (!$current_cart)
-                        <input type="number" name="item_price_{{ $count }}" min="0" value="{{ $item->price }}">
+                      @if (isset($price))
+                        <input type="number" name="item_price_{{ $count }}" min="0" value="{{ $price }}">
                       @else
-                        @foreach ($current_cart as $cart_item)
-                          @if (intval($cart_item[0]) == $item->id)
-                            <input type="number" name="item_price_{{ $count }}" min="0" value="{{ $cart_item[2] }}">
-                          @endif
-                        @endforeach
+                        <input type="number" name="item_price_{{ $count }}" min="0" value="0">
                       @endif
                     @else
                       <div>${{ $item->price }}</div>

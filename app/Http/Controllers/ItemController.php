@@ -15,6 +15,7 @@ use App\Models\Item;
 use App\Models\User;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cookie;
 
 class ItemController extends Controller
 {
@@ -25,13 +26,36 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
+      $cookie_string = $request->cookie('cart');
+      $test_a = explode("&",$cookie_string);
+      for ($b = 0; $b < count($test_a); $b++) {
+        $test_a[$b] = explode("#",$test_a[$b]);
+      };
+      for ($c = 0; $c < count($test_a); $c++) {
+        for ($d = 0; $d < count($test_a[$c]); $d++) {
+          if (is_numeric($test_a[$c][$d])) {
+            $test_a[$c][$d] = intval($test_a[$c][$d]);
+          };
+        };
+      };
+
       $cart_count = 0;
 
-      $cart_content = $request->session()->get('cart');
+      // $cart_content = $request->session()->get('cart');
+      $cart_content = $test_a;
       if ($cart_content) {
         for ($i = 0; $i < count($cart_content); $i++) {
-          if (intval($cart_content[$i][2]) > 0) {
-            $cart_count += intval($cart_content[$i][3]);
+          // if (intval($cart_content[$i][2]) > 0) {
+          //   $cart_count += intval($cart_content[$i][3]);
+          // } else {
+          //   $cart_content[$i][2] = "0";
+          // };
+          if (isset($cart_content[$i][2])) {
+            if (intval($cart_content[$i][2]) > 0) {
+              $cart_count += intval($cart_content[$i][3]);
+            } else {
+              $cart_content[$i][2] = "0";
+            };
           } else {
             $cart_content[$i][2] = "0";
           };
@@ -46,7 +70,7 @@ class ItemController extends Controller
       };
       // $all_items = Item::all();
       // $current_cart = $request->session()->get('cart');
-      $current_guest = $request->session()->get('guest');
+      // $current_guest = $request->session()->get('guest');
       if ($purpose == "donation.index") {
         $all_items = Item::where('is_donation',1)->get();
       } else {
@@ -72,9 +96,8 @@ class ItemController extends Controller
         'content' => 'all_items_content',
         'purpose' => $purpose,
         'title' => $title,
-        'current_cart' => $cart_content,
-        'session' => $request->session()->get('cart'),
-        'cart_count' => $cart_count
+        'cart_count' => $cart_count,
+        'cookie_test' => $test_a
       ]);
     }
 
@@ -101,14 +124,41 @@ class ItemController extends Controller
         ];
         $init_cart[] = $a;
       };
-      $cart = $request->session()->put('cart',$init_cart);
+      // $cart = $request->session()->put('cart',$init_cart);
+
+      $cart_string = null;
+      for ($a = 0; $a < count($init_cart); $a++) {
+        if ($a > 0) {
+          $cart_string = $cart_string."&".$init_cart[$a][0]."#".$init_cart[$a][1]."#".$init_cart[$a][2]."#".$init_cart[$a][3]."#".$init_cart[$a][4]."#".$init_cart[$a][5];
+        } else {
+          $cart_string = $init_cart[$a][0]."#".$init_cart[$a][1]."#".$init_cart[$a][2]."#".$init_cart[$a][3]."#".$init_cart[$a][4]."#".$init_cart[$a][5];
+        };
+      };
+      $one_day = 60 * 24;
+      Cookie::queue(Cookie::make('cart',$cart_string,$one_day));
+
       return redirect('/items/cart?purpose='.$purpose.'&title='.$title);
     }
 
     public function cart(Request $request)
     {
       $cart_count = 0;
-      $cart_content = $request->session()->get('cart');
+
+      // $cart_content = $request->session()->get('cart');
+      $cookie_string = $request->cookie('cart');
+      $test_a = explode("&",$cookie_string);
+      for ($b = 0; $b < count($test_a); $b++) {
+        $test_a[$b] = explode("#",$test_a[$b]);
+      };
+      for ($c = 0; $c < count($test_a); $c++) {
+        for ($d = 0; $d < count($test_a[$c]); $d++) {
+          if (is_numeric($test_a[$c][$d])) {
+            $test_a[$c][$d] = intval($test_a[$c][$d]);
+          };
+        };
+      };
+      $cart_content = $test_a;
+
       if ($cart_content) {
         for ($i = 0; $i < count($cart_content); $i++) {
           if (intval($cart_content[$i][2]) > 0) {
@@ -126,11 +176,13 @@ class ItemController extends Controller
         $title = null;
       };
       if (Auth::user()) {
-        $intent = auth()->user()->createSetupIntent();
-      } elseif ($request->session()->get('guest')) {
+        $this_user = auth()->user();
+        // $intent = auth()->user()->createSetupIntent();
+      // } elseif ($request->session()->get('guest')) {
+      } elseif ($request->cookie('guest')) {
         // $this_user = $request->session()->get('guest');
-        $this_user = User::find($request->session()->get('guest')->id);
-        $intent = $this_user->createSetupIntent();
+        $this_user = User::where('password',$request->cookie('guest'))->first();
+        // $intent = $this_user->createSetupIntent();
       } else {
         $all_characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $random_password = '';
@@ -144,15 +196,20 @@ class ItemController extends Controller
         $guest_user->email = "guest@email.com";
         $guest_user->password = "guest_".$random_password;
         $guest_user->save();
-        $new_guest = User::where('password',$guest_user->password)->first();
-        $guest = $request->session()->put('guest',$new_guest);
-        $intent = $new_guest->createSetupIntent();
+        // $guest = $request->session()->put('guest',$this_user);
+        $one_day = 60 * 24;
+        $this_user = User::where('password',$guest_user->password)->first();
+        Cookie::queue(Cookie::make('guest',$this_user->password,$one_day));
+        // $intent = $this_user->createSetupIntent();
       };
-      if (Auth::user()) {
+      $intent = $this_user->createSetupIntent();
+      /*if (Auth::user()) {
         $this_user = Auth::user();
-      } elseif ($request->session()->get('guest')) {
-        $this_user = User::find($request->session()->get('guest')->id);
-      };
+      // } elseif ($request->session()->get('guest')) {
+      } elseif ($request->cookie('guest')) {
+        // $this_user = User::find($request->session()->get('guest')->id);
+        $this_user = User::where('password',$request->cookie('guest'))->first()->id;
+      };*/
       // $cart = $request->session()->get('cart');
       $cart = $cart_content;
       $text_cart = "";
@@ -184,8 +241,6 @@ class ItemController extends Controller
         'cart' => $cart,
         'intent' => $intent,
         'cart_count' => $cart_count,
-        'cart_content' => $cart_content,
-        'session' => $request->session()->get('cart'),
         'style' => 'reunion_style',
         'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
         'content' => 'cart_content',
@@ -208,7 +263,22 @@ class ItemController extends Controller
         'get_email_list'   => 'required|string'
       ]);
       $cart_count = 0;
-      $cart_content = $request->session()->get('cart');
+      // $cart_content = $request->session()->get('cart');
+
+      $cookie_string = $request->cookie('cart');
+      $test_a = explode("&",$cookie_string);
+      for ($b = 0; $b < count($test_a); $b++) {
+        $test_a[$b] = explode("#",$test_a[$b]);
+      };
+      for ($c = 0; $c < count($test_a); $c++) {
+        for ($d = 0; $d < count($test_a[$c]); $d++) {
+          if (is_numeric($test_a[$c][$d])) {
+            $test_a[$c][$d] = intval($test_a[$c][$d]);
+          };
+        };
+      };
+      $cart_content = $test_a;
+
       if ($cart_content) {
         for ($i = 0; $i < count($cart_content); $i++) {
           if (intval($cart_content[$i][2]) > 0) {
@@ -232,14 +302,16 @@ class ItemController extends Controller
         $this_user = Auth::user();
         $this_user->mailing_address = $request->mailing_address;
       } else {
-        $this_user = User::find($request->session()->get('guest')->id);
+        // $this_user = User::find($request->session()->get('guest')->id);
+        $this_user = User::where('password',$request->cookie('guest'))->first();
         $this_user->email = $request->payment_email;
         $this_user->mailing_address = $request->mailing_address;
       };
       $paymentMethod = $request->payment_method;
 
       $this_user->createOrGetStripeCustomer();
-      $this_user->updateDefaultPaymentMethod($paymentMethod);
+      // $this_user->updateDefaultPaymentMethod($paymentMethod);
+      $this_user->addPaymentMethod($paymentMethod);
       $total_cost = 0;
       foreach ($all_array as $one_array) {
         if (intval($one_array[3]) > 0) {
@@ -301,12 +373,6 @@ class ItemController extends Controller
         } else {
           $email_list_official = 'DONATION_EMAIL_OFFICIAL';
         };
-      } else {
-        if (App::environment() == 'local') {
-          $email_list_test = 'nvogt10@gmail.com,failed@test.com';
-        } else {
-          $email_list_official = 'nvogt10@gmail.com,failed@official';
-        };
       };
 
       if (App::environment() == 'local') {
@@ -320,8 +386,16 @@ class ItemController extends Controller
 
       $this_user->charge($total_cost, $request->payment_method);
 
-      $request->session()->forget('cart');
-      $request->session()->forget('guest');
+      $guest_user = User::where('password',$request->cookie('guest'))->first();
+      if ($guest_user) {
+        $guest_user->delete();
+      };
+
+      // $request->session()->forget('cart');
+      // $request->session()->forget('guest');
+
+      Cookie::queue(Cookie::forget('cart'));
+      Cookie::queue(Cookie::forget('guest'));
 
       return redirect ('/');
 
@@ -329,8 +403,17 @@ class ItemController extends Controller
 
     public function clear(Request $request)
     {
-      $request->session()->forget('cart');
-      $request->session()->forget('guest');
+
+      $guest_user = User::where('password',$request->cookie('guest'))->first();
+      if ($guest_user) {
+        $guest_user->delete();
+      };
+
+      // $request->session()->forget('cart');
+      // $request->session()->forget('guest');
+
+      Cookie::queue(Cookie::forget('cart'));
+      Cookie::queue(Cookie::forget('guest'));
 
       return redirect ('/');
     }
