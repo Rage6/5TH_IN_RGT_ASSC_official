@@ -26,41 +26,10 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-      $cookie_string = $request->cookie('cart');
-      $test_a = explode("&",$cookie_string);
-      for ($b = 0; $b < count($test_a); $b++) {
-        $test_a[$b] = explode("#",$test_a[$b]);
-      };
-      for ($c = 0; $c < count($test_a); $c++) {
-        for ($d = 0; $d < count($test_a[$c]); $d++) {
-          if (is_numeric($test_a[$c][$d])) {
-            $test_a[$c][$d] = intval($test_a[$c][$d]);
-          };
-        };
-      };
-
-      $cart_count = 0;
-
-      // $cart_content = $request->session()->get('cart');
-      $cart_content = $test_a;
-      if ($cart_content) {
-        for ($i = 0; $i < count($cart_content); $i++) {
-          // if (intval($cart_content[$i][2]) > 0) {
-          //   $cart_count += intval($cart_content[$i][3]);
-          // } else {
-          //   $cart_content[$i][2] = "0";
-          // };
-          if (isset($cart_content[$i][2])) {
-            if (intval($cart_content[$i][2]) > 0) {
-              $cart_count += intval($cart_content[$i][3]);
-            } else {
-              $cart_content[$i][2] = "0";
-            };
-          } else {
-            $cart_content[$i][2] = "0";
-          };
-        };
-      };
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+      $cart_content = get_cart_count($request)->cart_content;
+      $test_a = get_cart_count($request)->test_a;
       if (isset($_GET['purpose']) && isset($_GET['title'])) {
         $purpose = $_GET['purpose'];
         $title = str_replace("%20"," ",$_GET['title']);

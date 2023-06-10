@@ -29,13 +29,8 @@ class ReunionController extends Controller
      */
     public function index(Request $request)
     {
-      $cart_count = 0;
-      $cart_content = $request->session()->get('cart');
-      if ($cart_content) {
-        for ($i = 0; $i < count($cart_content); $i++) {
-          $cart_count += intval($cart_content[$i][3]);
-        };
-      };
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
       $this_user = Auth::user();
       $reunion = Event::where('slug',env('CURRENT_REUNION'))->first();
       $subevents = Subevent::where('event_parent_id',$reunion->id)->get();

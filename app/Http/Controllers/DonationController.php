@@ -15,20 +15,11 @@ class DonationController extends Controller
      */
     public function index(Request $request)
     {
-      $cart_count = 0;
-      $cart_content = $request->session()->get('cart');
-      if ($cart_content) {
-        for ($i = 0; $i < count($cart_content); $i++) {
-          if (intval($cart_content[$i][2]) > 0) {
-            $cart_count += intval($cart_content[$i][3]);
-          } else {
-            $cart_content[$i][2] = 0;
-          };
-        };
-      };
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
 
       $this_user = Auth::user();
-      
+
       return view('donation_intro',[
         'style' => 'donation_style',
         'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',

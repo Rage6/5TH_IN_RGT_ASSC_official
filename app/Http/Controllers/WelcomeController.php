@@ -15,17 +15,8 @@ class WelcomeController extends Controller
      */
     public function index(Request $request)
     {
-      $cart_count = 0;
-      $cart_content = $request->session()->get('cart');
-      if ($cart_content) {
-        for ($i = 0; $i < count($cart_content); $i++) {
-          if (intval($cart_content[$i][2]) > 0) {
-            $cart_count += intval($cart_content[$i][3]);
-          } else {
-            $cart_content[$i][2] = 0;
-          };
-        };
-      };
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
       return view('welcome',[
         'cart_count' => $cart_count,
         'style' => 'welcome_style',

@@ -16,13 +16,15 @@ class HistoryController extends Controller
      */
     public function index(Request $request)
     {
-      $cart_count = 0;
+      /*$cart_count = 0;
       $cart_content = $request->session()->get('cart');
       if ($cart_content) {
         for ($i = 0; $i < count($cart_content); $i++) {
           $cart_count += intval($cart_content[$i][3]);
         };
-      };
+      };*/
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
       if (Auth::user()) {
          $unread_count = DB::table('messages')
            ->where([
