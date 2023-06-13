@@ -24,7 +24,7 @@
                     <div style="width:100%">
                       <div style="display:grid;grid-template-columns:50% 25% 25%">
                         <div></div>
-                        <div>VIEW</div>
+                        <div>EDIT</div>
                         <div>REASSIGN</div>
                       </div>
                       @foreach ($all_members as $one_member)
@@ -32,11 +32,19 @@
                           <div>
                             @if ($one_member->title) {{ $one_member->title }} @endif {{ $one_member->first_name }} {{ $one_member->last_name }} @if ($one_member->suffix_name) {{ $one_member->suffix_name }} @endif
                           </div>
-                          <div>
-                            <button>
-                              VIEW
-                            </button>
-                          </div>
+                          @if ($can_edit == true)
+                            <div>
+                              <a href="{{ route('edit.member.index',['id' => $one_member->id]) }}">
+                                <button>
+                                  UPDATE
+                                </button>
+                              </a>
+                            </div>
+                          @else
+                            <div>
+                              ---
+                            </div>
+                          @endif
                           @if ($can_assign == true)
                             <div>
                               <a href="{{ route('admin.assign',['id' => $one_member->id]) }}">

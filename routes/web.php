@@ -63,6 +63,18 @@ Route::middleware('auth')->group(function() {
 
     Route::prefix('/admin')->group(function() {
       Route::get('', [App\Http\Controllers\AdminController::class,'index'])->name('admin.index');
+      Route::get('member-list', [App\Http\Controllers\AdminController::class,'index'])->name('admin.members');
+    });
+
+    Route::middleware(['permission:Add A New Member'])->group(function() {
+      Route::get('new-bobcat',[App\Http\Controllers\AdminController::class,'add_member_index'])->name('new.member.index');
+      Route::post('add-new-bobcat',[App\Http\Controllers\AdminController::class,'add_member_post'])->name('new.member.post');
+    });
+
+    Route::middleware(['permission:Edit A Member'])->group(function() {
+      Route::get('edit-bobcat', [App\Http\Controllers\AdminController::class,'all_members'])->name('admin.roles');
+      Route::get('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_index'])->name('edit.member.index');
+      Route::post('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_post'])->name('edit.member.post');
     });
 
     Route::middleware(['permission:Assign Roles To Members'])->group(function() {
