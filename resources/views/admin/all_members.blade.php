@@ -22,42 +22,40 @@
                       <u>MEMBER DIRECTORY</u>
                     </div>
                     <div style="width:100%">
-                      <div style="display:grid;grid-template-columns:50% 25% 25%">
-                        <div></div>
-                        <div>EDIT</div>
-                        <div>REASSIGN</div>
-                      </div>
                       @foreach ($all_members as $one_member)
-                        <div style="display:grid;grid-template-columns:50% 25% 25%">
+                        <div style="margin-bottom:10px;display:grid;grid-template-columns:50% 50%">
                           <div>
                             @if ($one_member->title) {{ $one_member->title }} @endif {{ $one_member->first_name }} {{ $one_member->last_name }} @if ($one_member->suffix_name) {{ $one_member->suffix_name }} @endif
                           </div>
-                          @if ($can_edit == true)
-                            <div>
-                              <a href="{{ route('edit.member.index',['id' => $one_member->id]) }}">
-                                <button>
-                                  UPDATE
-                                </button>
-                              </a>
-                            </div>
-                          @else
-                            <div>
-                              ---
-                            </div>
-                          @endif
-                          @if ($can_assign == true)
-                            <div>
-                              <a href="{{ route('admin.assign',['id' => $one_member->id]) }}">
-                                <button>
-                                  ROLES
-                                </button>
-                              </a>
-                            </div>
-                          @else
-                            <div>
-                              ---
-                            </div>
-                          @endif
+                          <div style="display:flex;flex-wrap:wrap">
+                            @if ($can_edit == true)
+                              <div>
+                                <a href="{{ route('edit.member.index',['id' => $one_member->id]) }}">
+                                  <button>
+                                    UPDATE
+                                  </button>
+                                </a>
+                              </div>
+                            @endif
+                            @if ($can_assign == true)
+                              <div>
+                                <a href="{{ route('admin.assign',['id' => $one_member->id]) }}">
+                                  <button>
+                                    ROLES
+                                  </button>
+                                </a>
+                              </div>
+                            @endif
+                            @if ($can_delete == true)
+                              <div>
+                                <a href="{{ route('delete.member.index',['id' => $one_member->id]) }}">
+                                  <button>
+                                    DELETE
+                                  </button>
+                                </a>
+                              </div>
+                            @endif
+                          </div>
                         </div>
                       @endforeach
                     </div>

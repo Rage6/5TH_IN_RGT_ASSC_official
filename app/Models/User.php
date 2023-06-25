@@ -23,14 +23,35 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'first_name',
+        'middle_name',
         'last_name',
         'email',
         'password',
         'biography',
         'current_img',
         'veteran_img',
+        'tombstone_img',
         'deceased',
-        'expiration_date'
+        'mailing_address',
+        'expiration_date',
+        'rank',
+        'kia_location',
+        'injury_type',
+        'burial_site',
+        'day_of_death',
+        'month_of_death',
+        'year_of_death',
+        'comments',
+        'casualty_conflict_id',
+        'unit',
+        'when_displayed',
+        'day_of_moh_action',
+        'month_of_moh_action',
+        'year_of_moh_action',
+        'moh_location',
+        'citation',
+        'awarded_posthumously',
+        'moh_conflict_id'
     ];
 
     /**

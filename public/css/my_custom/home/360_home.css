@@ -128,17 +128,39 @@
 
 /* START Edit page */
 
+.basicInfoSubtitle {
+  margin: 50px 0 20px 0;
+  text-align: center;
+  color: white;
+  background-color: grey;
+}
+
 .basicInfoGrid {
   margin-bottom: 10px;
   display:grid;
   grid-template-columns: 40% auto;
 }
 
+.basicInfoDate {
+  display: grid;
+  grid-template-columns: 40px 40px 50px;
+  grid-column-gap: 5px;
+}
+
 .imgGrid {
+  margin-bottom: 10px;
   display: grid;
   grid-template-columns: 49% 49%;
-  grid-template-rows: 100px;
+  grid-template-rows: 58% 20% 18%;
   column-gap: 2%;
+}
+
+.imgGrid div {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 20vh;
+  max-height: 200px;
 }
 
 .historyBox textarea {

@@ -13,6 +13,7 @@ use App\Mail\InvoiceEmail;
 
 use App\Models\Item;
 use App\Models\User;
+use App\Models\Payment;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
@@ -295,7 +296,6 @@ class ItemController extends Controller
           $total_cost += $one_total;
         };
       };
-      // $this_user->charge($total_cost, $request->payment_method);
 
       $purchase_list = [
         "Card Holder Name: ".$request->card_holder_name,
@@ -353,7 +353,24 @@ class ItemController extends Controller
         Mail::to($invoice_email_official)->send(new InvoiceEmail($purchase_list, $request->email_title));
       };
 
-      $this_user->charge($total_cost, $request->payment_method);
+      $all_payments = Payment::where([
+        ['total_cost',round($overall_total,2)],
+        ['customer_email',$this_user->email]
+      ]);
+      $has_duplicate = false;
+      foreach ($all_payments as $one_payment) {
+        if ($this_user->created_at >= $one_payment->created_at && $this_user->created <= $one_payment->timestamp + 5) {
+          $has_duplicate = true;
+        };
+      };
+
+      if (!$has_duplicate) {
+        $this_user->charge($total_cost, $request->payment_method);
+        Payment::create([
+          'customer_email' => $this_user->email,
+          'total_cost' => round($overall_total,2)
+        ]);
+      };
 
       $guest_user = User::where('password',$request->cookie('guest'))->first();
       if ($guest_user) {

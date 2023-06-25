@@ -23,7 +23,7 @@ return new class extends Migration
             $table->boolean('deceased')->default(0);
             $table->boolean('admin')->default('0');
             $table->string('mailing_address')->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

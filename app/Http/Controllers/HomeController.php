@@ -47,10 +47,7 @@ class HomeController extends Controller
           $unique_users_permissions[] = $one_permission;
         };
       };
-      $titles_for_access = [
-        "All Permissions Staff Member"
-      ];
-      // $titles_for_access = explode(",",env('ADMIN_ACCESS'));
+      $titles_for_access = explode(",",env('ADMIN_ACCESS'));
       foreach($user_roles as $one_role) {
         foreach($titles_for_access as $one_title) {
           if ($one_title == $one_role->title) {

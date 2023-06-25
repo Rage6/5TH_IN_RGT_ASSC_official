@@ -16,10 +16,7 @@ class AdminAccess
      */
     public function handle(Request $request, Closure $next)
     {
-      $titles_for_access = [
-        "All Permissions Staff Member"
-      ];
-      // $titles_for_access = explode(",",env('ADMIN_ACCESS'));
+      $titles_for_access = explode(",",env('ADMIN_ACCESS'));
       $has_access = false;
       foreach($titles_for_access as $one_title) {
         if ($request->user()->check_for_role($one_title)) {

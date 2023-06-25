@@ -11,6 +11,7 @@ use App\Models\Role;
 use App\Http\Controllers\stdClass;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Artisan;
 
 class AdminController extends Controller
 {
@@ -61,25 +62,80 @@ class AdminController extends Controller
 
     public function add_member_post(Request $request) {
       $request->validate([
-        'firstName' => 'required|string',
-        'lastName' => 'required|string',
-        'email' => 'nullable|string',
-        'biography' => 'nullable|string',
-        'isDeceased' => 'required',
-        'membershipStatus' => 'nullable'
+        'firstName'        => 'required|string',
+        'middleName'        => 'nullable|string',
+        'lastName'         => 'required|string',
+        'email'            => 'nullable|string',
+        'currentImg'       => 'nullable|file',
+        'veteranImg'       => 'nullable|file',
+        'tombstoneImg'     => 'nullable|file',
+        'biography'        => 'nullable|string',
+        'isDeceased'       => 'required',
+        'membershipStatus' => 'nullable',
+        'mailingAddress'   => 'nullable|string',
+        'rank'             => 'nullable|string',
+        'kiaLocation'      => 'nullable|string',
+        'injuryType'       => 'nullable|string',
+        'burialSite'       => 'nullable|string'
       ]);
       $input['first_name'] = $request->firstName;
+      $input['middle_name'] = $request->middleName;
       $input['last_name'] = $request->lastName;
       $input['email'] = $request->email;
+      $input['current_img'] = $request->currentImg;
+      $input['veteran_img'] = $request->veteranImg;
+      $input['tombstone_img'] = $request->tombstoneImg;
       $input['biography'] = $request->biography;
       $input['deceased'] = $request->isDeceased;
+      $input['mailing_address'] = $request->mailingAddress;
+      $input['rank'] = $request->rank;
+      $input['kia_location'] = $request->kiaLocation;
+      $input['injury_type'] = $request->injuryType;
+      $input['burial_site'] = $request->burialSite;
+      $input['day_of_death'] = $request->dayOfDeath;
+      $input['month_of_death'] = $request->dayOfMonth;
+      $input['year_of_death'] = $request->dayOfYear;
 
       $random_password = '';
       $all_characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      $character_count = strlen($all_characters);
       for ($i = 0; $i < 20; $i++) {
-        $random_password .= $all_characters[random_int(0,strlen($all_characters))];
+        $random_password .=  $all_characters[random_int(0,$character_count - 1)];
       };
       $input['password'] = Hash::make($random_password);
+
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $storagePath = 'images';
+        $public_path = 'storage/images';
+      } else {
+        $storagePath = 'public/images';
+        $public_path = 'storage/images';
+      };
+
+      // if (!file_exists('../public/storage')) {
+      //   Artisan::call('storage:link');
+      // };
+
+      /*
+      // Add member's current photo
+      if (request('currentImg')) {
+        $input['current_img'] = request('currentImg')->store($storagePath);
+        $filename = request('currentImg')->hashName();
+        $input['current_img'] = $public_path."/".$filename;
+      };
+      // Add member's veteran photo while in service
+      if (request('veteranImg')) {
+        $input['veteran_img'] = request('veteranImg')->store($storagePath);
+        $filename = request('veteranImg')->hashName();
+        $input['veteran_img'] = $public_path."/".$filename;
+      };
+      // Add bobcat's tombstone photo while in service
+      if (request('tombstoneImg')) {
+        $input['tombstone_img'] = request('tombstoneImg')->store($storagePath);
+        $filename = request('tombstoneImg')->hashName();
+        $input['tombstone_img'] = $public_path."/".$filename;
+      };
+      */
 
       if ($request->membershipStatus == 'start_trial') {
         $start_date = date("Y-m-d H:i:s");
@@ -104,6 +160,11 @@ class AdminController extends Controller
       } else {
         $status = "nonmember";
       };
+
+      if (!file_exists('../public/storage')) {
+        Artisan::call('storage:link');
+      };
+
       return view('admin.edit_user',[
         'id'     => $id,
         'member' => $member,
@@ -112,33 +173,120 @@ class AdminController extends Controller
     }
 
     public function edit_member_post(Request $request,$id) {
-      $member = request()->validate([
-        'firstName' => 'required|string',
-        'lastName' => 'required|string',
-        'email' => 'nullable|string',
-        'biography' => 'nullable|string',
-        'isDeceased' => 'required',
-        'membershipStatus' => 'required'
+      $request->validate([
+        'firstName'        => 'required|string',
+        'lastName'         => 'required|string',
+        'email'            => 'nullable|string',
+        'currentImg'       => 'nullable|file',
+        'veteranImg'       => 'nullable|file',
+        'biography'        => 'nullable|string',
+        'isDeceased'       => 'required',
+        'membershipStatus' => 'nullable',
+        'action'           => 'required'
       ]);
-      $member = User::find($id);
-      $member->first_name = $request->firstName;
-      $member->last_name = $request->lastName;
-      $member->email = $request->email;
-      $member->biography = $request->biography;
-      $member->deceased = $request->isDeceased;
 
-      if ($request->membershipStatus == "permanent") {
-        $member->expiration_date = '1970-01-01 00:00:00';
-      } elseif ("start_trial") {
-        if ($member->expiration_date == '1970-01-01 00:00:00' || $member->expiration_date == null) {
-          $start_date = date("Y-m-d H:i:s");
-          $member->expiration_date = date("Y-m-d H:i:s",strtotime($start_date." +30 days"));
+      $member = User::find($id);
+
+      if ($request->action == 'update') {
+        $member->first_name = $request->firstName;
+        $member->last_name = $request->lastName;
+        $member->email = $request->email;
+        // $member->current_img = $request->currentImg;
+        // $member->veteran_img = $request->veteranImg;
+        $member->biography = $request->biography;
+        $member->deceased = $request->isDeceased;
+
+        if ($request->membershipStatus == "permanent") {
+          $member->expiration_date = '1970-01-01 00:00:00';
+        } elseif ($request->membershipStatus == "start_trial") {
+          if ($member->expiration_date == '1970-01-01 00:00:00' || $member->expiration_date == null) {
+            $start_date = date("Y-m-d H:i:s");
+            $member->expiration_date = date("Y-m-d H:i:s",strtotime($start_date." +30 days"));
+          };
+        } else {
+          $member->expiration_date = null;
         };
-      } else {
-        $member->expiration_date = null;
+
+        // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+          $storagePath = 'images';
+          $public_path = 'storage/images';
+        // } else {
+        //   $storagePath = 'storage/images';
+        //   $public_path = 'storage/images';
+        // };
+
+        /*
+        // if (!file_exists('../public/storage')) {
+        //   Artisan::call('storage:link');
+        // };
+
+        if (request('currentImg')) {
+          $old_filename = $member->current_img;
+          $member['current_img'] = request('currentImg')->store($storagePath);
+          $filename = request('currentImg')->hashName();
+          $member['current_img'] = $public_path."/".$filename;
+          if ($old_filename != null) {
+            Storage::delete($old_filename);
+          };
+        };
+        if (request('veteranImg')) {
+          $old_filename = $member['veteran_img'];
+          $member['veteran_img'] = request('veteranImg')->store($storagePath);
+          $filename = request('veteranImg')->hashName();
+          $member->veteran_img = $public_path."/".$filename;
+          if ($old_filename != null) {
+            Storage::delete($old_filename);
+          };
+        };
+        */
+
+        $member->save();
+      } elseif ($request->action == 'current') {
+        $member->current_img = str_replace("storage/","",$member->current_img);
+        Storage::delete($member->current_img);
+        User::find($member->id)->update(['current_img' => null]);
+      } elseif ($request->action == 'veteran') {
+        $member->veteran_img = str_replace("storage/","",$member->veteran_img);
+        Storage::delete($member->veteran_img);
+        User::find($member->id)->update(['veteran_img' => null]);
       };
-      $member->save();
-      return redirect()->route('admin.roles');
+
+      return redirect()->route('edit.member.list');
+    }
+
+    public function delete_member_index($id) {
+      $member = User::find($id);
+      if ($member->expiration_date != '1970-01-01 00:00:00' && $member->expiration_date != null) {
+        $status = "start_trial";
+      } elseif ($member->expiration_date == '1970-01-01 00:00:00') {
+        $status = "permanent";
+      } else {
+        $status = "nonmember";
+      };
+
+      if (!file_exists('../public/storage')) {
+        Artisan::call('storage:link');
+      };
+
+      return view('admin.delete_user',[
+        'id'     => $id,
+        'member' => $member,
+        'status' => $status
+      ]);
+    }
+
+    public function delete_member_post($id) {
+      $member = User::find($id);
+      if ($member->current_img) {
+        $member->current_img = str_replace("storage/","",$member->current_img);
+        Storage::delete($member->current_img);
+      };
+      if ($member->veteran_img) {
+        $member->veteran_img = str_replace("storage/","",$member->veteran_img);
+        Storage::delete($member->veteran_img);
+      };
+      User::where('id',$id)->delete();
+      return redirect()->route('delete.member.list');
     }
 
     public function all_members() {
@@ -164,10 +312,18 @@ class AdminController extends Controller
         };
       };
 
+      $can_delete = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Delete A Member") {
+          $can_delete = true;
+        };
+      };
+
       return view('admin.all_members',[
         'all_members' => $all_users,
         'can_assign' => $can_assign,
-        'can_edit' => $can_edit
+        'can_edit' => $can_edit,
+        'can_delete' => $can_delete
       ]);
     }
 

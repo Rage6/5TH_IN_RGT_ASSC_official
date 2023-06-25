@@ -72,9 +72,15 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::middleware(['permission:Edit A Member'])->group(function() {
-      Route::get('edit-bobcat', [App\Http\Controllers\AdminController::class,'all_members'])->name('admin.roles');
+      Route::get('edit-bobcat', [App\Http\Controllers\AdminController::class,'all_members'])->name('edit.member.list');
       Route::get('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_index'])->name('edit.member.index');
       Route::post('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_post'])->name('edit.member.post');
+    });
+
+    Route::middleware(['permission:Delete A Member'])->group(function() {
+      Route::get('delete-bobcat', [App\Http\Controllers\AdminController::class,'all_members'])->name('delete.member.list');
+      Route::get('delete-bobcat/{id}',[App\Http\Controllers\AdminController::class,'delete_member_index'])->name('delete.member.index');
+      Route::post('delete-bobcat/{id}',[App\Http\Controllers\AdminController::class,'delete_member_post'])->name('delete.member.post');
     });
 
     Route::middleware(['permission:Assign Roles To Members'])->group(function() {
