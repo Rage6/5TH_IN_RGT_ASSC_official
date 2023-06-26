@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Event;
 
 use App\Http\Controllers\stdClass;
 use Illuminate\Support\Facades\Hash;
@@ -370,6 +371,99 @@ class AdminController extends Controller
         'id' => $id,
         'all_roles' => $all_roles,
         'all_user_roles' => $all_user_roles
+      ]);
+    }
+
+    public function add_event_index()
+    {
+      return view('admin.new_event');
+    }
+
+    public function add_event_post(Request $request) {
+      $request->validate([
+        'eventTitle'       => 'required|string',
+        'startDay'         => 'nullable|integer',
+        'startMonth'       => 'nullable|integer',
+        'startYear'        => 'nullable|integer',
+        'endDay'           => 'nullable|integer',
+        'endMonth'         => 'nullable|integer',
+        'endYear'          => 'nullable|integer',
+        'location'         => 'nullable|string'
+      ]);
+
+      if ($request->startYear && $request->startMonth && $request->startDay) {
+        $firstDay = strval($request->startYear)."-".strval($request->startMonth)."-".strval($request->startDay);
+      } else {
+        $firstDay = null;
+      };
+      if ($request->endYear && $request->endMonth && $request->endDay) {
+        $lastDay = strval($request->endYear)."-".strval($request->endMonth)."-".strval($request->endDay);
+      } else {
+        $lastDay = null;
+      };
+      $slug_array = explode(" ",$request->eventTitle);
+      $slug = strtolower(end($slug_array))."_".time();
+
+      $input['title'] = $request->eventTitle;
+      $input['slug'] = $slug;
+      $input['first_day'] = $firstDay;
+      $input['last_day'] = $lastDay;
+      $input['location'] = $request->location;
+
+      Event::create($input);
+
+      return redirect()->route('admin.index');
+    }
+
+    public function all_events() {
+      // $all_users = User::all();
+      $all_events = Event::orderBy('first_day','asc')->paginate(20);
+
+      $current_user = Auth::user();
+      $user_roles = User::find($current_user->id)->all_user_roles;
+      $role_model = new Role();
+      $users_permissions = $role_model->users_permissions($current_user->id);
+
+      $can_edit = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit An Event") {
+          $can_edit = true;
+        };
+      };
+
+      $can_delete = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Delete An Event") {
+          $can_delete = true;
+        };
+      };
+
+      return view('admin.all_events',[
+        'all_events' => $all_events,
+        'can_edit' => $can_edit,
+        'can_delete' => $can_delete
+      ]);
+    }
+
+    public function edit_event_index($id) {
+      $event = Event::find($id);
+
+      $firstDay = [
+        explode("-",$event->first_day)[1], // month
+        explode("-",$event->first_day)[2], // day
+        explode("-",$event->first_day)[0]  // year
+      ];
+
+      $lastDay = [
+        explode("-",$event->last_day)[1], // month
+        explode("-",$event->last_day)[2], // day
+        explode("-",$event->last_day)[0]  // year
+      ];
+
+      return view('admin.edit_event',[
+        'event' => $event,
+        'firstDay' => $firstDay,
+        'lastDay' => $lastDay
       ]);
     }
 }

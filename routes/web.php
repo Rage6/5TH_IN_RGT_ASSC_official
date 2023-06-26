@@ -91,5 +91,16 @@ Route::middleware('auth')->group(function() {
       // Show which roles that a certain member is assigned with
       Route::post('assign-roles/{id}', [App\Http\Controllers\AdminController::class,'assign_roles'])->name('admin.assign');
     });
+
+    Route::middleware(['permission:Add An Event'])->group(function() {
+      Route::get('add-event',[App\Http\Controllers\AdminController::class,'add_event_index'])->name('events.add');
+      Route::post('add-event',[App\Http\Controllers\AdminController::class,'add_event_post'])->name('events.add');
+    });
+
+    Route::middleware(['permission:Edit An Event'])->group(function() {
+      Route::get('edit-event', [App\Http\Controllers\AdminController::class,'all_events'])->name('edit.event.list');
+      Route::get('edit-event/{id}',[App\Http\Controllers\AdminController::class,'edit_event_index'])->name('edit.event.index');
+      Route::post('edit-event/{id}',[App\Http\Controllers\AdminController::class,'edit_event_post'])->name('edit.event.post');
+    });
   });
 });
