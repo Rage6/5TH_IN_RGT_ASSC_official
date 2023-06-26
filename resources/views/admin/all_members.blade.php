@@ -59,6 +59,7 @@
                         </div>
                       @endforeach
                     </div>
+                    {{ $all_members->links('pagination::default') }}
                   </div>
                 </div>
             </div>

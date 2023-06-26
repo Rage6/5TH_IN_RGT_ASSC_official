@@ -161,9 +161,9 @@ class AdminController extends Controller
         $status = "nonmember";
       };
 
-      if (!file_exists('../public/storage')) {
-        Artisan::call('storage:link');
-      };
+      // if (!file_exists('../public/storage')) {
+      //   Artisan::call('storage:link');
+      // };
 
       return view('admin.edit_user',[
         'id'     => $id,
@@ -264,9 +264,9 @@ class AdminController extends Controller
         $status = "nonmember";
       };
 
-      if (!file_exists('../public/storage')) {
-        Artisan::call('storage:link');
-      };
+      // if (!file_exists('../public/storage')) {
+      //   Artisan::call('storage:link');
+      // };
 
       return view('admin.delete_user',[
         'id'     => $id,
@@ -277,21 +277,21 @@ class AdminController extends Controller
 
     public function delete_member_post($id) {
       $member = User::find($id);
-      if ($member->current_img) {
-        $member->current_img = str_replace("storage/","",$member->current_img);
-        Storage::delete($member->current_img);
-      };
-      if ($member->veteran_img) {
-        $member->veteran_img = str_replace("storage/","",$member->veteran_img);
-        Storage::delete($member->veteran_img);
-      };
+      // if ($member->current_img) {
+      //   $member->current_img = str_replace("storage/","",$member->current_img);
+      //   Storage::delete($member->current_img);
+      // };
+      // if ($member->veteran_img) {
+      //   $member->veteran_img = str_replace("storage/","",$member->veteran_img);
+      //   Storage::delete($member->veteran_img);
+      // };
       User::where('id',$id)->delete();
       return redirect()->route('delete.member.list');
     }
 
     public function all_members() {
       // $all_users = User::all();
-      $all_users = User::orderBy('last_name','asc')->get();
+      $all_users = User::orderBy('last_name','asc')->paginate(20);
 
       $current_user = Auth::user();
       $user_roles = User::find($current_user->id)->all_user_roles;
