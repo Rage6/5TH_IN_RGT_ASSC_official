@@ -448,22 +448,88 @@ class AdminController extends Controller
     public function edit_event_index($id) {
       $event = Event::find($id);
 
-      $firstDay = [
-        explode("-",$event->first_day)[1], // month
-        explode("-",$event->first_day)[2], // day
-        explode("-",$event->first_day)[0]  // year
-      ];
+      if ($event->first_day) {
+        $firstDay = [
+          intval(explode("-",$event->first_day)[1]), // month
+          intval(explode("-",$event->first_day)[2]), // day
+          intval(explode("-",$event->first_day)[0])  // year
+        ];
+      } else {
+        $firstDay = null;
+      };
 
-      $lastDay = [
-        explode("-",$event->last_day)[1], // month
-        explode("-",$event->last_day)[2], // day
-        explode("-",$event->last_day)[0]  // year
-      ];
+      if ($event->last_day) {
+        $lastDay = [
+          intval(explode("-",$event->last_day)[1]), // month
+          intval(explode("-",$event->last_day)[2]), // day
+          intval(explode("-",$event->last_day)[0])  // year
+        ];
+      } else {
+        $lastDay = null;
+      };
 
       return view('admin.edit_event',[
+        'id' => $id,
         'event' => $event,
         'firstDay' => $firstDay,
         'lastDay' => $lastDay
       ]);
+    }
+
+    public function edit_event_post(Request $request,$id) {
+      $request->validate([
+        'eventTitle'       => 'required|string',
+        'startDay'         => 'nullable|integer',
+        'startMonth'       => 'nullable|integer',
+        'startYear'        => 'nullable|integer',
+        'endDay'           => 'nullable|integer',
+        'endMonth'         => 'nullable|integer',
+        'endYear'          => 'nullable|integer',
+        'location'         => 'nullable|string'
+      ]);
+
+      $event = Event::find($id);
+
+      $event->title = $request->eventTitle;
+
+      if ($request->startYear && $request->startMonth && $request->startDay) {
+        // Turns 'month' integer to string
+        $first_month = strval($request->startMonth);
+        if ($request->startMonth < 10) {
+          $first_month = "0".$first_month;
+        };
+        // Turns 'day' integer to string
+        $first_day = strval($request->startDay);
+        if ($request->startDay < 10) {
+          $first_day = "0".$first_day;
+        };
+        // Combines into full date string
+        $event->first_day = strval($request->startYear)."-".$first_month."-".$first_day;
+      } else {
+        $event->first_day = null;
+      };
+
+      if ($request->endYear && $request->endMonth && $request->endDay) {
+        // Turns 'month' integer to string
+        $end_month = strval($request->endMonth);
+        if ($request->endMonth < 10) {
+          $end_month = "0".$end_month;
+        };
+        // Turns 'day' integer to string
+        $end_day = strval($request->endDay);
+        if ($request->endDay < 10) {
+          $end_day = "0".$end_day;
+        };
+        // Combines into full date string
+        $event->last_day = strval($request->endYear)."-".$end_month."-".$end_day;
+      } else {
+        $event->last_day = null;
+      };
+
+      $event->location = $request->location;
+
+      $event->save();
+
+      return redirect()->route('edit.event.list');
     }
 }

@@ -25,7 +25,7 @@
                       @foreach ($all_events as $one_event)
                         <div style="margin-bottom:10px;display:grid;grid-template-columns:50% 50%">
                           <div>
-                            {{ $one_event->title }} ({{ $one_event->first_day }})
+                            {{ $one_event->title }} @if ($one_event->first_day) ({{ $one_event->first_day }}) @endif
                           </div>
                           <div style="display:flex;flex-wrap:wrap">
                             @if ($can_edit == true)
