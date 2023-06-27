@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Event;
+use App\Models\Payment;
 
 use App\Http\Controllers\stdClass;
 use Illuminate\Support\Facades\Hash;
@@ -533,6 +534,7 @@ class AdminController extends Controller
       return redirect()->route('edit.event.list');
     }
 
+
     public function delete_event_index($id) {
       $event = Event::find($id);
 
@@ -542,10 +544,20 @@ class AdminController extends Controller
       ]);
     }
 
+
     public function delete_event_post($id) {
       $event = Event::find($id);
       Event::where('id',$id)->delete();
 
       return redirect()->route('delete.event.list');
+    }
+
+
+    public function payment_history_index() {
+      $all_payments = Payment::orderBy('created_at','desc')->paginate(20);
+
+      return view('admin.all_payments',[
+        'all_payments' => $all_payments
+      ]);
     }
 }

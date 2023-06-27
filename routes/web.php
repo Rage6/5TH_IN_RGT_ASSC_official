@@ -109,4 +109,8 @@ Route::middleware('auth')->group(function() {
       Route::post('delete-event/{id}',[App\Http\Controllers\AdminController::class,'delete_event_post'])->name('delete.event.post');
     });
   });
+
+  Route::middleware(['permission:See Payment History'])->group(function() {
+    Route::get('payment-history',[App\Http\Controllers\AdminController::class,'payment_history_index'])->name('payment.history');
+  });
 });
