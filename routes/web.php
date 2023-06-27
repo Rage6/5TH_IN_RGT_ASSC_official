@@ -102,5 +102,11 @@ Route::middleware('auth')->group(function() {
       Route::get('edit-event/{id}',[App\Http\Controllers\AdminController::class,'edit_event_index'])->name('edit.event.index');
       Route::post('edit-event/{id}',[App\Http\Controllers\AdminController::class,'edit_event_post'])->name('edit.event.post');
     });
+
+    Route::middleware(['permission:Delete An Event'])->group(function() {
+      Route::get('delete-event', [App\Http\Controllers\AdminController::class,'all_events'])->name('delete.event.list');
+      Route::get('delete-event/{id}',[App\Http\Controllers\AdminController::class,'delete_event_index'])->name('delete.event.index');
+      Route::post('delete-event/{id}',[App\Http\Controllers\AdminController::class,'delete_event_post'])->name('delete.event.post');
+    });
   });
 });

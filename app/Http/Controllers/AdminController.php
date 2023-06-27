@@ -532,4 +532,20 @@ class AdminController extends Controller
 
       return redirect()->route('edit.event.list');
     }
+
+    public function delete_event_index($id) {
+      $event = Event::find($id);
+
+      return view('admin.delete_event',[
+        'id'     => $id,
+        'event' => $event
+      ]);
+    }
+
+    public function delete_event_post($id) {
+      $event = Event::find($id);
+      Event::where('id',$id)->delete();
+
+      return redirect()->route('delete.event.list');
+    }
 }
