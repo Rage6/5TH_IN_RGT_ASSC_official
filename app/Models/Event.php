@@ -16,4 +16,9 @@ class Event extends Model
       'last_day',
       'location'
     ];
+
+    public function all_event_subevents() {
+      // return $this->hasMany('App\Models\Subevent');
+      return $this->hasMany(Subevent::class);
+    }
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Event;
+use App\Models\Subevent;
 use App\Models\Payment;
 
 use App\Http\Controllers\stdClass;
@@ -448,6 +449,7 @@ class AdminController extends Controller
 
     public function edit_event_index($id) {
       $event = Event::find($id);
+      $all_subevents = Event::find($id)->all_event_subevents;
 
       if ($event->first_day) {
         $firstDay = [
@@ -472,6 +474,7 @@ class AdminController extends Controller
       return view('admin.edit_event',[
         'id' => $id,
         'event' => $event,
+        'all_subevents' => $all_subevents,
         'firstDay' => $firstDay,
         'lastDay' => $lastDay
       ]);
@@ -550,6 +553,109 @@ class AdminController extends Controller
       Event::where('id',$id)->delete();
 
       return redirect()->route('delete.event.list');
+    }
+
+
+    public function add_subevent_index($event_id)
+    {
+      $event = Event::find($event_id);
+      return view('admin.new_subevent',[
+        'event' => $event
+      ]);
+    }
+
+
+    public function add_subevent_post(Request $request, $event_id) {
+
+      $request->validate([
+        'subeventTitle'    => 'required|string',
+        'startDay'         => 'nullable|integer',
+        'startMonth'       => 'nullable|integer',
+        'startYear'        => 'nullable|integer',
+        'startHour'        => 'nullable|integer',
+        'startMinute'      => 'nullable|integer',
+        'startAmPm'        => 'required|string',
+        'endDay'           => 'nullable|integer',
+        'endMonth'         => 'nullable|integer',
+        'endYear'          => 'nullable|integer',
+        'endHour'          => 'nullable|integer',
+        'endMinute'        => 'nullable|integer',
+        'endAmPm'          => 'required|string',
+        // 'iframe_map_src'   => 'nullable|string',
+        // 'classes'          => 'nullable|string',
+        'description'      => 'nullable|string',
+        'location'         => 'nullable|string',
+        // 'image_src'        => 'nullable|string',
+        // 'is_payment'       => 'nullable|string'
+      ]);
+
+      if ($request->startYear && $request->startMonth && $request->startDay) {
+        $firstDay = strval($request->startYear)."-".strval($request->startMonth)."-".strval($request->startDay);
+        if ($request->startHour && $request->startMinute && $request->startAmPm) {
+          if ($request->startAmPm == "pm" && $request->startHour > 12) {
+            $start_military_hour = strval($request->startHour + 12);
+          } elseif ($request->startAmPm == "am" && $request->startHour == 12) {
+            $start_military_hour = "00";
+          } else {
+            if ($request->endHour < 10) {
+              $start_military_hour = "0".strval($request->startHour);
+            } else {
+              $start_military_hour = strval($request->startHour);
+            };
+          };
+          if ($request->startMinut < 10) {
+            $start_military_minute = "0".strval($request->startMinute);
+          } else {
+            $start_military_minute = strval($request->startMinute);
+          };
+          $firstDay = $firstDay." ".$start_military_hour.":".$start_military_minute.":00";
+        } else {
+          $firstDay = $firstDay." 00:00:00";
+        };
+      } else {
+        $firstDay = null;
+      };
+      if ($request->endYear && $request->endMonth && $request->endDay) {
+        $lastDay = strval($request->endYear)."-".strval($request->endMonth)."-".strval($request->endDay);
+        if ($request->endHour && $request->endMinute && $request->endAmPm) {
+          if ($request->endAmPm == "pm" && $request->endHour > 12) {
+            $end_military_hour = strval($request->endHour + 12);
+          } elseif ($request->endAmPm == "am" && $request->endHour == 12) {
+            $end_military_hour = "00";
+          } else {
+            if ($request->endHour < 10) {
+              $end_military_hour = "0".strval($request->endHour);
+            } else {
+              $end_military_hour = strval($request->endHour);
+            };
+          };
+          if ($request->endMinut < 10) {
+            $end_military_minute = "0".strval($request->endMinute);
+          } else {
+            $end_military_minute = strval($request->endMinute);
+          };
+          $lastDay = $lastDay." ".$end_military_hour.":".$end_military_minute.":00";
+        } else {
+          $lastDay = $lastDay." 00:00:00";
+        };
+      } else {
+        $lastDay = null;
+      };
+
+      $input['title'] = $request->subeventTitle;
+      $input['start_time'] = $firstDay;
+      $input['end_time'] = $lastDay;
+      $input['iframe_map_src'] = $request->mapImg;
+      $input['classes'] = $request->classes;
+      $input['description'] = $request->description;
+      $input['location'] = $request->location;
+      $input['image_src'] = $request->imgSource;
+      $input['is_payment'] = $request->forPaymentRoute;
+      $input['event_id'] = $event_id;
+
+      Subevent::create($input);
+
+      return redirect()->route('edit.event.index',[ 'id' => $request->event_id ]);
     }
 
 

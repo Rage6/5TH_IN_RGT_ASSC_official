@@ -97,6 +97,23 @@
                         <div>Locatoion (by city and/or state)</div>
                         <input name="location" id="location" placeholder="Not for full address" value="{{ $event->location }}" />
                       </div>
+                      <div class="basicInfoGrid">
+                        <div>Current Subevents:</div>
+                        <div>
+                          @foreach($all_subevents as $one_subevent)
+                            {{ $one_subevent->title }}</br>
+                          @endforeach
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
+                        </div>
+                        <a href="{{ route('subevent.add',['event_id' => $event->id]) }}">
+                          <div class="btn btn-success">
+                            + ADD SUBEVENT
+                          </div>
+                        </a>
+                      </div>
                       <button type="submit" name="editEvent" class="btn btn-primary">
                         EDIT EVENT
                       </button>

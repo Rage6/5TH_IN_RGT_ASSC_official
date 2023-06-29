@@ -49,6 +49,26 @@
   width: calc(100% - 10px);
 }
 
+.expireAndCvc {
+  display: flex;
+  justify-content: space-between;
+}
+
+.expireAndCvc input {
+  min-width: 40px;
+}
+
+.payBttn {
+  margin-top: 40px;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
+  font-size: 1.3rem;
+  background-color: black;
+  cursor: pointer;
+}
+
 .cartItem {
   margin: 0 0 10px 0;
   border: 1px dashed black;

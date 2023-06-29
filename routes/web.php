@@ -98,9 +98,13 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::middleware(['permission:Edit An Event'])->group(function() {
+      // Event
       Route::get('edit-event', [App\Http\Controllers\AdminController::class,'all_events'])->name('edit.event.list');
       Route::get('edit-event/{id}',[App\Http\Controllers\AdminController::class,'edit_event_index'])->name('edit.event.index');
       Route::post('edit-event/{id}',[App\Http\Controllers\AdminController::class,'edit_event_post'])->name('edit.event.post');
+      // Subevent
+      Route::get('add-subevent/{event_id}',[App\Http\Controllers\AdminController::class,'add_subevent_index'])->name('subevent.add');
+      Route::post('add-subevent/{event_id}/post',[App\Http\Controllers\AdminController::class,'add_subevent_post'])->name('subevent.add.post');
     });
 
     Route::middleware(['permission:Delete An Event'])->group(function() {

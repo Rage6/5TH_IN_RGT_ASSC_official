@@ -18,7 +18,7 @@ class Subevent extends Model
       'description',
       'location',
       'image_src',
-      'event_parent_id',
-      'subevent_parent_id'
+      'is_payment',
+      'event_id'
     ];
 }

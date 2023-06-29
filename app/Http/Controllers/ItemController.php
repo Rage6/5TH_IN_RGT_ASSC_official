@@ -18,6 +18,8 @@ use App\Models\Payment;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
 
+use Stripe;
+
 class ItemController extends Controller
 {
     /**
@@ -226,7 +228,7 @@ class ItemController extends Controller
       $request->validate([
         'payment_email'    => 'required|string',
         'mailing_address'  => 'nullable|string',
-        'payment_method'   => 'required',
+        // 'payment_method'   => 'required',
         'text_cart'        => 'required|string',
         'card_holder_name' => 'required|string',
         'email_title'      => 'required|string',
@@ -277,11 +279,11 @@ class ItemController extends Controller
         $this_user->email = $request->payment_email;
         $this_user->mailing_address = $request->mailing_address;
       };
-      $paymentMethod = $request->payment_method;
-
-      $this_user->createOrGetStripeCustomer();
-      // $this_user->updateDefaultPaymentMethod($paymentMethod);
-      $this_user->addPaymentMethod($paymentMethod);
+      // $paymentMethod = $request->payment_method;
+      //
+      // $this_user->createOrGetStripeCustomer();
+      // // $this_user->updateDefaultPaymentMethod($paymentMethod);
+      // $this_user->addPaymentMethod($paymentMethod);
       $total_cost = 0;
       foreach ($all_array as $one_array) {
         if (intval($one_array[3]) > 0) {
@@ -365,7 +367,16 @@ class ItemController extends Controller
       };
 
       if (!$has_duplicate) {
-        $this_user->charge($total_cost, $request->payment_method);
+
+        // $this_user->charge($total_cost, $request->payment_method);
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe\Charge::create ([
+                "amount" => $overall_total*100,
+                "currency" => "USD",
+                "source" => $request->stripeToken,
+                "description" => "Card Holder Name: ".$request->card_holder_name,
+        ]);
+
         Payment::create([
           'customer_email' => $this_user->email,
           'total_cost' => round($overall_total,2)

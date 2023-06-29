@@ -24,8 +24,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('is_payment')->nullable()->default(null);
             $table->string('image_src')->nullable();
-            $table->integer('event_parent_id')->nullable();
-            $table->integer('subevent_parent_id')->nullable();
+            $table->foreignId('event_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->unsigned()->nullable();
             $table->timestamps();
         });
     }

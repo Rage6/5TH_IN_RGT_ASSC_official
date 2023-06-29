@@ -114,7 +114,7 @@
               <div>
                 Credit Card Payment
               </div>
-              <div class="creditCardForm">
+              <!-- <div class="creditCardForm">
                 <form method="POST" action="{{ route('items.purchase') }}" class="card-form mt-3 mb-3">
                     @csrf
                     <input class="StripeElement mb-3 cardInput" type="email" name="payment_email" placeholder="Email address" required>
@@ -132,6 +132,32 @@
                         </button>
                     </div>
                 </form>
+              </div> -->
+              <div class="creditCardForm">
+                 <form role="form" action="{{ route('items.purchase') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
+                    @csrf
+                    <input class="cardInput" placeholder="Name on Card" size='4' type='text' name="card_holder_name" required>
+                    <input class="cardInput card-number" placeholder="Card Number" autocomplete='off' size='20' type='text' required>
+                    <div class="cardInput expireAndCvc">
+                      <input class="card-cvc" autocomplete='off' placeholder='CVC' size='4' type='text' required>
+                      <div>
+                        <input class="card-expiry-month" placeholder='MM' size='2' type='text' required> / <input class="card-expiry-year" placeholder='YYYY' size='4' type='text' required>
+                      </div>
+                    </div>
+                    <input class='cardInput' placeholder="Email Address" type='email' name="payment_email" required>
+                    <input class='cardInput' placeholder="Mailing Address (optional)" type='text' name="mailing_address">
+                    <input type="hidden" name="text_cart" value="{{ $text_cart }}" required>
+                    <input type="hidden" name="email_title" value="{{ $title }}" required>
+                    <input type="hidden" name="get_email_list" value="{{ $purpose }}" required>
+                    {{-- <div class='form-row row'>
+                       <div class='col-md-12 error form-group hide'>
+                          <div class='alert-danger alert'>Please correct the errors and try
+                             again.
+                          </div>
+                       </div>
+                    </div> --}}
+                    <button class="payBttn" type="submit">Pay Now</button>
+                 </form>
               </div>
             </div>
           </div>
@@ -163,7 +189,7 @@
     </div>
     @include ('footer.content')
   </div>
-  <script src="https://js.stripe.com/v3/"></script>
+  <!-- <script src="https://js.stripe.com/v3/"></script>
   <script>
       let stripe = Stripe("{{ env('STRIPE_KEY') }}")
       let elements = stripe.elements()
@@ -211,5 +237,53 @@
           })
           return false
       })
+  </script> -->
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script type="text/javascript">
+    $(function() {
+      var $form = $(".require-validation");
+      $('form.require-validation').bind('submit', function(e) {
+        var $form = $(".require-validation"),
+        inputSelector = ['input[type=email]', 'input[type=password]', 'input[type=text]', 'input[type=file]', 'textarea'].join(', '),
+        $inputs = $form.find('.required').find(inputSelector),
+        $errorMessage = $form.find('div.error'),
+        valid = true;
+        $errorMessage.addClass('hide');
+        $('.has-error').removeClass('has-error');
+        $inputs.each(function(i, el) {
+            var $input = $(el);
+            if ($input.val() === '') {
+                $input.parent().addClass('has-error');
+                $errorMessage.removeClass('hide');
+                e.preventDefault();
+            }
+        });
+        if (!$form.data('cc-on-file')) {
+          e.preventDefault();
+          Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+          Stripe.createToken({
+              number: $('.card-number').val(),
+              cvc: $('.card-cvc').val(),
+              exp_month: $('.card-expiry-month').val(),
+              exp_year: $('.card-expiry-year').val()
+          }, stripeResponseHandler);
+        }
+      });
+
+      function stripeResponseHandler(status, response) {
+          if (response.error) {
+              $('.error')
+                  .removeClass('hide')
+                  .find('.alert')
+                  .text(response.error.message);
+          } else {
+              /* token contains id, last4, and card type */
+              var token = response['id'];
+              $form.find('input[type=text]').empty();
+              $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+              $form.get(0).submit();
+          }
+      }
+    });
   </script>
 @stop
