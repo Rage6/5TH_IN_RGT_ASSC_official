@@ -97,14 +97,28 @@
                         <div>Locatoion (by city and/or state)</div>
                         <input name="location" id="location" placeholder="Not for full address" value="{{ $event->location }}" />
                       </div>
-                      <div class="basicInfoGrid">
-                        <div>Current Subevents:</div>
-                        <div>
-                          @foreach($all_subevents as $one_subevent)
-                            {{ $one_subevent->title }}</br>
-                          @endforeach
+                      @if ($all_subevents)
+                        <div class="basicInfoGrid">
+                          <div>Current Subevent(s):</div>
+                          <div>
+                            @foreach ($all_subevents as $one_subevent)
+                              <div style="display:grid; grid-template-columns: 60% 20% 20%">
+                                <div>+ {{ $one_subevent->title }}</div>
+                                <a href="{{ route('subevent.edit',[ 'event_id' => $event->id, 'id' => $one_subevent->id ]) }}">
+                                  <div style="background-color:blue;color:white">
+                                    UPDATE
+                                  </div>
+                                </a>
+                                <a href="{{ route('subevent.delete',[ 'event_id' => $event->id, 'id' => $one_subevent->id ]) }}">
+                                  <div style="background-color:red;color:white">
+                                    DELETE
+                                  </div>
+                                </a>
+                              </div>
+                            @endforeach
+                          </div>
                         </div>
-                      </div>
+                      @endif
                       <div class="basicInfoGrid">
                         <div>
                         </div>
@@ -118,7 +132,7 @@
                         EDIT EVENT
                       </button>
                       <button class="btn">
-                        <a href="{{ route('admin.index') }}">{{ __('CANCEL') }}</a>
+                        <a href="{{ route('edit.event.list') }}">{{ __('CANCEL') }}</a>
                       </button>
                     </form>
                 </div>

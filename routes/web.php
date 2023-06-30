@@ -105,6 +105,10 @@ Route::middleware('auth')->group(function() {
       // Subevent
       Route::get('add-subevent/{event_id}',[App\Http\Controllers\AdminController::class,'add_subevent_index'])->name('subevent.add');
       Route::post('add-subevent/{event_id}/post',[App\Http\Controllers\AdminController::class,'add_subevent_post'])->name('subevent.add.post');
+      Route::get('edit-subevent/{event_id}/{id}',[App\Http\Controllers\AdminController::class,'edit_subevent_index'])->name('subevent.edit');
+      Route::post('edit-subevent/{event_id}/{id}/post',[App\Http\Controllers\AdminController::class,'edit_subevent_post'])->name('subevent.edit.post');
+      Route::get('delete-subevent/{event_id}/{id}',[App\Http\Controllers\AdminController::class,'delete_subevent_index'])->name('subevent.delete');
+      Route::post('delete-subevent/{event_id}/{id}/post',[App\Http\Controllers\AdminController::class,'delete_subevent_post'])->name('subevent.delete.post');
     });
 
     Route::middleware(['permission:Delete An Event'])->group(function() {

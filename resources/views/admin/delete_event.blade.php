@@ -13,7 +13,7 @@
                     </a>
 
                     <div class="basicInfoSubtitle">
-                      DELTE AN EVENT
+                      DELETE AN EVENT
                     </div>
                     <div class="basicInfoGrid">
                       <div>Event Title</div>
@@ -31,7 +31,17 @@
                       <div>Locatoion (by city and/or state)</div>
                       <div>{{ $event->location }}</div>
                     </div>
-
+                    @if ($all_subevents)
+                      <div class="basicInfoGrid">
+                        <div>Current Subevent(s):</div>
+                        <ul>
+                          @foreach ($all_subevents as $one_subevent)
+                            <li>{{ $one_subevent->title }}</li>
+                          @endforeach
+                        </ul>
+                      </div>
+                    @endif
+                    </div>
                     <form
                       method="POST"
                       action="{{ route('delete.event.post',[ 'id' => $id ]) }}">
