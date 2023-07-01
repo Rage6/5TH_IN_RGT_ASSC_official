@@ -22,7 +22,7 @@
 .regRow {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 20vh 20vh 20vh;
+  grid-auto-rows: 20vh;
 }
 
 .boxContent {

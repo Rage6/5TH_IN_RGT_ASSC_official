@@ -234,7 +234,7 @@
 .regRow {
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: repeat(6,30vh);
+  grid-auto-rows: 30vh;
 }
 
 .regSection {

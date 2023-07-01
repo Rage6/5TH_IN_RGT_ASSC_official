@@ -583,18 +583,26 @@ class AdminController extends Controller
         'endHour'          => 'nullable|integer',
         'endMinute'        => 'nullable|integer',
         'endAmPm'          => 'required|string',
-        // 'iframe_map_src'   => 'nullable|string',
-        // 'classes'          => 'nullable|string',
+        'iframe_map_src'   => 'nullable|string',
+        'classes'          => 'nullable|string',
         'description'      => 'nullable|string',
         'location'         => 'nullable|string',
         // 'image_src'        => 'nullable|string',
-        // 'is_payment'       => 'nullable|string'
+        'is_payment'       => 'nullable|string'
       ]);
 
       if ($request->startYear && $request->startMonth && $request->startDay) {
-        $firstDay = strval($request->startYear)."-".strval($request->startMonth)."-".strval($request->startDay);
+        $firstMonth = strval($request->startMonth);
+        if (strlen($firstMonth) < 2) {
+          $firstMonth = "0".$firstMonth;
+        };
+        $firstDay = strval($request->startDay);
+        if (strlen($firstDay) < 2) {
+          $firstDay = "0".$firstDay;
+        };
+        $firstDate = strval($request->startYear)."-".$firstMonth."-".$firstDay;
         if ($request->startHour && $request->startMinute && $request->startAmPm) {
-          if ($request->startAmPm == "pm" && $request->startHour > 12) {
+          if ($request->startAmPm == "pm" && $request->startHour < 12) {
             $start_military_hour = strval($request->startHour + 12);
           } elseif ($request->startAmPm == "am" && $request->startHour == 12) {
             $start_military_hour = "00";
@@ -605,22 +613,22 @@ class AdminController extends Controller
               $start_military_hour = strval($request->startHour);
             };
           };
-          if ($request->startMinut < 10) {
+          if ($request->startMinute < 10) {
             $start_military_minute = "0".strval($request->startMinute);
           } else {
             $start_military_minute = strval($request->startMinute);
           };
-          $firstDay = $firstDay." ".$start_military_hour.":".$start_military_minute.":00";
+          $firstDate = $firstDate." ".$start_military_hour.":".$start_military_minute.":00";
         } else {
-          $firstDay = $firstDay." 00:00:00";
+          $firstDate = $firstDate." 00:00:00";
         };
       } else {
-        $firstDay = null;
+        $firstDate = null;
       };
       if ($request->endYear && $request->endMonth && $request->endDay) {
         $lastDay = strval($request->endYear)."-".strval($request->endMonth)."-".strval($request->endDay);
         if ($request->endHour && $request->endMinute && $request->endAmPm) {
-          if ($request->endAmPm == "pm" && $request->endHour > 12) {
+          if ($request->endAmPm == "pm" && $request->endHour < 12) {
             $end_military_hour = strval($request->endHour + 12);
           } elseif ($request->endAmPm == "am" && $request->endHour == 12) {
             $end_military_hour = "00";
@@ -631,7 +639,7 @@ class AdminController extends Controller
               $end_military_hour = strval($request->endHour);
             };
           };
-          if ($request->endMinut < 10) {
+          if ($request->endMinute < 10) {
             $end_military_minute = "0".strval($request->endMinute);
           } else {
             $end_military_minute = strval($request->endMinute);
@@ -644,14 +652,18 @@ class AdminController extends Controller
         $lastDay = null;
       };
 
+      if ($request->forPaymentRoute == "null") {
+        $request->forPaymentRoute = null;
+      };
+
       $input['title'] = $request->subeventTitle;
-      $input['start_time'] = $firstDay;
+      $input['start_time'] = $firstDate;
       $input['end_time'] = $lastDay;
-      $input['iframe_map_src'] = $request->mapImg;
       $input['classes'] = $request->classes;
       $input['description'] = $request->description;
       $input['location'] = $request->location;
-      $input['image_src'] = $request->imgSource;
+      $input['iframe_map_src'] = $request->iframe_map_src;
+      // $input['image_src'] = $request->imgSource;
       $input['is_payment'] = $request->forPaymentRoute;
       $input['event_id'] = $event_id;
 
@@ -676,15 +688,16 @@ class AdminController extends Controller
           intval(explode(":",$startTime)[0]), // hour
           intval(explode(":",$startTime)[1]), // minute
         ];
-        if ($startTimeInt[0] <= 12) {
-          if (count($startTimeInt) <= 2) {
-            $startTimeInt[] = "am";
-          } else {
-            $startTimeInt[2] = "am";
+        if ($startTimeInt[0] < 12) {
+          if ($startTimeInt[0] == 0) {
+            $startTimeInt[0] = 12;
           };
+          $startTimeInt[2] = "am";
         } else {
-          $startTimeInt[0] -= 12;
-          $startTimeInt[] = "pm";
+          if ($startTimeInt[0] > 12) {
+            $startTimeInt[0] = $startTimeInt[0] - 12;
+          };
+          $startTimeInt[2] = "pm";
         };
       } else {
         $startDateInt = null;
@@ -703,15 +716,16 @@ class AdminController extends Controller
           intval(explode(":",$endTime)[0]), // hour
           intval(explode(":",$endTime)[1]), // minute
         ];
-        if ($endTimeInt[0] <= 12) {
-          if (count($endTimeInt) <= 2) {
-            $endTimeInt[] = "am";
-          } else {
-            $endTimeInt[2] = "am";
+        if ($endTimeInt[0] < 12) {
+          if ($endTimeInt[0] == 0) {
+            $endTimeInt[0] = 12;
           };
+          $endTimeInt[2] = "am";
         } else {
-          $endTimeInt[0] -= 12;
-          $endTimeInt[] = "pm";
+          if ($endTimeInt[0] > 12) {
+            $endTimeInt[0] = $endTimeInt[0] - 12;
+          };
+          $endTimeInt[2] = "pm";
         };
       } else {
         $endDateInt = null;
@@ -745,7 +759,7 @@ class AdminController extends Controller
         'endHour'          => 'nullable|integer',
         'endMinute'        => 'nullable|integer',
         'endAmPm'          => 'required|string',
-        // 'iframe_map_src'   => 'nullable|string',
+        'iframe_map_src'   => 'nullable|string',
         // 'classes'          => 'nullable|string',
         'description'      => 'nullable|string',
         'location'         => 'nullable|string',
@@ -754,9 +768,17 @@ class AdminController extends Controller
       ]);
 
       if ($request->startYear && $request->startMonth && $request->startDay) {
-        $firstDay = strval($request->startYear)."-".strval($request->startMonth)."-".strval($request->startDay);
+        $firstMonth = strval($request->startMonth);
+        if (strlen($firstMonth) < 2) {
+          $firstMonth = "0".$firstMonth;
+        };
+        $firstDay = strval($request->startDay);
+        if (strlen($firstDay) < 2) {
+          $firstDay = "0".$firstDay;
+        };
+        $firstDate = strval($request->startYear)."-".$firstMonth."-".$firstDay;
         if ($request->startHour && $request->startMinute && $request->startAmPm) {
-          if ($request->startAmPm == "pm" && $request->startHour > 12) {
+          if ($request->startAmPm == "pm" && $request->startHour < 12) {
             $start_military_hour = strval($request->startHour + 12);
           } elseif ($request->startAmPm == "am" && $request->startHour == 12) {
             $start_military_hour = "00";
@@ -767,22 +789,22 @@ class AdminController extends Controller
               $start_military_hour = strval($request->startHour);
             };
           };
-          if ($request->startMinut < 10) {
+          if ($request->startMinute < 10) {
             $start_military_minute = "0".strval($request->startMinute);
           } else {
             $start_military_minute = strval($request->startMinute);
           };
-          $firstDay = $firstDay." ".$start_military_hour.":".$start_military_minute.":00";
+          $firstDate = $firstDate." ".$start_military_hour.":".$start_military_minute.":00";
         } else {
-          $firstDay = $firstDay." 00:00:00";
+          $firstDate = $firstDate." 00:00:00";
         };
       } else {
-        $firstDay = null;
+        $firstDate = null;
       };
       if ($request->endYear && $request->endMonth && $request->endDay) {
         $lastDay = strval($request->endYear)."-".strval($request->endMonth)."-".strval($request->endDay);
         if ($request->endHour && $request->endMinute && $request->endAmPm) {
-          if ($request->endAmPm == "pm" && $request->endHour > 12) {
+          if ($request->endAmPm == "pm" && $request->endHour < 12) {
             $end_military_hour = strval($request->endHour + 12);
           } elseif ($request->endAmPm == "am" && $request->endHour == 12) {
             $end_military_hour = "00";
@@ -793,7 +815,7 @@ class AdminController extends Controller
               $end_military_hour = strval($request->endHour);
             };
           };
-          if ($request->endMinut < 10) {
+          if ($request->endMinute < 10) {
             $end_military_minute = "0".strval($request->endMinute);
           } else {
             $end_military_minute = strval($request->endMinute);
@@ -809,9 +831,9 @@ class AdminController extends Controller
       $input = Subevent::find($id);
 
       $input['title'] = $request->subeventTitle;
-      $input['start_time'] = $firstDay;
+      $input['start_time'] = $firstDate;
       $input['end_time'] = $lastDay;
-      $input['iframe_map_src'] = $request->mapImg;
+      $input['iframe_map_src'] = $request->iframe_map_src;
       $input['classes'] = $request->classes;
       $input['description'] = $request->description;
       $input['location'] = $request->location;

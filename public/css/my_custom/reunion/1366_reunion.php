@@ -71,7 +71,7 @@
 .regRow {
   display: grid;
   grid-template-columns: 33% 34% 33%;
-  grid-template-rows: 35vh 35vh;
+  grid-auto-rows: 35vh;
 }
 
 .boxContent {

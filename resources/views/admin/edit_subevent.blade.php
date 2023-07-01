@@ -74,7 +74,7 @@
                           <select name="startAmPm">
                             <option
                               value="am"
-                              @if (!$startTime || $startTime == "am") selected @endif>
+                              @if (!$startTime || $startTime[2] == "am") selected @endif>
                               AM
                             </option>
                             <option
@@ -150,8 +150,37 @@
                       </div>
                       <br>
                       <div class="basicInfoGrid">
+                        <div>Description</div>
+                        <textarea name="description" id="description" rows="5" placeholder="This is a test">{{ $subevent->description }}</textarea>
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>Locatoion (by city and/or state)</div>
                         <input name="location" id="location" value="{{ $subevent->location }}" placeholder="Not for full address" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Google Map</div>
+                        <input name="iframe_map_src" id="map_iframe" placeholder="Insert link of Google Map iframe" value="{{ $subevent->iframe_map_src }}" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>CSS classes (separated by spaces)</div>
+                        <input name="classes" id="classes" value="{{ $subevent->classes }}"/>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
+                          If this is actually a link to the event's payment options, select the desired options.
+                        </div>
+                        <select name="is_payment" id="is_payment">
+                          <option value="null" @if (!$subevent->is_payment) selected @endif>N/A</option>
+                          @foreach (explode("::",env('PAYMENT_ROUTES')) as $one_route)
+                            @php
+                              $routeName = explode(';',$one_route)[0];
+                              $optionName = explode(';',$one_route)[1];
+                            @endphp
+                            <option value="{{ $routeName }}" @if ($one_route == $subevent->is_payment) selected @endif>
+                              {{ $optionName }}
+                            </option>
+                          @endforeach
+                        </select>
                       </div>
                       <button type="submit" name="addSubevent" class="btn btn-primary">
                         EDIT SUBEVENT

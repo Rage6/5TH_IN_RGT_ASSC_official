@@ -38,7 +38,7 @@
                           <input name="startMinute" type="number" id="startMinute" placeholder="mm" min="0" max="59" />
                           <select name="startAmPm">
                             <option value="am">AM</option>
-                            <option value="am">PM</option>
+                            <option value="pm">PM</option>
                           </select>
                         </div>
                       </div>
@@ -64,8 +64,38 @@
                       </div>
                       <br>
                       <div class="basicInfoGrid">
+                        <div>Need to clear the dates and times?</div>
+                        <div>CLEAR ALL</div>
+                      </div>
+                      <br>
+                      <div class="basicInfoGrid">
+                        <div>Description</div>
+                        <textarea name="description" id="description" rows="5" placeholder="Enter your HTML-template based on the guide book here"></textarea>
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>Locatoion (by city and/or state)</div>
-                        <input name="location" id="location" placeholder="Not for full address" />
+                        <input name="location" type="text" id="location" placeholder="Not for full address" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Google Map</div>
+                        <input name="iframe_map_src" type="text" id="map_iframe" placeholder="Insert link of Google Map iframe" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>CSS classes (separated by spaces)</div>
+                        <input name="classes" type="text" id="classes" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
+                          If this is actually a link to the event's payment options, select the desired options.
+                        </div>
+                        <select name="is_payment" id="is_payment">
+                          <option value="null">N/A</option>
+                          @foreach (explode("::",env('PAYMENT_ROUTES')) as $one_route)
+                            <option value="{{ explode(';',$one_route)[0] }}">
+                              {{ explode(';',$one_route)[1] }}
+                            </option>
+                          @endforeach
+                        </select>
                       </div>
                       <button type="submit" name="addSubevent" class="btn btn-primary">
                         ADD SUBEVENT
