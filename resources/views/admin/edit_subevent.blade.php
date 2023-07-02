@@ -19,6 +19,9 @@
                       <div class="basicInfoSubtitle">
                         EDIT A SUBEVENT
                       </div>
+                      <div>
+                        Please check out our <a href="{{ URL::to('/') }}/admin_instructions.html" target="_blank">documentation</a> if you have any questions about this form.
+                      </div>
                       <div class="basicInfoGrid">
                         <div>Subevent Title</div>
                         <input name="subeventTitle" id="subeventTitle" value="{{ $subevent->title }}" placeholder="required" required />
@@ -150,24 +153,24 @@
                       </div>
                       <br>
                       <div class="basicInfoGrid">
-                        <div>Description</div>
-                        <textarea name="description" id="description" rows="5" placeholder="This is a test">{{ $subevent->description }}</textarea>
+                        <div>Content (see the instructions)</div>
+                        <textarea name="description" id="description" rows="5" placeholder="For both security and customization, the content can be entered as an HTML-like content. The instructions will provide explainations and examples of how this works.">{{ $subevent->description }}</textarea>
                       </div>
                       <div class="basicInfoGrid">
                         <div>Locatoion (by city and/or state)</div>
                         <input name="location" id="location" value="{{ $subevent->location }}" placeholder="Not for full address" />
                       </div>
                       <div class="basicInfoGrid">
-                        <div>Google Map</div>
+                        <div>Google Map (see instructions)</div>
                         <input name="iframe_map_src" id="map_iframe" placeholder="Insert link of Google Map iframe" value="{{ $subevent->iframe_map_src }}" />
                       </div>
                       <div class="basicInfoGrid">
-                        <div>CSS classes (separated by spaces)</div>
+                        <div>CSS classes (see instructions)</div>
                         <input name="classes" id="classes" value="{{ $subevent->classes }}"/>
                       </div>
                       <div class="basicInfoGrid">
                         <div>
-                          If this is actually a link to the event's payment options, select the desired options.
+                          NOTE: If this subevent is simply a link to a payment form, then only enter the title and select one of these option.
                         </div>
                         <select name="is_payment" id="is_payment">
                           <option value="null" @if (!$subevent->is_payment) selected @endif>N/A</option>

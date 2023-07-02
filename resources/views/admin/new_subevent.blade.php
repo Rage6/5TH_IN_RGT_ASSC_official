@@ -19,6 +19,9 @@
                       <div class="basicInfoSubtitle">
                         CREATE A SUBEVENT
                       </div>
+                      <div>
+                        Please check out our <a href="{{ URL::to('/') }}/admin_instructions.html" target="_blank">documentation</a> if you have any questions about this form.
+                      </div>
                       <div class="basicInfoGrid">
                         <div>Subevent Title</div>
                         <input name="subeventTitle" id="subeventTitle" placeholder="required" required />
@@ -69,8 +72,8 @@
                       </div>
                       <br>
                       <div class="basicInfoGrid">
-                        <div>Description</div>
-                        <textarea name="description" id="description" rows="5" placeholder="Enter your HTML-template based on the guide book here"></textarea>
+                        <div>Content (see the instructions)</div>
+                        <textarea name="description" id="description" rows="5" placeholder="For both security and customization, the content can be entered as an HTML-like content. The instructions will provide explainations and examples of how this works."></textarea>
                       </div>
                       <div class="basicInfoGrid">
                         <div>Locatoion (by city and/or state)</div>
@@ -86,7 +89,7 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
-                          If this is actually a link to the event's payment options, select the desired options.
+                          NOTE: If this subevent is simply a link to a payment form, then only enter the title and select one of these option.
                         </div>
                         <select name="is_payment" id="is_payment">
                           <option value="null">N/A</option>

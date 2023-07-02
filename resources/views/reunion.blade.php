@@ -215,6 +215,8 @@
           $swapCharacters = [
             ["/div-start/","<div>"],
             ["/div-end/","</div>"],
+            ["/para-start/","<p>"],
+            ["/para-end/","</p>"],
             ["/br/","</br>"],
             ["/u-start/","<u>"],
             ["/u-end/","</u>"],
