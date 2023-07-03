@@ -17,7 +17,12 @@
       -------------------------------
 
       Q) What are 'events' and 'subevents' for?
-      A) This is an easy way to add/edit/delete an overall event and the 'subevents' that take place within that event. For example, an annual Reunions is an 'event'. Meanwhile, the indivial days, the hotel preparations, and the payment options within the Reunioon are 'subevents' within the Reunion. In the future, this could be used for things like event bulletins.
+      A) This is an easy way to add/edit/delete an overall event and
+      the 'subevents' that take place within that event. For example,
+      an annual Reunions is an 'event'. Meanwhile, the indivial days,
+      the hotel preparations, and the payment options within the
+      Reunioon are 'subevents' within the Reunion. In the future, this
+      could be used for things like event bulletins.
 
       Q) Where/how do I add/edit a Google Map on my subevents?
       A) Here is the steps for setting an embedded map into a subevent:
@@ -25,30 +30,39 @@
           2) Search and find the desired location.
           3) Click on the "Share" button.
           4) Click on the "Embed a map" option.
-          5) Click 'COPY HTML' to copy the iframe code and paste it onto something so that you can see the long, copied code, all at once.
-          6) Within that long code, find the word "src=", which means 'source'.
-          7) Immediately after that equal sign (=) is a long link within quotation marks. Copy that entire link (not including the quotation marks).
-          8) Paste that link into the "Google Map" input on the subevent's form.
-          9) Click either the ADD SUBEVENT or EDIT SUBEVENT to complete the addition/editting.
+          5) Click 'COPY HTML' to copy the iframe code and paste it
+          onto something so that you can see the entire line of code.
+          6) Within that long code, find the word "src=", which means
+          'source'.
+          7) Immediately after that equal sign (=) is a long link
+          within quotation marks. Copy that entire link (not including
+          the quotation marks).
+          8) Paste that link into the "Google Map" input on the
+          subevent's form.
+          9) Click either the ADD SUBEVENT or EDIT SUBEVENT to
+          complete the
+          addition/editting.
 
-      Q) Can I set my subevents in a certain order?
-      A)
+      Q) What are 'order' settings for?
+      A) Subevents
 
       ----------------------------------------------
       ENTERING SUBEVENT 'CONTENT' AS HTML (2023-07-01)
       ----------------------------------------------
 
-      - For security reasons, the database cannot save the usual HTML tags
-      - For that reason, our code is written in a way so that the custom-made
-      tags below are interpretted the website and changed into HTML tags.
-      - First, here is a list of the custom tags that our website recognizes:
+      - For security reasons, the database cannot save the usual HTML
+      tags
+      - For that reason, our code is written so that the custom-made
+      tags below are changed into actual HTML tags by our website.
+      - First, here is a list of the custom tags that our website
+      recognizes:
 
-          /div-start/ ** Content goest ** /div-end/
+          /div-start/ ** Content goes here ** /div-end/
             * The subevent's content is split into 'division' (or 'div')
             elements. The 'div' elements often contain things like paragraphs
              ('para') or lists ('unorder' or 'order')
 
-          /para-start/ ** Content goest ** /para-end/
+          /para-start/ ** Content goes here ** /para-end/
             * The 'paragraph' (or 'p') elements. They help by adding some
             space between content within a 'div' element
 
@@ -57,41 +71,43 @@
             a line. Breaks are useful when an exact address with multiple lines
             is in the 'Location' input.
 
-          /u-start/ ** Content goest ** /u-end/
+          /u-start/ ** Content goes here ** /u-end/
             * These 'underline' tags put a line under everything between them.
 
-          /unorder-start/ ** Content goest ** /unorder-end/
+          /unorder-start/ ** Content goes here ** /unorder-end/
             * This 'unordered list' (or 'ul') surrounds all of the rows
             (see below) and marks them with a dot.
 
-          /order-start/ ** Content goest ** /order-end/
+          /order-start/ ** Content goes here ** /order-end/
             * This 'ordered list' (or 'ol') surrounds all of the rows (see
             below) and marks them with ordered numbers.
 
-          /row-start/ ** Content goest ** /row-end/
+          /row-start/ ** Content goes here ** /row-end/
             * Each individual line within a list is surrounded by the 'row'
             (or 'li') tags.
 
-          /a-start-open/ ** Link goest ** /a-start-close/ ** Content goest ** /a-end/
+          /a-start-open/ ** Link goes here ** /a-start-close/ ** Content goes ** /a-end/
             * A hyperlink can be added by inserting both a) the link and b) the
             desired word/button. Be aware that this link will automatically open
-            a new page, rather than replacing our website's tab.
+            a new page, rather than replacing our website's tab. This is useful
+            for a link to the applicable hotels or city sights.
 
-          /button-start/ ** Content goest ** /button-end/
+          /button-start/ ** Content goes here ** /button-end/
             * This creates a white button with black text, although it actually
             uses 'span' tags instead of 'button' tags. This button is often
             surrounded by a hyperlink (see above).
 
-      - Second, type out your code completely on another text document so that
-      you can review it before submitting it. The example below is the final
-      result of a subevent about hotel details. Be aware that the spacing and
-      indentations are required, but they to help visualize what is nested into
-      what. Notes are pointing for references
+      - Second, type out your code completely on another text document
+      so that you can review it before entering it to the 'content'
+      box. The example below is the final result of a subevent about
+      hotel details. The spacing of this example is NOT required, but
+      they do help visualize what is nested into what. See the an
+      example here:
 
       /div-start/                      <--- First division starts
-        /u-start/                      <--- Underline of 'Room Costs' starts
-          Room Costs
-        /u-end/                        <--- Underline ends
+        /u-start/                      <--- Underline 'Rooms' starts
+          Rooms
+        /u-end/                        <--- Underline 'Rooms' ends
         /unorder-start/                <--- Unordered list starts
           /row-start/                  <--- A row begins
             Kings 2 Room Suite: $109

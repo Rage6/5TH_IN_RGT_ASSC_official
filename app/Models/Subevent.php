@@ -18,6 +18,7 @@ class Subevent extends Model
       'description',
       'location',
       'image_src',
+      'order_number',
       'is_payment',
       'event_id'
     ];

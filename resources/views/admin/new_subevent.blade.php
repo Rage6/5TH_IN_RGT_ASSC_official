@@ -19,9 +19,10 @@
                       <div class="basicInfoSubtitle">
                         CREATE A SUBEVENT
                       </div>
-                      <div>
-                        Please check out our <a href="{{ URL::to('/') }}/admin_instructions.html" target="_blank">documentation</a> if you have any questions about this form.
+                      <div class="documentation">
+                        Please check out our <a href="{{ URL::to('/') }}/admin_instructions.html" target="_blank">documentation</a> for details about entering "Content", Google Maps, CSS classes, or payment option links.
                       </div>
+                      <br>
                       <div class="basicInfoGrid">
                         <div>Subevent Title</div>
                         <input name="subeventTitle" id="subeventTitle" placeholder="required" required />
@@ -33,6 +34,10 @@
                           <input name="startDay" type="number" id="startDay" placeholder="DD" min="1" max="31" />
                           <input name="startYear" type="number" id="startYear" placeholder="YYYY" min="1800" max="9999" />
                         </div>
+                        <!-- <div class="basicInfoClearDate"> -->
+                          <div></div>
+                          <div>CLEAR START DATE</div>
+                        <!-- </div> -->
                       </div>
                       <div class="basicInfoGrid">
                         <div>Start Time</div>
@@ -67,21 +72,20 @@
                       </div>
                       <br>
                       <div class="basicInfoGrid">
-                        <div>Need to clear the dates and times?</div>
-                        <div>CLEAR ALL</div>
-                      </div>
-                      <br>
-                      <div class="basicInfoGrid">
                         <div>Content (see the instructions)</div>
                         <textarea name="description" id="description" rows="5" placeholder="For both security and customization, the content can be entered as an HTML-like content. The instructions will provide explainations and examples of how this works."></textarea>
                       </div>
                       <div class="basicInfoGrid">
-                        <div>Locatoion (by city and/or state)</div>
+                        <div>Location (by city and/or state)</div>
                         <input name="location" type="text" id="location" placeholder="Not for full address" />
                       </div>
                       <div class="basicInfoGrid">
                         <div>Google Map</div>
                         <input name="iframe_map_src" type="text" id="map_iframe" placeholder="Insert link of Google Map iframe" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Order among peer subevents</div>
+                        <input name="order_num" type="number" min="1" id="order_num" placeholder="Default order by ID number" />
                       </div>
                       <div class="basicInfoGrid">
                         <div>CSS classes (separated by spaces)</div>

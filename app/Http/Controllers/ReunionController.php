@@ -33,7 +33,10 @@ class ReunionController extends Controller
       $cart_count = get_cart_count($request)->cart_count;
       $this_user = Auth::user();
       $reunion = Event::where('slug',env('CURRENT_REUNION'))->first();
-      $subevents = Subevent::where('event_id',$reunion->id)->get();
+      $subevents = Subevent::where('event_id',$reunion->id)
+                            ->orderByRaw('order_number IS NULL')
+                            ->orderBy('order_number','ASC')
+                            ->get();
       return view('reunion',[
         'style' => 'reunion_style',
         'js' => config('app.url_ext').'/js/my_custom/reunion/reunion.js',

@@ -103,7 +103,11 @@
                           <div>
                             @foreach ($all_subevents as $one_subevent)
                               <div style="display:grid; grid-template-columns: 60% 20% 20%">
-                                <div>+ {{ $one_subevent->title }}</div>
+                                @if ($one_subevent->order_number)
+                                  <div>{{ $one_subevent->order_number }}) {{ $one_subevent->title }}</div>
+                                @else
+                                  <div>+ {{ $one_subevent->title }}</div>
+                                @endif
                                 <a href="{{ route('subevent.edit',[ 'event_id' => $event->id, 'id' => $one_subevent->id ]) }}">
                                   <div style="background-color:blue;color:white">
                                     UPDATE

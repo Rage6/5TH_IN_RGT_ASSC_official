@@ -138,13 +138,24 @@
 .basicInfoGrid {
   margin-bottom: 10px;
   display:grid;
-  grid-template-columns: 40% auto;
+  grid-template-columns: 40% 60%;
 }
 
 .basicInfoDate {
   display: grid;
-  grid-template-columns: 50px 50px 70px;
+  grid-template-columns: 50px 50px 60px;
   grid-column-gap: 5px;
+}
+
+.basicInfoClearDate {
+  display: grid;
+  grid-template-columns: 110px 60px;
+}
+
+.documentation {
+  margin-bottom:10px;
+  border: 1px dashed black;
+  padding: 5px;
 }
 
 .imgGrid {

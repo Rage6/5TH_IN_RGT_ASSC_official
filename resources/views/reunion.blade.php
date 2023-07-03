@@ -73,12 +73,26 @@
             'January','February','March','April','May','June','July','August','September','October','November','December'
           ];
         @endphp
-        <div class="reunionDate dateAndLocation">
-          {{ $months[intval(substr($reunion_main->first_day,-5,2)) - 1] }} {{ substr($reunion_main->first_day,-2,2) }} - {{ substr($reunion_main->last_day,-2,2) }}, {{ substr($reunion_main->first_day,0,4) }}
-        </div>
-        <div class="reunionLocation dateAndLocation">
-          {{ $reunion_main->location }}
-        </div>
+        <!-- <div class="reunionDate dateAndLocation"> -->
+        @if ($reunion_main->first_day && $reunion_main->last_day)
+          <div class="reunionDate dateAndLocation">
+            {{ $months[intval(substr($reunion_main->first_day,-5,2)) - 1] }} {{ substr($reunion_main->first_day,-2,2) }} - {{ substr($reunion_main->last_day,-2,2) }}, {{ substr($reunion_main->first_day,0,4) }}
+          </div>
+        @else
+          <div class="reunionDate dateAndLocation" style="color:rgba(0,0,0,0)">
+            No date/time available
+          </div>
+        @endif
+        <!-- </div> -->
+        @if ($reunion_main->location)
+          <div class="reunionLocation dateAndLocation">
+            {{ $reunion_main->location }}
+          </div>
+        @else
+          <div class="reunionLocation dateAndLocation" style="color: rgba(0,0,0,0)">
+            No location available
+          </div>
+        @endif
         <div class="regBttn" id="regBttn" onclick="openAndCloseForm()">
           Register Now!
         </div>
@@ -190,7 +204,9 @@
               <div
                 class="reunionSectBttn"
                 data-id="{{ strval($one_subevent->id) }}"
-                data-section="{{ str_replace('Section','',$one_subevent->classes) }}"
+                @if ($one_subevent->classes)
+                  data-section="{{ str_replace('Section','',$one_subevent->classes) }}"
+                @endif
                 data-type="button"
                 onclick="clickSection({{ strval($one_subevent->id) }},'button')">{{ strtoupper($one_subevent->title) }}</div>
             </div>
@@ -198,7 +214,11 @@
             @php
               $param_array = explode(";",$one_subevent->is_payment);
             @endphp
-            <div class="regSection {{ explode(',',$one_subevent->classes)[0] }}">
+            @if ($one_subevent->classes)
+              <div class="regSection {{ $one_subevent->classes }}">
+            @else
+              <div class="regSection">
+            @endif
               <a href="{{ route('items.all',['purpose'=> $param_array[0],'title'=>$param_array[1]]) }}">
                 <div class="reunionSectBttn">
                   {{ strtoupper($one_subevent->title) }}
@@ -250,9 +270,15 @@
           ];
         @endphp
         <div
-          class="{{ str_replace('Section','',$one_subcontent->classes) }}Box reunionSectBox"
+          @if ($one_subcontent->classes)
+            class="{{ str_replace('Section','',$one_subcontent->classes) }}Box reunionSectBox"
+          @else
+            class="reunionSectBox"
+          @endif
           data-id="{{ strval($one_subcontent->id) }}"
-          data-section="{{ str_replace('Section','',$one_subcontent->classes) }}"
+          @if ($one_subcontent->classes)
+            data-section="{{ str_replace('Section','',$one_subcontent->classes) }}"
+          @endif
           data-type="box">
           <div class="boxTitle">
             @php
@@ -292,7 +318,11 @@
               @endif
             @endif
           </div>
-          <div class="boxContent {{ str_replace('Section','',$one_subcontent->classes) }}Content">
+          @if ($one_subcontent->classes)
+            <div class="boxContent {{ str_replace('Section','',$one_subcontent->classes) }}Content">
+          @else
+            <div class="boxContent">
+          @endif
             @if ($one_subcontent->location)
               @php
                 $html_location = $one_subcontent->location;
@@ -300,10 +330,12 @@
                   $html_location = str_replace($swapCharacters[$i][0],$swapCharacters[$i][1],$html_location);
                 };
               @endphp
-              <div>
-                <u>Location:</u>
-                {!! $html_location !!}
-              </div>
+              @if ($html_location)
+                <div>
+                  <u>Location:</u>
+                  {!! $html_location !!}
+                </div>
+              @endif
             @endif
             @if ($one_subcontent->description)
               @php

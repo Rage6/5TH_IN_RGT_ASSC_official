@@ -19,8 +19,8 @@
                       <div class="basicInfoSubtitle">
                         EDIT A SUBEVENT
                       </div>
-                      <div>
-                        Please check out our <a href="{{ URL::to('/') }}/admin_instructions.html" target="_blank">documentation</a> if you have any questions about this form.
+                      <div class="documentation">
+                        Please check out our <a href="{{ URL::to('/') }}/admin_instructions.html" target="_blank">documentation</a> for details about entering Content, Google Maps, CSS classes, or payment option links.
                       </div>
                       <div class="basicInfoGrid">
                         <div>Subevent Title</div>
@@ -159,6 +159,10 @@
                       <div class="basicInfoGrid">
                         <div>Locatoion (by city and/or state)</div>
                         <input name="location" id="location" value="{{ $subevent->location }}" placeholder="Not for full address" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Order among peer subevents</div>
+                        <input name="order_num" type="number" min="1" id="order_num" value="{{ $subevent->order_number }}" placeholder="Default order by ID number" />
                       </div>
                       <div class="basicInfoGrid">
                         <div>Google Map (see instructions)</div>

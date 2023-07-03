@@ -15,6 +15,7 @@ use App\Http\Controllers\stdClass;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -449,7 +450,13 @@ class AdminController extends Controller
 
     public function edit_event_index($id) {
       $event = Event::find($id);
-      $all_subevents = Event::find($id)->all_event_subevents;
+
+      // This was required IOT get the subevents ordered and with the unordered subevents at the bottom
+      $all_subevents = DB::table('subevents')
+                    ->where('event_id',$id)
+                    ->orderByRaw('order_number IS NULL')
+                    ->orderBy('order_number','ASC')
+                    ->get();
 
       if ($event->first_day) {
         $firstDay = [
@@ -584,6 +591,7 @@ class AdminController extends Controller
         'endMinute'        => 'nullable|integer',
         'endAmPm'          => 'required|string',
         'iframe_map_src'   => 'nullable|string',
+        'order_num'        => 'nullable|integer',
         'classes'          => 'nullable|string',
         'description'      => 'nullable|string',
         'location'         => 'nullable|string',
@@ -661,6 +669,7 @@ class AdminController extends Controller
       $input['end_time'] = $lastDay;
       $input['classes'] = $request->classes;
       $input['description'] = $request->description;
+      $input['order_number'] = $request->order_num;
       $input['location'] = $request->location;
       $input['iframe_map_src'] = $request->iframe_map_src;
       // $input['image_src'] = $request->imgSource;
@@ -760,11 +769,12 @@ class AdminController extends Controller
         'endMinute'        => 'nullable|integer',
         'endAmPm'          => 'required|string',
         'iframe_map_src'   => 'nullable|string',
-        // 'classes'          => 'nullable|string',
+        'classes'          => 'nullable|string',
         'description'      => 'nullable|string',
         'location'         => 'nullable|string',
+        'order_num'        => 'nullable|integer',
         // 'image_src'        => 'nullable|string',
-        // 'is_payment'       => 'nullable|string'
+        'is_payment'       => 'nullable|string'
       ]);
 
       if ($request->startYear && $request->startMonth && $request->startDay) {
@@ -837,7 +847,8 @@ class AdminController extends Controller
       $input['classes'] = $request->classes;
       $input['description'] = $request->description;
       $input['location'] = $request->location;
-      $input['image_src'] = $request->imgSource;
+      $input['order_number'] = $request->order_num;
+      // $input['image_src'] = $request->imgSource;
       $input['is_payment'] = $request->forPaymentRoute;
       $input['event_id'] = $event_id;
 
