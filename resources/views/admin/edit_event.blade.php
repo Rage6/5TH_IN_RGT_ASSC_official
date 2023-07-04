@@ -35,7 +35,9 @@
                               value="{{ $firstDay[0] }}"
                             @endif
                             min="1"
-                            max="12" />
+                            max="12"
+                            data-level="date"
+                            data-phase="start"/>
                           <input
                             name="startDay"
                             type="number"
@@ -45,7 +47,9 @@
                               value="{{ $firstDay[1] }}"
                             @endif
                             min="1"
-                            max="31" />
+                            max="31"
+                            data-level="date"
+                            data-phase="start"/>
                           <input
                             name="startYear"
                             type="number"
@@ -55,7 +59,15 @@
                               value="{{ $firstDay[2] }}"
                             @endif
                             min="1800"
-                            max="9999" />
+                            max="9999"
+                            data-level="date"
+                            data-phase="start" />
+                        </div>
+                        <div></div>
+                        <div>
+                          <span data-level="date" data-phase="start">
+                            CLEAR START DATE
+                          </span>
                         </div>
                       </div>
                       <div class="basicInfoGrid">
@@ -70,7 +82,9 @@
                               value="{{ $lastDay[0] }}"
                             @endif
                             min="1"
-                            max="12" />
+                            max="12"
+                            data-level="date"
+                            data-phase="end"/>
                           <input
                             name="endDay"
                             type="number"
@@ -80,7 +94,9 @@
                               value="{{ $lastDay[1] }}"
                             @endif
                             min="1"
-                            max="31" />
+                            max="31"
+                            data-level="date"
+                            data-phase="end"/>
                           <input
                             name="endYear"
                             type="number"
@@ -90,7 +106,15 @@
                               value="{{ $lastDay[2] }}"
                             @endif
                             min="1800"
-                            max="9999" />
+                            max="9999"
+                            data-level="date"
+                            data-phase="end"/>
+                        </div>
+                        <div></div>
+                        <div>
+                          <span data-level="date" data-phase="end">
+                            CLEAR START DATE
+                          </span>
                         </div>
                       </div>
                       <div class="basicInfoGrid">

@@ -26,17 +26,77 @@
                       <div class="basicInfoGrid">
                         <div>Start Date</div>
                         <div class="basicInfoDate">
-                          <input name="startMonth" type="number" id="startMonth" placeholder="MM" min="1" max="12" />
-                          <input name="startDay" type="number" id="startDay" placeholder="DD" min="1" max="31" />
-                          <input name="startYear" type="number" id="startYear" placeholder="YYYY" min="1800" max="9999" />
+                          <input
+                            name="startMonth"
+                            type="number"
+                            id="startMonth"
+                            placeholder="MM"
+                            min="1"
+                            max="12"
+                            data-level="date"
+                            data-phase="start"/>
+                          <input
+                            name="startDay"
+                            type="number"
+                            id="startDay"
+                            placeholder="DD"
+                            min="1"
+                            max="31"
+                            data-level="date"
+                            data-phase="start"/>
+                          <input
+                            name="startYear"
+                            type="number"
+                            id="startYear"
+                            placeholder="YYYY"
+                            min="1800"
+                            max="9999"
+                            data-level="date"
+                            data-phase="start"/>
+                        </div>
+                        <div></div>
+                        <div>
+                          <span data-level="date" data-phase="start">
+                            CLEAR START DATE
+                          </span>
                         </div>
                       </div>
                       <div class="basicInfoGrid">
                         <div>End Date</div>
                         <div class="basicInfoDate">
-                          <input name="endMonth" type="number" id="endMonth" placeholder="MM" min="1" max="12" />
-                          <input name="endDay" type="number" id="endDay" placeholder="DD" min="1" max="31" />
-                          <input name="endYear" type="number" id="endYear" placeholder="YYYY" min="1800" max="9999" />
+                          <input
+                            name="endMonth"
+                            type="number"
+                            id="endMonth"
+                            placeholder="MM"
+                            min="1"
+                            max="12"
+                            data-level="date"
+                            data-phase="end"/>
+                          <input
+                            name="endDay"
+                            type="number"
+                            id="endDay"
+                            placeholder="DD"
+                            min="1"
+                            max="31"
+                            data-level="date"
+                            data-phase="end"/>
+                          <input
+                            name="endYear"
+                            type="number"
+                            id="endYear"
+                            placeholder="YYYY"
+                            min="1800"
+                            max="9999"
+                            data-level="date"
+                            data-phase="end"/>
+                        </div>
+                        <div></div>
+                        <div>
+                          <span data-level="date" data-phase="end">
+                            CLEAR END DATE
+                          </span>
                         </div>
                       </div>
                       <div class="basicInfoGrid">

@@ -36,6 +36,8 @@
                             placeholder="MM"
                             min="1"
                             max="12"
+                            data-level="date"
+                            data-phase="start"
                             @if ($startDate) value="{{ $startDate[0] }}" @endif />
                           <input
                             name="startDay"
@@ -44,6 +46,8 @@
                             placeholder="DD"
                             min="1"
                             max="31"
+                            data-level="date"
+                            data-phase="start"
                             @if ($startDate) value="{{ $startDate[1] }}" @endif />
                           <input
                             name="startYear"
@@ -52,7 +56,15 @@
                             placeholder="YYYY"
                             min="1800"
                             max="9999"
+                            data-level="date"
+                            data-phase="start"
                             @if ($startDate) value="{{ $startDate[2] }}" @endif />
+                        </div>
+                        <div></div>
+                        <div>
+                          <span data-level="date" data-phase="start">
+                            CLEAR START DATE
+                          </span>
                         </div>
                       </div>
                       <div class="basicInfoGrid">
@@ -65,6 +77,8 @@
                             placeholder="hh"
                             min="1"
                             max="12"
+                            data-level="time"
+                            data-phase="start"
                             @if ($startTime) value="{{ $startTime[0] }}" @endif />
                           <input
                             name="startMinute"
@@ -73,6 +87,8 @@
                             placeholder="mm"
                             min="0"
                             max="59"
+                            data-level="time"
+                            data-phase="start"
                             @if ($startTime) value="{{ $startTime[1] }}" @endif />
                           <select name="startAmPm">
                             <option
@@ -87,6 +103,12 @@
                             </option>
                           </select>
                         </div>
+                        <div></div>
+                        <div>
+                          <span data-level="time" data-phase="start">
+                            CLEAR START TIME
+                          </span>
+                        </div>
                       </div>
                       <br>
                       <div class="basicInfoGrid">
@@ -99,6 +121,8 @@
                             placeholder="MM"
                             min="1"
                             max="12"
+                            data-level="date"
+                            data-phase="end"
                             @if ($endDate) value="{{ $endDate[0] }}" @endif />
                           <input
                             name="endDay"
@@ -107,6 +131,8 @@
                             placeholder="DD"
                             min="1"
                             max="31"
+                            data-level="date"
+                            data-phase="end"
                             @if ($endDate) value="{{ $endDate[1] }}" @endif />
                           <input
                             name="endYear"
@@ -115,7 +141,15 @@
                             placeholder="YYYY"
                             min="1800"
                             max="9999"
+                            data-level="date"
+                            data-phase="end"
                             @if ($endDate) value="{{ $endDate[2] }}" @endif/>
+                        </div>
+                        <div></div>
+                        <div>
+                          <span data-level="date" data-phase="end">
+                            CLEAR END DATE
+                          </span>
                         </div>
                       </div>
                       <div class="basicInfoGrid">
@@ -128,6 +162,8 @@
                             placeholder="hh"
                             min="1"
                             max="12"
+                            data-level="time"
+                            data-phase="end"
                             @if ($endTime) value="{{ $endTime[0] }}" @endif />
                           <input
                             name="endMinute"
@@ -136,6 +172,8 @@
                             placeholder="mm"
                             min="0"
                             max="59"
+                            data-level="time"
+                            data-phase="end"
                             @if ($endTime) value="{{ $endTime[1] }}" @endif />
                           <select name="endAmPm">
                             <option
@@ -149,6 +187,12 @@
                               PM
                             </option>
                           </select>
+                        </div>
+                        <div></div>
+                        <div>
+                          <span data-level="time" data-phase="end">
+                            CLEAR END TIME
+                          </span>
                         </div>
                       </div>
                       <br>

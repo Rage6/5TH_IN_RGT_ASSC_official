@@ -30,44 +30,64 @@
                       <div class="basicInfoGrid">
                         <div>Start Date</div>
                         <div class="basicInfoDate">
-                          <input name="startMonth" type="number" id="startMonth" placeholder="MM" min="1" max="12" />
-                          <input name="startDay" type="number" id="startDay" placeholder="DD" min="1" max="31" />
-                          <input name="startYear" type="number" id="startYear" placeholder="YYYY" min="1800" max="9999" />
+                          <input name="startMonth" type="number" id="startMonth" placeholder="MM" min="1" max="12" data-level="date" data-phase="start" />
+                          <input name="startDay" type="number" id="startDay" placeholder="DD" min="1" max="31" data-level="date" data-phase="start" />
+                          <input name="startYear" type="number" id="startYear" placeholder="YYYY" min="1800" max="9999" data-level="date" data-phase="start" />
                         </div>
-                        <!-- <div class="basicInfoClearDate"> -->
-                          <div></div>
-                          <div>CLEAR START DATE</div>
-                        <!-- </div> -->
+                        <div></div>
+                        <div>
+                          <span data-level="date" data-phase="start">
+                            CLEAR START DATE
+                          </span>
+                        </div>
                       </div>
                       <div class="basicInfoGrid">
                         <div>Start Time</div>
                         <div class="basicInfoDate">
-                          <input name="startHour" type="number" id="startHour" placeholder="hh" min="1" max="12" />
-                          <input name="startMinute" type="number" id="startMinute" placeholder="mm" min="0" max="59" />
+                          <input name="startHour" type="number" id="startHour" placeholder="hh" min="1" max="12" data-level="time" data-phase="start" />
+                          <input name="startMinute" type="number" id="startMinute" placeholder="mm" min="0" max="59" data-level="time" data-phase="start" />
                           <select name="startAmPm">
                             <option value="am">AM</option>
                             <option value="pm">PM</option>
                           </select>
+                        </div>
+                        <div></div>
+                        <div>
+                          <span data-level="time" data-phase="start">
+                            CLEAR START TIME
+                          </span>
                         </div>
                       </div>
                       <br>
                       <div class="basicInfoGrid">
                         <div>End Date</div>
                         <div class="basicInfoDate">
-                          <input name="endMonth" type="number" id="endMonth" placeholder="MM" min="1" max="12" />
-                          <input name="endDay" type="number" id="endDay" placeholder="DD" min="1" max="31" />
-                          <input name="endYear" type="number" id="endYear" placeholder="YYYY" min="1800" max="9999" />
+                          <input name="endMonth" type="number" id="endMonth" placeholder="MM" min="1" max="12" data-level="date" data-phase="end" />
+                          <input name="endDay" type="number" id="endDay" placeholder="DD" min="1" max="31" data-level="date" data-phase="end" />
+                          <input name="endYear" type="number" id="endYear" placeholder="YYYY" min="1800" max="9999" data-level="date" data-phase="end" />
+                        </div>
+                        <div></div>
+                        <div>
+                          <span data-level="date" data-phase="end">
+                            CLEAR END DATE
+                          </span>
                         </div>
                       </div>
                       <div class="basicInfoGrid">
                         <div>End Time</div>
                         <div class="basicInfoDate">
-                          <input name="endHour" type="number" id="endHour" placeholder="hh" min="1" max="12" />
-                          <input name="endMinute" type="number" id="endMinute" placeholder="mm" min="0" max="59" />
+                          <input name="endHour" type="number" id="endHour" placeholder="hh" min="1" max="12" data-level="time" data-phase="end"/>
+                          <input name="endMinute" type="number" id="endMinute" placeholder="mm" min="0" max="59" data-level="time" data-phase="end"/>
                           <select name="endAmPm">
                             <option value="am">AM</option>
                             <option value="pm">PM</option>
                           </select>
+                        </div>
+                        <div></div>
+                        <div>
+                          <span data-level="time" data-phase="end">
+                            CLEAR END TIME
+                          </span>
                         </div>
                       </div>
                       <br>

@@ -353,4 +353,16 @@ $(document).ready(() => {
     };
   });
 
+  // AFTER STARTING OFFICIAL WEBSITE
+
+  // var clearDateTimeInput = function(level,phase) {
+  //   $("input[data-level=" + level + "][data-phase=" + phase + "]").val(null);
+  // };
+
+  $("span[data-level][data-phase]").click(()=>{
+    var level = event.target.dataset.level; // 'level' is date or time
+    var phase = event.target.dataset.phase; // 'phase' is start or end
+    $("input[data-level=" + level + "][data-phase=" + phase + "]").val(null);
+  });
+
 });
