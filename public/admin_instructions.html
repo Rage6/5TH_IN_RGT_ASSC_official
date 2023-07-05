@@ -86,16 +86,28 @@
             * Each individual line within a list is surrounded by the 'row'
             (or 'li') tags.
 
-          /a-start-open/ ** Link goes here ** /a-start-close/ ** Content goes ** /a-end/
-            * A hyperlink can be added by inserting both a) the link and b) the
-            desired word/button. Be aware that this link will automatically open
-            a new page, rather than replacing our website's tab. This is useful
-            for a link to the applicable hotels or city sights.
+          /link-start-<something>/ ** Content goes ** /link-end/
+            * A hyperlink can be added by two steps...
+            1) Surround the above tags, replacing <something> with a
+              unique word
+            2) Scroll to the bottom of the overall input, and add two
+            vertical lines (||). Next to that, add the unique word
+            from #1, then two greater than signs (>>), then the link.
+            * For a good example, check out the 'hotel' link at the
+            bottom of the example below.
+            * IMPORTANT: Everything after || should NOT be separated
+            by spaces or new lines.
+            * NOTE: Everything after || is like an unofficial 'object'
+            since its keys (ex. 'hotel' and 'cars') are attached
+            to values (in this case, two links). These values
+            can then be referenced by their keys in a custome tag
+            (ex. link-start-*).
+            * What are these special characters for, you may ask.
+            Things like ||, ::, and >> are cues to split those lines
+            at certain times.
 
           /button-start/ ** Content goes here ** /button-end/
-            * This creates a white button with black text, although it actually
-            uses 'span' tags instead of 'button' tags. This button is often
-            surrounded by a hyperlink (see above).
+            * This creates a white button with black text, although it actually uses 'span' tags instead of 'button' tags. This button is often surrounded by a hyperlink (see above).
 
       - Second, type out your code completely on another text document
       so that you can review it before entering it to the 'content'
@@ -109,29 +121,28 @@
           Rooms
         /u-end/                        <--- Underline 'Rooms' ends
         /unorder-start/                <--- Unordered list starts
-          /row-start/                  <--- A row begins
+          /row-start/                  <--- First line begins
             Kings 2 Room Suite: $109
-          /row-end/                    <--- A row ends
-          /row-start/
+          /row-end/                    <--- First line ends
+          /row-start/                  <--- Second line starts
             Queens 2 Room Suite: $109
-          /row-end/
+          /row-end/                    <--- Second line ends
         /unorder-end/                  <--- Unordered list ends
       /div-end/                        <--- First division ends
-      /div-start/
+      /div-start/                      <--- Second division starts
         /br/                           <--- Adds space after the list
         Call (610)-834-8300 and, when booking, tell them "5th Infantry
         Regiment Association". Booking prices are good up to 3 days before
         and after the reunion dates. Reservations must be made by Friday,
         August 12, 2023.
-        /br/
-        /a-start-open/                 <--- Hyperlink starts
-          https://www.hilton.com/en/book/reservation/deeplink/?ctyhocn=PHLGHDT&amp;groupCode=CDTRAR&amp;arrivaldate=2023-09-12&amp;departuredate=2023-09-17&amp;cid=OM,WW,HILTONLINK,EN,DirectLink&amp;fromId=HILTONLINKDIRECT
-        /a-start-close/                <--- Link part ends, word part begins
+        /br/                           <--- Adds space after the paragraph
+        /link-start-hotel/             <--- Hyperlink starts wrap around button
           /button-start/               <--- Button 'Click Here' starts
             CLICK HERE
           /button-end/                 <--- Button ends
-        /a-end/                        <--- Hyperlink surrounds /button/
+        /link-end/               <--- Hyperlink ends wrap around button
       /div-end/                        <--- Second division ends
+      ||hotel>>https://www.hilton.com/::cars>>https://www.alamo.com/en/home.html
     </pre>
   </body>
 </html>

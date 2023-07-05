@@ -118,7 +118,7 @@
                         <select name="is_payment" id="is_payment">
                           <option value="null">N/A</option>
                           @foreach (explode("::",env('PAYMENT_ROUTES')) as $one_route)
-                            <option value="{{ explode(';',$one_route)[0] }}">
+                            <option value="{{ $one_route }}">
                               {{ explode(';',$one_route)[1] }}
                             </option>
                           @endforeach

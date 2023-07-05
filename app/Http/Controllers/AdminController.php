@@ -660,9 +660,9 @@ class AdminController extends Controller
         $lastDay = null;
       };
 
-      if ($request->forPaymentRoute == "null") {
-        $request->forPaymentRoute = null;
-      };
+      if ($request->is_payment == "null") {
+        $request->is_payment = null;
+      }
 
       $input['title'] = $request->subeventTitle;
       $input['start_time'] = $firstDate;
@@ -673,7 +673,7 @@ class AdminController extends Controller
       $input['location'] = $request->location;
       $input['iframe_map_src'] = $request->iframe_map_src;
       // $input['image_src'] = $request->imgSource;
-      $input['is_payment'] = $request->forPaymentRoute;
+      $input['is_payment'] = $request->is_payment;
       $input['event_id'] = $event_id;
 
       Subevent::create($input);
@@ -840,6 +840,10 @@ class AdminController extends Controller
 
       $input = Subevent::find($id);
 
+      if ($request->is_payment == "null") {
+        $request->is_payment = null;
+      };
+
       $input['title'] = $request->subeventTitle;
       $input['start_time'] = $firstDate;
       $input['end_time'] = $lastDay;
@@ -849,7 +853,7 @@ class AdminController extends Controller
       $input['location'] = $request->location;
       $input['order_number'] = $request->order_num;
       // $input['image_src'] = $request->imgSource;
-      $input['is_payment'] = $request->forPaymentRoute;
+      $input['is_payment'] = $request->is_payment;
       $input['event_id'] = $event_id;
 
       $input->save();

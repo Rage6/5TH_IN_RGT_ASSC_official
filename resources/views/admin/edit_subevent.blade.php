@@ -227,7 +227,7 @@
                               $routeName = explode(';',$one_route)[0];
                               $optionName = explode(';',$one_route)[1];
                             @endphp
-                            <option value="{{ $routeName }}" @if ($one_route == $subevent->is_payment) selected @endif>
+                            <option value="{{ $one_route }}" @if ($one_route == $subevent->is_payment) selected @endif>
                               {{ $optionName }}
                             </option>
                           @endforeach

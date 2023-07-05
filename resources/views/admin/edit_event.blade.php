@@ -19,6 +19,10 @@
                       <div class="basicInfoSubtitle">
                         EDIT AN EVENT
                       </div>
+                      <div class="documentation">
+                        Please check out our <a href="{{ URL::to('/') }}/admin_instructions.html" target="_blank">documentation</a> for details about entering "Content", Google Maps, CSS classes, or payment option links.
+                      </div>
+                      <br>
                       <div class="basicInfoGrid">
                         <div>Event Title</div>
                         <input name="eventTitle" id="eventTitle" placeholder="required" value="{{ $event->title }}" required />

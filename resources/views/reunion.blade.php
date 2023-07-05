@@ -246,9 +246,7 @@
             ["/order-end/","</ol>"],
             ["/row-start/","<li>"],
             ["/row-end/","</li>"],
-            ["/a-start-open/","<a target='_blank' href='"],
-            ["/a-start-close/","'>"],
-            ["/a-end/","</a>"],
+            ["/link-end/","</a>"],
             ["/button-start/","<span style='background-color:white;color:black;margin-left:10%;padding:5px;border-radius:15px'>"],
             ["/button-end/","</span>"],
             ["","php"],
@@ -340,6 +338,15 @@
             @if ($one_subcontent->description)
               @php
                 $html_description = $one_subcontent->description;
+                $html_split = explode("||",$html_description);
+                $html_description = $html_split[0];
+                if (count($html_split) > 1) {
+                  $all_link_array = explode("::",$html_split[1]);
+                  for ($j = 0; $j < count($all_link_array); $j++) {
+                    $this_array = explode(">>",$all_link_array[$j]);
+                    $html_description = str_replace("/link-start-".$this_array[0]."/","<a target='_blank' href='".$this_array[1]."'>",$html_description);
+                  };
+                };
                 for ($i = 0; $i < count($swapCharacters); $i++) {
                   $html_description = str_replace($swapCharacters[$i][0],$swapCharacters[$i][1],$html_description);
                 };
