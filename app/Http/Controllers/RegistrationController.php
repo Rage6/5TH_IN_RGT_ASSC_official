@@ -107,13 +107,13 @@ class RegistrationController extends Controller
       $new_submission->unit_details = $request->unit_details;
       $new_submission->email = $request->email;
       $new_submission->comments = $request->comments;
-      // if (App::environment() == 'local') {
-      //   $registration_email_test = explode(',',env('MEMBERSHIP_EMAIL_TEST'));
-      //   Mail::to($registration_email_test)->send(new RegistrationEmail($new_submission));
-      // } else {
-      //   $registration_email_official = explode(',',env('MEMBERSHIP_EMAIL_OFFICIAL'));
-      //   Mail::to($registration_email_official)->send(new RegistrationEmail($new_submission));
-      // };
+      if (App::environment() == 'local') {
+        $registration_email_test = explode(',',env('MEMBERSHIP_EMAIL_TEST'));
+        Mail::to($registration_email_test)->send(new RegistrationEmail($new_submission));
+      } else {
+        $registration_email_official = explode(',',env('MEMBERSHIP_EMAIL_OFFICIAL'));
+        Mail::to($registration_email_official)->send(new RegistrationEmail($new_submission));
+      };
 
       $applicant['first_name'] = $request->first_name;
       $applicant['last_name'] = $request->last_name;
@@ -129,6 +129,7 @@ class RegistrationController extends Controller
       $applicant['unit_details'] = $request->unit_details;
       $applicant['email'] = $request->email;
       $applicant['comments'] = $request->comments;
+      $applicant['type'] = 'membership';
       Applicant::create($applicant);
 
       return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options');

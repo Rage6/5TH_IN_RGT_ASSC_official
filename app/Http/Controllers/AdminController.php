@@ -889,10 +889,10 @@ class AdminController extends Controller
       ]);
     }
 
-    public function applicant_list_index() {
-      $all_applications = Applicant::orderBy('created_at','desc')->paginate(20);
+    public function membership_list_index() {
+      $all_applications = Applicant::where('type','membership')->orderBy('created_at','desc')->paginate(20);
 
-      return view('admin.all_applications',[
+      return view('admin.all_member_applications',[
         'all_applications' => $all_applications
       ]);
     }

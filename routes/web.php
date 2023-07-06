@@ -122,7 +122,7 @@ Route::middleware('auth')->group(function() {
     Route::get('payment-history',[App\Http\Controllers\AdminController::class,'payment_history_index'])->name('payment.history');
   });
 
-  Route::middleware(['permission:See Applicant List'])->group(function() {
-    Route::get('applicant-list',[App\Http\Controllers\AdminController::class,'applicant_list_index'])->name('applicant.list');
+  Route::middleware(['permission:See Membership Applicants'])->group(function() {
+    Route::get('membership-applicant-list',[App\Http\Controllers\AdminController::class,'membership_list_index'])->name('membership.list');
   });
 });
