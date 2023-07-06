@@ -365,4 +365,16 @@ $(document).ready(() => {
     $("input[data-level=" + level + "][data-phase=" + phase + "]").val(null);
   });
 
+  // Open and close the application details
+  $('[data-id][data-type="head"]').click(()=>{
+    var head = $("[data-id='" + event.target.dataset.id + "'][data-type='head']");
+    var details = $("[data-id='" + event.target.dataset.id + "'][data-type='details']");
+    if ($(details).css('display') == 'none') {
+      $("[data-id][data-type='details']").css('display','none');
+      $(details).css('display','block');
+    } else {
+      $(details).css('display','none');
+    };
+  })
+
 });

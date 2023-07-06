@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Mail\RegistrationEmail;
 
+use App\Models\Applicant;
+
 use Illuminate\Support\Facades\App;
 
 class RegistrationController extends Controller
@@ -50,6 +52,23 @@ class RegistrationController extends Controller
 
     public function post(Request $request)
     {
+      $request->validate([
+        'first_name' => 'string|required',
+        'last_name' => 'string|required',
+        'spouse_name' => 'string|nullable',
+        'address_line_1' => 'string|nullable',
+        'address_line_2' => 'string|nullable',
+        'city' => 'string|nullable',
+        'state' => 'string|nullable',
+        'zip_code' => 'string|nullable',
+        'country' => 'string|nullable',
+        'phone_number' => 'string|nullable',
+        'conflicts' => 'string|nullable',
+        'unit_details' => 'string|nullable',
+        'email' => 'string|required',
+        'comments' => 'string|nullable|max:255',
+      ]);
+
       $currentYear = date("Y");
       $modern_conflicts = DB::table('conflicts')
         ->select('id','name')
@@ -57,6 +76,8 @@ class RegistrationController extends Controller
         ->orWhere('end_year','=',null)
         ->orderBy('start_year','asc')
         ->get();
+
+      // Creates an applicant letter and mails it
       $init_submission = app();
       $new_submission = $init_submission->make('stdClass');
       $new_submission->first_name = $request->first_name;
@@ -86,13 +107,30 @@ class RegistrationController extends Controller
       $new_submission->unit_details = $request->unit_details;
       $new_submission->email = $request->email;
       $new_submission->comments = $request->comments;
-      if (App::environment() == 'local') {
-        $registration_email_test = explode(',',env('MEMBERSHIP_EMAIL_TEST'));
-        Mail::to($registration_email_test)->send(new RegistrationEmail($new_submission));
-      } else {
-        $registration_email_official = explode(',',env('MEMBERSHIP_EMAIL_OFFICIAL'));
-        Mail::to($registration_email_official)->send(new RegistrationEmail($new_submission));
-      };
+      // if (App::environment() == 'local') {
+      //   $registration_email_test = explode(',',env('MEMBERSHIP_EMAIL_TEST'));
+      //   Mail::to($registration_email_test)->send(new RegistrationEmail($new_submission));
+      // } else {
+      //   $registration_email_official = explode(',',env('MEMBERSHIP_EMAIL_OFFICIAL'));
+      //   Mail::to($registration_email_official)->send(new RegistrationEmail($new_submission));
+      // };
+
+      $applicant['first_name'] = $request->first_name;
+      $applicant['last_name'] = $request->last_name;
+      $applicant['spouse_name'] = $request->spouse_name;
+      $applicant['address_line_1'] = $request->address_line_1;
+      $applicant['address_line_2'] = $request->address_line_2;
+      $applicant['city'] = $request->city;
+      $applicant['state'] = $request->state;
+      $applicant['zip_code'] = $request->zip_code;
+      $applicant['country'] = $request->country;
+      $applicant['phone_number'] = $request->phone_number;
+      $applicant['conflicts'] = $new_submission->conflicts;
+      $applicant['unit_details'] = $request->unit_details;
+      $applicant['email'] = $request->email;
+      $applicant['comments'] = $request->comments;
+      Applicant::create($applicant);
+
       return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options');
     }
 

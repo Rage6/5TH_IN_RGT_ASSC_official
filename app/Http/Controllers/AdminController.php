@@ -10,6 +10,7 @@ use App\Models\Role;
 use App\Models\Event;
 use App\Models\Subevent;
 use App\Models\Payment;
+use App\Models\Applicant;
 
 use App\Http\Controllers\stdClass;
 use Illuminate\Support\Facades\Hash;
@@ -885,6 +886,14 @@ class AdminController extends Controller
 
       return view('admin.all_payments',[
         'all_payments' => $all_payments
+      ]);
+    }
+
+    public function applicant_list_index() {
+      $all_applications = Applicant::orderBy('created_at','desc')->paginate(20);
+
+      return view('admin.all_applications',[
+        'all_applications' => $all_applications
       ]);
     }
 }

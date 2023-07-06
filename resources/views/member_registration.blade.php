@@ -69,25 +69,25 @@
               <input name="spouse_name" type="text" placeholder="Spouse Name"/>
             </div>
             <div class="regText">
-              <input name="address_line_1" type="text" placeholder="Street Address" required/>
+              <input name="address_line_1" type="text" placeholder="Street Address"/>
             </div>
             <div class="regText">
               <input name="address_line_2" type="text" placeholder="APT, Room #, etc."/>
             </div>
             <div class="regText">
-              <input name="city" type="text" placeholder="City" required/>
+              <input name="city" type="text" placeholder="City"/>
             </div>
             <div class="regText">
-              <input name="state" type="text" placeholder="State" required/>
+              <input name="state" type="text" placeholder="State"/>
             </div>
             <div class="regText">
-              <input name="zip_code" type="text" placeholder="Zip Code" required/>
+              <input name="zip_code" type="text" placeholder="Zip Code"/>
             </div>
             <div class="regText">
               <input name="country" type="text" placeholder="Country (if not US)"/>
             </div>
             <div class="regText">
-              <input name="phone_number" type="text" placeholder="Phone Number" required/>
+              <input name="phone_number" type="text" placeholder="Phone Number"/>
             </div>
             <div class="regText">
               <input name="email" type="email" placeholder="Email" />
@@ -116,7 +116,7 @@
               <textarea name="unit_details" placeholder="List the unit(s), job(s), and start/end time(s) in the Regiment. (Example: 'Driver, JUN 2006 - AUG 2007')"></textarea>
             </div>
             <div class="regText">
-              <textarea name="comments" placeholder="Include any necessarry questions or comments about your registration form"></textarea>
+              <textarea maxlength="255" name="comments" placeholder="Include any necessarry questions or comments about your registration form"></textarea>
             </div>
             <div class="submitBttn">
               <input type="submit" name="post" value="SUBMIT"/>
