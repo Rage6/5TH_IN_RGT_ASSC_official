@@ -896,4 +896,12 @@ class AdminController extends Controller
         'all_applications' => $all_applications
       ]);
     }
+
+    public function reunion_list_index() {
+      $all_applications = Applicant::where('type','reunion')->orderBy('created_at','desc')->paginate(20);
+
+      return view('admin.all_reunion_applications',[
+        'all_applications' => $all_applications
+      ]);
+    }
 }

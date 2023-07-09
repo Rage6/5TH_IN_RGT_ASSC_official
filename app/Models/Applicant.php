@@ -24,5 +24,11 @@ class Applicant extends Model
       'unit_details',
       'email',
       'comments',
+      'type',
+      'guest_num',
+      'guest_names',
+      'arrival_date',
+      'all_boolean_options',
+      'all_boolean_count'
     ];
 }

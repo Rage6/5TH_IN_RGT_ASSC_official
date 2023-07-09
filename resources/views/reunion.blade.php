@@ -134,41 +134,37 @@
                 </div>
               </div>
               <div class="regFormHalf">
-                <div class='radioTypeBox'>
+                @for ($k = 0; $k < count($all_boolean_list); $k++)
+                  @php $key = 'event_'.$k; @endphp
+                  <div class='radioTypeBox'>
+                    <div>
+                      {{ $all_boolean_list[$k] }}
+                    </div>
+                    <input type='radio' name='{{ $key }}' value='Yes'/><span>Yes</span>
+                    <input checked type='radio' name='{{ $key }}' value='No'/><span>No</span>
+                  </div>
+                @endfor
+                <!-- <div class='radioTypeBox'>
                   <div>
                     Do you plan on attending the Valley Forge Tour?
                   </div>
-                  <input type='radio' name='event_one' value='Yes'/><span>Yes</span>
-                  <input checked type='radio' name='event_one' value='No'/><span>No</span>
+                  <input type='radio' name='event_0' value='Yes'/><span>Yes</span>
+                  <input checked type='radio' name='event_0' value='No'/><span>No</span>
                 </div>
                 <div class='radioTypeBox'>
                   <div>
                     Do you plan on attending the Philadelphia City Tour?
                   </div>
-                  <input type='radio' name='event_two' value='Yes'/><span>Yes</span>
-                  <input checked type='radio' name='event_two' value='No'/><span>No</span>
+                  <input type='radio' name='event_1' value='Yes'/><span>Yes</span>
+                  <input checked type='radio' name='event_1' value='No'/><span>No</span>
                 </div>
                 <div class='radioTypeBox'>
                   <div>
                     Do you plan on attending the Memorial Service at George Washington Memorial?
                   </div>
-                  <input type='radio' name='event_three' value='Yes'/><span>Yes</span>
-                  <input checked type='radio' name='event_three' value='No'/><span>No</span>
+                  <input type='radio' name='event_2' value='Yes'/><span>Yes</span>
+                  <input checked type='radio' name='event_2' value='No'/><span>No</span>
                 </div>
-                <!-- <div class='radioTypeBox'>
-                  <div>
-                    Do you have a military ID?
-                  </div>
-                  <input type='radio' name='mil_id' value='Yes'/><span>Yes</span>
-                  <input checked type='radio' name='mil_id' value='No'/><span>No</span>
-                </div>
-                <div class='radioTypeBox'>
-                  <div>
-                    Does your companion have a military ID?
-                  </div>
-                  <input type='radio' name='comp_mil_id' value='Yes'/><span>Yes</span>
-                  <input checked type='radio' name='comp_mil_id' value='No'/><span>No</span>
-                </div> -->
                 <div class='radioTypeBox'>
                   <div>
                     Do you plan on attending the ladies breakfast 9am Saturday morning? There is no charge.
@@ -189,7 +185,7 @@
                   </div>
                   <input type='radio' name='first_reunion' value='Yes'/><span>Yes</span>
                   <input checked type='radio' name='first_reunion' value='No'/><span>No</span>
-                </div>
+                </div> -->
                 <textarea rows="4" class="commentArea" name='comments' placeholder='Comments...'></textarea>
               </div>
             </div>

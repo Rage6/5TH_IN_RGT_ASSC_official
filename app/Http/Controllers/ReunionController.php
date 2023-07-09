@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rule;
 
 use App\Mail\ReunionEmail;
 
 use App\Models\Event;
 use App\Models\Subevent;
+use App\Models\Applicant;
 
 use Illuminate\Support\Facades\App;
 
@@ -37,6 +39,10 @@ class ReunionController extends Controller
                             ->orderByRaw('order_number IS NULL')
                             ->orderBy('order_number','ASC')
                             ->get();
+
+      $all_boolean_options = $reunion->form_options;
+      $all_boolean_list = explode(';',$all_boolean_options);
+
       return view('reunion',[
         'style' => 'reunion_style',
         'js' => config('app.url_ext').'/js/my_custom/reunion/reunion.js',
@@ -44,12 +50,26 @@ class ReunionController extends Controller
         'this_user' => $this_user,
         'cart_count' => $cart_count,
         'reunion_main' => $reunion,
+        'all_boolean_list' => $all_boolean_list,
         'all_subevents' => $subevents
       ]);
     }
 
     public function post(Request $request)
     {
+      $reunion = Event::where('slug',env('CURRENT_REUNION'))->first();
+
+      $request->validate([
+        'first_name' => 'string|required',
+        'last_name' => 'string|required',
+        'email' => 'email|required',
+        'guest_num' => 'integer|nullable',
+        'guest_names' => 'string|nullable',
+        'phone_number' => 'integer|nullable',
+        'arrival_date' => 'date|nullable',
+      ]);
+
+      // Assembles data for email
       $init_submission = app();
       $new_submission = $init_submission->make('stdClass');
       $new_submission->first_name = $request->first_name;
@@ -59,17 +79,50 @@ class ReunionController extends Controller
       $new_submission->phone_number = $request->phone_number;
       $new_submission->email = $request->email;
       $new_submission->arrival_date = $request->arrival_date;
-      $new_submission->event_one = $request->event_one;
-      $new_submission->event_two = $request->event_two;
-      $new_submission->event_three = $request->event_three;
-      // $new_submission->mil_id = $request->mil_id;
-      // $new_submission->comp_mil_id = $request->comp_mil_id;
-      $new_submission->ladies_breakfast = $request->ladies_breakfast;
-      $new_submission->driving = $request->driving;
-      $new_submission->first_reunion = $request->first_reunion;
+      // $new_submission->event_one = $request->event_0;
+      // $new_submission->event_two = $request->event_1;
+      // $new_submission->event_three = $request->event_2;
+      // $new_submission->ladies_breakfast = $request->ladies_breakfast;
+      // $new_submission->driving = $request->driving;
+      // $new_submission->first_reunion = $request->first_reunion;
+      $all_boolean_string = '';
+      $all_boolean_list = explode(';',$reunion->form_options);
+      for ($k = 0; $k < count($all_boolean_list); $k++) {
+        $key = 'event_'.strval($k);
+        $request->validate([
+          $key => [
+            'string',
+            'required',
+            Rule::in('Yes','No')
+          ]
+        ]);
+        $question = $all_boolean_list[$k];
+        if ($k == 0) {
+          $new_submission->{$key} = $question."::".$request->{$key};
+        } else {
+          $new_submission->{$key} = "||".$question."::".$request->{$key};
+        };
+        $all_boolean_string .= $new_submission->{$key};
+      };
+      $new_submission->all_boolean_count = count($all_boolean_list);
+      $new_submission->type = "reunion";
       $new_submission->comments = $request->comments;
       $new_email = $request->email;
 
+      // Saves registration in 'applicants' table
+      $new_applicant['first_name'] = $request->first_name;
+      $new_applicant['last_name'] = $request->last_name;
+      $new_applicant['guest_num'] = $request->guest_num;
+      $new_applicant['guest_names'] = $request->guest_names;
+      $new_applicant['phone_number'] = $request->phone_number;
+      $new_applicant['email'] = $request->email;
+      $new_applicant['arrival_date'] = $request->arrival_date;
+      $new_applicant['all_boolean_options'] = $all_boolean_string;
+      $new_applicant['type'] = "reunion";
+      $new_applicant['comments'] = $request->comments;
+      Applicant::create($new_applicant);
+
+      // Sends email
       if (App::environment() == 'local') {
         $reunion_email_test = explode(',',env('REUNION_EMAIL_TEST'));
         Mail::to($reunion_email_test)->send(new ReunionEmail($new_submission));

@@ -375,6 +375,6 @@ $(document).ready(() => {
     } else {
       $(details).css('display','none');
     };
-  })
+  });
 
 });

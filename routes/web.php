@@ -125,4 +125,8 @@ Route::middleware('auth')->group(function() {
   Route::middleware(['permission:See Membership Applicants'])->group(function() {
     Route::get('membership-applicant-list',[App\Http\Controllers\AdminController::class,'membership_list_index'])->name('membership.list');
   });
+
+  Route::middleware(['permission:See Reunion Applicants'])->group(function() {
+    Route::get('reunion-applicant-list',[App\Http\Controllers\AdminController::class,'reunion_list_index'])->name('reunion.list');
+  });
 });
