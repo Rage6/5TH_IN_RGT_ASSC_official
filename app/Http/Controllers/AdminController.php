@@ -392,7 +392,8 @@ class AdminController extends Controller
         'endDay'           => 'nullable|integer',
         'endMonth'         => 'nullable|integer',
         'endYear'          => 'nullable|integer',
-        'location'         => 'nullable|string'
+        'location'         => 'nullable|string',
+        'form_options'         => 'nullable|string'
       ]);
 
       if ($request->startYear && $request->startMonth && $request->startDay) {
@@ -413,6 +414,7 @@ class AdminController extends Controller
       $input['first_day'] = $firstDay;
       $input['last_day'] = $lastDay;
       $input['location'] = $request->location;
+      $input['form_options'] = $request->form_options;
 
       Event::create($input);
 
@@ -497,7 +499,8 @@ class AdminController extends Controller
         'endDay'           => 'nullable|integer',
         'endMonth'         => 'nullable|integer',
         'endYear'          => 'nullable|integer',
-        'location'         => 'nullable|string'
+        'location'         => 'nullable|string',
+        'form_options'     => 'nullable|string'
       ]);
 
       $event = Event::find($id);
@@ -539,6 +542,8 @@ class AdminController extends Controller
       };
 
       $event->location = $request->location;
+
+      $event->form_options = $request->form_options;
 
       $event->save();
 

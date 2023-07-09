@@ -107,6 +107,13 @@
                         <div>Locatoion (by city and/or state)</div>
                         <input name="location" id="location" placeholder="Not for full address" />
                       </div>
+                      <div class="basicInfoGrid">
+                        <div>
+                          <u>Registration Form: Yes/No Questions</u>.
+                          Separate your questions with semicolons (;).
+                        </div>
+                        <textarea name="form_options" id="form_options"></textarea>
+                      </div>
                       <button type="submit" name="addEvent" class="btn btn-primary">
                         ADD AN EVENT
                       </button>

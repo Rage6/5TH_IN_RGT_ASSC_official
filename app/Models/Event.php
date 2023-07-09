@@ -14,7 +14,8 @@ class Event extends Model
       'slug',
       'first_day',
       'last_day',
-      'location'
+      'location',
+      'form_options'
     ];
 
     public function all_event_subevents() {

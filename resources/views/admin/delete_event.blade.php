@@ -31,6 +31,12 @@
                       <div>Locatoion (by city and/or state)</div>
                       <div>{{ $event->location }}</div>
                     </div>
+                    <div class="basicInfoGrid">
+                      <div>
+                        <u>Registration Form: Yes/No Questions</u>. Separate your questions with semicolons (;).
+                      </div>
+                      <div>{{ $event->form_options }}</div>
+                    </div>
                     @if ($all_subevents)
                       <div class="basicInfoGrid">
                         <div>Current Subevent(s):</div>
