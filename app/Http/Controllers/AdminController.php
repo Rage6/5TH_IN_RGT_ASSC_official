@@ -672,8 +672,15 @@ class AdminController extends Controller
         $request->is_payment = null;
       }
 
+      if (!$request->startHour || !$request->startMinute || $request->startMinute != 0) {
+        $has_start_time = 0;
+      } else {
+        $has_start_time = 1;
+      };
+
       $input['title'] = $request->subeventTitle;
       $input['start_time'] = $firstDate;
+      $input['no_start_time'] = $has_start_time;
       $input['end_time'] = $lastDay;
       $input['classes'] = $request->classes;
       $input['description'] = $request->description;
@@ -852,9 +859,23 @@ class AdminController extends Controller
         $request->is_payment = null;
       };
 
+      if (!$request->startHour || (!$request->startMinute && $request->startMinute != 0)) {
+        $has_start_time = 0;
+      } else {
+        $has_start_time = 1;
+      };
+
+      if (!$request->endHour || (!$request->endMinute && $request->endMinute != 0)) {
+        $has_end_time = 0;
+      } else {
+        $has_end_time = 1;
+      };
+
       $input['title'] = $request->subeventTitle;
       $input['start_time'] = $firstDate;
       $input['end_time'] = $lastDay;
+      $input['has_start_time'] = $has_start_time;
+      $input['has_end_time'] = $has_end_time;
       $input['iframe_map_src'] = $request->iframe_map_src;
       $input['classes'] = $request->classes;
       $input['description'] = $request->description;

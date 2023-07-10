@@ -28,7 +28,7 @@
                         <input name="subeventTitle" id="subeventTitle" placeholder="required" required />
                       </div>
                       <div class="basicInfoGrid">
-                        <div>Start Date</div>
+                        <div>Start Date (MM/DD/YYYY)</div>
                         <div class="basicInfoDate">
                           <input name="startMonth" type="number" id="startMonth" placeholder="MM" min="1" max="12" data-level="date" data-phase="start" />
                           <input name="startDay" type="number" id="startDay" placeholder="DD" min="1" max="31" data-level="date" data-phase="start" />
@@ -42,7 +42,7 @@
                         </div>
                       </div>
                       <div class="basicInfoGrid">
-                        <div>Start Time</div>
+                        <div>Start Time (hh:mm)</div>
                         <div class="basicInfoDate">
                           <input name="startHour" type="number" id="startHour" placeholder="hh" min="1" max="12" data-level="time" data-phase="start" />
                           <input name="startMinute" type="number" id="startMinute" placeholder="mm" min="0" max="59" data-level="time" data-phase="start" />
@@ -89,6 +89,10 @@
                             CLEAR END TIME
                           </span>
                         </div>
+                      </div>
+                      <br>
+                      <div>
+                        <u>NOTE</u>: Do <b>not</b> add a 0 before any single-digits above. This will reset your page and erase any changes.
                       </div>
                       <br>
                       <div class="basicInfoGrid">

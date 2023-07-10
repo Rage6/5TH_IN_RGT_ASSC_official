@@ -79,7 +79,7 @@
                             max="12"
                             data-level="time"
                             data-phase="start"
-                            @if ($startTime) value="{{ $startTime[0] }}" @endif />
+                            @if ($startTime && $subevent->has_start_time) value="{{ $startTime[0] }}" @endif />
                           <input
                             name="startMinute"
                             type="number"
@@ -89,11 +89,11 @@
                             max="59"
                             data-level="time"
                             data-phase="start"
-                            @if ($startTime) value="{{ $startTime[1] }}" @endif />
+                            @if ($startTime && $subevent->has_start_time) value="{{ $startTime[1] }}" @endif />
                           <select name="startAmPm">
                             <option
                               value="am"
-                              @if (!$startTime || $startTime[2] == "am") selected @endif>
+                              @if ((!$startTime || $startTime[2] == "am") || $subevent->has_start_time == 0) selected @endif>
                               AM
                             </option>
                             <option
@@ -164,7 +164,7 @@
                             max="12"
                             data-level="time"
                             data-phase="end"
-                            @if ($endTime) value="{{ $endTime[0] }}" @endif />
+                            @if ($endTime && $subevent->has_end_time) value="{{ $endTime[0] }}" @endif />
                           <input
                             name="endMinute"
                             type="number"
@@ -174,11 +174,11 @@
                             max="59"
                             data-level="time"
                             data-phase="end"
-                            @if ($endTime) value="{{ $endTime[1] }}" @endif />
+                            @if ($endTime && $subevent->has_end_time) value="{{ $endTime[1] }}" @endif />
                           <select name="endAmPm">
                             <option
                               value="am"
-                              @if (!$endTime || $endTime[2] == "am") selected @endif>
+                              @if ((!$endTime || $endTime[2] == "am") || $subevent->has_end_time == 0) selected @endif>
                               AM
                             </option>
                             <option
@@ -194,6 +194,10 @@
                             CLEAR END TIME
                           </span>
                         </div>
+                      </div>
+                      <br>
+                      <div>
+                        <u>NOTE</u>: Do <b>not</b> add a 0 before any single-digits above. This will reset your page and erase any changes.
                       </div>
                       <br>
                       <div class="basicInfoGrid">

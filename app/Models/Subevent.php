@@ -12,7 +12,9 @@ class Subevent extends Model
     protected $fillable = [
       'title',
       'start_time',
+      'has_start_time',
       'end_time',
+      'has_end_time',
       'iframe_map_src',
       'classes',
       'description',
