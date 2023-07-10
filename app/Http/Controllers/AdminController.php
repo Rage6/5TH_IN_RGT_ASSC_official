@@ -617,13 +617,13 @@ class AdminController extends Controller
           $firstDay = "0".$firstDay;
         };
         $firstDate = strval($request->startYear)."-".$firstMonth."-".$firstDay;
-        if ($request->startHour && $request->startMinute && $request->startAmPm) {
+        if ($request->startHour && ($request->startMinute || $request->startMinute == 0) && $request->startAmPm) {
           if ($request->startAmPm == "pm" && $request->startHour < 12) {
             $start_military_hour = strval($request->startHour + 12);
           } elseif ($request->startAmPm == "am" && $request->startHour == 12) {
             $start_military_hour = "00";
           } else {
-            if ($request->endHour < 10) {
+            if ($request->startHour < 10) {
               $start_military_hour = "0".strval($request->startHour);
             } else {
               $start_military_hour = strval($request->startHour);
@@ -643,7 +643,7 @@ class AdminController extends Controller
       };
       if ($request->endYear && $request->endMonth && $request->endDay) {
         $lastDay = strval($request->endYear)."-".strval($request->endMonth)."-".strval($request->endDay);
-        if ($request->endHour && $request->endMinute && $request->endAmPm) {
+        if ($request->endHour && ($request->endMinute || $request->endMinute == 0) && $request->endAmPm) {
           if ($request->endAmPm == "pm" && $request->endHour < 12) {
             $end_military_hour = strval($request->endHour + 12);
           } elseif ($request->endAmPm == "am" && $request->endHour == 12) {
@@ -795,13 +795,13 @@ class AdminController extends Controller
           $firstDay = "0".$firstDay;
         };
         $firstDate = strval($request->startYear)."-".$firstMonth."-".$firstDay;
-        if ($request->startHour && $request->startMinute && $request->startAmPm) {
+        if ($request->startHour && ($request->startMinute || $request->startMinute == 0) && $request->startAmPm) {
           if ($request->startAmPm == "pm" && $request->startHour < 12) {
             $start_military_hour = strval($request->startHour + 12);
           } elseif ($request->startAmPm == "am" && $request->startHour == 12) {
             $start_military_hour = "00";
           } else {
-            if ($request->endHour < 10) {
+            if ($request->startHour < 10) {
               $start_military_hour = "0".strval($request->startHour);
             } else {
               $start_military_hour = strval($request->startHour);
@@ -821,7 +821,7 @@ class AdminController extends Controller
       };
       if ($request->endYear && $request->endMonth && $request->endDay) {
         $lastDay = strval($request->endYear)."-".strval($request->endMonth)."-".strval($request->endDay);
-        if ($request->endHour && $request->endMinute && $request->endAmPm) {
+        if ($request->endHour && ($request->endMinute || $request->endMinute == 0) && $request->endAmPm) {
           if ($request->endAmPm == "pm" && $request->endHour < 12) {
             $end_military_hour = strval($request->endHour + 12);
           } elseif ($request->endAmPm == "am" && $request->endHour == 12) {
