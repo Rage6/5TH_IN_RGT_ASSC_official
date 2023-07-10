@@ -187,7 +187,8 @@ class AdminController extends Controller
         'biography'        => 'nullable|string',
         'isDeceased'       => 'required',
         'membershipStatus' => 'nullable',
-        'action'           => 'required'
+        'action'           => 'required',
+        'mailingAddress'   => 'nullable|string'
       ]);
 
       $member = User::find($id);
@@ -200,6 +201,7 @@ class AdminController extends Controller
         // $member->veteran_img = $request->veteranImg;
         $member->biography = $request->biography;
         $member->deceased = $request->isDeceased;
+        $member->mailing_address = $request->mailingAddress;
 
         if ($request->membershipStatus == "permanent") {
           $member->expiration_date = '1970-01-01 00:00:00';
