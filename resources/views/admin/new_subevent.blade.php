@@ -42,15 +42,7 @@
                         </div>
                       </div>
                       <div class="basicInfoGrid">
-                        <div>Start Time (hh:mm)</div>
-                        <!-- <div class="basicInfoDate">
-                          <input name="startHour" type="number" id="startHour" placeholder="hh" min="1" max="12" data-level="time" data-phase="start" />
-                          <input name="startMinute" type="number" id="startMinute" placeholder="mm" min="0" max="59" data-level="time" data-phase="start" />
-                          <select name="startAmPm">
-                            <option value="am">AM</option>
-                            <option value="pm">PM</option>
-                          </select>
-                        </div> -->
+                        <div>Start Time</div>
                         <input
                           type="time"
                           name="startFullTime"
@@ -80,14 +72,6 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>End Time</div>
-                        <!-- <div class="basicInfoDate">
-                          <input name="endHour" type="number" id="endHour" placeholder="hh" min="1" max="12" data-level="time" data-phase="end"/>
-                          <input name="endMinute" type="number" id="endMinute" placeholder="mm" min="0" max="59" data-level="time" data-phase="end"/>
-                          <select name="endAmPm">
-                            <option value="am">AM</option>
-                            <option value="pm">PM</option>
-                          </select>
-                        </div> -->
                         <input
                           type="time"
                           name="endFullTime"

@@ -307,8 +307,8 @@
             {{ $one_subcontent->title }}
             @if ($one_subcontent->start_time)
               : {{ $month }} {{ substr($one_subcontent->start_time,8,2) }}{{ $suffix }} @if ($one_subcontent->has_start_time == 1), {{ substr($one_subcontent->start_time,11,5) }} @endif
-              @if ($one_subcontent->end_time && $one_subcontent->has_end_time == 1)
-                - @if ($month != $end_month) {{ $end_month }} @endif {{ substr($one_subcontent->end_time,11,5) }}
+              @if ($one_subcontent->has_end_time == 1)
+                @if ($one_subcontent->has_start_time == 1 && $one_subcontent->has_end_time == 1) - @endif @if ($month != $end_month) {{ $end_month }} @endif {{ substr($one_subcontent->end_time,11,5) }}
               @endif
             @endif
           </div>
