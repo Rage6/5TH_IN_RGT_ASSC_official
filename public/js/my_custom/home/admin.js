@@ -362,7 +362,7 @@ $(document).ready(() => {
   $("span[data-level][data-phase]").click(()=>{
     var level = event.target.dataset.level; // 'level' is date or time
     var phase = event.target.dataset.phase; // 'phase' is start or end
-    $("input[data-level=" + level + "][data-phase=" + phase + "]").val(null);
+    $("input[data-level=" + level + "][data-phase=" + phase + "]").val("");
   });
 
   // Open and close the application details

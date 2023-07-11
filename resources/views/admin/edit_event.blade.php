@@ -117,7 +117,7 @@
                         <div></div>
                         <div>
                           <span data-level="date" data-phase="end">
-                            CLEAR START DATE
+                            CLEAR END DATE
                           </span>
                         </div>
                       </div>

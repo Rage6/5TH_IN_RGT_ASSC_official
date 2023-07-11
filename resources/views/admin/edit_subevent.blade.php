@@ -68,41 +68,13 @@
                         </div>
                       </div>
                       <div class="basicInfoGrid">
-                        <div>Start Time (hh:mm)</div>
-                        <div class="basicInfoDate">
-                          <input
-                            name="startHour"
-                            type="number"
-                            id="startHour"
-                            placeholder="hh"
-                            min="1"
-                            max="12"
-                            data-level="time"
-                            data-phase="start"
-                            @if ($startTime && $subevent->has_start_time) value="{{ $startTime[0] }}" @endif />
-                          <input
-                            name="startMinute"
-                            type="number"
-                            id="startMinute"
-                            placeholder="mm"
-                            min="0"
-                            max="59"
-                            data-level="time"
-                            data-phase="start"
-                            @if ($startTime && $subevent->has_start_time) value="{{ $startTime[1] }}" @endif />
-                          <select name="startAmPm">
-                            <option
-                              value="am"
-                              @if ((!$startTime || $startTime[2] == "am") || $subevent->has_start_time == 0) selected @endif>
-                              AM
-                            </option>
-                            <option
-                              value="pm"
-                              @if ($startTime && $startTime[2] == "pm") selected @endif>
-                              PM
-                            </option>
-                          </select>
-                        </div>
+                        <div>Start Time</div>
+                        <input
+                          type="time"
+                          name="startFullTime"
+                          data-level="time"
+                          data-phase="start"
+                          @if ($startTime && $subevent->has_start_time) value="{{ $startTime }}" @endif />
                         <div></div>
                         <div>
                           <span data-level="time" data-phase="start">
@@ -154,39 +126,13 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>End Time (hh:mm)</div>
-                        <div class="basicInfoDate">
+                        <div>
                           <input
-                            name="endHour"
-                            type="number"
-                            id="endHour"
-                            placeholder="hh"
-                            min="1"
-                            max="12"
+                            type="time"
+                            name="endFullTime"
                             data-level="time"
                             data-phase="end"
-                            @if ($endTime && $subevent->has_end_time) value="{{ $endTime[0] }}" @endif />
-                          <input
-                            name="endMinute"
-                            type="number"
-                            id="endMinute"
-                            placeholder="mm"
-                            min="0"
-                            max="59"
-                            data-level="time"
-                            data-phase="end"
-                            @if ($endTime && $subevent->has_end_time) value="{{ $endTime[1] }}" @endif />
-                          <select name="endAmPm">
-                            <option
-                              value="am"
-                              @if ((!$endTime || $endTime[2] == "am") || $subevent->has_end_time == 0) selected @endif>
-                              AM
-                            </option>
-                            <option
-                              value="pm"
-                              @if ($endTime && $endTime[2] == "pm") selected @endif>
-                              PM
-                            </option>
-                          </select>
+                            @if ($endTime && $subevent->has_end_time) value="{{ $endTime }}" @endif/>
                         </div>
                         <div></div>
                         <div>
@@ -194,10 +140,6 @@
                             CLEAR END TIME
                           </span>
                         </div>
-                      </div>
-                      <br>
-                      <div>
-                        <u>NOTE</u>: Do <b>not</b> add a 0 before any single-digits above. This will reset your page and erase any changes.
                       </div>
                       <br>
                       <div class="basicInfoGrid">

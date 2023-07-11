@@ -21,11 +21,19 @@
                     </div>
                     <div class="basicInfoGrid">
                       <div>Start Time (YYYY-MM-DD hh:mm)</div>
-                      <div>{{ $subevent->start_time }}</div>
+                      @if ($subevent->has_start_time)
+                        <div>{{ $subevent->start_time }}</div>
+                      @else
+                        <div>{{ substr($subevent->start_time,0,10) }}</div>
+                      @endif
                     </div>
                     <div class="basicInfoGrid">
                       <div>End Time (YYYY-MM-DD hh:mm)</div>
-                      <div>{{ $subevent->end_time }}</div>
+                      @if ($subevent->has_end_time)
+                        <div>{{ $subevent->end_time }}</div>
+                      @else
+                        <div>{{ substr($subevent->end_time,0,10) }}</div>
+                      @endif
                     </div>
                     <div class="basicInfoGrid">
                       <div>Locatoion (by city and/or state)</div>

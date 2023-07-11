@@ -589,15 +589,11 @@ class AdminController extends Controller
         'startDay'         => 'nullable|integer',
         'startMonth'       => 'nullable|integer',
         'startYear'        => 'nullable|integer',
-        'startHour'        => 'nullable|integer',
-        'startMinute'      => 'nullable|integer',
-        'startAmPm'        => 'required|string',
+        'startFullTime'    => 'nullable|string',
         'endDay'           => 'nullable|integer',
         'endMonth'         => 'nullable|integer',
         'endYear'          => 'nullable|integer',
-        'endHour'          => 'nullable|integer',
-        'endMinute'        => 'nullable|integer',
-        'endAmPm'          => 'required|string',
+        'endFullTime'      => 'nullable|string',
         'iframe_map_src'   => 'nullable|string',
         'order_num'        => 'nullable|integer',
         'classes'          => 'nullable|string',
@@ -617,24 +613,8 @@ class AdminController extends Controller
           $firstDay = "0".$firstDay;
         };
         $firstDate = strval($request->startYear)."-".$firstMonth."-".$firstDay;
-        if ($request->startHour && ($request->startMinute || $request->startMinute == 0) && $request->startAmPm) {
-          if ($request->startAmPm == "pm" && $request->startHour < 12) {
-            $start_military_hour = strval($request->startHour + 12);
-          } elseif ($request->startAmPm == "am" && $request->startHour == 12) {
-            $start_military_hour = "00";
-          } else {
-            if ($request->startHour < 10) {
-              $start_military_hour = "0".strval($request->startHour);
-            } else {
-              $start_military_hour = strval($request->startHour);
-            };
-          };
-          if ($request->startMinute < 10) {
-            $start_military_minute = "0".strval($request->startMinute);
-          } else {
-            $start_military_minute = strval($request->startMinute);
-          };
-          $firstDate = $firstDate." ".$start_military_hour.":".$start_military_minute.":00";
+        if ($request->startFullTime) {
+          $firstDate = $firstDate." ".$request->startFullTime.":00";
         } else {
           $firstDate = $firstDate." 00:00:00";
         };
@@ -643,24 +623,8 @@ class AdminController extends Controller
       };
       if ($request->endYear && $request->endMonth && $request->endDay) {
         $lastDay = strval($request->endYear)."-".strval($request->endMonth)."-".strval($request->endDay);
-        if ($request->endHour && ($request->endMinute || $request->endMinute == 0) && $request->endAmPm) {
-          if ($request->endAmPm == "pm" && $request->endHour < 12) {
-            $end_military_hour = strval($request->endHour + 12);
-          } elseif ($request->endAmPm == "am" && $request->endHour == 12) {
-            $end_military_hour = "00";
-          } else {
-            if ($request->endHour < 10) {
-              $end_military_hour = "0".strval($request->endHour);
-            } else {
-              $end_military_hour = strval($request->endHour);
-            };
-          };
-          if ($request->endMinute < 10) {
-            $end_military_minute = "0".strval($request->endMinute);
-          } else {
-            $end_military_minute = strval($request->endMinute);
-          };
-          $lastDay = $lastDay." ".$end_military_hour.":".$end_military_minute.":00";
+        if ($request->endFullTime) {
+          $lastDay = $lastDay." ".$request->endFullTime.":00";
         } else {
           $lastDay = $lastDay." 00:00:00";
         };
@@ -708,24 +672,10 @@ class AdminController extends Controller
           intval(explode("-",$startDate)[2]), // day
           intval(explode("-",$startDate)[0])  // year
         ];
-        $startTimeInt = [
-          intval(explode(":",$startTime)[0]), // hour
-          intval(explode(":",$startTime)[1]), // minute
-        ];
-        if ($startTimeInt[0] < 12) {
-          if ($startTimeInt[0] == 0) {
-            $startTimeInt[0] = 12;
-          };
-          $startTimeInt[2] = "am";
-        } else {
-          if ($startTimeInt[0] > 12) {
-            $startTimeInt[0] = $startTimeInt[0] - 12;
-          };
-          $startTimeInt[2] = "pm";
-        };
+        $startFullTime = substr($startTime,0,5);
       } else {
         $startDateInt = null;
-        $startTimeInt = null;
+        $startFullTime = "";
       };
 
       if ($subevent->end_time) {
@@ -736,33 +686,19 @@ class AdminController extends Controller
           intval(explode("-",$endDate)[2]), // day
           intval(explode("-",$endDate)[0])  // year
         ];
-        $endTimeInt = [
-          intval(explode(":",$endTime)[0]), // hour
-          intval(explode(":",$endTime)[1]), // minute
-        ];
-        if ($endTimeInt[0] < 12) {
-          if ($endTimeInt[0] == 0) {
-            $endTimeInt[0] = 12;
-          };
-          $endTimeInt[2] = "am";
-        } else {
-          if ($endTimeInt[0] > 12) {
-            $endTimeInt[0] = $endTimeInt[0] - 12;
-          };
-          $endTimeInt[2] = "pm";
-        };
+        $endFullTime = substr($endTime,0,5);
       } else {
         $endDateInt = null;
-        $endTimeInt = null;
+        $endFullTime = "";
       };
 
       return view('admin.edit_subevent',[
         'subevent' => $subevent,
         'id' => $id,
         'startDate' => $startDateInt,
-        'startTime' => $startTimeInt,
+        'startTime' => $startFullTime,
         'endDate' => $endDateInt,
-        'endTime' => $endTimeInt,
+        'endTime' => $endFullTime
       ]);
     }
 
@@ -774,15 +710,11 @@ class AdminController extends Controller
         'startDay'         => 'nullable|integer',
         'startMonth'       => 'nullable|integer',
         'startYear'        => 'nullable|integer',
-        'startHour'        => 'nullable|integer',
-        'startMinute'      => 'nullable|integer',
-        'startAmPm'        => 'required|string',
         'endDay'           => 'nullable|integer',
         'endMonth'         => 'nullable|integer',
         'endYear'          => 'nullable|integer',
-        'endHour'          => 'nullable|integer',
-        'endMinute'        => 'nullable|integer',
-        'endAmPm'          => 'required|string',
+        'startFullTime'    => 'nullable|string',
+        'endFullTime'      => 'nullable|string',
         'iframe_map_src'   => 'nullable|string',
         'classes'          => 'nullable|string',
         'description'      => 'nullable|string',
@@ -802,24 +734,8 @@ class AdminController extends Controller
           $firstDay = "0".$firstDay;
         };
         $firstDate = strval($request->startYear)."-".$firstMonth."-".$firstDay;
-        if ($request->startHour && ($request->startMinute || $request->startMinute == 0) && $request->startAmPm) {
-          if ($request->startAmPm == "pm" && $request->startHour < 12) {
-            $start_military_hour = strval($request->startHour + 12);
-          } elseif ($request->startAmPm == "am" && $request->startHour == 12) {
-            $start_military_hour = "00";
-          } else {
-            if ($request->startHour < 10) {
-              $start_military_hour = "0".strval($request->startHour);
-            } else {
-              $start_military_hour = strval($request->startHour);
-            };
-          };
-          if ($request->startMinute < 10) {
-            $start_military_minute = "0".strval($request->startMinute);
-          } else {
-            $start_military_minute = strval($request->startMinute);
-          };
-          $firstDate = $firstDate." ".$start_military_hour.":".$start_military_minute.":00";
+        if ($request->startFullTime) {
+          $firstDate = $firstDate." ".$request->startFullTime.":00";
         } else {
           $firstDate = $firstDate." 00:00:00";
         };
@@ -828,24 +744,8 @@ class AdminController extends Controller
       };
       if ($request->endYear && $request->endMonth && $request->endDay) {
         $lastDay = strval($request->endYear)."-".strval($request->endMonth)."-".strval($request->endDay);
-        if ($request->endHour && ($request->endMinute || $request->endMinute == 0) && $request->endAmPm) {
-          if ($request->endAmPm == "pm" && $request->endHour < 12) {
-            $end_military_hour = strval($request->endHour + 12);
-          } elseif ($request->endAmPm == "am" && $request->endHour == 12) {
-            $end_military_hour = "00";
-          } else {
-            if ($request->endHour < 10) {
-              $end_military_hour = "0".strval($request->endHour);
-            } else {
-              $end_military_hour = strval($request->endHour);
-            };
-          };
-          if ($request->endMinute < 10) {
-            $end_military_minute = "0".strval($request->endMinute);
-          } else {
-            $end_military_minute = strval($request->endMinute);
-          };
-          $lastDay = $lastDay." ".$end_military_hour.":".$end_military_minute.":00";
+        if ($request->endFullTime) {
+          $lastDay = $lastDay." ".$request->endFullTime.":00";
         } else {
           $lastDay = $lastDay." 00:00:00";
         };
@@ -859,13 +759,13 @@ class AdminController extends Controller
         $request->is_payment = null;
       };
 
-      if (!$request->startHour || (!$request->startMinute && $request->startMinute != 0)) {
+      if (!$request->startFullTime) {
         $has_start_time = 0;
       } else {
         $has_start_time = 1;
       };
 
-      if (!$request->endHour || (!$request->endMinute && $request->endMinute != 0)) {
+      if (!$request->endFullTime) {
         $has_end_time = 0;
       } else {
         $has_end_time = 1;
