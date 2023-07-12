@@ -57,6 +57,10 @@ Route::middleware('auth')->group(function() {
 
   Route::prefix('/home')->group(function() {
     Route::get('', [App\Http\Controllers\HomeController::class,'index'])->name('home');
+    Route::get('edit-profile', [App\Http\Controllers\HomeController::class,'edit_profile_index'])->name('profile.edit');
+    Route::post('edit-profile-change', [App\Http\Controllers\HomeController::class,'edit_profile_change'])->name('profile.edit.change');
+    Route::get('edit-password', [App\Http\Controllers\HomeController::class,'edit_password_index'])->name('password.edit');
+    Route::post('edit-password-change', [App\Http\Controllers\HomeController::class,'edit_password_change'])->name('password.edit.change');
   });
 
   Route::middleware('access')->group(function() {

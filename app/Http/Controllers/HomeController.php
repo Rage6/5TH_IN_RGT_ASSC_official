@@ -64,4 +64,57 @@ class HomeController extends Controller
         'is_admin' => $is_admin
       ]);
     }
+
+    public function edit_profile_index() {
+      $user = Auth::user();
+      return view('edit_profile',[
+        'user' => $user
+      ]);
+    }
+
+    public function edit_profile_change(Request $request) {
+
+      $request->validate([
+        'firstName'        => 'required|string',
+        'middleName'       => 'nullable|string',
+        'lastName'         => 'required|string',
+        'email'            => 'nullable|string',
+        'biography'        => 'nullable|string',
+        'mailingAddress'   => 'nullable|string'
+      ]);
+
+      $user = Auth::user();
+      $user['first_name'] = $request->firstName;
+      $user['middle_name'] = $request->middleName;
+      $user['last_name'] = $request->lastName;
+      $user['email'] = $request->email;
+      $user['biography'] = $request->biography;
+      $user['mailing_address'] = $request->mailingAddress;
+
+      $user->save();
+
+      return redirect()->route('home');
+    }
+
+    public function edit_password_index($message = null) {
+      return view('edit_password');
+    }
+
+    public function edit_password_change(Request $request) {
+
+      $request->validate([
+        'newPassword'     => 'required|string',
+        'confirmPassword' => 'required|string'
+      ]);
+
+      if ($request->newPassword != $request->confirmPassword) {
+        return view('edit_password')->withErrors(['Sorry, your passwords did not match.']);
+      } else {
+        $hashedPassword = Hash::make($request->newPassword);
+        $user = Auth::user();
+        $user['password'] = $hashedPassword;
+        $user->save();
+        return redirect()->route('profile.edit');
+      };
+    }
 }

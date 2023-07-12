@@ -80,6 +80,9 @@
                                   <a class="dropdown-item" href="{{ route('home') }}">
                                      {{ __('Dashboard') }}
                                   </a>
+                                  <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                     {{ __('Edit Profile') }}
+                                  </a>
                                   <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                       {{ __('Logout') }}
                                   </a>
