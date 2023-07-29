@@ -63,6 +63,48 @@ return [
             ]) : [],
         ],
 
+        // // This is for connecting to the old, Heroku database
+        // 'heroku' => [
+        //     'driver' => 'mysql',
+        //     'url' => env('HEROKU_URL'),
+        //     'host' => env('HEROKU_HOST'),
+        //     'port' => '3306',
+        //     'database' => env('HEROKU_DATABASE'),
+        //     'username' => env('HEROKU_USERNAME'),
+        //     'password' => env('HEROKU_PASSWORD'),
+        //     'unix_socket' => env('DB_SOCKET', ''),
+        //     'charset' => 'utf8mb4',
+        //     'collation' => 'utf8mb4_unicode_ci',
+        //     'prefix' => '',
+        //     'prefix_indexes' => true,
+        //     'strict' => true,
+        //     'engine' => null,
+        //     'options' => extension_loaded('pdo_mysql') ? array_filter([
+        //         PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+        //     ]) : [],
+        // ],
+        //
+        // // This is for connecting to the new, QRA database
+        // 'qra' => [
+        //     'driver' => 'mysql',
+        //     'url' => env('QRA_URL'),
+        //     'host' => env('QRA_HOST'),
+        //     'port' => '3306',
+        //     'database' => env('QRA_DATABASE'),
+        //     'username' => env('QRA_USERNAME'),
+        //     'password' => env('QRA_PASSWORD'),
+        //     'unix_socket' => env('DB_SOCKET', ''),
+        //     'charset' => 'utf8mb4',
+        //     'collation' => 'utf8mb4_unicode_ci',
+        //     'prefix' => '',
+        //     'prefix_indexes' => true,
+        //     'strict' => true,
+        //     'engine' => null,
+        //     'options' => extension_loaded('pdo_mysql') ? array_filter([
+        //         PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+        //     ]) : [],
+        // ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
