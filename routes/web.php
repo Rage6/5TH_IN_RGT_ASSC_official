@@ -23,7 +23,7 @@ Route::prefix('/home')->group(function() {
 
 Route::prefix('reunion')->group(function() {
   Route::get('',[App\Http\Controllers\ReunionController::class,'index'])->name('reunion.index');
-  Route::post('registration',[App\Http\Controllers\ReunionController::class,'post'])->name('reunion.register');
+  Route::post('registration/submit',[App\Http\Controllers\ReunionController::class,'post'])->name('reunion.submit');
 });
 
 Route::prefix('registration')->group(function() {
@@ -68,6 +68,10 @@ Route::middleware('auth')->group(function() {
     Route::prefix('/admin')->group(function() {
       Route::get('', [App\Http\Controllers\AdminController::class,'index'])->name('admin.index');
       Route::get('member-list', [App\Http\Controllers\AdminController::class,'index'])->name('admin.members');
+      // // For uploading the casualties
+      // Route::get('upload-casualties', [App\Http\Controllers\AdminController::class,'upload_all_casualties']);
+      // // For uploading the recipients
+      // Route::get('upload-recipients', [App\Http\Controllers\AdminController::class,'upload_all_recipients']);
     });
 
     Route::middleware(['permission:Add A New Member'])->group(function() {
@@ -85,6 +89,12 @@ Route::middleware('auth')->group(function() {
       Route::get('delete-bobcat', [App\Http\Controllers\AdminController::class,'all_members'])->name('delete.member.list');
       Route::get('delete-bobcat/{id}',[App\Http\Controllers\AdminController::class,'delete_member_index'])->name('delete.member.index');
       Route::post('delete-bobcat/{id}',[App\Http\Controllers\AdminController::class,'delete_member_post'])->name('delete.member.post');
+    });
+
+    Route::middleware(['permission:Edit Casualty Records'])->group(function() {
+      Route::get('edit-casualties', [App\Http\Controllers\AdminController::class,'all_casualties'])->name('edit.casualty.list');
+      Route::get('edit-casualty/{id}',[App\Http\Controllers\AdminController::class,'edit_casualty_index'])->name('edit.casualty.index');
+      Route::post('edit-casualty/{id}/post',[App\Http\Controllers\AdminController::class,'edit_casualty_post'])->name('edit.casualty.post');
     });
 
     Route::middleware(['permission:Assign Roles To Members'])->group(function() {

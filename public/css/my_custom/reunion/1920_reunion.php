@@ -34,7 +34,7 @@
   --backgroundImage: calc(88vh * 0.51);
   /* In the bttnMargin variable below, the 70vw is based on the desired button width (26vw) and left/right paddings (2vw) subtracted from the total width, 100vw. Subtracting the image's width (backgroundImage) gives the sum of left/right margins, so dividing by two gives one margin. Finally, adding the backgroundImage width uses the desired margin-left immediately past the background image  */
   --bttnMargins: calc(calc(calc(70vw - var(--backgroundImage)) / 2) + var(--backgroundImage));
-  margin: 6vh 0 0 48%;
+  margin: 0vh 0 0 48%;
   margin-left: var(--bttnMargins);
   border-radius: 25px;
   padding: 15px 2vw;
@@ -64,6 +64,11 @@
   margin-left: var(--backgroundImage);
   font-size: 2.7rem;
   width: calc(100vw - var(--backgroundImage));
+}
+
+.regBttnIntro {
+  margin-top: 6vh;
+  font-size: 2.1rem;
 }
 
 .regRow {

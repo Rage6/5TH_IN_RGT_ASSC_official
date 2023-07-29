@@ -298,7 +298,7 @@ class AdminController extends Controller
 
     public function all_members() {
       // $all_users = User::all();
-      $all_users = User::orderBy('last_name','asc')->paginate(20);
+      $all_users = User::where('expiration_date','!=',null)->orderBy('last_name','asc')->paginate(20);
 
       $current_user = Auth::user();
       $user_roles = User::find($current_user->id)->all_user_roles;
@@ -329,6 +329,98 @@ class AdminController extends Controller
       return view('admin.all_members',[
         'all_members' => $all_users,
         'can_assign' => $can_assign,
+        'can_edit' => $can_edit,
+        'can_delete' => $can_delete
+      ]);
+    }
+
+    public function edit_casualty_index($id) {
+      $casualty = User::find($id);
+      if ($casualty->expiration_date == null) {
+        $status = "false";
+      } else {
+        $status = "true";
+      };
+
+      // if (!file_exists('../public/storage')) {
+      //   Artisan::call('storage:link');
+      // };
+
+      return view('admin.edit_casualty',[
+        'id'     => $id,
+        'casualty' => $casualty,
+        'status' => $status
+      ]);
+    }
+
+    public function edit_casualty_post(Request $request,$id) {
+
+      $request->validate([
+        'firstName'        => 'required',
+        'middleName'       => 'nullable',
+        'lastName'         => 'required',
+        'rank'             => 'nullable',
+        'kiaLocation'      => 'required',
+        'injuryType'       => 'nullable',
+        'city'             => 'nullable',
+        'state'            => 'nullable',
+        'burialSite'       => 'nullable',
+        'comments'         => 'nullable',
+        'membershipStatus' => 'required',
+      ]);
+
+      if ($request['membershipStatus'] == "nonmember") {
+        $membershipStatus = null;
+      } else {
+        $membershipStatus = "1970-01-01 00:00:00";
+      };
+
+      $casualty = User::find($id);
+      $casualty->first_name = $request['firstName'];
+      $casualty->middle_name = $request['middleName'];
+      $casualty->last_name = $request['lastName'];
+      $casualty->rank = $request['rank'];
+      $casualty->kia_location = $request['kiaLocation'];
+      $casualty->injury_type = $request['injuryType'];
+      $casualty->city = $request['city'];
+      $casualty->state = $request['state'];
+      $casualty->burial_site = $request['burialSite'];
+      $casualty->comments = $request['comments'];
+      $casualty->expiration_date = $membershipStatus;
+      $casualty->save();
+
+      // if (!file_exists('../public/storage')) {
+      //   Artisan::call('storage:link');
+      // };
+
+
+      return redirect()->route('edit.casualty.list');
+    }
+
+    public function all_casualties() {
+      $all_casualties = User::where('kia_or_mia','1')->orderBy('last_name','asc')->paginate(20);
+
+      $current_user = Auth::user();
+      $user_roles = User::find($current_user->id)->all_user_roles;
+      $role_model = new Role();
+      $users_permissions = $role_model->users_permissions($current_user->id);
+
+      $can_edit = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit Casualty Records") {
+          $can_edit = true;
+        };
+      };
+
+      $can_delete = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Delete A Member") {
+          $can_delete = true;
+        };
+      };
+
+      return view('admin.all_casualties',[
+        'all_casualties' => $all_casualties,
         'can_edit' => $can_edit,
         'can_delete' => $can_delete
       ]);
@@ -832,4 +924,51 @@ class AdminController extends Controller
         'all_applications' => $all_applications
       ]);
     }
+
+    // public function upload_all_casualties() {
+    //   $query = DB::connection('heroku')->select('select * from casualties where id > :id',['id' => 8464]);
+    //
+    //   foreach ($query as $one_query) {
+    //
+    //     $random_password = '';
+    //     $all_characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    //     $character_count = strlen($all_characters);
+    //     for ($i = 0; $i < 20; $i++) {
+    //       $random_password .=  $all_characters[random_int(0,$character_count - 1)];
+    //     };
+    //     $encrypted = Hash::make($random_password);
+    //
+    //     DB::connection('qra')
+    //       ->insert('
+    //         insert into users (
+    //           id, password, first_name, middle_name, last_name, `rank`, kia_location, injury_type, city, state, burial_site, day_of_death, month_of_death, year_of_death, comments, veteran_img, unit, when_displayed, deceased
+    //         ) values (
+    //           :id, :password, :first_name, :middle_name, :last_name, :rank, :kia_location, :injury_type, :city, :state, :burial_site, :day_of_death, :month_of_death, :year_of_death, :comments, :veteran_img, :unit, :when_displayed, :deceased
+    //         )',
+    //         [
+    //           ':id' => $one_query->id,
+    //           ':password' => $encrypted,
+    //           ':first_name' => $one_query->first_name,
+    //           ':middle_name' => $one_query->middle_name,
+    //           ':last_name' => $one_query->last_name,
+    //           ':rank' => $one_query->rank,
+    //           ':kia_location' => $one_query->place,
+    //           ':injury_type' => $one_query->injury_type,
+    //           ':city' => $one_query->city,
+    //           ':state' => $one_query->state,
+    //           ':burial_site' => $one_query->burial_site,
+    //           ':day_of_death' => $one_query->day_of_death,
+    //           ':month_of_death' => $one_query->month_of_death,
+    //           ':year_of_death' => $one_query->year_of_death,
+    //           ':comments' => $one_query->comments,
+    //           ':veteran_img' => $one_query->photo,
+    //           ':unit' => $one_query->unit,
+    //           ':when_displayed' => $one_query->when_displayed,
+    //           ':deceased' => 1
+    //         ]
+    //       );
+    //   };
+    //
+    //   return view('welcome');
+    // }
 }

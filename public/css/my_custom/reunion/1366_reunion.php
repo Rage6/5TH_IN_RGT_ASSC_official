@@ -35,7 +35,7 @@
 
 .regBttn {
   --backgroundImage: calc(88vh * 0.51);
-  margin: 6vh 0 0 0;
+  margin: 0vh 0 0 0;
   margin-left: calc(var(--backgroundImage) + 2vw);
   border-radius: 25px;
   padding: 15px 2vw;
@@ -66,6 +66,11 @@
   margin-left: var(--backgroundImage);
   font-size: 2.7rem;
   width: calc(100vw - var(--backgroundImage));
+}
+
+.regBttnIntro {
+  margin-top: 6vh;
+  font-size: 2.1rem;
 }
 
 .regRow {

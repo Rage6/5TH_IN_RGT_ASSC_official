@@ -45,7 +45,7 @@ body {
 .regBttn {
   --backgroundImage: calc(88vh * 0.51);
   --bttnMargins: calc(calc(calc(1920px - 76.8px - 499.2px - var(--backgroundImage)) / 2) + var(--backgroundImage));
-  margin: 6vh 0 0 48%;
+  margin: 0vh 0 0 48%;
   border-radius: 25px;
   padding: 15px 38.4px;
   font-size: 3rem;
@@ -73,6 +73,11 @@ body {
   margin-left: var(--backgroundImage);
   font-size: 2.7rem;
   width: calc(1920px - var(--backgroundImage));
+}
+
+.regBttnIntro {
+  margin-top: 6vh;
+  font-size: 2.1rem;
 }
 
 .regRow {

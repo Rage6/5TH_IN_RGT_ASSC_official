@@ -93,8 +93,13 @@
             No location available
           </div>
         @endif
-        <div class="regBttn" id="regBttn" onclick="openAndCloseForm()">
-          Register Now!
+        <div>
+          <div class="dateAndLocation regBttnIntro">
+            Want To Attend?
+          </div>
+          <div class="regBttn" id="regBttn" onclick="openAndCloseForm()">
+            Click Here!
+          </div>
         </div>
       </div>
       <div class="regForm" id="reunionForm" style="display:none">
@@ -102,7 +107,7 @@
           <!-- <div class="regPart">
             PART 1
           </div> -->
-          <form method="POST" action="/reunion/registration">
+          <form method="POST" action="{{ route('reunion.submit') }}">
             @csrf
             <div class="regFormFull">
               <div class="regFormHalf">
@@ -111,15 +116,15 @@
                     Basic Information
                   </div>
                   @auth
-                    <input required type='text' name='first_name' value='{{ $this_user->first_name }}' placeholder='First Name'/>
-                    <input required type='text' name='last_name' value='{{ $this_user->last_name }}' placeholder='Last Name'/>
-                    <input required type='email' name='email' value='{{ $this_user->email }}' placeholder='Email'/>
+                    <input required type='text' name='first_name' value='{{ $this_user->first_name }}' placeholder='First Name (required)'/>
+                    <input required type='text' name='last_name' value='{{ $this_user->last_name }}' placeholder='Last Name (required)'/>
+                    <input required type='email' name='email' value='{{ $this_user->email }}' placeholder='Email (required)'/>
                   @else
-                    <input required type='text' name='first_name' placeholder='First Name'/>
-                    <input required type='text' name='last_name' placeholder='Last Name'/>
-                    <input required type='email' name='email' placeholder='Email'/>
+                    <input required type='text' name='first_name' placeholder='First Name (required)'/>
+                    <input required type='text' name='last_name' placeholder='Last Name (required)'/>
+                    <input required type='email' name='email' placeholder='Email (required)'/>
                   @endauth
-                  <input required type='tel' name='phone_number' placeholder='Phone Number'/>
+                  <input required type='text' minlength='10' maxlength='16' name='phone_number' placeholder='Phone Number'/>
                 </div>
                 <div class="regFormBasic">
                   <div class="regFormSubtitles">

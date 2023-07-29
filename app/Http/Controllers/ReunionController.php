@@ -65,7 +65,7 @@ class ReunionController extends Controller
         'email' => 'email|required',
         'guest_num' => 'integer|nullable',
         'guest_names' => 'string|nullable',
-        'phone_number' => 'integer|nullable',
+        'phone_number' => 'string|nullable|min:10|max:16',
         'arrival_date' => 'date|nullable',
       ]);
 
@@ -97,11 +97,7 @@ class ReunionController extends Controller
           ]
         ]);
         $question = $all_boolean_list[$k];
-        if ($k == 0) {
-          $new_submission->{$key} = $question."::".$request->{$key};
-        } else {
-          $new_submission->{$key} = "||".$question."::".$request->{$key};
-        };
+        $new_submission->{$key} = $question."::".$request->{$key};
         $all_boolean_string .= $new_submission->{$key};
       };
       $new_submission->all_boolean_count = count($all_boolean_list);

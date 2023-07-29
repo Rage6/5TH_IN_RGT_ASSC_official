@@ -123,6 +123,13 @@
                         <a href="{{ route('edit.member.list') }}">{{ __('CANCEL') }}</a>
                       </button>
                     </form>
+                    <div class="basicInfoGrid">
+                      <a href="{{ route('edit.casualty.index',[
+                        'id' => $id
+                      ]) }}">
+                        + If the member was KIA or MIA, click here.
+                      </a>
+                    </div>
                 </div>
             </div>
         </div>

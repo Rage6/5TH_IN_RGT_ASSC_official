@@ -7,7 +7,7 @@
 }
 
 .regBttn {
-  margin: 15vh 0 0 38%;
+  margin: 0vh 0 0 38%;
   border-radius: 25px;
   padding: 15px 5%;
   font-size: 3rem;
@@ -17,6 +17,10 @@
 
 .dateAndLocation {
   font-size: 2.7rem;
+}
+
+.regBttnIntro {
+  font-size: 2.3rem;
 }
 
 .regRow {

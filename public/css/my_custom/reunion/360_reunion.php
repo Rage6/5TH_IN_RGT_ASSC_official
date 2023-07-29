@@ -80,9 +80,24 @@
   background-position: left, center, left;
 }
 
+.regBttnIntro {
+  margin-top: 5vh;
+  margin-bottom: 0px;
+  padding: 20px 0;
+  font-size: 1.1rem;
+  font-family: 'Special Elite', cursive;
+  color: black;
+  background-image: linear-gradient(
+    rgba(256,256,256,0) 0%,
+    rgba(256,256,256,0.7) 15%,
+    rgba(256,256,256,0.7) 85%,
+    rgba(256,256,256,0) 100%
+  );
+}
+
 .regBttn {
   --backgroundImage: calc(90vh * 0.256);
-  margin: 5vh 0 0 43%;
+  margin: 0 0 0 43%;
   margin-left: calc(var(--backgroundImage) + 1vw);
   width: calc(96vw - var(--backgroundImage));
   border-radius: 10px;
