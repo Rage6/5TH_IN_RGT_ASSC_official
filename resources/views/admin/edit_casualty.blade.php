@@ -20,7 +20,7 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>Middle Name</div>
-                        <input name="middleName" id="middleName" value="{{ $casualty->last_name }}" />
+                        <input name="middleName" id="middleName" value="{{ $casualty->middle_name }}" />
                       </div>
                       <div class="basicInfoGrid">
                         <div>Last Name</div>
@@ -32,7 +32,7 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>Location When KIA/MIA</div>
-                        <input name="kiaLocation" id="kiaLocation" value="{{ $casualty->kia_location }}" placeholder="required" required />
+                        <input name="kiaLocation" id="kiaLocation" value="{{ $casualty->kia_location }}" />
                       </div>
                       <div class="basicInfoGrid">
                         <div>Type of Injury</div>
@@ -76,31 +76,35 @@
                         <div>
                           Was this casualty a member of the 5th Infantry Regiment Association?
                         </div>
-                        <select name="membershipStatus">
-                          <option value="1970-01-01 00:00:00" @if ($status == "true") selected @endif>
-                            Yes
-                          </option>
-                          <option value="nonmember" @if ($status == "false") selected @endif>
-                            No
-                          </option>
-                        </select>
+                        <div>
+                          <select name="membershipStatus">
+                            <option value="1970-01-01 00:00:00" @if ($status == "member") selected @endif>
+                              Yes
+                            </option>
+                            <option value="nonmember" @if ($status == "nonmember") selected @endif>
+                              No
+                            </option>
+                          </select>
+                        </div>
                       </div>
+                      <div>
                       <button
                         type="submit"
                         class="btn btn-primary">
-                        EDIT A BOBCAT
+                        EDIT A CASUALTY
                       </button>
                       <button class="btn">
                         <a href="{{ route('edit.casualty.list') }}">{{ __('CANCEL') }}</a>
                       </button>
-                    </form>
-                    <div>
-                      <a href="{{ route('edit.member.index',[
-                        'id' => $id
-                      ]) }}">
-                        + If this casualty was a Bobcat member, click here.
+                      <a class="btn btn-warning" href="{{ route('edit.casualty.disable',['id' => $id]) }}">
+                        NOT A CASUALTY
                       </a>
-                    </div>
+                    </form>
+                    @if ($can_edit_member == true && $casualty->expiration_date != null)
+                      <div>
+                        + Need to edit this person's member records? <a href="{{ route('edit.member.index',['id' => $id]) }}">Click here</a>
+                      </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -18,14 +18,11 @@
                     <a href="{{ route('admin.index') }}"><< BACK</a>
                   </div>
                   <div>
-                    <div>
-                      <u>MEMBER DIRECTORY</u>
-                    </div>
                     <div style="width:100%">
                       @foreach ($all_members as $one_member)
                         <div style="margin-bottom:10px;display:grid;grid-template-columns:50% 50%">
                           <div>
-                            @if ($one_member->title) {{ $one_member->title }} @endif {{ $one_member->first_name }} {{ $one_member->last_name }} @if ($one_member->suffix_name) {{ $one_member->suffix_name }} @endif
+                            {{ $one_member->last_name }} @if ($one_member->suffix_name) {{ $one_member->suffix_name }} @endif , {{ $one_member->first_name }} @if ($one_member->middle_name) {{ substr($one_member->middle_name,0,1) }}. @endif
                           </div>
                           <div style="display:flex;flex-wrap:wrap">
                             @if ($can_edit == true)

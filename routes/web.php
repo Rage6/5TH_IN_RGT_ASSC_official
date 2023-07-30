@@ -91,10 +91,15 @@ Route::middleware('auth')->group(function() {
       Route::post('delete-bobcat/{id}',[App\Http\Controllers\AdminController::class,'delete_member_post'])->name('delete.member.post');
     });
 
+    Route::middleware(['permission:See Nonmembers'])->group(function() {
+      Route::get('see-nonmembers', [App\Http\Controllers\AdminController::class,'all_nonmembers'])->name('edit.nonmember.list');
+    });
+
     Route::middleware(['permission:Edit Casualty Records'])->group(function() {
       Route::get('edit-casualties', [App\Http\Controllers\AdminController::class,'all_casualties'])->name('edit.casualty.list');
       Route::get('edit-casualty/{id}',[App\Http\Controllers\AdminController::class,'edit_casualty_index'])->name('edit.casualty.index');
       Route::post('edit-casualty/{id}/post',[App\Http\Controllers\AdminController::class,'edit_casualty_post'])->name('edit.casualty.post');
+      Route::get('edit-casualty/{id}/disable',[App\Http\Controllers\AdminController::class,'edit_casualty_disable'])->name('edit.casualty.disable');
     });
 
     Route::middleware(['permission:Assign Roles To Members'])->group(function() {

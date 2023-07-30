@@ -18,14 +18,11 @@
                     <a href="{{ route('admin.index') }}"><< BACK</a>
                   </div>
                   <div>
-                    <div>
-                      <u>CASUALTY DIRECTORY</u>
-                    </div>
                     <div style="width:100%">
                       @foreach ($all_casualties as $one_casualty)
                         <div style="margin-bottom:10px;display:grid;grid-template-columns:50% 50%">
                           <div>
-                            {{ $one_casualty->first_name }} {{ $one_casualty->last_name }}
+                            {{ $one_casualty->last_name }}, {{ $one_casualty->first_name }} @if ($one_casualty->middle_name) {{ substr($one_casualty->middle_name,0,1) }}. @endif
                           </div>
                           <div style="display:flex;flex-wrap:wrap">
                             @if ($can_edit == true)
@@ -37,7 +34,7 @@
                                 </a>
                               </div>
                             @endif
-                            
+
                           </div>
                         </div>
                       @endforeach

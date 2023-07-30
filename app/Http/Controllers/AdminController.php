@@ -62,27 +62,41 @@ class AdminController extends Controller
     }
 
     public function add_member_index() {
-      return view('admin.new_user');
+      $can_edit_casualty = Auth::user()->check_for_permission("Edit Casualty Records");
+      return view('admin.new_user',[
+        'can_edit_casualty' => $can_edit_casualty
+      ]);
     }
 
     public function add_member_post(Request $request) {
+
+      if (!$request->isKiaMia) {
+        $request->isKiaMia = 0;
+      };
+
       $request->validate([
         'firstName'        => 'required|string',
-        'middleName'        => 'nullable|string',
+        'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
         'email'            => 'nullable|string',
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file',
         'tombstoneImg'     => 'nullable|file',
         'biography'        => 'nullable|string',
-        'isDeceased'       => 'required',
-        'membershipStatus' => 'nullable',
+        'isDeceased'       => 'required|integer',
+        'isKiaMia'         => 'required|integer',
+        'membershipStatus' => 'required|string',
         'mailingAddress'   => 'nullable|string',
         'rank'             => 'nullable|string',
         'kiaLocation'      => 'nullable|string',
         'injuryType'       => 'nullable|string',
         'burialSite'       => 'nullable|string'
       ]);
+
+      if ($request->isKiaMia == 1 || $request->isKiaMia == "1") {
+        $request->isDeceased = 1;
+      };
+
       $input['first_name'] = $request->firstName;
       $input['middle_name'] = $request->middleName;
       $input['last_name'] = $request->lastName;
@@ -95,11 +109,12 @@ class AdminController extends Controller
       $input['mailing_address'] = $request->mailingAddress;
       $input['rank'] = $request->rank;
       $input['kia_location'] = $request->kiaLocation;
+      $input['kia_or_mia'] = $request->isKiaMia;
       $input['injury_type'] = $request->injuryType;
       $input['burial_site'] = $request->burialSite;
       $input['day_of_death'] = $request->dayOfDeath;
-      $input['month_of_death'] = $request->dayOfMonth;
-      $input['year_of_death'] = $request->dayOfYear;
+      $input['month_of_death'] = $request->monthOfDeath;
+      $input['year_of_death'] = $request->yearOfDeath;
 
       $random_password = '';
       $all_characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -142,18 +157,29 @@ class AdminController extends Controller
       };
       */
 
-      if ($request->membershipStatus == 'start_trial') {
+      if ($request->membershipStatus != 'nonmember' && $request->isDeceased == 1) {
+        $timestamp = '1970-01-01 00:00:00';
+      } elseif ($request->membershipStatus == 'start_trial') {
         $start_date = date("Y-m-d H:i:s");
         $timestamp = date("Y-m-d H:i:s",strtotime($start_date." +30 days"));
-      } elseif ('permanent') {
+      } elseif ($request->membershipStatus == 'permanent') {
         $timestamp = '1970-01-01 00:00:00';
       } else {
         $timestamp = null;
       };
       $input['expiration_date'] = $timestamp;
 
-      User::create($input);
-      return redirect()->route('admin.index');
+      $new_user = User::create($input);
+
+      $can_edit_casualty = Auth::user()->check_for_permission("Edit Casualty Records");
+
+      if ($request->isKiaMia == 1 && $can_edit_casualty) {
+        return redirect()->route('edit.casualty.index',[
+          'id' => $new_user->id
+        ]);
+      } else {
+        return redirect()->route('admin.index');
+      };
     }
 
     public function edit_member_index($id) {
@@ -166,6 +192,17 @@ class AdminController extends Controller
         $status = "nonmember";
       };
 
+      $current_user = Auth::user();
+      $user_roles = User::find($current_user->id)->all_user_roles;
+      $role_model = new Role();
+      $users_permissions = $role_model->users_permissions($current_user->id);
+      $can_edit_casualty = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit Casualty Records") {
+          $can_edit_casualty = true;
+        };
+      };
+
       // if (!file_exists('../public/storage')) {
       //   Artisan::call('storage:link');
       // };
@@ -173,7 +210,8 @@ class AdminController extends Controller
       return view('admin.edit_user',[
         'id'     => $id,
         'member' => $member,
-        'status' => $status
+        'status' => $status,
+        'can_edit_casualty' => $can_edit_casualty
       ]);
     }
 
@@ -185,7 +223,8 @@ class AdminController extends Controller
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file',
         'biography'        => 'nullable|string',
-        'isDeceased'       => 'required',
+        'isDeceased'       => 'required|integer',
+        'isKiaMia'         => 'required|integer',
         'membershipStatus' => 'nullable',
         'action'           => 'required',
         'mailingAddress'   => 'nullable|string'
@@ -202,6 +241,7 @@ class AdminController extends Controller
         $member->biography = $request->biography;
         $member->deceased = $request->isDeceased;
         $member->mailing_address = $request->mailingAddress;
+        $member->kia_or_mia = $request->isKiaMia;
 
         if ($request->membershipStatus == "permanent") {
           $member->expiration_date = '1970-01-01 00:00:00';
@@ -298,7 +338,11 @@ class AdminController extends Controller
 
     public function all_members() {
       // $all_users = User::all();
-      $all_users = User::where('expiration_date','!=',null)->orderBy('last_name','asc')->paginate(20);
+      $all_users = User::where('expiration_date','!=',null)
+        ->orderBy('last_name','asc')
+        ->orderBy('first_name','asc')
+        ->orderBy('middle_name','asc')
+        ->paginate(20);
 
       $current_user = Auth::user();
       $user_roles = User::find($current_user->id)->all_user_roles;
@@ -334,39 +378,88 @@ class AdminController extends Controller
       ]);
     }
 
+    public function all_nonmembers() {
+      // $all_users = User::all();
+      $all_users = User::where([
+          ['expiration_date',null],
+          ['kia_or_mia','0']
+        ])
+        ->orderBy('last_name','asc')
+        ->orderBy('first_name','asc')
+        ->orderBy('middle_name','asc')
+        ->paginate(20);
+
+      $current_user = Auth::user();
+      $user_roles = User::find($current_user->id)->all_user_roles;
+      $role_model = new Role();
+      $users_permissions = $role_model->users_permissions($current_user->id);
+
+      $can_edit_member = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit A Member") {
+          $can_edit_member = true;
+        };
+      };
+
+      $can_edit_casualty = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit Casualty Records") {
+          $can_edit_casualty = true;
+        };
+      };
+
+      return view('admin.all_nonmembers',[
+        'all_nonmembers' => $all_users,
+        'can_edit_member' => $can_edit_member,
+        'can_edit_casualty' => $can_edit_casualty
+      ]);
+    }
+
     public function edit_casualty_index($id) {
       $casualty = User::find($id);
       if ($casualty->expiration_date == null) {
-        $status = "false";
+        $status = "nonmember";
       } else {
-        $status = "true";
+        $status = "member";
       };
 
       // if (!file_exists('../public/storage')) {
       //   Artisan::call('storage:link');
       // };
 
+      $current_user = Auth::user();
+      $user_roles = User::find($current_user->id)->all_user_roles;
+      $role_model = new Role();
+      $users_permissions = $role_model->users_permissions($current_user->id);
+      $can_edit_member = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit A Member") {
+          $can_edit_member = true;
+        };
+      };
+
       return view('admin.edit_casualty',[
         'id'     => $id,
         'casualty' => $casualty,
-        'status' => $status
+        'status' => $status,
+        'can_edit_member' => $can_edit_member
       ]);
     }
 
     public function edit_casualty_post(Request $request,$id) {
 
       $request->validate([
-        'firstName'        => 'required',
-        'middleName'       => 'nullable',
-        'lastName'         => 'required',
-        'rank'             => 'nullable',
-        'kiaLocation'      => 'required',
-        'injuryType'       => 'nullable',
-        'city'             => 'nullable',
-        'state'            => 'nullable',
-        'burialSite'       => 'nullable',
-        'comments'         => 'nullable',
-        'membershipStatus' => 'required',
+        'firstName'        => 'required|string',
+        'middleName'       => 'nullable|string',
+        'lastName'         => 'required|string',
+        'rank'             => 'nullable|string',
+        'kiaLocation'      => 'nullable|string',
+        'injuryType'       => 'nullable|string',
+        'city'             => 'nullable|string',
+        'state'            => 'nullable|string',
+        'burialSite'       => 'nullable|string',
+        'comments'         => 'nullable|string',
+        'membershipStatus' => 'string',
       ]);
 
       if ($request['membershipStatus'] == "nonmember") {
@@ -380,6 +473,8 @@ class AdminController extends Controller
       $casualty->middle_name = $request['middleName'];
       $casualty->last_name = $request['lastName'];
       $casualty->rank = $request['rank'];
+      $casualty->deceased = 1;
+      $casualty->kia_or_mia = 1;
       $casualty->kia_location = $request['kiaLocation'];
       $casualty->injury_type = $request['injuryType'];
       $casualty->city = $request['city'];
@@ -397,8 +492,21 @@ class AdminController extends Controller
       return redirect()->route('edit.casualty.list');
     }
 
+    public function edit_casualty_disable($id) {
+
+      $user = User::find($id);
+      $user->kia_or_mia = 0;
+      $user->save();
+
+      return redirect()->route('edit.casualty.list');
+    }
+
     public function all_casualties() {
-      $all_casualties = User::where('kia_or_mia','1')->orderBy('last_name','asc')->paginate(20);
+      $all_casualties = User::where('kia_or_mia','1')
+        ->orderBy('last_name','asc')
+        ->orderBy('first_name','asc')
+        ->orderBy('middle_name','asc')
+        ->paginate(20);
 
       $current_user = Auth::user();
       $user_roles = User::find($current_user->id)->all_user_roles;

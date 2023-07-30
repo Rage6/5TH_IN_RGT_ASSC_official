@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('EDIT A BOBCAT  ') }}</div>
+                <div class="card-header">{{ __('EDIT A MEMBER') }}</div>
 
                 <div class="card-body">
                   <div>
@@ -17,6 +17,10 @@
                       <div class="basicInfoGrid">
                         <div>First Name</div>
                         <input name="firstName" id="firstName" value="{{ $member->first_name }}" placeholder="required" required />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Middle Name</div>
+                        <input name="middleName" id="middleName" value="{{ $member->middle_name }}" />
                       </div>
                       <div class="basicInfoGrid">
                         <div>Last Name</div>
@@ -66,7 +70,7 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
-                          Is this member deceased?
+                          Is this person deceased?
                         </div>
                         <select name="isDeceased">
                           <option value="0" @if ($member->deceased == 0) selected @endif>
@@ -76,6 +80,17 @@
                             YES
                           </option>
                         </select>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
+                          If deceased, was their death the direct result of combat (KIA/MIA)?
+                        </div>
+                        <div>
+                          <select style="width:100%" name="isKiaMia">
+                            <option value="0" @if ($member->kia_or_mia == 0) selected @endif>NO</option>
+                            <option value="1" @if ($member->kia_or_mia == 1) selected @endif>YES</option>
+                          </select>
+                        </div>
                       </div>
                       <div class="basicInfoGrid">
                         <div>
@@ -117,19 +132,17 @@
                         class="btn btn-primary"
                         name="action"
                         value="update">
-                        EDIT A BOBCAT
+                        EDIT A MEMBER
                       </button>
                       <button class="btn">
                         <a href="{{ route('edit.member.list') }}">{{ __('CANCEL') }}</a>
                       </button>
                     </form>
-                    <div class="basicInfoGrid">
-                      <a href="{{ route('edit.casualty.index',[
-                        'id' => $id
-                      ]) }}">
-                        + If the member was KIA or MIA, click here.
-                      </a>
-                    </div>
+                    @if ($can_edit_casualty == true && $member->kia_or_mia == 1)
+                      <div>
+                        + Need to edit this person's casualty records? <a href="{{ route('edit.casualty.index',['id' => $id]) }}">Click here</a>
+                      </div>
+                    @endif
                 </div>
             </div>
         </div>

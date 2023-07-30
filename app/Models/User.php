@@ -35,6 +35,7 @@ class User extends Authenticatable
         'mailing_address',
         'expiration_date',
         'rank',
+        'kia_or_mia',
         'kia_location',
         'injury_type',
         'burial_site',
