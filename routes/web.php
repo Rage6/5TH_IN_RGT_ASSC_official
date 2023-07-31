@@ -72,6 +72,8 @@ Route::middleware('auth')->group(function() {
       // Route::get('upload-casualties', [App\Http\Controllers\AdminController::class,'upload_all_casualties']);
       // // For uploading the recipients
       // Route::get('upload-recipients', [App\Http\Controllers\AdminController::class,'upload_all_recipients']);
+      // For uploading each casualty's conflict_id
+      // Route::get('update-conflict-id', [App\Http\Controllers\AdminController::class,'update_conflict_id']);
     });
 
     Route::middleware(['permission:Add A New Member'])->group(function() {

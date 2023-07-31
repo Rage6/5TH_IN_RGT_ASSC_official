@@ -1033,8 +1033,8 @@ class AdminController extends Controller
       ]);
     }
 
-    // public function upload_all_casualties() {
-    //   $query = DB::connection('heroku')->select('select * from casualties where id > :id',['id' => 8464]);
+    // public function update_conflict_id() {
+    //   $query = DB::connection('heroku')->select('select * from casualties');
     //
     //   foreach ($query as $one_query) {
     //
