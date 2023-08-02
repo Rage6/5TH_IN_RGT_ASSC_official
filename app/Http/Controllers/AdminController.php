@@ -10,7 +10,9 @@ use App\Models\Role;
 use App\Models\Event;
 use App\Models\Subevent;
 use App\Models\Payment;
+use App\Models\Item;
 use App\Models\Applicant;
+use App\Models\Conflict;
 
 use App\Http\Controllers\stdClass;
 use Illuminate\Support\Facades\Hash;
@@ -63,8 +65,10 @@ class AdminController extends Controller
 
     public function add_member_index() {
       $can_edit_casualty = Auth::user()->check_for_permission("Edit Casualty Records");
+      $all_reg_options = Item::where('purpose','registration.index')->get();
       return view('admin.new_user',[
-        'can_edit_casualty' => $can_edit_casualty
+        'can_edit_casualty' => $can_edit_casualty,
+        'all_reg_options' => $all_reg_options
       ]);
     }
 
@@ -157,15 +161,29 @@ class AdminController extends Controller
       };
       */
 
+      $start_date = date("Y-m-d H:i:s");
+      $all_reg_options = Item::where('purpose','registration.index')->get();
+
+      $item_status = false;
+      foreach ($all_reg_options as $one_option) {
+        if ($request->membershipStatus == $one_option->id) {
+          $item_status = "permanent";
+          if ($one_option->how_long != null) {
+            $item_status = $one_option->how_long;
+          };
+        };
+      };
+
       if ($request->membershipStatus != 'nonmember' && $request->isDeceased == 1) {
         $timestamp = '1970-01-01 00:00:00';
-      } elseif ($request->membershipStatus == 'start_trial') {
-        $start_date = date("Y-m-d H:i:s");
-        $timestamp = date("Y-m-d H:i:s",strtotime($start_date." +30 days"));
-      } elseif ($request->membershipStatus == 'permanent') {
-        $timestamp = '1970-01-01 00:00:00';
-      } else {
+      } elseif ($request->membershipStatus == 'nonmember') {
         $timestamp = null;
+      } elseif ($request->membershipStatus == 'start_trial') {
+        $timestamp = date("Y-m-d H:i:s",strtotime($start_date." +30 days"));
+      } elseif ($item_status == "permanent") {
+        $timestamp = '1970-01-01 00:00:00';
+      } elseif ($item_status != "permanent") {
+        $timestamp = date("Y-m-d H:i:s",strtotime($start_date." +".$item_status));
       };
       $input['expiration_date'] = $timestamp;
 
@@ -185,10 +203,10 @@ class AdminController extends Controller
     public function edit_member_index($id) {
       $member = User::find($id);
       if ($member->expiration_date != '1970-01-01 00:00:00' && $member->expiration_date != null) {
-        $status = "start_trial";
+        $status = "temporary";
       } elseif ($member->expiration_date == '1970-01-01 00:00:00') {
         $status = "permanent";
-      } else {
+      } elseif ($member->expiration_date == null) {
         $status = "nonmember";
       };
 
@@ -225,7 +243,6 @@ class AdminController extends Controller
         'biography'        => 'nullable|string',
         'isDeceased'       => 'required|integer',
         'isKiaMia'         => 'required|integer',
-        'membershipStatus' => 'nullable',
         'action'           => 'required',
         'mailingAddress'   => 'nullable|string'
       ]);
@@ -242,17 +259,6 @@ class AdminController extends Controller
         $member->deceased = $request->isDeceased;
         $member->mailing_address = $request->mailingAddress;
         $member->kia_or_mia = $request->isKiaMia;
-
-        if ($request->membershipStatus == "permanent") {
-          $member->expiration_date = '1970-01-01 00:00:00';
-        } elseif ($request->membershipStatus == "start_trial") {
-          if ($member->expiration_date == '1970-01-01 00:00:00' || $member->expiration_date == null) {
-            $start_date = date("Y-m-d H:i:s");
-            $member->expiration_date = date("Y-m-d H:i:s",strtotime($start_date." +30 days"));
-          };
-        } else {
-          $member->expiration_date = null;
-        };
 
         // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
           $storagePath = 'images';
@@ -299,6 +305,44 @@ class AdminController extends Controller
       };
 
       return redirect()->route('edit.member.list');
+    }
+
+    public function edit_member_deadline_index($id) {
+      $member = User::find($id);
+      $all_registration_options = Item::where('purpose','registration.index')->get();
+      return view('admin.edit_deadline',[
+        'member' => $member,
+        'all_options' => $all_registration_options
+      ]);
+    }
+
+    public function edit_member_deadline_permanent($id) {
+      $member = User::find($id);
+      $member->expiration_date = '1970-01-01 00:00:00';
+      $member->save();
+      return redirect()->route('edit.member.index',['id' => $id]);
+    }
+
+    public function edit_member_deadline_nonmember($id) {
+      $member = User::find($id);
+      $member->expiration_date = null;
+      $member->save();
+      return redirect()->route('edit.member.index',['id' => $id]);
+    }
+
+    public function edit_member_deadline_manual(Request $request,$id) {
+      $request->validate([
+        'yearNumber' => 'required|numeric',
+        'monthNumber' => 'required|numeric',
+        'dayNumber' => 'required|numeric'
+      ]);
+
+      $custom_date = $request->yearNumber."-".$request->monthNumber."-".$request->dayNumber." 00:00:00";
+
+      $member = User::find($id);
+      $member->expiration_date = $custom_date;
+      $member->save();
+      return redirect()->route('edit.member.index',['id' => $id]);
     }
 
     public function delete_member_index($id) {
@@ -438,11 +482,14 @@ class AdminController extends Controller
         };
       };
 
+      $all_conflicts = Conflict::all();
+
       return view('admin.edit_casualty',[
         'id'     => $id,
         'casualty' => $casualty,
         'status' => $status,
-        'can_edit_member' => $can_edit_member
+        'can_edit_member' => $can_edit_member,
+        'all_conflicts' => $all_conflicts
       ]);
     }
 
@@ -460,6 +507,7 @@ class AdminController extends Controller
         'burialSite'       => 'nullable|string',
         'comments'         => 'nullable|string',
         'membershipStatus' => 'string',
+        'conflictId'       => 'required|numeric'
       ]);
 
       if ($request['membershipStatus'] == "nonmember") {
@@ -482,6 +530,7 @@ class AdminController extends Controller
       $casualty->burial_site = $request['burialSite'];
       $casualty->comments = $request['comments'];
       $casualty->expiration_date = $membershipStatus;
+      $casualty->casualty_conflict_id = $request['conflictId'];
       $casualty->save();
 
       // if (!file_exists('../public/storage')) {

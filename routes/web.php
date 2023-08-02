@@ -85,6 +85,10 @@ Route::middleware('auth')->group(function() {
       Route::get('edit-bobcat', [App\Http\Controllers\AdminController::class,'all_members'])->name('edit.member.list');
       Route::get('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_index'])->name('edit.member.index');
       Route::post('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_post'])->name('edit.member.post');
+      Route::get('edit-bobcat/{id}/edit-deadline',[App\Http\Controllers\AdminController::class,'edit_member_deadline_index'])->name('edit.member.deadline');
+      Route::post('edit-bobcat/{id}/edit-deadline/permanent',[App\Http\Controllers\AdminController::class,'edit_member_deadline_permanent'])->name('edit.member.permanent');
+      Route::post('edit-bobcat/{id}/edit-deadline/nonmember',[App\Http\Controllers\AdminController::class,'edit_member_deadline_nonmember'])->name('edit.member.nonmember');
+      Route::post('edit-bobcat/{id}/edit-deadline/expiration-date',[App\Http\Controllers\AdminController::class,'edit_member_deadline_manual'])->name('edit.member.manual');
     });
 
     Route::middleware(['permission:Delete A Member'])->group(function() {

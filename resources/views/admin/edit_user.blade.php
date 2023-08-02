@@ -72,21 +72,23 @@
                         <div>
                           Is this person deceased?
                         </div>
-                        <select name="isDeceased">
-                          <option value="0" @if ($member->deceased == 0) selected @endif>
-                            NO
-                          </option>
-                          <option value="1" @if ($member->deceased == 1) selected @endif>
-                            YES
-                          </option>
-                        </select>
+                        <div>
+                          <select name="isDeceased">
+                            <option value="0" @if ($member->deceased == 0) selected @endif>
+                              NO
+                            </option>
+                            <option value="1" @if ($member->deceased == 1) selected @endif>
+                              YES
+                            </option>
+                          </select>
+                        </div>
                       </div>
                       <div class="basicInfoGrid">
                         <div>
                           If deceased, was their death the direct result of combat (KIA/MIA)?
                         </div>
                         <div>
-                          <select style="width:100%" name="isKiaMia">
+                          <select name="isKiaMia">
                             <option value="0" @if ($member->kia_or_mia == 0) selected @endif>NO</option>
                             <option value="1" @if ($member->kia_or_mia == 1) selected @endif>YES</option>
                           </select>
@@ -94,27 +96,34 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
-                          Membership
+                          Membership Status
                         </div>
-                        <select name="membershipStatus">
-                          <option value="nonmember" @if ($status == "nonmember") selected @endif>
-                            Nonmember
-                          </option>
-                          <option value="permanent" @if ($status == "permanent") selected @endif>
-                            Permanent Member
-                          </option>
-                          <option value="start_trial" @if ($status == "start_trial") selected @endif>
-                            30-day Trial Membership
-                          </option>
-                        </select>
-                        @if ($status == "start_trial")
+                        <div style="display:flex;justify-content:space-between">
+                          @if ($status == "temporary")
+                            <div>
+                              Expires on:<br>
+                              {{ substr($member->expiration_date,0,10) }}<br>
+                              (YYYY-MM-DD)
+                            </div>
+                          @elseif ($status == "permanent")
+                            <div>
+                              Permanent
+                            </div>
+                          @elseif ($status == "nonmember")
+                            <div>
+                              Not a member
+                            </div>
+                          @else
+                            <div>
+                              Unknown
+                            </div>
+                          @endif
                           <div>
-                            This membership will end on:
+                            <a href="{{ route('edit.member.deadline',['id' => $member->id]) }}">
+                              CHANGE
+                            </a>
                           </div>
-                          <div>
-                            {{ $member->expiration_date }}
-                          </div>
-                        @endif
+                        </div>
                       </div>
                       <div class="basicInfoGrid">
                         <div>
@@ -127,22 +136,24 @@
                             value="{{ $member->mailing_address }}"
                           @endif>
                       </div>
-                      <button
-                        type="submit"
-                        class="btn btn-primary"
-                        name="action"
-                        value="update">
-                        EDIT A MEMBER
-                      </button>
-                      <button class="btn">
-                        <a href="{{ route('edit.member.list') }}">{{ __('CANCEL') }}</a>
-                      </button>
-                    </form>
-                    @if ($can_edit_casualty == true && $member->kia_or_mia == 1)
-                      <div>
-                        + Need to edit this person's casualty records? <a href="{{ route('edit.casualty.index',['id' => $id]) }}">Click here</a>
+                      <div class="editBttnRow">
+                        <button
+                          type="submit"
+                          class="btn btn-primary"
+                          name="action"
+                          value="update">
+                          EDIT A MEMBER
+                        </button>
+                        <a href="{{ route('edit.member.list') }}">
+                          {{ __('CANCEL') }}
+                        </a>
                       </div>
-                    @endif
+                      @if ($can_edit_casualty == true && $member->kia_or_mia == 1)
+                        <div>
+                          + Need to edit this person's casualty records? <a href="{{ route('edit.casualty.index',['id' => $id]) }}">Click here</a>
+                        </div>
+                      @endif
+                    </form>
                 </div>
             </div>
         </div>

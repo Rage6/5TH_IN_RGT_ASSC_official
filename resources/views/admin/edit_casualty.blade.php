@@ -39,6 +39,16 @@
                         <input name="injuryType" id="injuryType" value="{{ $casualty->injury_type }}" />
                       </div>
                       <div class="basicInfoGrid">
+                        <div>Name of war/conflict</div>
+                        <select name="conflictId" id="conflictId">
+                          @foreach ($all_conflicts as $one_conflict)
+                            <option value="{{ $one_conflict->id }}" @if ($one_conflict->id == $casualty->casualty_conflict_id) selected @endif />
+                              {{ $one_conflict->name }}
+                            </option>
+                          @endforeach
+                        </select>
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>Original City</div>
                         <input name="city" id="city" value="{{ $casualty->city }}" />
                       </div>

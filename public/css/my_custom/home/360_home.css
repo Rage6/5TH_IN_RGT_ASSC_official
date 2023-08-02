@@ -141,6 +141,35 @@
   grid-template-columns: 40% 60%;
 }
 
+.basicStatusGrid {
+  margin-bottom: 50px;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-row-gap: 10px;
+}
+
+.setDateInput {
+  display: grid;
+  grid-template-columns: 30% 60%;
+  grid-column-gap: 10%;
+  grid-row-gap: 5px;
+}
+
+.setDateInput div {
+  text-align: right;
+}
+
+.statusButton {
+  display: flex;
+  justify-content: center;
+}
+
+.editBttnRow {
+  margin: 50px 0 30px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
 .basicInfoGrid span {
   color: #3490dc;
 }

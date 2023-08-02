@@ -124,12 +124,47 @@
                             <option value="nonmember">
                               Nonmember
                             </option>
-                            <option value="permanent">
-                              Permanent Member
-                            </option>
                             <option value="start_trial">
                               30-day Trial Membership
                             </option>
+                            @foreach ($all_reg_options as $one_option)
+                              @if ($one_option->how_long)
+                                <option value="{{ $one_option->id }}">
+                                  {{ $one_option->name }}
+                                </option>
+                              @endif
+                            @endforeach
+                            @foreach ($all_reg_options as $one_option)
+                              @if (!$one_option->how_long)
+                                <option value="{{ $one_option->id }}">
+                                  {{ $one_option->name }}
+                                </option>
+                              @endif
+                            @endforeach
+                            <!-- <option value="one_active">
+                              Active Duty
+                            </option>
+                            <option value="one_year">
+                              One Year
+                            </option>
+                            <option value="two_years">
+                              Two Year
+                            </option>
+                            <option value="five_years">
+                              Five Years
+                            </option>
+                            <option value="permanent_1">
+                              Lifetime (< 50 y/o)
+                            </option>
+                            <option value="permanent_2">
+                              Lifetime (50 - 64 y/o)
+                            </option>
+                            <option value="permanent_3">
+                              Lifetime (50 - 64 y/o)
+                            </option> -->
+                            <!-- <option value="permanent">
+                              Permanent Member
+                            </option> -->
                           </select>
                         </div>
                       </div>
