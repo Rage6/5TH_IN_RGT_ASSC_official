@@ -32,7 +32,20 @@
 }
 
 .casualtyListTitle {
-  /* display: none; */
+  grid-template-columns: 40% 30% 30%;
+  grid-template-areas: "justName justUnit conflictName";
+}
+
+.nameAndUnit {
+  display: none;
+}
+
+.justName {
+  display: block;
+}
+
+.justUnit {
+  display: block;
 }
 
 .allCasualtyListRows {
@@ -44,14 +57,9 @@
 }
 
 .casualtyListRow {
-  /* margin: 0 6% 15px 0;
-  display: grid;
-  grid-template-columns: 96% 4%;
+  grid-template-columns: 40% 30% 30%;
   grid-template-areas:
-    "rowName rowArrow"
-    "rowUnit rowArrow"
-    "rowConflict rowArrow";
-  width: 40%; */
+    "rowName rowUnit rowConflict";
 }
 
 .rightSearchColumn {

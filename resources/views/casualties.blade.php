@@ -185,8 +185,10 @@
             Total: <span>{{ $casualty_count }}</span>
           </div>
           <div class="casualtyListTitle">
-            <div>Name & Unit</div>
-            <div>Conflict</div>
+            <div class="nameAndUnit">Name & Unit</div>
+            <div class="justName">Name</div>
+            <div class="justUnit">Unit</div>
+            <div class="conflictName">Conflict</div>
           </div>
           <div class="allCasualtyListRows">
             @if ($all_casualty_basics != null)

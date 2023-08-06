@@ -248,22 +248,40 @@ p {
   padding: 10px 0 0 0;
   text-align: center;
   font-family: 'Special Elite', cursive;
-  width: 85%;
 }
 
 .casualtyListTitle {
-  padding: 10px 5% 10px 0;
+  padding: 10px 2%;
   font-family: 'Special Elite', cursive;
-  text-align: center;
   display: grid;
-  grid-template-columns: 60% 35% 5%;
-  width: 85%;
+  grid-template-columns: 60% 40%;
+  grid-template-areas: "nameAndUnit conflictName";
+}
+
+.casualtyListTitle div {
+  padding: 0 2%;
+  text-align: left;
+}
+
+.nameAndUnit {
+  grid-area: nameAndUnit;
+}
+
+.justName {
+  display: none;
+  grid-area: justName;
+}
+
+.justUnit {
+  display: none;
+  grid-area: justUnit;
+}
+
+.conflictName {
+  grid-area: conflictName;
 }
 
 .allCasualtyListRows {
-  /* padding: 20px 2%; */
-  max-height: 55vh;
-  overflow-y: scroll;
   background: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2));
 }
 
@@ -411,6 +429,7 @@ p {
 /* PAGINATION  */
 .customPagination {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   list-style-type: none;
 }
