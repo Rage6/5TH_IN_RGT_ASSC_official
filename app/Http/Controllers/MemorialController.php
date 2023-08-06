@@ -54,7 +54,7 @@ class MemorialController extends Controller
 
        if ($request->conflict == 'ALL' || !isset($request->conflict)) {
          $raw_sql .= ' and casualty_conflict_id is not null';
-         $conflict = 'ALL';
+         $conflict_id = 'ALL';
        } else {
          $conflict = $request->validate([
            'conflict' => 'string|required'
@@ -78,6 +78,7 @@ class MemorialController extends Controller
         ->orderBy('last_name','ASC')
         ->orderBy('first_name','ASC')
         ->paginate(20);
+
        if ($request->firstName) {
          $all_casualties->appends(['firstName' => $first_name]);
        };
@@ -88,7 +89,7 @@ class MemorialController extends Controller
          $all_casualties->appends(['unit' => $unit]);
        };
        if ($request->conflict) {
-         $all_casualties->appends(['conflict' => $conflict]);
+         $all_casualties->appends(['conflict' => $conflict_id]);
        };
 
        $all_conflicts = Conflict::orderBy('start_year')->get();
