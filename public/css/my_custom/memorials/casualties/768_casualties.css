@@ -1,0 +1,86 @@
+.dailyAndSearchBox {
+  /* display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "dailyMemorial casualtyIntro" "leftSearchColumn rightSearchColumn"; */
+}
+
+.dailyMemorial {
+  margin-left: 7%;
+  border-radius: inherit;
+  float: right;
+  width: 60%;
+}
+
+.casualtyIntro {
+  font-size: 1.45rem;
+}
+
+.leftSearchColumn {
+  display: grid;
+  grid-template-areas: "search results";
+  grid-template-columns: 20% 80%;
+}
+
+.casualtySearchForm {
+  display: block;
+}
+
+.casualtySearchForm input, .casualtySearchForm select {
+  margin-left: 5%;
+  margin-bottom: 20px;
+  width: calc(90% - 8px);
+}
+
+.casualtyListTitle {
+  /* display: none; */
+}
+
+.allCasualtyListRows {
+  /* margin: 0 5%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap; */
+}
+
+.casualtyListRow {
+  /* margin: 0 6% 15px 0;
+  display: grid;
+  grid-template-columns: 96% 4%;
+  grid-template-areas:
+    "rowName rowArrow"
+    "rowUnit rowArrow"
+    "rowConflict rowArrow";
+  width: 40%; */
+}
+
+.rightSearchColumn {
+  display: grid;
+  grid-template-areas:
+    "casualtyName casualtyName"
+    "casualtyImg casBio1"
+    "casBio2 casBio2";
+  grid-template-columns: 50% 50%;
+  grid-template-rows: max-content max-content auto;
+}
+
+.casualtyName {
+  text-align: left;
+  width: 50%;
+}
+
+.casualtyImg {
+  background-position: top;
+  height: inherit;
+}
+
+.casualtyBioOne {
+  font-size: 1.1rem;
+}
+
+.casualtyBioTwo {
+  border: 1px solid black;
+  padding-bottom: 20px;
+  overflow-y: scroll;
+  max-height: 300px;
+}

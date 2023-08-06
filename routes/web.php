@@ -36,7 +36,7 @@ Route::prefix('donations')->group(function() {
 });
 
 Route::prefix('newsletter')->group(function() {
-  Route::get('',[App\Http\Controllers\NewsletterController::class,'index']);
+  Route::get('',[App\Http\Controllers\NewsletterController::class,'index'])->name('newsletter.index');
 });
 
 Route::prefix('history')->group(function() {
@@ -51,6 +51,11 @@ Route::prefix('items')->group(function() {
   Route::get('clear-cart',[App\Http\Controllers\ItemController::class,'clear'])->name('items.clear');
   // Route::get('{item}',[App\Http\Controllers\ItemController::class,'show'])->name('items.single');
   // Route::post('submit-purchase',[App\Http\Controllers\ItemController::class,'submit'])->name('items.create');
+});
+
+Route::prefix('memorials')->group(function() {
+  Route::get('casualties',[App\Http\Controllers\MemorialController::class,'index'])->name('casualties.all');
+  Route::post('casualty-search',[App\Http\Controllers\MemorialController::class,'search'])->name('casualties.search');
 });
 
 Route::middleware('auth')->group(function() {

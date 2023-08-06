@@ -83,18 +83,18 @@ class AdminController extends Controller
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
         'email'            => 'nullable|string',
-        'currentImg'       => 'nullable|file',
-        'veteranImg'       => 'nullable|file',
-        'tombstoneImg'     => 'nullable|file',
-        'biography'        => 'nullable|string',
+        // 'currentImg'       => 'nullable|file',
+        // 'veteranImg'       => 'nullable|file',
+        // 'tombstoneImg'     => 'nullable|file',
+        // 'biography'        => 'nullable|string',
         'isDeceased'       => 'required|integer',
         'isKiaMia'         => 'required|integer',
         'membershipStatus' => 'required|string',
-        'mailingAddress'   => 'nullable|string',
+        // 'mailingAddress'   => 'nullable|string',
         'rank'             => 'nullable|string',
-        'kiaLocation'      => 'nullable|string',
-        'injuryType'       => 'nullable|string',
-        'burialSite'       => 'nullable|string'
+        // 'kiaLocation'      => 'nullable|string',
+        // 'injuryType'       => 'nullable|string',
+        // 'burialSite'       => 'nullable|string'
       ]);
 
       if ($request->isKiaMia == 1 || $request->isKiaMia == "1") {
@@ -105,20 +105,20 @@ class AdminController extends Controller
       $input['middle_name'] = $request->middleName;
       $input['last_name'] = $request->lastName;
       $input['email'] = $request->email;
-      $input['current_img'] = $request->currentImg;
-      $input['veteran_img'] = $request->veteranImg;
-      $input['tombstone_img'] = $request->tombstoneImg;
-      $input['biography'] = $request->biography;
+      // $input['current_img'] = $request->currentImg;
+      // $input['veteran_img'] = $request->veteranImg;
+      // $input['tombstone_img'] = $request->tombstoneImg;
+      // $input['biography'] = $request->biography;
       $input['deceased'] = $request->isDeceased;
-      $input['mailing_address'] = $request->mailingAddress;
+      // $input['mailing_address'] = $request->mailingAddress;
       $input['rank'] = $request->rank;
-      $input['kia_location'] = $request->kiaLocation;
+      // $input['kia_location'] = $request->kiaLocation;
       $input['kia_or_mia'] = $request->isKiaMia;
-      $input['injury_type'] = $request->injuryType;
-      $input['burial_site'] = $request->burialSite;
-      $input['day_of_death'] = $request->dayOfDeath;
-      $input['month_of_death'] = $request->monthOfDeath;
-      $input['year_of_death'] = $request->yearOfDeath;
+      // $input['injury_type'] = $request->injuryType;
+      // $input['burial_site'] = $request->burialSite;
+      // $input['day_of_death'] = $request->dayOfDeath;
+      // $input['month_of_death'] = $request->monthOfDeath;
+      // $input['year_of_death'] = $request->yearOfDeath;
 
       $random_password = '';
       $all_characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -128,13 +128,13 @@ class AdminController extends Controller
       };
       $input['password'] = Hash::make($random_password);
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-        $storagePath = 'images';
-        $public_path = 'storage/images';
-      } else {
-        $storagePath = 'public/images';
-        $public_path = 'storage/images';
-      };
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $storagePath = 'images';
+      //   $public_path = 'storage/images';
+      // } else {
+      //   $storagePath = 'public/images';
+      //   $public_path = 'storage/images';
+      // };
 
       // if (!file_exists('../public/storage')) {
       //   Artisan::call('storage:link');
@@ -188,6 +188,12 @@ class AdminController extends Controller
       $input['expiration_date'] = $timestamp;
 
       $new_user = User::create($input);
+
+      $role_id = Role::where('slug','basic-member')->first();
+
+      if ($input['expiration_date'] != null) {
+        $new_user->all_user_roles()->attach($role_id);
+      };
 
       $can_edit_casualty = Auth::user()->check_for_permission("Edit Casualty Records");
 
@@ -320,6 +326,14 @@ class AdminController extends Controller
       $member = User::find($id);
       $member->expiration_date = '1970-01-01 00:00:00';
       $member->save();
+
+      $role_id = Role::where('slug','basic-member')->first();
+
+      $already_member = $member->check_for_role('Bobcat Member');
+      if ($already_member == false) {
+        $member->all_user_roles()->attach($role_id);
+      };
+
       return redirect()->route('edit.member.index',['id' => $id]);
     }
 
@@ -327,6 +341,12 @@ class AdminController extends Controller
       $member = User::find($id);
       $member->expiration_date = null;
       $member->save();
+
+      $past_roles = $member->all_user_roles;
+      foreach ($past_roles as $one_role) {
+        $member->all_user_roles()->detach($one_role->id);
+      };
+
       return redirect()->route('edit.member.index',['id' => $id]);
     }
 
@@ -342,6 +362,14 @@ class AdminController extends Controller
       $member = User::find($id);
       $member->expiration_date = $custom_date;
       $member->save();
+
+      $role_id = Role::where('slug','basic-member')->first();
+
+      $already_member = $member->check_for_role('Bobcat Member');
+      if ($already_member == false) {
+        $member->all_user_roles()->attach($role_id);
+      };
+
       return redirect()->route('edit.member.index',['id' => $id]);
     }
 
@@ -376,6 +404,12 @@ class AdminController extends Controller
       //   $member->veteran_img = str_replace("storage/","",$member->veteran_img);
       //   Storage::delete($member->veteran_img);
       // };
+
+      $past_roles = $member->all_user_roles;
+      foreach ($past_roles as $one_role) {
+        $member->all_user_roles()->detach($one_role->id);
+      };
+
       User::where('id',$id)->delete();
       return redirect()->route('delete.member.list');
     }

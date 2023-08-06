@@ -5,7 +5,7 @@
     </a>
     <div class="userBox">
       @auth
-      
+
       @endauth
       @if ($cart_count > 0)
         <a href="{{ url('/items/cart') }}">
@@ -69,7 +69,7 @@
         HALL OF HONOR
       </div>
       <div class="mainMenuSubBox" data-box-num="3">
-        <a href="{{ url('/memorials/casualties') }}">
+        <a href="{{ route('casualties.all') }}">
           <div class="mainMenuSubBttn">+ KIA, MIA, & Died In Service</div>
         </a>
         <div class="mainMenuSubBttn">+ Medal of Honor Recipients</div>
@@ -98,14 +98,16 @@
         <div class="mainMenuBttn" data-bttn-num="5">MEMBERS ONLY</div>
         <div class="mainMenuSubBox" data-box-num="5">
             @auth
-                <a href="{{ url('/home') }}">
+                <a href="{{ route('home') }}">
                   <div class="mainMenuSubBttn">
                     + My Profile
                   </div>
                 </a>
                 <div class="mainMenuSubBttn">+ Clothing & Items</div>
-                <div class="mainMenuSubBttn">+ Reunions</div>
-                <a href="http://bobcat.ws/members-newsletters.html" target="_blank">
+                <a href="{{ route('reunion.index') }}">
+                  <div class="mainMenuSubBttn">+ Reunions</div>
+                </a>
+                <a href="{{ route('newsletter.index') }}">
                   <div class="mainMenuSubBttn">+ Newsletters</div>
                 </a>
             @else

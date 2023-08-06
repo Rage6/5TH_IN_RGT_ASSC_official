@@ -22,16 +22,30 @@ body {
 
 .regIntro {
   background-size: 100% 100%, 414px 414px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  /* display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: center; */
+}
+
+.applySection {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.regApplyLine {
+  margin: 0;
 }
 
 .regBttn {
-  margin: 0 0 0 0;
+  margin: 0 0 0 25%;
   padding: 25px 0;
   font-size: 2rem;
-  width: 25%;
+  width: 50%;
 }
 
 .regForm {
@@ -52,17 +66,7 @@ body {
   font-size: 2rem;
 }
 
-.costTitle {
-  padding-right: 2%;
-  display: flex;
-  justify-content: space-between;
-  width:83%;
-}
-
-.costInLine {
-  display: inherit;
-}
-
-.costNumbers {
-  display: none;
+.costList {
+  display: grid;
+  grid-template-columns: 50% 50%;
 }

@@ -1,0 +1,427 @@
+p {
+  margin: 0;
+}
+
+.mainBody {
+  padding-top: 10vh;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      black,
+      grey 100px,
+      black 130px,
+      grey 180px,
+      black 300px,
+      grey 410px,
+      black 550px);
+  min-height: 90vh;
+}
+
+.whiteBand {
+  margin: 20px 0 40px 0;
+  padding: 10px 0;
+  /* background-color: white; */
+  background:
+    linear-gradient(
+      rgba(0,0,0,0),
+      rgba(0,0,0,0) 10px,
+      rgba(0,0,0,0.5) 10px,
+      rgba(0,0,0,0.5) 50%,
+      rgba(0,0,0,0) 50%),
+    linear-gradient(
+      0deg,
+      rgba(0,0,0,0),
+      rgba(0,0,0,0) 10px,
+      rgba(0,0,0,0.5) 10px,
+      rgba(0,0,0,0.5) 50%,
+      rgba(0,0,0,0) 50%),
+    linear-gradient(
+      rgba(255,255,255,1),
+      rgba(255,255,255,1) 10px,
+      purple 10px,
+      purple 50%,
+      rgba(0,0,0,0) 50%),
+    linear-gradient(
+      0deg,
+      rgba(255,255,255,1),
+      rgba(255,255,255,1) 10px,
+      purple 10px,
+      purple 50%,
+      rgba(0,0,0,0) 50%);
+  background-position: right;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.purpleBand {
+  padding: 25px 0;
+  background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('/images/memorials/purple-heart2.png'),purple;
+  background-position: right;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.casualtyTitle {
+  padding: 0 0 10px 5%;
+  color: white;
+  font-size: 2.4rem;
+  /* font-family: 'Vollkorn SC', sans-serif; */
+  font-family: 'Special Elite', cursive;
+}
+
+.casualtySubtitle {
+  padding: 0 12% 10px 5%;
+  color: white;
+  font-size: 1.3rem;
+  font-family: 'Bellefair', serif;
+  width: 56%;
+}
+
+.dailyAndSearchBox {
+  padding-bottom: 75px;
+}
+
+.oneSection {
+
+}
+
+/* .todayWeRemember {
+  margin-left: 5%;
+  margin-bottom: 15px;
+  color: white;
+  font-size: 1.3rem;
+} */
+
+.dailyMemorial {
+  margin: 0 0 40px 0;
+  border: 1px solid white;
+  border-radius: 7px;
+  padding: 30px 0;
+  /* grid-area: dailyMemorial; */
+  color: white;
+  background: linear-gradient(
+      rgba(0, 100, 0, 0.8),
+      rgba(0, 100, 0, 0.8) 85%,
+      rgba(0, 100, 0, 0.8));
+  /* background-size: cover;
+  background-position: center;
+  background: url('https://cdn.pixabay.com/photo/2017/06/13/13/51/marble-2398946_960_720.jpg'); */
+  /* width: 90%; */
+}
+
+.dailyMemorial a {
+  color: white;
+  cursor: pointer;
+}
+
+.dailyMemorial a div {
+  text-align: center;
+}
+
+.dailyInfo {
+  margin-left: 10%;
+  font-size: 1.5rem;
+  width: 80%;
+}
+
+.rankWithMedal {
+  display: grid;
+  grid-template-columns: 85% auto;
+  text-align: left;
+  border-bottom: 2px solid white;
+  padding-bottom: 5px;
+}
+
+.medal {
+  background-size: contain;
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+.dailyName {
+  margin: 5px 0;
+}
+
+.dailyConflict {
+  margin: 0 5%;
+  border: 1px solid black;
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: black;
+  width: 90%;
+}
+
+.dailyImg {
+  margin-left: 5%;
+  border: 1px solid black;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: black;
+  height: 30vh;
+  width: 90%;
+}
+
+.dailyBio {
+  margin-left: 5%;
+  width: 90%;
+}
+
+.leftSearchColumn {
+  margin-top: 40px;
+  /* grid-area: leftSearchColumn; */
+  background: linear-gradient(
+    rgba(255,255,255,0.7),
+    rgba(255,255,255,0.7)),
+    url('https://www.history.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTU3ODc5MDg3MjM0MDMyOTY5/flags-are-placed-at-arlington-national-cemetery-graves.jpg');
+  background-size: cover;
+  background-position: center;
+  /* min-height: 500px; */
+}
+
+.rightSearchColumn {
+  padding-top: 30px;
+  color: white;
+  /* grid-area: rightSearchColumn; */
+  background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+  background-position: center;
+  background-size: cover;
+  min-height: 500px;
+}
+
+.casualtySearch {
+  color: white;
+  background-color: rgba(139,0,0,1);
+}
+
+.casualtySearchTitle {
+  padding: 20px 0 10px 0;
+  text-align: center;
+}
+
+.firstNameInput {
+  grid-area: first;
+}
+
+.lastNameInput {
+  grid-area: last;
+}
+
+.unitInput {
+  grid-area: unit;
+}
+
+.conflictInput {
+  grid-area: conflict;
+}
+
+.submitInput {
+  border: 2px solid white;
+  border-radius: 15px;
+  grid-area: submit;
+  color: white;
+  text-align: center;
+  background-color: rgba(139,0,0,1);
+}
+
+.casualtySearchForm {
+  margin: 0 3%;
+  padding: 10px 0 20px 0;
+  display: grid;
+  grid-template-columns: 22% 22% 22% 22%;
+  grid-template-rows: auto;
+  grid-column-gap: 4%;
+  grid-row-gap: 5px;
+  grid-template-areas:
+    "first first last last"
+    "unit unit conflict conflict"
+    "submit submit . .";
+}
+
+.casualtyList {
+  /* padding-bottom: 20px; */
+  color: black;
+}
+
+.casualtyTotal {
+  margin: 0;
+  padding: 10px 0 0 0;
+  text-align: center;
+  font-family: 'Special Elite', cursive;
+  width: 85%;
+}
+
+.casualtyListTitle {
+  padding: 10px 5% 10px 0;
+  font-family: 'Special Elite', cursive;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 60% 35% 5%;
+  width: 85%;
+}
+
+.allCasualtyListRows {
+  /* padding: 20px 2%; */
+  max-height: 55vh;
+  overflow-y: scroll;
+  background: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2));
+}
+
+.casualtyListRow {
+  padding: 2px 2%;
+  color: white;
+  font-family: 'Bellefair', serif;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-areas:
+    "rowName rowConflict"
+    "rowUnit rowConflict";
+  /* background-color: black; */
+}
+
+.rowA {
+  background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+}
+
+.rowB {
+  background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3));
+}
+
+/* .casualtyListRow:first-of-type {
+  margin-top: 0;
+}
+
+.casualtyListRow:last-of-type {
+  margin-bottom: 0;
+} */
+
+.rowName {
+  font-size: 1.1rem;
+  grid-area: rowName;
+}
+
+.rowConflict {
+  grid-area: rowConflict;
+}
+
+.rowUnit {
+  grid-area: rowUnit;
+}
+
+/* .rowArrow {
+  margin-top: 5px;
+  grid-area: rowArrow;
+  background:
+    conic-gradient(
+      from 0deg at 70% 50%,
+      transparent,transparent 225deg,rgba(0,0,0,1) 225deg,rgb(0,0,0,1) 315deg,transparent 315deg,transparent),
+    conic-gradient(
+      from 0deg at 100% 50%,
+      transparent,transparent 225deg,white 225deg,white 315deg,transparent 315deg,transparent);
+  height: 10px;
+} */
+
+.casualtyListRow div {
+  padding: 5px 2%;
+}
+
+.casualtyIntro {
+  margin: 0 5%;
+  /* display: flex;
+  justify-content: center;
+  flex-direction: column;
+  grid-area: casualtyIntro; */
+  font-size: 1.3rem;
+  color: white;
+  /* background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)); */
+}
+
+.casualtyIntro div {
+  /* padding: 30px 10%; */
+  /* width: 90%; */
+}
+
+.casualtyName {
+  grid-area: casualtyName;
+  margin-left: 10%;
+  margin-bottom: 15px;
+  font-size: 2rem;
+  text-align: center;
+  width: 80%;
+}
+
+.casualtyName div:last-of-type {
+  padding-top: 10px;
+}
+
+.casualtyImg {
+  grid-area: casualtyImg;
+  margin-left: 5%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 40vh;
+  width: 90%;
+}
+
+.casualtyBio {
+  margin-left: 5%;
+  padding-bottom: 30px;
+  font-size: 1.3rem;
+  width: 90%;
+}
+
+.casualtyBioOne {
+  padding: 15px 0;
+  grid-area: casBio1;
+}
+
+.casualtyBioOne div {
+  padding: 10px 0;
+}
+
+.casualtyBioTwo {
+  grid-area: casBio2;
+}
+
+.casualtyBioTitle {
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.casualtyBioTwo textarea {
+  border: 1px dashed white;
+  padding: 15px 2%;
+  font-size: 1.3rem;
+  color: white;
+  font-family: 'Times New Roman';
+  /* font-family: 'Vollkorn SC', sans-serif; */
+  background: linear-gradient(45deg, transparent, transparent);
+  width: 96%;
+  min-height: 200px;
+  /* Below CSS is to fix the Safari issue */
+  -webkit-text-fill-color: white;
+  opacity: 1;
+}
+
+.casualtyDetails {
+  max-width: 350px;
+}
+
+/* PAGINATION  */
+.customPagination {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+}
+
+.customPagination li {
+  margin-right: 20px;
+  font-size: 1.2rem;
+  font-family: 'Special Elite', cursive;
+}
+
+.customPagination li a {
+  text-decoration: underline;
+  color: black;
+}
