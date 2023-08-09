@@ -4,6 +4,18 @@ body {
     rgba(139,0,0,0.7) 50%,
     rgba(0,100,0,0.6) 50%,
     rgba(0,100,0,0.6) 100%);
+  /* background: conic-gradient(
+    rgba(0,0,0,0.1) 0deg,
+    rgba(0,0,0,0.1) 90deg,
+    rgba(0,0,0,0) 90deg,
+    rgba(0,0,0,0) 180deg,
+    rgba(0,0,0,0.1) 180deg,
+    rgba(0,0,0,0.1) 270deg,
+    rgba(0,0,0,0) 270deg,
+    rgba(0,0,0,0) 360deg
+    );
+  background-repeat: repeat;
+  background-size: 50px 50px; */
   height: 1px;
 }
 
@@ -110,6 +122,16 @@ p {
   grid-template-rows: 110px 200px auto;
 }
 
+.selectedSection {
+  display: grid;
+  grid-template-areas:
+    "casualtyName casualtyName"
+    "casualtyImg casBio1"
+    "casBio2 casBio2";
+  grid-template-columns: 50% 50%;
+  grid-template-rows: max-content max-content auto;
+}
+
 .casualtyName {
   text-align: left;
 }
@@ -119,17 +141,12 @@ p {
   height: inherit;
 }
 
-.casualtyBioOne {
+.casualtyBioSummary {
   font-size: 1.1rem;
 }
 
-.casualtyBioTwo {
-  border: 1px solid black;
+.casualtyBioDetails {
+  /* border: 1px solid black; */
   padding-bottom: 20px;
-  overflow-y: scroll;
-}
-
-.casualtyBioTwo textarea {
-  width: 95%;
-  height: 80%;
+  /* overflow-y: scroll; */
 }

@@ -132,8 +132,8 @@
               {{ $already_selected->last_name }}
             </div>
           <!-- </div> -->
-          @if ($already_selected->photo != null)
-            <div class="dailyImg" style="background-image: url('https://5th-rgt-profile-photos.s3.us-east-2.amazonaws.com/{{ $already_selected->photo }}?t=@php echo(time()) @endphp')"></div>
+          @if ($already_selected->veteran_img != null)
+            <div class="dailyImg" style="background-image: url('/{{ $image_path }}/{{ $already_selected->veteran_img }}?t=@php echo(time()) @endphp')"></div>
           @else
             <div class="dailyImg" style="background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/04/65/24/73/d-day-tours-of-normandy.jpg')"></div>
           @endif
@@ -143,7 +143,7 @@
             </div>
           @endif
           </div>
-          <a href="{{ url('/memorials/casualties?id='.$already_selected->cas_id) }}&selected=yes">
+          <a href="{{ route('casualties.select',['id' => $already_selected->id]) }}">
             <div>Learn more >></div>
           </a>
         </div>
@@ -194,30 +194,27 @@
             @if ($all_casualty_basics != null)
               @php $bkgdColor = 'rowA' @endphp
               @foreach ($all_casualty_basics as $one_casualty_basic)
-                <div class="casualtyListRow {{ $bkgdColor }}">
-                  <div class="rowName">
-                    {{ $one_casualty_basic->last_name }}, {{ $one_casualty_basic->first_name }}
-                  </div>
-                  <div class="rowUnit">
-                    {{ $one_casualty_basic->unit }}
-                  </div>
-                  <div class="rowConflict">
-                    {{ $one_casualty_basic->con_name }}
-                  </div>
-                  <!-- <a href="{{ url('/memorials/casualties?id='.$one_casualty_basic->cas_id) }}&selected=yes">
-                    <div class="rowArrow">
+                <a href="{{ route('casualties.select',['id' => $one_casualty_basic->id]) }}">
+                  <div class="casualtyListRow {{ $bkgdColor }}">
+                    <div class="rowName">
+                      {{ $one_casualty_basic->last_name }}, {{ $one_casualty_basic->first_name }}
                     </div>
-                  </a> -->
-                </div>
-                @php
-                  if ($bkgdColor != 'rowA') {
-                    $bkgdColor = 'rowA';
-                  } else {
-                    $bkgdColor = 'rowB';
-                  };
-                @endphp
+                    <div class="rowUnit">
+                      {{ $one_casualty_basic->unit }}
+                    </div>
+                    <div class="rowConflict">
+                      {{ $one_casualty_basic->con_name }}
+                    </div>
+                  </div>
+                  @php
+                    if ($bkgdColor != 'rowA') {
+                      $bkgdColor = 'rowA';
+                    } else {
+                      $bkgdColor = 'rowB';
+                    };
+                  @endphp
+                </a>
               @endforeach
-
             @else
               <div>No casualties found</div>
             @endif
@@ -225,73 +222,6 @@
           {{ $all_casualty_basics->links('pagination::casualty-list') }}
         </div>
       </div>
-      @if ($casualty_data != null)
-      <div id="rightSearchColumn" class="rightSearchColumn oneSection">
-        <div class="casualtyName">
-          <div class="rankWithMedal">
-            <div>
-              {{ $casualty_data->rank }}
-            </div>
-            @if ($casualty_data->moh_id != null)
-              <div class="medal" style="background-image:url('/images/memorials/us-army-medal-of-honor.png')"></div>
-            @else
-              <div class="medal"></div>
-            @endif
-          </div>
-          <div>
-            {{ $casualty_data->first_name }}
-            @if ($casualty_data->middle_name != null)
-              {{ $casualty_data->middle_name }}
-            @endif
-            {{ $casualty_data->last_name }}
-          </div>
-        </div>
-        @if ($casualty_data->photo != null)
-          <div class="casualtyImg" style="background-image: url('https://5th-rgt-profile-photos.s3.us-east-2.amazonaws.com/{{ $casualty_data->photo }}?t=@php echo(time()) @endphp')"></div>
-        @else
-          <div class="casualtyImg" style="background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/04/65/24/73/d-day-tours-of-normandy.jpg')"></div>
-        @endif
-        <div class="casualtyBio casualtyBioOne">
-          <div>
-            <u>SUMMARY</u>
-          </div>
-          {{ $casualty_data->rank }} {{ $casualty_data->last_name }} died
-          @if ($casualty_data->place != null)
-            in {{ $casualty_data->place }}
-          @endif
-          on {{ $casualty_data->month_of_death }}/{{ $casualty_data->day_of_death }}/{{ $casualty_data->year_of_death }} during the {{ $casualty_data->con_name }}
-          @if ($casualty_data->unit != null)
-            as a member of {{ $casualty_data->unit }}
-          @endif.
-          @if ($casualty_data->injury_type != null)
-            The soldier's injury type or status was recorded as '{{ $casualty_data->injury_type }}'.
-          @endif
-          @if ($casualty_data->state != null || $casualty_data->burial_site != null)
-            {{ $casualty_data->last_name }}
-          @endif
-          @if ($casualty_data->state != null)
-            originated from {{ $casualty_data->city }}, {{ $casualty_data->state }}
-          @endif
-          @if ($casualty_data->state != null && $casualty_data->burial_site != null)
-            and
-          @endif
-          @if ($casualty_data->burial_site != null)
-            is buried at {{ $casualty_data->burial_site }}
-          @endif
-          .
-        </div>
-        @if ($casualty_data->comments != null)
-        <div class="casualtyBio casualtyBioTwo">
-          <div class="casualtyBioTitle">
-            <u>DETAILS</u>
-          </div>
-          <textarea disabled>
-            {{ $casualty_data->comments }}
-          </textarea>
-        </div>
-        @endif
-      </div>
-      @endif
     </div>
   </div>
   @include ('footer.content')

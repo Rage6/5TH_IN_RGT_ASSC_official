@@ -56,6 +56,7 @@ Route::prefix('items')->group(function() {
 Route::prefix('memorials')->group(function() {
   Route::get('casualties',[App\Http\Controllers\MemorialController::class,'index'])->name('casualties.all');
   Route::post('casualty-search',[App\Http\Controllers\MemorialController::class,'search'])->name('casualties.search');
+  Route::get('{id}',[App\Http\Controllers\MemorialController::class,'show'])->name('casualties.select');
 });
 
 Route::middleware('auth')->group(function() {

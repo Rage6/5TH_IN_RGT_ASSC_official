@@ -84,7 +84,7 @@ class AdminController extends Controller
         'lastName'         => 'required|string',
         'email'            => 'nullable|string',
         // 'currentImg'       => 'nullable|file',
-        // 'veteranImg'       => 'nullable|file',
+        'veteranImg'       => 'nullable|file',
         // 'tombstoneImg'     => 'nullable|file',
         // 'biography'        => 'nullable|string',
         'isDeceased'       => 'required|integer',
@@ -106,7 +106,7 @@ class AdminController extends Controller
       $input['last_name'] = $request->lastName;
       $input['email'] = $request->email;
       // $input['current_img'] = $request->currentImg;
-      // $input['veteran_img'] = $request->veteranImg;
+      $input['veteran_img'] = $request->veteranImg;
       // $input['tombstone_img'] = $request->tombstoneImg;
       // $input['biography'] = $request->biography;
       $input['deceased'] = $request->isDeceased;
@@ -140,20 +140,26 @@ class AdminController extends Controller
       //   Artisan::call('storage:link');
       // };
 
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $storagePath = 'images/veteran';
+      } else {
+        $storagePath = 'public/images/veteran';
+      };
+
       /*
       // Add member's current photo
       if (request('currentImg')) {
         $input['current_img'] = request('currentImg')->store($storagePath);
         $filename = request('currentImg')->hashName();
         $input['current_img'] = $public_path."/".$filename;
-      };
+      }; */
       // Add member's veteran photo while in service
       if (request('veteranImg')) {
         $input['veteran_img'] = request('veteranImg')->store($storagePath);
         $filename = request('veteranImg')->hashName();
-        $input['veteran_img'] = $public_path."/".$filename;
+        $input['veteran_img'] = $filename;
       };
-      // Add bobcat's tombstone photo while in service
+      /* // Add bobcat's tombstone photo while in service
       if (request('tombstoneImg')) {
         $input['tombstone_img'] = request('tombstoneImg')->store($storagePath);
         $filename = request('tombstoneImg')->hashName();

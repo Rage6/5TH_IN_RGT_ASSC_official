@@ -2,6 +2,17 @@ p {
   margin: 0;
 }
 
+.backBttn {
+  margin: 10px 5%;
+  display: flex;
+  font-family: 'Special Elite', cursive;
+  text-align: center;
+}
+
+.backBttn a {
+  color: white;
+}
+
 .mainBody {
   padding-top: 10vh;
   background:
@@ -383,22 +394,21 @@ p {
 }
 
 .casualtyBio {
-  margin-left: 5%;
+  margin: 5%;
   padding-bottom: 30px;
   font-size: 1.3rem;
-  width: 90%;
 }
 
-.casualtyBioOne {
+.casualtyBioSummary {
   padding: 15px 0;
   grid-area: casBio1;
 }
 
-.casualtyBioOne div {
+.casualtyBioSummary div {
   padding: 10px 0;
 }
 
-.casualtyBioTwo {
+.casualtyBioDetails {
   grid-area: casBio2;
 }
 
@@ -407,23 +417,14 @@ p {
   text-decoration: none;
 }
 
-.casualtyBioTwo textarea {
+.casualtyBioContent {
   border: 1px dashed white;
-  padding: 15px 2%;
+  padding: 0 5%;
   font-size: 1.3rem;
   color: white;
   font-family: 'Times New Roman';
-  /* font-family: 'Vollkorn SC', sans-serif; */
-  background: linear-gradient(45deg, transparent, transparent);
-  width: 96%;
-  min-height: 200px;
-  /* Below CSS is to fix the Safari issue */
-  -webkit-text-fill-color: white;
-  opacity: 1;
-}
-
-.casualtyDetails {
-  max-width: 350px;
+  background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+  white-space: break-spaces;
 }
 
 /* PAGINATION  */

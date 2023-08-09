@@ -32,12 +32,10 @@
                         <div>Email</div>
                         <input type="email" name="email" id="email"/>
                       </div>
-                      <!-- <div class="imgGrid">
-                        <label for="biography">
-                          Veteran Photo
-                        </label>
-                        <input id="veteran" type="file" class="form-control" name="veteranImg">
-                      </div> -->
+                      <div class="basicInfoGrid">
+                        <div>Service Photo</div>
+                        <input type="file" name="veteranImg" id="veteran"/>
+                      </div>
                       <div class="basicInfoGrid">
                         <div>
                           What is/was this person's highest rank?

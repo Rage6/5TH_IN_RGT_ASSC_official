@@ -72,6 +72,16 @@
   grid-template-rows: max-content max-content auto;
 }
 
+.selectedSection {
+  display: grid;
+  grid-template-areas:
+    "casualtyName casualtyName"
+    "casualtyImg casBio1"
+    "casBio2 casBio2";
+  grid-template-columns: 50% 50%;
+  grid-template-rows: max-content max-content auto;
+}
+
 .casualtyName {
   text-align: left;
   width: 50%;
@@ -82,13 +92,13 @@
   height: inherit;
 }
 
-.casualtyBioOne {
+.casualtyBioSummary {
   font-size: 1.1rem;
 }
 
-.casualtyBioTwo {
-  border: 1px solid black;
+.casualtyBioDetails {
+  /* border: 1px solid black; */
   padding-bottom: 20px;
-  overflow-y: scroll;
-  max-height: 300px;
+  /* overflow-y: scroll;
+  max-height: 300px; */
 }
