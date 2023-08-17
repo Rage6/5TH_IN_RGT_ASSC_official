@@ -207,6 +207,16 @@
   max-height: 200px;
 }
 
+.deleteImg {
+  margin-bottom:20px;
+  background-color:black;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  color:white;
+  height:100px;
+}
+
 .historyBox textarea {
   height: 150px;
 }

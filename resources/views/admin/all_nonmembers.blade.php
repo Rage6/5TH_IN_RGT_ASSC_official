@@ -18,18 +18,25 @@
                     <a href="{{ route('admin.index') }}"><< BACK</a>
                   </div>
                   <p>
-                    The following individuals have not been registered as a member, casualty, or Medal of Honor recipient. They can be added to one of these records by one these options:
+                    The following individuals have not been registered as a member, casualty, or Medal of Honor recipient. They can be added to these records with the options below. Some/all of these options will only appear if your account has the necessary permissions.
                     <ul>
                       <li>
-                        <u>Add as member</u>: Click on the 'Edit Member' button below, scroll down to the 'Membership Status' option, select anything EXCEPT for 'nonmember', and click on the "Edit A Member" button.
+                        <u>Add as member</u>: Click on the 'Edit Member' button below, scroll down to the 'Membership Status' option, select anything EXCEPT 'Nonmember', and click on the blue "Edit A Member" button.
                       </li>
                       <li>
-                        <u>Add as casualty</u>: Click on the 'Edit Casualty' button below and click on the "Edit A Casualty" button.
+                        <u>Add as casualty</u>: Click on the 'Edit Casualty' button below, enter the correct information, and click on the blue "Edit A Casualty" button.
+                      </li>
+                      <li>
+                        <u>Add as Medal of Honor recipient</u>: Click on the 'Edit Recipient' button below, enter the correct information, and click on the blue "Edit A Recipient" button.
                       </li>
                     </ul>
                   </p>
-                  <p>
-                    NOTE: These options will appear if your account has the necessary permissions.
+                  <p style="border-top:2px dashed black;">
+                    <ul>
+                      <li>
+                        <u style="color:red"><b>Permanent Delete</b></u>: Clicking on the red 'DELETE' button will take you to a page for permanently deleting a person and their images. <u><i>This cannot be undone!</i></u>
+                      </li>
+                    </ul>
                   </p>
                   <div>
                     <div style="margin-top:50px;width:100%">
@@ -61,6 +68,24 @@
                                 <a href="{{ route('edit.casualty.index',['id' => $one_nonmember->id]) }}">
                                   <button>
                                     EDIT CASUALTY
+                                  </button>
+                                </a>
+                              </div>
+                            @endif
+                            @if ($can_edit_recipient == true)
+                              <div>
+                                <a href="{{ route('edit.recipient.index',['id' => $one_nonmember->id]) }}">
+                                  <button>
+                                    EDIT RECIPIENT
+                                  </button>
+                                </a>
+                              </div>
+                            @endif
+                            @if ($can_delete_person == true)
+                              <div>
+                                <a href="{{ route('delete.member.index',['id' => $one_nonmember->id]) }}">
+                                  <button style="background-color:red;color:white">
+                                    DELETE
                                   </button>
                                 </a>
                               </div>

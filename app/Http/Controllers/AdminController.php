@@ -74,8 +74,8 @@ class AdminController extends Controller
 
     public function add_member_post(Request $request) {
 
-      if (!$request->isKiaMia) {
-        $request->isKiaMia = 0;
+      if (!$request['isKiaMia']) {
+        $request['isKiaMia'] = 0;
       };
 
       $request->validate([
@@ -83,7 +83,7 @@ class AdminController extends Controller
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
         'email'            => 'nullable|string',
-        // 'currentImg'       => 'nullable|file',
+        'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file',
         // 'tombstoneImg'     => 'nullable|file',
         // 'biography'        => 'nullable|string',
@@ -105,7 +105,7 @@ class AdminController extends Controller
       $input['middle_name'] = $request->middleName;
       $input['last_name'] = $request->lastName;
       $input['email'] = $request->email;
-      // $input['current_img'] = $request->currentImg;
+      $input['current_img'] = $request->currentImg;
       $input['veteran_img'] = $request->veteranImg;
       // $input['tombstone_img'] = $request->tombstoneImg;
       // $input['biography'] = $request->biography;
@@ -141,21 +141,20 @@ class AdminController extends Controller
       // };
 
       if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-        $storagePath = 'images/veteran';
+        $storagePath = 'images';
       } else {
-        $storagePath = 'public/images/veteran';
+        $storagePath = 'public/images';
       };
 
-      /*
       // Add member's current photo
       if (request('currentImg')) {
-        $input['current_img'] = request('currentImg')->store($storagePath);
+        $input['current_img'] = request('currentImg')->store($storagePath."/current");
         $filename = request('currentImg')->hashName();
-        $input['current_img'] = $public_path."/".$filename;
-      }; */
+        $input['current_img'] = $filename;
+      };
       // Add member's veteran photo while in service
       if (request('veteranImg')) {
-        $input['veteran_img'] = request('veteranImg')->store($storagePath);
+        $input['veteran_img'] = request('veteranImg')->store($storagePath."/veteran");
         $filename = request('veteranImg')->hashName();
         $input['veteran_img'] = $filename;
       };
@@ -226,8 +225,16 @@ class AdminController extends Controller
       $user_roles = User::find($current_user->id)->all_user_roles;
       $role_model = new Role();
       $users_permissions = $role_model->users_permissions($current_user->id);
+      $can_edit_recipient = false;
+      $can_edit_member = false;
       $can_edit_casualty = false;
       for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit MOH Recipient Records") {
+          $can_edit_recipient = true;
+        };
+        if ($users_permissions[$num][0] == "Edit A Member") {
+          $can_edit_member = true;
+        };
         if ($users_permissions[$num][0] == "Edit Casualty Records") {
           $can_edit_casualty = true;
         };
@@ -237,84 +244,119 @@ class AdminController extends Controller
       //   Artisan::call('storage:link');
       // };
 
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $imagePath = 'images';
+      } else {
+        $imagePath = 'public/images';
+      };
+
       return view('admin.edit_user',[
         'id'     => $id,
         'member' => $member,
         'status' => $status,
-        'can_edit_casualty' => $can_edit_casualty
+        'can_edit_recipient' => $can_edit_recipient,
+        'can_edit_member' => $can_edit_member,
+        'can_edit_casualty' => $can_edit_casualty,
+        'image_path' => $imagePath
       ]);
     }
 
     public function edit_member_post(Request $request,$id) {
+
+      $member = User::find($id);
+
+      if ($request['isKiaMia'] == null) {
+        $request['isKiaMia'] = $member->kia_or_mia;
+      };
+      if ($request['isRecipient'] == null) {
+        $request['isRecipient'] = $member->moh_recipient;
+      };
+
       $request->validate([
         'firstName'        => 'required|string',
+        'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
         'email'            => 'nullable|string',
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file',
-        'biography'        => 'nullable|string',
+        // 'biography'        => 'nullable|string',
         'isDeceased'       => 'required|integer',
         'isKiaMia'         => 'required|integer',
-        'action'           => 'required',
+        'isRecipient'      => 'required|integer',
+        // 'action'           => 'required',
         'mailingAddress'   => 'nullable|string'
       ]);
 
-      $member = User::find($id);
+      // $old_current_filename = $member->current_img;
+      // $old_veteran_filename = $member->veteran_img;
 
-      if ($request->action == 'update') {
-        $member->first_name = $request->firstName;
-        $member->last_name = $request->lastName;
-        $member->email = $request->email;
+      // if ($request->action == 'update') {
+        $member->first_name = $request['firstName'];
+        $member->middle_name = $request['middleName'];
+        $member->last_name = $request['lastName'];
+        $member->email = $request['email'];
         // $member->current_img = $request->currentImg;
         // $member->veteran_img = $request->veteranImg;
-        $member->biography = $request->biography;
-        $member->deceased = $request->isDeceased;
-        $member->mailing_address = $request->mailingAddress;
-        $member->kia_or_mia = $request->isKiaMia;
+        // $member->biography = $request['biography'];
+        $member->deceased = $request['isDeceased'];
+        $member->mailing_address = $request['mailingAddress'];
+        $member->kia_or_mia = $request['isKiaMia'];
+        $member->moh_recipient = $request['isRecipient'];
+
+        if ($member->kia_or_mia == 1) {
+          $member->deceased = 1;
+        };
 
         // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-          $storagePath = 'images';
-          $public_path = 'storage/images';
+        //  $storagePath = 'images';
+        //  $public_path = 'storage/images';
         // } else {
         //   $storagePath = 'storage/images';
         //   $public_path = 'storage/images';
         // };
+        if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+          $storagePath = 'images';
+          $public_path = 'storage/images';
+        } else {
+          $storagePath = 'storage/images';
+          $public_path = 'images';
+        };
 
         /*
         // if (!file_exists('../public/storage')) {
         //   Artisan::call('storage:link');
         // };
+        */
 
         if (request('currentImg')) {
-          $old_filename = $member->current_img;
-          $member['current_img'] = request('currentImg')->store($storagePath);
+          $old_current_filename = $member->current_img;
+          $member['current_img'] = request('currentImg')->store($storagePath."/current");
           $filename = request('currentImg')->hashName();
-          $member['current_img'] = $public_path."/".$filename;
-          if ($old_filename != null) {
-            Storage::delete($old_filename);
+          $member->current_img = $filename;
+          if ($old_current_filename != null) {
+            Storage::delete($storagePath."/current/".$old_current_filename);
           };
         };
         if (request('veteranImg')) {
-          $old_filename = $member['veteran_img'];
-          $member['veteran_img'] = request('veteranImg')->store($storagePath);
+          $old_veteran_filename = $member->veteran_img;
+          $member['veteran_img'] = request('veteranImg')->store($storagePath."/veteran");
           $filename = request('veteranImg')->hashName();
-          $member->veteran_img = $public_path."/".$filename;
-          if ($old_filename != null) {
-            Storage::delete($old_filename);
+          $member->veteran_img = $filename;
+          if ($old_veteran_filename != null) {
+            Storage::delete($storagePath."/veteran/".$old_veteran_filename);
           };
         };
-        */
 
         $member->save();
-      } elseif ($request->action == 'current') {
-        $member->current_img = str_replace("storage/","",$member->current_img);
-        Storage::delete($member->current_img);
-        User::find($member->id)->update(['current_img' => null]);
-      } elseif ($request->action == 'veteran') {
-        $member->veteran_img = str_replace("storage/","",$member->veteran_img);
-        Storage::delete($member->veteran_img);
-        User::find($member->id)->update(['veteran_img' => null]);
-      };
+      // } elseif ($request->action == 'current') {
+      //   $member->current_img = str_replace("storage/","",$member->current_img);
+      //   Storage::delete($member->current_img);
+      //   User::find($member->id)->update(['current_img' => null]);
+      // } elseif ($request->action == 'veteran') {
+      //   $member->veteran_img = str_replace("storage/","",$member->veteran_img);
+      //   Storage::delete($member->veteran_img);
+      //   User::find($member->id)->update(['veteran_img' => null]);
+      // };
 
       return redirect()->route('edit.member.list');
     }
@@ -379,6 +421,52 @@ class AdminController extends Controller
       return redirect()->route('edit.member.index',['id' => $id]);
     }
 
+    public function image_member_index($id,$img_type,$edit_type) {
+      $member = User::find($id);
+
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $imagePath = 'images';
+      } else {
+        $imagePath = 'public/images';
+      };
+
+      $return_route = 'edit.'.$edit_type.'.index';
+      $delete_method = 'image.member.delete';
+
+      return view('admin.delete_image',[
+        'member' => $member,
+        'img_type' => $img_type,
+        'image_path' => $imagePath,
+        'return_name' => $return_route,
+        'delete_method' => $delete_method
+      ]);
+    }
+
+    public function image_member_delete($id,$img_type) {
+
+      $member = User::find($id);
+
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $storagePath = 'images';
+        $public_path = 'storage/images';
+      } else {
+        $storagePath = 'storage/images';
+        $public_path = 'images';
+      };
+
+      if ($img_type == 'current') {
+        Storage::delete($storagePath."/current/".$member->current_img);
+        $member->current_img = null;
+        $member->save();
+      } elseif ($img_type == 'veteran') {
+        Storage::delete($storagePath."/veteran/".$member->veteran_img);
+        $member->veteran_img = null;
+        $member->save();
+      };
+
+      return redirect()->route('edit.member.index',['id' => $id]);
+    }
+
     public function delete_member_index($id) {
       $member = User::find($id);
       if ($member->expiration_date != '1970-01-01 00:00:00' && $member->expiration_date != null) {
@@ -393,10 +481,17 @@ class AdminController extends Controller
       //   Artisan::call('storage:link');
       // };
 
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $imagePath = 'images';
+      } else {
+        $imagePath = 'public/images';
+      };
+
       return view('admin.delete_user',[
         'id'     => $id,
         'member' => $member,
-        'status' => $status
+        'status' => $status,
+        'image_path' => $imagePath
       ]);
     }
 
@@ -414,6 +509,21 @@ class AdminController extends Controller
       $past_roles = $member->all_user_roles;
       foreach ($past_roles as $one_role) {
         $member->all_user_roles()->detach($one_role->id);
+      };
+
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $storagePath = 'images';
+        $public_path = 'storage/images';
+      } else {
+        $storagePath = 'storage/images';
+        $public_path = 'images';
+      };
+
+      if ($member->current_img) {
+        Storage::delete($storagePath."/current/".$member->current_img);
+      };
+      if ($member->veteran_img) {
+        Storage::delete($storagePath."/veteran/".$member->veteran_img);
       };
 
       User::where('id',$id)->delete();
@@ -449,7 +559,7 @@ class AdminController extends Controller
 
       $can_delete = false;
       for ($num = 0; $num < count($users_permissions); $num++) {
-        if ($users_permissions[$num][0] == "Delete A Member") {
+        if ($users_permissions[$num][0] == "Delete A Nonmember") {
           $can_delete = true;
         };
       };
@@ -466,7 +576,8 @@ class AdminController extends Controller
       // $all_users = User::all();
       $all_users = User::where([
           ['expiration_date',null],
-          ['kia_or_mia','0']
+          ['kia_or_mia','0'],
+          ['moh_recipient','0']
         ])
         ->orderBy('last_name','asc')
         ->orderBy('first_name','asc')
@@ -492,10 +603,26 @@ class AdminController extends Controller
         };
       };
 
+      $can_edit_recipient = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit MOH Recipient Records") {
+          $can_edit_recipient = true;
+        };
+      };
+
+      $can_delete_person = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Delete A Nonmember") {
+          $can_delete_person = true;
+        };
+      };
+
       return view('admin.all_nonmembers',[
         'all_nonmembers' => $all_users,
         'can_edit_member' => $can_edit_member,
-        'can_edit_casualty' => $can_edit_casualty
+        'can_edit_casualty' => $can_edit_casualty,
+        'can_edit_recipient' => $can_edit_recipient,
+        'can_delete_person' => $can_delete_person
       ]);
     }
 
@@ -515,38 +642,68 @@ class AdminController extends Controller
       $user_roles = User::find($current_user->id)->all_user_roles;
       $role_model = new Role();
       $users_permissions = $role_model->users_permissions($current_user->id);
+      $can_edit_recipient = false;
       $can_edit_member = false;
+      $can_edit_casualty = false;
       for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit MOH Recipient Records") {
+          $can_edit_recipient = true;
+        };
         if ($users_permissions[$num][0] == "Edit A Member") {
           $can_edit_member = true;
+        };
+        if ($users_permissions[$num][0] == "Edit Casualty Records") {
+          $can_edit_casualty = true;
         };
       };
 
       $all_conflicts = Conflict::all();
 
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $imagePath = 'images';
+      } else {
+        $imagePath = 'public/images';
+      };
+
       return view('admin.edit_casualty',[
         'id'     => $id,
         'casualty' => $casualty,
         'status' => $status,
+        'can_edit_recipient' => $can_edit_recipient,
         'can_edit_member' => $can_edit_member,
-        'all_conflicts' => $all_conflicts
+        'can_edit_casualty' => $can_edit_casualty,
+        'all_conflicts' => $all_conflicts,
+        'image_path' => $imagePath
       ]);
     }
 
     public function edit_casualty_post(Request $request,$id) {
+
+      $casualty = User::find($id);
+
+      if (!$request['membershipStatus'] || $casualty->expiration_date == null) {
+        $request['membershipStatus'] = "nonmember";
+      } else {
+        $request['membershipStatus'] = "1970-01-01 00:00:00";
+      };
+      if (!$request['mohStatus']) {
+        $request['mohStatus'] = $casualty->moh_recipient;
+      };
 
       $request->validate([
         'firstName'        => 'required|string',
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
         'rank'             => 'nullable|string',
+        'veteranImg'       => 'nullable|file',
         'kiaLocation'      => 'nullable|string',
         'injuryType'       => 'nullable|string',
         'city'             => 'nullable|string',
         'state'            => 'nullable|string',
         'burialSite'       => 'nullable|string',
         'comments'         => 'nullable|string',
-        'membershipStatus' => 'string',
+        'membershipStatus' => 'required|string',
+        'mohStatus'        => 'required|integer',
         'conflictId'       => 'required|numeric'
       ]);
 
@@ -556,7 +713,6 @@ class AdminController extends Controller
         $membershipStatus = "1970-01-01 00:00:00";
       };
 
-      $casualty = User::find($id);
       $casualty->first_name = $request['firstName'];
       $casualty->middle_name = $request['middleName'];
       $casualty->last_name = $request['lastName'];
@@ -571,6 +727,26 @@ class AdminController extends Controller
       $casualty->comments = $request['comments'];
       $casualty->expiration_date = $membershipStatus;
       $casualty->casualty_conflict_id = $request['conflictId'];
+      $casualty->moh_recipient = $request['mohStatus'];
+
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $storagePath = 'images';
+        $public_path = 'storage/images';
+      } else {
+        $storagePath = 'storage/images';
+        $public_path = 'images';
+      };
+
+      if (request('veteranImg')) {
+        $old_veteran_filename = $casualty->veteran_img;
+        $casualty['veteran_img'] = request('veteranImg')->store($storagePath."/veteran");
+        $filename = request('veteranImg')->hashName();
+        $casualty->veteran_img = $filename;
+        if ($old_veteran_filename != null) {
+          Storage::delete($storagePath."/veteran/".$old_veteran_filename);
+        };
+      };
+
       $casualty->save();
 
       // if (!file_exists('../public/storage')) {
@@ -588,6 +764,52 @@ class AdminController extends Controller
       $user->save();
 
       return redirect()->route('edit.casualty.list');
+    }
+
+    public function image_casualty_index($id,$img_type,$edit_type) {
+      $member = User::find($id);
+
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $imagePath = 'images';
+      } else {
+        $imagePath = 'public/images';
+      };
+
+      $return_route = 'edit.'.$edit_type.'.index';
+      $delete_method = 'image.casualty.delete';
+
+      return view('admin.delete_image',[
+        'member' => $member,
+        'img_type' => $img_type,
+        'image_path' => $imagePath,
+        'return_name' => $return_route,
+        'delete_method' => $delete_method
+      ]);
+    }
+
+    public function image_casualty_delete($id,$img_type) {
+
+      $member = User::find($id);
+
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $storagePath = 'images';
+        $public_path = 'storage/images';
+      } else {
+        $storagePath = 'storage/images';
+        $public_path = 'images';
+      };
+
+      if ($img_type == 'current') {
+        Storage::delete($storagePath."/current/".$member->current_img);
+        $member->current_img = null;
+        $member->save();
+      } elseif ($img_type == 'veteran') {
+        Storage::delete($storagePath."/veteran/".$member->veteran_img);
+        $member->veteran_img = null;
+        $member->save();
+      };
+
+      return redirect()->route('edit.casualty.index',['id' => $id]);
     }
 
     public function all_casualties() {
@@ -611,7 +833,7 @@ class AdminController extends Controller
 
       $can_delete = false;
       for ($num = 0; $num < count($users_permissions); $num++) {
-        if ($users_permissions[$num][0] == "Delete A Member") {
+        if ($users_permissions[$num][0] == "Delete A Nonmember") {
           $can_delete = true;
         };
       };
@@ -621,6 +843,218 @@ class AdminController extends Controller
         'can_edit' => $can_edit,
         'can_delete' => $can_delete
       ]);
+    }
+
+    public function edit_recipient_index($id) {
+      $recipient = User::find($id);
+
+      if ($recipient->expiration_date != '1970-01-01 00:00:00' && $recipient->expiration_date != null) {
+        $status = "temporary";
+      } elseif ($recipient->expiration_date == '1970-01-01 00:00:00') {
+        $status = "permanent";
+      } elseif ($recipient->expiration_date == null) {
+        $status = "nonmember";
+      };
+
+
+      // if (!file_exists('../public/storage')) {
+      //   Artisan::call('storage:link');
+      // };
+
+      $current_user = Auth::user();
+      $user_roles = User::find($current_user->id)->all_user_roles;
+      $role_model = new Role();
+      $users_permissions = $role_model->users_permissions($current_user->id);
+      $can_edit_recipient = false;
+      $can_edit_member = false;
+      $can_edit_casualty = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit MOH Recipient Records") {
+          $can_edit_recipient = true;
+        };
+        if ($users_permissions[$num][0] == "Edit A Member") {
+          $can_edit_member = true;
+        };
+        if ($users_permissions[$num][0] == "Edit Casualty Records") {
+          $can_edit_casualty = true;
+        };
+      };
+
+      $all_conflicts = Conflict::all();
+
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $imagePath = 'images';
+      } else {
+        $imagePath = 'public/images';
+      };
+
+      return view('admin.edit_recipient',[
+        'id'     => $id,
+        'recipient' => $recipient,
+        'status' => $status,
+        'can_edit_recipient' => $can_edit_recipient,
+        'can_edit_member' => $can_edit_member,
+        'can_edit_casualty' => $can_edit_casualty,
+        'all_conflicts' => $all_conflicts,
+        'image_path' => $imagePath
+      ]);
+    }
+
+    public function edit_recipient_post(Request $request,$id) {
+      $request->validate([
+        'firstName'        => 'required|string',
+        'middleName'       => 'nullable|string',
+        'lastName'         => 'required|string',
+        'rank'             => 'nullable|string',
+        'veteranImg'       => 'nullable|file',
+        'citation'         => 'nullable|string',
+        'conflictId'       => 'required|numeric',
+        'city'             => 'nullable|string',
+        'state'            => 'nullable|string',
+        // 'action'           => 'required|string',
+        'isKiaMia'         => 'required|integer',
+        'membershipStatus' => 'nullable|string',
+      ]);
+
+      $recipient = User::find($id);
+
+      // if ($request->action == 'update') {
+        $recipient->first_name = $request->firstName;
+        $recipient->middle_name = $request->middleName;
+        $recipient->last_name = $request->lastName;
+        // $member->veteran_img = $request->veteranImg;
+        $recipient->city = $request->city;
+        $recipient->state = $request->state;
+        $recipient->citation = $request->citation;
+        $recipient->kia_or_mia = $request->isKiaMia;
+
+        // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        //  $storagePath = 'images';
+        //  $public_path = 'storage/images';
+        // } else {
+        //   $storagePath = 'storage/images';
+        //   $public_path = 'storage/images';
+        // };
+        if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+          $storagePath = 'images';
+          $public_path = 'storage/images';
+        } else {
+          $storagePath = 'storage/images';
+          $public_path = 'images';
+        };
+
+        /*
+        // if (!file_exists('../public/storage')) {
+        //   Artisan::call('storage:link');
+        // };
+        */
+
+        if (request('veteranImg')) {
+          $old_veteran_filename = $recipient->veteran_img;
+          $recipient['veteran_img'] = request('veteranImg')->store($storagePath."/veteran");
+          $filename = request('veteranImg')->hashName();
+          $recipient->veteran_img = $filename;
+          if ($old_veteran_filename != null) {
+            Storage::delete($storagePath."/veteran/".$old_veteran_filename);
+          };
+        };
+
+        $recipient->save();
+      // } elseif ($request->action == 'veteran') {
+      //   $member->veteran_img = str_replace("storage/","",$member->veteran_img);
+      //   Storage::delete($member->veteran_img);
+      //   User::find($member->id)->update(['veteran_img' => null]);
+      // };
+
+      return redirect()->route('edit.recipient.list');
+    }
+
+    public function edit_recipient_disable($id) {
+
+      $user = User::find($id);
+      $user->moh_recipient = 0;
+      $user->save();
+
+      return redirect()->route('edit.recipient.list');
+    }
+
+    public function all_recipients() {
+      $all_recipients = User::where('moh_recipient','1')
+        ->orderBy('last_name','asc')
+        ->orderBy('first_name','asc')
+        ->orderBy('middle_name','asc')
+        ->paginate(20);
+
+      $current_user = Auth::user();
+      $user_roles = User::find($current_user->id)->all_user_roles;
+      $role_model = new Role();
+      $users_permissions = $role_model->users_permissions($current_user->id);
+
+      $can_edit = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit MOH Recipient Records") {
+          $can_edit = true;
+        };
+      };
+
+      $can_delete = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Delete A Recipient") {
+          $can_delete = true;
+        };
+      };
+
+      return view('admin.all_recipients',[
+        'all_recipients' => $all_recipients,
+        'can_edit' => $can_edit,
+        'can_delete' => $can_delete
+      ]);
+    }
+
+    public function image_recipient_index($id,$img_type,$edit_type) {
+      $member = User::find($id);
+
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $imagePath = 'images';
+      } else {
+        $imagePath = 'public/images';
+      };
+
+      $return_route = 'edit.'.$edit_type.'.index';
+      $delete_method = 'image.recipient.delete';
+
+      return view('admin.delete_image',[
+        'member' => $member,
+        'img_type' => $img_type,
+        'image_path' => $imagePath,
+        'return_name' => $return_route,
+        'delete_method' => $delete_method
+      ]);
+    }
+
+    public function image_recipient_delete($id,$img_type) {
+
+      $member = User::find($id);
+
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $storagePath = 'images';
+        $public_path = 'storage/images';
+      } else {
+        $storagePath = 'storage/images';
+        $public_path = 'images';
+      };
+
+      if ($img_type == 'current') {
+        Storage::delete($storagePath."/current/".$member->current_img);
+        $member->current_img = null;
+        $member->save();
+      } elseif ($img_type == 'veteran') {
+        Storage::delete($storagePath."/veteran/".$member->veteran_img);
+        $member->veteran_img = null;
+        $member->save();
+      };
+
+      return redirect()->route('edit.recipient.index',['id' => $id]);
     }
 
     public function member_roles($member_id)

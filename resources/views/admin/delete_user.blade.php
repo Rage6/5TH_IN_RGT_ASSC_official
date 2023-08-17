@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('DELETE A BOBCAT  ') }}</div>
 
                 <div class="card-body">
-                    <a href="{{ route('delete.member.list') }}">
+                    <a href="{{ route('edit.nonmember.list') }}">
                       << BACK
                     </a>
 
@@ -21,22 +21,22 @@
                     <div class="basicInfoGrid">
                       <div>Email: {{ $member->email }}</div>
                     </div>
-                    <!-- <div class="imgGrid">
+                    <div class="imgGrid">
                       @if ($member->current_img)
-                        <div style="background-image: url('{{ url($member->current_img) }}')">
+                        <div style="background-image: url('/{{ $image_path }}/current/{{ $member->current_img }}')">
                         </div>
                       @else
-                        <div style="background-image: url('{{ url('storage/images/default_profile.jpeg') }}')">
+                        <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">
                         </div>
                       @endif
                       @if ($member->veteran_img)
-                        <div style="background-image: url('{{ url($member->veteran_img) }}')">
+                        <div style="background-image: url('/{{ $image_path }}/veteran/{{ $member->veteran_img }}')">
                         </div>
                       @else
-                        <div style="background-image: url('{{ url('storage/images/default_profile.jpeg') }}')">
+                        <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">
                         </div>
                       @endif
-                    </div> -->
+                    </div>
                     @if ($member->biography)
                       <div class="form-group historyBox">
                         <label for="biography">Personal History</label>
@@ -86,11 +86,11 @@
                     <form method="POST" action="{{ route('delete.member.post',['id' => $id]) }}">
                       @csrf
                       <button type="submit" class="btn btn-danger">
-                        DELETE A BOBCAT
+                        DELETE THIS PERSON
                       </button>
                     </form>
                     <button class="btn">
-                      <a href="{{ route('delete.member.list') }}">{{ __('CANCEL') }}</a>
+                      <a href="{{ route('edit.nonmember.list') }}">{{ __('CANCEL') }}</a>
                     </button>
                 </div>
             </div>

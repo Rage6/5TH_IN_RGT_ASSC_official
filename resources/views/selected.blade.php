@@ -98,6 +98,22 @@
           @endif
           .
         </div>
+        @if (count($all_links) > 0)
+          <div class="externalBox">
+            <div class="externalTitle">
+              External Links
+            </div>
+            <div class="linkList">
+              @foreach ($all_links as $one_link)
+                <div class="linkRow">
+                  <a href="{{ $one_link->url }}" target="_blank">
+                    + {{ $one_link->name }}
+                  </a>
+                </div>
+              @endforeach
+            </div>
+          </div>
+        @endif
         @if ($casualty_data->comments != null)
         <div class="casualtyBio casualtyBioDetails">
           <div class="casualtyBioTitle">

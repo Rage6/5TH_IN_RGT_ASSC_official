@@ -424,25 +424,25 @@
               </a>
               <li>"In The Vietnam War 1966 - 1971" by Larry Hadzim</li>
               <div class="subChapters">
-                <a href="{{ url('/history/vietnam-history/preface') }}">
+                <a href="{{ route('vietnam.preface') }}">
                   <div>+ Preface</div>
                 </a>
-                <a href="{{ url('/history/vietnam-history/1966') }}">
+                <a href="{{ route('vietnam.1966') }}">
                   <div>+ 1966</div>
                 </a>
-                <a href="{{ url('/history/vietnam-history/1967') }}">
+                <a href="{{ route('vietnam.1967') }}">
                   <div>+ 1967</div>
                 </a>
-                <a href="{{ url('/history/vietnam-history/1968') }}">
+                <a href="{{ route('vietnam.1968') }}">
                   <div>+ 1968</div>
                 </a>
-                <a href="{{ url('/history/vietnam-history/1969') }}">
+                <a href="{{ route('vietnam.1969') }}">
                   <div>+ 1969</div>
                 </a>
-                <a href="{{ url('/history/vietnam-history/1970') }}">
+                <a href="{{ route('vietnam.1970') }}">
                   <div>+ 1970</div>
                 </a>
-                <a href="{{ url('/history/vietnam-history/1971') }}">
+                <a href="{{ route('vietnam.1971') }}">
                   <div>+ 1971</div>
                 </a>
                 <a href="{{ url('/history/vietnam-history/maps') }}">
@@ -452,13 +452,13 @@
                   <div>+ Glossary</div>
                 </a>
               </div>
-              <a href="{{ url('/history/topic/ben-cui-battle') }}">
+              <a href="{{ route('bencui.main') }}">
                 <li>Ben Cui Battle</li>
               </a>
-              <a href="{{ url('/history/topic/michelin-rubber-plant-battle') }}">
+              <a href="{{ route('michelin.battle') }}">
                 <li>Michelin Rubber Plant Battle</li>
               </a>
-              <a href="{{ url('/history/topic/the-rifle-and-the-myth') }}">
+              <a href="{{ route('rifle.myth') }}">
                 <li>The Rifle And The Myth</li>
               </a>
               <!-- <a href="{{ url('/history/album/vietnam') }}">

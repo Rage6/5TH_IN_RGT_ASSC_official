@@ -10,7 +10,7 @@ use App\Models\Link;
 
 use Illuminate\Support\Facades\DB;
 
-class MemorialController extends Controller
+class RecipientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +22,7 @@ class MemorialController extends Controller
        // The 'get_cart_count' function is in 'app\helper.php'
        $cart_count = get_cart_count($request)->cart_count;
 
-       $raw_sql = 'kia_or_mia = 1';
+       $raw_sql = 'moh_recipient = 1';
 
        if ($request->firstName) {
          $first_input = $request->validate([
@@ -44,15 +44,6 @@ class MemorialController extends Controller
          $raw_sql .= $last_raw;
        };
 
-       if ($request->unit) {
-         $unit = $request->validate([
-           'unit' => 'string|nullable'
-         ]);
-         $unit = str_replace("%20"," ",$unit['unit']);
-         $unit_raw = ' and unit like "%'.$unit.'%"';
-         $raw_sql .= $unit_raw;
-       };
-
        $all_conflicts = Conflict::orderBy('start_year')->get();
        if ($request->conflict && $request->conflict != "ALL") {
          $conflict = $request->validate([
@@ -67,74 +58,71 @@ class MemorialController extends Controller
            };
          };
          if (count($child_list) > 0) {
-           $conflict_raw = ' and (casualty_conflict_id = '.$conflict_id;
+           $conflict_raw = ' and (moh_conflict_id = '.$conflict_id;
            for ($i = 0; $i < count($child_list); $i++) {
-             $conflict_raw .= ' or casualty_conflict_id = '.$child_list[$i];
+             $conflict_raw .= ' or moh_conflict_id = '.$child_list[$i];
            };
            $conflict_raw .= ')';
          } else {
-           $conflict_raw = ' and casualty_conflict_id = '.$conflict_id;
+           $conflict_raw = ' and moh_conflict_id = '.$conflict_id;
          }
          $raw_sql .= $conflict_raw;
        } else {
          $conflict_id = "ALL";
        };
 
-       $all_casualties = User::whereRaw($raw_sql)
+       $all_recipients = User::whereRaw($raw_sql)
         ->orderBy('last_name','ASC')
         ->orderBy('first_name','ASC')
         ->paginate(20);
 
-       for ($i = 0; $i < count($all_casualties); $i++) {
-         $all_casualties[$i]->con_name = null;
-         $all_casualties[$i]->con_id = null;
-         $all_casualties[$i]->con_parent = null;
+       for ($i = 0; $i < count($all_recipients); $i++) {
+         $all_recipients[$i]->con_name = null;
+         $all_recipients[$i]->con_id = null;
+         $all_recipients[$i]->con_parent = null;
          for ($j = 0; $j < count($all_conflicts); $j++) {
-           if ($all_casualties[$i]->casualty_conflict_id == $all_conflicts[$j]->id) {
-             $all_casualties[$i]->con_name = $all_conflicts[$j]->name;
-             $all_casualties[$i]->con_id = $all_conflicts[$j]->id;
-             $all_casualties[$i]->con_parent = $all_conflicts[$j]->parent_id;
+           if ($all_recipients[$i]->moh_conflict_id == $all_conflicts[$j]->id) {
+             $all_recipients[$i]->con_name = $all_conflicts[$j]->name;
+             $all_recipients[$i]->con_id = $all_conflicts[$j]->id;
+             $all_recipients[$i]->con_parent = $all_conflicts[$j]->parent_id;
            };
          };
        };
 
        // This makes the pagination links include the necessary, additional GET parameters
        if ($request->firstName) {
-         $all_casualties->appends(['firstName' => $first_name]);
+         $all_recipients->appends(['firstName' => $first_name]);
        };
        if ($request->lastName) {
-         $all_casualties->appends(['lastName' => $last_name]);
-       };
-       if ($request->unit) {
-         $all_casualties->appends(['unit' => $unit]);
+         $all_recipients->appends(['lastName' => $last_name]);
        };
        if ($request->conflict) {
-         $all_casualties->appends(['conflict' => $conflict_id]);
+         $all_recipients->appends(['conflict' => $conflict_id]);
        };
 
-       $casualty_count = User::whereRaw($raw_sql)->count();
+       $recipient_count = User::whereRaw($raw_sql)->count();
 
-       // This selects the "Soldier of the Day"
-       $find_selected = User::where('when_displayed',date('Y-m-d'))->first();
-       if (!$find_selected) {
-         $all_null = User::where('kia_or_mia',1)->where('when_displayed',null)->get();
-         if (count($all_null) == 0) {
-           User::where('kia_or_mia',1)->update(['when_displayed' => null]);
-           $all_null = User::where('kia_or_mia',1)->where('when_displayed',null)->get();
-         }
-         $count_of_null = count($all_null);
-         $max_random_index = $count_of_null - 1;
-         $selected_index = rand(0,$max_random_index);
-         $already_selected = $all_null[$selected_index];
-         $already_selected->when_displayed = date('Y-m-d');
-         $already_selected->save();
-       } else {
-         $already_selected = $find_selected;
-       };
+       // // This selects the "Soldier of the Day"
+       // $find_selected = User::where('when_displayed',date('Y-m-d'))->first();
+       // if (!$find_selected) {
+       //   $all_null = User::where('kia_or_mia',1)->where('when_displayed',null)->get();
+       //   if (count($all_null) == 0) {
+       //     User::where('kia_or_mia',1)->update(['when_displayed' => null]);
+       //     $all_null = User::where('kia_or_mia',1)->where('when_displayed',null)->get();
+       //   }
+       //   $count_of_null = count($all_null);
+       //   $max_random_index = $count_of_null - 1;
+       //   $selected_index = rand(0,$max_random_index);
+       //   $already_selected = $all_null[$selected_index];
+       //   $already_selected->when_displayed = date('Y-m-d');
+       //   $already_selected->save();
+       // } else {
+       //   $already_selected = $find_selected;
+       // };
+       //
+       // $cas_links = Link::where('is_casualty_link',1)->where('user_id',$already_selected->id)->get();
 
-       $cas_links = Link::where('is_casualty_link',1)->where('user_id',$already_selected->id)->get();
-
-       $casualty_data = null;
+       $recipient_data = null;
 
        if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
          $imagePath = 'images/veteran';
@@ -142,16 +130,14 @@ class MemorialController extends Controller
          $imagePath = 'public/images/veteran';
        };
 
-       return view('casualties',[
-         'style' => 'casualties_style',
-         'js' => '/js/my_custom/memorials/memorials.js',
-         'content' => 'casualties_content',
-         'all_casualty_basics' => $all_casualties,
+       return view('recipients',[
+         'style' => 'recipients_style',
+         'js' => '/js/my_custom/memorials/recipients.js',
+         'content' => 'recipients_content',
+         'all_recipient_basics' => $all_recipients,
          'all_conflicts' => $all_conflicts,
-         'casualty_count' => $casualty_count,
-         'already_selected' => $already_selected,
-         'cas_links' => $cas_links,
-         'casualty_data' => $casualty_data,
+         'recipient_count' => $recipient_count,
+         'recipient_data' => $recipient_data,
          'cart_count' => $cart_count,
          'image_path' => $imagePath
        ]);
@@ -162,7 +148,6 @@ class MemorialController extends Controller
        $input = $request->validate([
          'firstName' => 'string|nullable',
          'lastName'  => 'string|nullable',
-         'unit'      => 'string|nullable',
          'conflict'  => 'string|required'
        ]);
 
@@ -180,8 +165,8 @@ class MemorialController extends Controller
          };
        };
 
-       // $url = 'memorials/casualties'.$parameters;
-       $url = route('casualties.all').$parameters;
+       // $url = 'medal-of-honor/recipients'.$parameters;
+       $url = route('recipients.all').$parameters;
 
        return redirect($url);
      }

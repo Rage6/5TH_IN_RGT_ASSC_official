@@ -72,7 +72,9 @@
         <a href="{{ route('casualties.all') }}">
           <div class="mainMenuSubBttn">+ KIA, MIA, & Died In Service</div>
         </a>
-        <div class="mainMenuSubBttn">+ Medal of Honor Recipients</div>
+        <a href="{{ route('recipients.all') }}">
+          <div class="mainMenuSubBttn">+ Medal of Honor Recipients</div>
+        </a>
         <div class="mainMenuSubBttn">+ Deceased Members</div>
       </div>
     </div>

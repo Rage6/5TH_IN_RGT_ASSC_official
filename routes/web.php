@@ -41,6 +41,23 @@ Route::prefix('newsletter')->group(function() {
 
 Route::prefix('history')->group(function() {
   Route::get('timeline',[App\Http\Controllers\HistoryController::class,'index'])->name('history.timeline');
+  Route::prefix('topic')->group(function() {
+    Route::prefix('vietnam-history')->group(function() {
+      Route::get('preface',[App\Http\Controllers\HistoryTopicController::class,'vietnam_preface'])->name('vietnam.preface');
+      Route::get('1966',[App\Http\Controllers\HistoryTopicController::class,'vietnam_1966'])->name('vietnam.1966');
+      Route::get('1967',[App\Http\Controllers\HistoryTopicController::class,'vietnam_1967'])->name('vietnam.1967');
+      Route::get('1968',[App\Http\Controllers\HistoryTopicController::class,'vietnam_1968'])->name('vietnam.1968');
+      Route::get('1969',[App\Http\Controllers\HistoryTopicController::class,'vietnam_1969'])->name('vietnam.1969');
+      Route::get('1970',[App\Http\Controllers\HistoryTopicController::class,'vietnam_1970'])->name('vietnam.1970');
+      Route::get('1971',[App\Http\Controllers\HistoryTopicController::class,'vietnam_1971'])->name('vietnam.1971');
+      Route::get('glossary','HistoryTopicController@vietnam_glossary');
+      Route::get('maps','AlbumController@vietnam_maps');
+    });
+    Route::get('ben-cui-battle',[App\Http\Controllers\HistoryTopicController::class,'ben_cui_battle'])->name('bencui.main');
+    Route::get('ben-cui-forum',[App\Http\Controllers\HistoryTopicController::class,'ben_cui_forum'])->name('bencui.forum');
+    Route::get('michelin-rubber-plant-battle',[App\Http\Controllers\HistoryTopicController::class,'michelin_rubber_plant_battle'])->name('michelin.battle');
+    Route::get('the-rifle-and-the-myth',[App\Http\Controllers\HistoryTopicController::class,'the_rifle_and_the_myth'])->name('rifle.myth');
+  });
 });
 
 Route::prefix('items')->group(function() {
@@ -57,6 +74,12 @@ Route::prefix('memorials')->group(function() {
   Route::get('casualties',[App\Http\Controllers\MemorialController::class,'index'])->name('casualties.all');
   Route::post('casualty-search',[App\Http\Controllers\MemorialController::class,'search'])->name('casualties.search');
   Route::get('{id}',[App\Http\Controllers\MemorialController::class,'show'])->name('casualties.select');
+});
+
+Route::prefix('medal-of-honor')->group(function() {
+  Route::get('recipients',[App\Http\Controllers\RecipientController::class,'index'])->name('recipients.all');
+  Route::post('recipient-search',[App\Http\Controllers\RecipientController::class,'search'])->name('recipients.search');
+  Route::get('recipient/{id}',[App\Http\Controllers\RecipientController::class,'show'])->name('recipients.select');
 });
 
 Route::middleware('auth')->group(function() {
@@ -88,23 +111,32 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::middleware(['permission:Edit A Member'])->group(function() {
+      // See a list of members for editin
       Route::get('edit-bobcat', [App\Http\Controllers\AdminController::class,'all_members'])->name('edit.member.list');
+      // Prepare to edit a single member's info
       Route::get('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_index'])->name('edit.member.index');
+      // Edit a single member's info
       Route::post('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_post'])->name('edit.member.post');
+      // Prepare to delete a member's image
+      Route::get('edit-bobcat/{id}/delete-image/{img_type}/{edit_type}',[App\Http\Controllers\AdminController::class,'image_member_index'])->name('image.member.index');
+      // Delete a member's image
+      Route::post('edit-bobcat/{id}/delete-image/member/{img_type}/complete',[App\Http\Controllers\AdminController::class,'image_member_delete'])->name('image.member.delete');
+      // Prepare to edit a member's fee deadline
       Route::get('edit-bobcat/{id}/edit-deadline',[App\Http\Controllers\AdminController::class,'edit_member_deadline_index'])->name('edit.member.deadline');
+      // Edit member as either permanent, nonmember, or temporary status
       Route::post('edit-bobcat/{id}/edit-deadline/permanent',[App\Http\Controllers\AdminController::class,'edit_member_deadline_permanent'])->name('edit.member.permanent');
       Route::post('edit-bobcat/{id}/edit-deadline/nonmember',[App\Http\Controllers\AdminController::class,'edit_member_deadline_nonmember'])->name('edit.member.nonmember');
       Route::post('edit-bobcat/{id}/edit-deadline/expiration-date',[App\Http\Controllers\AdminController::class,'edit_member_deadline_manual'])->name('edit.member.manual');
     });
 
-    Route::middleware(['permission:Delete A Member'])->group(function() {
-      Route::get('delete-bobcat', [App\Http\Controllers\AdminController::class,'all_members'])->name('delete.member.list');
-      Route::get('delete-bobcat/{id}',[App\Http\Controllers\AdminController::class,'delete_member_index'])->name('delete.member.index');
-      Route::post('delete-bobcat/{id}',[App\Http\Controllers\AdminController::class,'delete_member_post'])->name('delete.member.post');
-    });
-
     Route::middleware(['permission:See Nonmembers'])->group(function() {
       Route::get('see-nonmembers', [App\Http\Controllers\AdminController::class,'all_nonmembers'])->name('edit.nonmember.list');
+    });
+
+    Route::middleware(['permission:Delete A Nonmember'])->group(function() {
+      Route::get('delete-bobcat', [App\Http\Controllers\AdminController::class,'all_nonmembers'])->name('delete.member.list');
+      Route::get('delete-bobcat/{id}',[App\Http\Controllers\AdminController::class,'delete_member_index'])->name('delete.member.index');
+      Route::post('delete-bobcat/{id}',[App\Http\Controllers\AdminController::class,'delete_member_post'])->name('delete.member.post');
     });
 
     Route::middleware(['permission:Edit Casualty Records'])->group(function() {
@@ -112,6 +144,21 @@ Route::middleware('auth')->group(function() {
       Route::get('edit-casualty/{id}',[App\Http\Controllers\AdminController::class,'edit_casualty_index'])->name('edit.casualty.index');
       Route::post('edit-casualty/{id}/post',[App\Http\Controllers\AdminController::class,'edit_casualty_post'])->name('edit.casualty.post');
       Route::get('edit-casualty/{id}/disable',[App\Http\Controllers\AdminController::class,'edit_casualty_disable'])->name('edit.casualty.disable');
+      // Prepare to delete a casualty's image
+      Route::get('edit-casualty/{id}/delete-image/{img_type}/{edit_type}',[App\Http\Controllers\AdminController::class,'image_casualty_index'])->name('image.casualty.index');
+      // Delete a member's image
+      Route::post('edit-casualty/{id}/delete-image/{img_type}/complete',[App\Http\Controllers\AdminController::class,'image_casualty_delete'])->name('image.casualty.delete');
+    });
+
+    Route::middleware(['permission:Edit MOH Recipient Records'])->group(function() {
+      Route::get('edit-recipients', [App\Http\Controllers\AdminController::class,'all_recipients'])->name('edit.recipient.list');
+      Route::get('edit-recipients/{id}', [App\Http\Controllers\AdminController::class,'edit_recipient_index'])->name('edit.recipient.index');
+      Route::post('edit-recipients/{id}/post', [App\Http\Controllers\AdminController::class,'edit_recipient_post'])->name('edit.recipient.post');
+      Route::get('edit-recipient/{id}/disable',[App\Http\Controllers\AdminController::class,'edit_recipient_disable'])->name('edit.recipient.disable');
+      // Prepare to delete a casualty's image
+      Route::get('edit-recipient/{id}/delete-image/{img_type}/{edit_type}',[App\Http\Controllers\AdminController::class,'image_recipient_index'])->name('image.recipient.index');
+      // Delete a member's image
+      Route::post('edit-recipient/{id}/delete-image/{img_type}/complete',[App\Http\Controllers\AdminController::class,'image_recipient_delete'])->name('image.recipient.delete');
     });
 
     Route::middleware(['permission:Assign Roles To Members'])->group(function() {
