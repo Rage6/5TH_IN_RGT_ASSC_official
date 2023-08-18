@@ -53,7 +53,7 @@ class MemorialController extends Controller
          $raw_sql .= $unit_raw;
        };
 
-       $all_conflicts = Conflict::orderBy('start_year')->get();
+       $all_conflicts = Conflict::where('bobcat_casualties',1)->orderBy('start_year')->get();
        if ($request->conflict && $request->conflict != "ALL") {
          $conflict = $request->validate([
            'conflict' => 'integer|nullable'
