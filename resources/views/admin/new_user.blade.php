@@ -115,16 +115,19 @@
                           </div>
                         </div>
                       @endif
-                      <!-- <div class="basicInfoGrid">
-                        <div>
-                          Date of Death
+                      @if ($can_edit_recipient)
+                        <div class="basicInfoGrid">
+                          <div>
+                            Were they a recipient of the Congressional Medal of Honor?
+                          </div>
+                          <div>
+                            <select name="isRecipient">
+                              <option selected value="0">NO</option>
+                              <option value="1">YES</option>
+                            </select>
+                          </div>
                         </div>
-                        <div class="basicInfoDate">
-                          <input id="dayOfDeath" type="number" name="dayOfDeath" min="1" max="31" placeholder="DD" />
-                          <input id="monthOfDeath" type="number" name="monthOfDeath" min="1" max="12" placeholder="MM" />
-                          <input id="yearOfDeath" type="number" name="yearOfDeath" min="1800" max="9999" placeholder="YYYY" />
-                        </div>
-                      </div> -->
+                      @endif
                       <button type="submit" name="addBobcat" class="btn btn-primary">
                         ADD A BOBCAT
                       </button>

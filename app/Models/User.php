@@ -46,6 +46,7 @@ class User extends Authenticatable
         'casualty_conflict_id',
         'unit',
         'when_displayed',
+        'moh_recipient',
         'day_of_moh_action',
         'month_of_moh_action',
         'year_of_moh_action',

@@ -65,9 +65,11 @@ class AdminController extends Controller
 
     public function add_member_index() {
       $can_edit_casualty = Auth::user()->check_for_permission("Edit Casualty Records");
+      $can_edit_recipient = Auth::user()->check_for_permission("Edit MOH Recipient Records");
       $all_reg_options = Item::where('purpose','registration.index')->get();
       return view('admin.new_user',[
         'can_edit_casualty' => $can_edit_casualty,
+        'can_edit_recipient' => $can_edit_recipient,
         'all_reg_options' => $all_reg_options
       ]);
     }
@@ -76,6 +78,9 @@ class AdminController extends Controller
 
       if (!$request['isKiaMia']) {
         $request['isKiaMia'] = 0;
+      };
+      if (!$request['isRecipient']) {
+        $request['isRecipient'] = 0;
       };
 
       $request->validate([
@@ -89,6 +94,7 @@ class AdminController extends Controller
         // 'biography'        => 'nullable|string',
         'isDeceased'       => 'required|integer',
         'isKiaMia'         => 'required|integer',
+        'isRecipient'      => 'required|integer',
         'membershipStatus' => 'required|string',
         // 'mailingAddress'   => 'nullable|string',
         'rank'             => 'nullable|string',
@@ -114,6 +120,7 @@ class AdminController extends Controller
       $input['rank'] = $request->rank;
       // $input['kia_location'] = $request->kiaLocation;
       $input['kia_or_mia'] = $request->isKiaMia;
+      $input['moh_recipient'] = $request->isRecipient;
       // $input['injury_type'] = $request->injuryType;
       // $input['burial_site'] = $request->burialSite;
       // $input['day_of_death'] = $request->dayOfDeath;
@@ -201,9 +208,14 @@ class AdminController extends Controller
       };
 
       $can_edit_casualty = Auth::user()->check_for_permission("Edit Casualty Records");
+      $can_edit_recipient = Auth::user()->check_for_permission("Edit MOH Recipient Records");
 
       if ($request->isKiaMia == 1 && $can_edit_casualty) {
         return redirect()->route('edit.casualty.index',[
+          'id' => $new_user->id
+        ]);
+      } elseif ($request->isRecipient == 1 && $can_edit_recipient) {
+        return redirect()->route('edit.recipient.index',[
           'id' => $new_user->id
         ]);
       } else {
@@ -657,7 +669,7 @@ class AdminController extends Controller
         };
       };
 
-      $all_conflicts = Conflict::all();
+      $all_conflicts = Conflict::orderBy('start_year')->get();
 
       if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
         $imagePath = 'images';
@@ -880,7 +892,7 @@ class AdminController extends Controller
         };
       };
 
-      $all_conflicts = Conflict::all();
+      $all_conflicts = Conflict::orderBy('start_year','asc')->get();
 
       if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
         $imagePath = 'images';
