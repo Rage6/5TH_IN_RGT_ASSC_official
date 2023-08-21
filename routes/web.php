@@ -161,6 +161,23 @@ Route::middleware('auth')->group(function() {
       Route::post('edit-recipient/{id}/delete-image/{img_type}/complete',[App\Http\Controllers\AdminController::class,'image_recipient_delete'])->name('image.recipient.delete');
     });
 
+    Route::middleware(['permission:Add A Conflict'])->group(function() {
+      Route::get('add-conflict', [App\Http\Controllers\AdminController::class,'add_conflict_index'])->name('new.conflict.index');
+      Route::post('add-conflict-complete', [App\Http\Controllers\AdminController::class,'add_conflict_post'])->name('new.conflict.post');
+    });
+
+    Route::middleware(['permission:Edit A Conflict'])->group(function() {
+      Route::get('edit-conflicts', [App\Http\Controllers\AdminController::class,'edit_conflict_list'])->name('edit.conflict.list');
+      Route::get('edit-conflicts/{id}', [App\Http\Controllers\AdminController::class,'edit_conflict_index'])->name('edit.conflict.index');
+      Route::post('edit-conflicts/{id}/complete', [App\Http\Controllers\AdminController::class,'edit_conflict_post'])->name('edit.conflict.post');
+    });
+
+    Route::middleware(['permission:Delete A Conflict'])->group(function() {
+      Route::get('delete-conflicts', [App\Http\Controllers\AdminController::class,'edit_conflict_list'])->name('delete.conflict.list');
+      Route::get('delete-conflicts/{id}', [App\Http\Controllers\AdminController::class,'delete_conflict_index'])->name('delete.conflict.index');
+      Route::post('delete-conflicts/{id}/complete', [App\Http\Controllers\AdminController::class,'delete_conflict_post'])->name('delete.conflict.post');
+    });
+
     Route::middleware(['permission:Assign Roles To Members'])->group(function() {
       // Lists all members IOT select a member and change their roles
       Route::get('assign-roles', [App\Http\Controllers\AdminController::class,'all_members'])->name('admin.roles');
@@ -194,17 +211,17 @@ Route::middleware('auth')->group(function() {
       Route::get('delete-event/{id}',[App\Http\Controllers\AdminController::class,'delete_event_index'])->name('delete.event.index');
       Route::post('delete-event/{id}',[App\Http\Controllers\AdminController::class,'delete_event_post'])->name('delete.event.post');
     });
-  });
 
-  Route::middleware(['permission:See Payment History'])->group(function() {
-    Route::get('payment-history',[App\Http\Controllers\AdminController::class,'payment_history_index'])->name('payment.history');
-  });
+    Route::middleware(['permission:See Payment History'])->group(function() {
+      Route::get('payment-history',[App\Http\Controllers\AdminController::class,'payment_history_index'])->name('payment.history');
+    });
 
-  Route::middleware(['permission:See Membership Applicants'])->group(function() {
-    Route::get('membership-applicant-list',[App\Http\Controllers\AdminController::class,'membership_list_index'])->name('membership.list');
-  });
+    Route::middleware(['permission:See Membership Applicants'])->group(function() {
+      Route::get('membership-applicant-list',[App\Http\Controllers\AdminController::class,'membership_list_index'])->name('membership.list');
+    });
 
-  Route::middleware(['permission:See Reunion Applicants'])->group(function() {
-    Route::get('reunion-applicant-list',[App\Http\Controllers\AdminController::class,'reunion_list_index'])->name('reunion.list');
+    Route::middleware(['permission:See Reunion Applicants'])->group(function() {
+      Route::get('reunion-applicant-list',[App\Http\Controllers\AdminController::class,'reunion_list_index'])->name('reunion.list');
+    });
   });
 });

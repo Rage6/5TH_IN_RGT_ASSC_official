@@ -725,6 +725,25 @@ class AdminController extends Controller
         $membershipStatus = "1970-01-01 00:00:00";
       };
 
+      // Checks to see if there are no casualties in the conflict that this person used to be in
+      if ($casualty->casualty_conflict_id != $request['conflictId']) {
+        $init_count = User::where([
+            ['casualty_conflict_id',$casualty->casualty_conflict_id],
+            ['kia_or_mia',1]
+          ])->count();
+        if ($init_count <= 1) {
+          $init_conflict = Conflict::find($casualty->casualty_conflict_id);
+          $init_conflict->bobcat_casualties = 0;
+          $init_conflict->save();
+        };
+      };
+      // Makes sure that this user's conflict is made active
+      $new_conflict = Conflict::find($request['conflictId']);
+      if ($new_conflict->bobcat_casualties == 0) {
+        $new_conflict->bobcat_casualties = 1;
+        $new_conflict->save();
+      };
+
       $casualty->first_name = $request['firstName'];
       $casualty->middle_name = $request['middleName'];
       $casualty->last_name = $request['lastName'];
@@ -772,7 +791,19 @@ class AdminController extends Controller
     public function edit_casualty_disable($id) {
 
       $user = User::find($id);
+
       $user->kia_or_mia = 0;
+
+      $conflict_count = User::where([
+          ['casualty_conflict_id',$user->casualty_conflict_id],
+          ['kia_or_mia',1]
+        ])->count();
+      if ($conflict_count <= 1) {
+        $conflict = Conflict::find($user->casualty_conflict_id);
+        $conflict->bobcat_casualties = 0;
+        $conflict->save();
+      };
+
       $user->save();
 
       return redirect()->route('edit.casualty.list');
@@ -1525,6 +1556,197 @@ class AdminController extends Controller
       return redirect()->route('edit.event.index',['id' => $event_id]);
     }
 
+    public function add_conflict_index() {
+      $all_conflicts = Conflict::where('parent_id',null)->get();
+      return view('admin.new_conflict',[
+        'all_parents' => $all_conflicts
+      ]);
+    }
+
+    public function add_conflict_post(Request $request) {
+      $request->validate([
+        'name' => 'required|string',
+        'startYear' => 'required|integer',
+        'endYear' => 'nullable|integer',
+        'hasCasualties' => 'required|integer',
+        'parentId' => 'required|integer'
+      ]);
+
+      if ($request->parentId == 0) {
+        $request->parentId = null;
+      };
+
+      $input = new Conflict;
+
+      $input->name = $request->name;
+      $input->start_year = $request->startYear;
+      $input->end_year = $request->endYear;
+      $input->bobcat_casualties = $request->hasCasualties;
+      $input->parent_id = $request->parentId;
+
+      $input->save();
+
+      return redirect()->route('admin.index');
+    }
+
+    public function edit_conflict_list() {
+      $all_conflicts = Conflict::orderBy('start_year','asc')->paginate(20);
+
+      $current_user = Auth::user();
+      $user_roles = User::find($current_user->id)->all_user_roles;
+      $role_model = new Role();
+      $users_permissions = $role_model->users_permissions($current_user->id);
+
+      $can_edit = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit A Conflict") {
+          $can_edit = true;
+        };
+      };
+
+      $can_delete = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Delete A Conflict") {
+          $can_delete = true;
+        };
+      };
+
+      return view('admin.all_conflicts',[
+        'all_conflicts' => $all_conflicts,
+        'can_edit' => $can_edit,
+        'can_delete' => $can_delete
+      ]);
+    }
+
+    public function edit_conflict_index($id) {
+      $conflict = Conflict::find($id);
+
+      $parent_conflict = Conflict::find($conflict->parent_id);
+
+      $all_parent_conflicts = Conflict::where('parent_id',null)->orderBy('start_year','asc')->get();
+
+      $child_conflicts = Conflict::where('parent_id',$id)->get();
+
+      return view('admin.edit_conflict',[
+        'id' => $id,
+        'conflict' => $conflict,
+        'parent_conflict' => $parent_conflict,
+        'all_parents' => $all_parent_conflicts,
+        'all_children' => $child_conflicts
+      ]);
+    }
+
+    public function edit_conflict_post(Request $request,$id) {
+      $conflict = Conflict::find($id);
+      $init_parent_id = $conflict->parent_id;
+
+      $request->validate([
+        'name' => 'required|string',
+        'startYear' => 'required|integer',
+        'endYear' => 'nullable|integer',
+        'parentId' => 'nullable|integer'
+      ]);
+
+      if ($request->parentId == 0) {
+        $request->parentId = null;
+      };
+
+      if ($request->parentId != $init_parent_id) {
+        // Checks to see if old parent conflict still has casualties. If it doesn't, then it makes the 'bobcat_casualties' in the old parent conflict 'false'.
+        if ($init_parent_id != null) {
+          $init_parent_casualties = User::where([
+            ['casualty_conflict_id',$init_parent_id],
+            ['kia_or_mia',1]
+          ])->count();
+          $other_child_conflicts = Conflict::where([
+            ['parent_id',$init_parent_id],
+            ['id','!=',$id]
+          ])->get();
+          foreach ($other_child_conflicts as $one_conflict) {
+            $casualties = User::where([
+              ['casualty_conflict_id',$one_conflict->id],
+              ['kia_or_mia',1]
+            ])->count();
+            $init_parent_casualties += $casualties;
+          };
+          $init_parent = Conflict::find($init_parent_id);
+          if ($init_parent_casualties > 0) {
+            $init_parent->bobcat_casualties = 1;
+          } else {
+            $init_parent->bobcat_casualties = 0;
+          };
+          $init_parent->save();
+        };
+        // Makes the 'bobcat_casualties' in the new parent conflict 'true' (event if it already is) as long as this conflict has some casualties
+        if ($request->parentId != null) {
+          $conflict_count = User::where([
+            ['casualty_conflict_id',$id],
+            ['kia_or_mia',1]
+          ])->count();
+          if ($conflict_count > 0) {
+            $new_parent = Conflict::find($request->parentId);
+            $new_parent->bobcat_casualties = 1;
+            $new_parent->save();
+          };
+        };
+      };
+
+      $conflict->name = $request->name;
+      $conflict->start_year = $request->startYear;
+      $conflict->end_year = $request->endYear;
+      $conflict->parent_id = $request->parentId;
+
+      $conflict->save();
+
+      return redirect()->route('edit.conflict.list');
+    }
+
+    public function delete_conflict_index($id) {
+      $conflict = Conflict::find($id);
+
+      $child_conflicts = Conflict::where('parent_id',$id)->get();
+
+      // Counts casualties in the actual conflict
+      $count_by_primary = DB::table('users')
+        ->where('users.casualty_conflict_id','=',$id)
+        ->count();
+
+      // Counts casualties in any 'child' conflict
+      $count_by_secondary = DB::table('users')
+        ->join('conflicts','users.casualty_conflict_id','=','conflicts.id')
+        ->where('conflicts.parent_id','=',$conflict->id)
+        ->count();
+
+      $total_count = $count_by_primary + $count_by_secondary;
+
+      return view('admin.delete_conflict',[
+        'id' => $id,
+        'conflict' => $conflict,
+        'casualty_count' => $total_count,
+        'all_children' => $child_conflicts
+      ]);
+    }
+
+    public function delete_conflict_post(Request $request,$id) {
+      $conflict = Conflict::find($id);
+
+      // Checks to see if there this conflict has any 'childr' conflicts
+      $count_child_conflicts = Conflict::where('parent_id',$id)->count();
+
+      // Checks to see if there are any casualties in this conflict
+      $count_by_primary = DB::table('users')
+        ->where('users.casualty_conflict_id','=',$id)
+        ->count();
+
+      if ($count_child_conflicts == 0 && $count_by_primary == 0) {
+        $conflict->delete();
+        return redirect()->route('delete.conflict.list');
+      } else {
+        return redirect()->route('delete.conflict.index',[
+          'id' => $id
+        ]);
+      };
+    }
 
     public function delete_subevent_index($event_id, $id) {
       $subevent = Subevent::find($id);
