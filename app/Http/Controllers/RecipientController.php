@@ -44,7 +44,7 @@ class RecipientController extends Controller
          $raw_sql .= $last_raw;
        };
 
-       $all_conflicts = Conflict::orderBy('start_year')->get();
+       $all_conflicts = Conflict::where('bobcat_recipients',1)->orderBy('start_year')->get();
        if ($request->conflict && $request->conflict != "ALL") {
          $conflict = $request->validate([
            'conflict' => 'integer|nullable'
@@ -87,6 +87,30 @@ class RecipientController extends Controller
              $all_recipients[$i]->con_parent = $all_conflicts[$j]->parent_id;
            };
          };
+         // Gets written date
+         $day = $all_recipients[$i]->day_of_moh_action;
+         if ($day == 1 || $day == 21 || $day == 31) {
+           $day.="st";
+         } elseif ($day == 2 || $day == 22) {
+           $day.="nd";
+         } elseif ($day == 3 || $day == 23) {
+           $day.="rd";
+         } else {
+           $day = null;
+         };
+         $month = $all_recipients[$i]->month_of_moh_action;
+         if ($month != null) {
+           $all_months = array('Jan.','Feb.','Mar.','Apr.','May','June','July','Aug.','Sept.','Oct.','Nov.','Dec.');
+           $index = $month - 1;
+           $month = $all_months[$index];
+         };
+         $year = $all_recipients[$i]->year_of_moh_action;
+         if ($day != null && $month != null && $year != null) {
+           $full_date = $month." ".$day.", ".$year;
+         } else {
+           $full_date = null;
+         };
+         $all_recipients[$i]->full_date = $full_date;
        };
 
        // This makes the pagination links include the necessary, additional GET parameters

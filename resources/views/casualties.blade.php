@@ -168,7 +168,7 @@
                       @foreach ($all_conflicts as $subconflict)
                         @if ($subconflict->parent_id == $one_conflict->id)
                           <option value="{{ $subconflict->id }}">
-                            {{ $subconflict->name }}
+                            - {{ $subconflict->name }}
                           </option>
                         @endif
                       @endforeach

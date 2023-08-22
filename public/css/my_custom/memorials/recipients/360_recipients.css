@@ -18,22 +18,30 @@ p {
   background:
     repeating-linear-gradient(
       -45deg,
-      black,
+      white,
       grey 100px,
-      black 130px,
+      white 130px,
       grey 180px,
-      black 300px,
+      white 300px,
       grey 410px,
-      black 550px);
+      white 550px);
   min-height: 90vh;
 }
 
 .whiteBand {
   margin: 20px 0 40px 0;
-  padding: 10px 0;
-  /* background-color: white; */
   background:
     linear-gradient(
+      white,
+      white 1%,
+      rgba(104,154,205,1) 1%,
+      rgba(104,154,205,1) 99%,
+      white 99%,
+      white 100%
+    );
+  /* background-color: white; */
+  /* background:
+    linear-gradient(
       rgba(0,0,0,0),
       rgba(0,0,0,0) 10px,
       rgba(0,0,0,0.5) 10px,
@@ -58,17 +66,19 @@ p {
       rgba(255,255,255,1) 10px,
       purple 10px,
       purple 50%,
-      rgba(0,0,0,0) 50%);
+      rgba(0,0,0,0) 50%); */
   background-position: right;
   background-size: contain;
   background-repeat: no-repeat;
 }
 
-.purpleBand {
+.blueBand {
+  margin-right: 5%;
   padding: 25px 0;
-  background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('/images/memorials/purple-heart2.png'),purple;
+  /* background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('/images/memorials/purple-heart2.png'),purple; */
+  background: url('/images/recipients/cmoh-flag.png');
   background-position: right;
-  background-size: contain;
+  background-size: 40%;
   background-repeat: no-repeat;
 }
 

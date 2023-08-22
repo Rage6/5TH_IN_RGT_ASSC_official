@@ -23,7 +23,7 @@
 <div class="mainAndFooter">
   <div class="mainBody">
     <div class="whiteBand">
-      <div class="purpleBand">
+      <div class="blueBand">
         <div class="casualtyTitle">
           ABOVE AND BEYOND
         </div>
@@ -35,7 +35,7 @@
     <div class="dailyAndSearchBox">
       <div class="leftSearchColumn oneSection">
         <div class="casualtySearch">
-          <div class="casualtySearchTitle">FIND A FALLEN SOLDIER</div>
+          <div class="casualtySearchTitle">FIND A RECIPIENT</div>
             <form method="POST" action="{{ route('recipients.search') }}">
               @csrf
               <div class="casualtySearchForm">
@@ -51,7 +51,7 @@
                       @foreach ($all_conflicts as $subconflict)
                         @if ($subconflict->parent_id == $one_conflict->id)
                           <option value="{{ $subconflict->id }}">
-                            {{ $subconflict->name }}
+                            - {{ $subconflict->name }}
                           </option>
                         @endif
                       @endforeach
@@ -68,9 +68,9 @@
             Total: <span>{{ $recipient_count }}</span>
           </div>
           <div class="casualtyListTitle">
-            <div class="nameAndUnit">Name & Unit</div>
+            <div class="nameAndUnit">Name & Date</div>
             <div class="justName">Name</div>
-            <div class="justUnit">Unit</div>
+            <div class="justUnit">Date</div>
             <div class="conflictName">Conflict</div>
           </div>
           <div class="allCasualtyListRows">
@@ -83,7 +83,7 @@
                       {{ $one_recipient_basic->last_name }}, {{ $one_recipient_basic->first_name }}
                     </div>
                     <div class="rowUnit">
-                      {{ $one_recipient_basic->unit }}
+                      {{ $one_recipient_basic->full_date }}
                     </div>
                     <div class="rowConflict">
                       {{ $one_recipient_basic->con_name }}
