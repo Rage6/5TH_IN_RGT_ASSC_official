@@ -725,23 +725,85 @@ class AdminController extends Controller
         $membershipStatus = "1970-01-01 00:00:00";
       };
 
-      // Checks to see if there are no casualties in the conflict that this person used to be in
-      if ($casualty->casualty_conflict_id != $request['conflictId']) {
-        $init_count = User::where([
-            ['casualty_conflict_id',$casualty->casualty_conflict_id],
-            ['kia_or_mia',1]
-          ])->count();
-        if ($init_count <= 1) {
-          $init_conflict = Conflict::find($casualty->casualty_conflict_id);
+      // // Checks to see if there are no casualties in the conflict that this person used to be in
+      // if ($casualty->casualty_conflict_id != $request['conflictId']) {
+      //   $init_count = User::where([
+      //       ['casualty_conflict_id',$casualty->casualty_conflict_id],
+      //       ['kia_or_mia',1]
+      //     ])->count();
+      //   if ($init_count <= 1) {
+      //     $init_conflict = Conflict::find($casualty->casualty_conflict_id);
+      //     $init_conflict->bobcat_casualties = 0;
+      //     $init_conflict->save();
+      //   };
+      // };
+      // // Makes sure that this user's conflict is made active
+      // $new_conflict = Conflict::find($request['conflictId']);
+      // if ($new_conflict->bobcat_casualties == 0) {
+      //   $new_conflict->bobcat_casualties = 1;
+      //   $new_conflict->save();
+      // };
+
+      // Checks to see if old conflict still has casualties, either directly or from a 'child' conflict. If it doesn't, then it changes the 'bobcat_casualties' in that conflict to 'false'.
+      $init_casualty_conflict = Conflict::find($casualty->casualty_conflict_id);
+      if ($init_casualty_conflict != null && $casualty->casualty_conflict_id != $request->conflictId) {
+        // The $init_casualty_conflict_id == null happens when a new user or previously non-casualty user is being switched to being a casualty
+        $init_casualty_conflict_id = $init_casualty_conflict->id;
+        // It starts by only adding the casualties directly connected to the old conflict
+        $init_casualty_count = User::where('casualty_conflict_id',$init_casualty_conflict_id)->count();
+        $old_conflict_count = $init_casualty_count;
+        // If the old conflict is a 'parent' conflict, then it counts the casualties of its 'child' conflicts
+        $other_child_conflicts = Conflict::where([
+          ['parent_id',$init_casualty_conflict_id],
+          ['id','!=',$id]
+        ])->get();
+        foreach ($other_child_conflicts as $one_conflict) {
+          $casualties = User::where('casualty_conflict_id',$one_conflict->id)->count();
+          $init_casualty_count += $casualties;
+        };
+        // This subtracts the casualty that leaving the old conflict
+        // if ($casualty->casualty_conflict_id != $request->conflictId) {
+          $init_casualty_count -= 1;
+        // };
+        // With the old conflict's total complete, it is decided if the old conflict should be active or not
+        $init_conflict = Conflict::find($init_casualty_conflict_id);
+        if ($init_casualty_count > 0) {
+          $init_conflict->bobcat_casualties = 1;
+        } else {
           $init_conflict->bobcat_casualties = 0;
-          $init_conflict->save();
+        };
+        // With that done, the changes are saved
+        $init_conflict->save();
+        // Side detail: if a) the old conflict is a 'child' conflict and b) the old conflict is now empty, then this checks to see if its old 'parent' conflict is also empty.
+        if ($init_conflict->parent_id != null && $old_conflict_count - 1 <= 0) {
+          $old_parent_conflict = Conflict::find($init_conflict->parent_id);
+          $old_parent_count = User::where([
+            ['casualty_conflict_id',$old_parent_conflict->id],
+            ['id','!=',$casualty->id]
+          ])->count();
+          $old_child_conflicts = Conflict::where('parent_id',$old_parent_conflict->id)->get();
+          $old_child_count = 0;
+          foreach ($old_child_conflicts as $one_child_conflict) {
+            $another_count = User::where([
+              ['casualty_conflict_id',$one_child_conflict->id],
+              ['id','!=',$casualty->id]
+            ])->count();
+            $old_child_count += $another_count;
+          };
+          if ($old_parent_count + $old_child_count == 0) {
+            $old_parent_conflict->bobcat_casualties = 0;
+            $old_parent_conflict->save();
+          };
         };
       };
-      // Makes sure that this user's conflict is made active
-      $new_conflict = Conflict::find($request['conflictId']);
-      if ($new_conflict->bobcat_casualties == 0) {
-        $new_conflict->bobcat_casualties = 1;
-        $new_conflict->save();
+      // Activates the new conflict (as well as its 'parent' conflict, if has one) by switching their 'bobcat_casualties' to 'true'
+      $new_conflict = Conflict::find($request->conflictId);
+      $new_conflict->bobcat_casualties = 1;
+      $new_conflict->save();
+      if ($new_conflict->parent_id != null) {
+        $new_parent = Conflict::find($new_conflict->parent_id);
+        $new_parent->bobcat_casualties = 1;
+        $new_parent->save();
       };
 
       $casualty->first_name = $request['firstName'];
@@ -971,6 +1033,100 @@ class AdminController extends Controller
         $recipient->citation = $request->citation;
         $recipient->kia_or_mia = $request->isKiaMia;
 
+        // // Checks to see if old parent conflict still has MOH recipients. If it doesn't, then it changes the 'bobcat_recipients' in the old parent conflict to 'false'.
+        // $init_recipient_conflict_id = Conflict::find($recipient->moh_conflict_id)->id;
+        // if ($init_recipient_conflict_id != null) {
+        //   $init_recipient_count = User::where('moh_conflict_id',$init_recipient_conflict_id)->count();
+        //   $other_child_conflicts = Conflict::where([
+        //     ['parent_id',$init_recipient_conflict_id],
+        //     ['id','!=',$id]
+        //   ])->get();
+        //   foreach ($other_child_conflicts as $one_conflict) {
+        //     $recipients = User::where('moh_conflict_id',$one_conflict->id)->count();
+        //     $init_recipient_count += $recipients;
+        //   };
+        //   $init_conflict = Conflict::find($init_recipient_conflict_id);
+        //   if ($init_recipient_count > 0) {
+        //     $init_conflict->bobcat_recipients = 1;
+        //   } else {
+        //     $init_conflict->bobcat_recipients = 0;
+        //   };
+        //   $init_conflict->save();
+        // };
+        // // Makes the 'bobcat_recipients' in the new parent conflict 'true' (event if it already is) as long as this conflict has some recipient
+        // $new_conflict = Conflict::find($request->conflictId);
+        // $new_conflict->bobcat_recipients = 1;
+        // $new_conflict->save();
+        // if ($new_conflict->parent_id != null) {
+        //   $new_parent = Conflict::find($new_conflict->parent_id);
+        //   $new_parent->bobcat_recipients = 1;
+        //   $new_parent->save();
+        // };
+        // $recipient->moh_conflict_id = $request->conflictId;
+
+        // Checks to see if old conflict still has recipients, either directly or from a 'child' conflict. If it doesn't, then it changes the 'bobcat_recipients' in that conflict to 'false'.
+        $init_recipient_conflict = Conflict::find($recipient->moh_conflict_id);
+        if ($init_recipient_conflict != null && $recipient->moh_conflict_id != $request->conflictId) {
+          // The $init_recipient_conflict_id == null happens when a new user or previously non-recipient user is being switched to being a recipient
+          $init_recipient_conflict_id = $init_recipient_conflict->id;
+          // It starts by only adding the recipients directly connected to the old conflict
+          $init_recipient_count = User::where('moh_conflict_id',$init_recipient_conflict_id)->count();
+          $old_conflict_count = $init_recipient_count;
+          // If the old conflict is a 'parent' conflict, then it counts the recipients of its 'child' conflicts
+          $other_child_conflicts = Conflict::where([
+            ['parent_id',$init_recipient_conflict_id],
+            ['id','!=',$id]
+          ])->get();
+          foreach ($other_child_conflicts as $one_conflict) {
+            $recipients = User::where('moh_conflict_id',$one_conflict->id)->count();
+            $init_recipient_count += $recipients;
+          };
+          // This subtracts the recipient that leaving the old conflict
+          // if ($recipient->moh_conflict_id != $request->conflictId) {
+            $init_recipient_count -= 1;
+          // };
+          // With the old conflict's total complete, it is decided if the old conflict should be active or not
+          $init_conflict = Conflict::find($init_recipient_conflict_id);
+          if ($init_recipient_count > 0) {
+            $init_conflict->bobcat_recipients = 1;
+          } else {
+            $init_conflict->bobcat_recipients = 0;
+          };
+          // With that done, the changes are saved
+          $init_conflict->save();
+          // Side detail: if a) the old conflict is a 'child' conflict and b) the old conflict is now empty, then this checks to see if its old 'parent' conflict is also empty.
+          if ($init_conflict->parent_id != null && $old_conflict_count - 1 <= 0) {
+            $old_parent_conflict = Conflict::find($init_conflict->parent_id);
+            $old_parent_count = User::where([
+              ['moh_conflict_id',$old_parent_conflict->id],
+              ['id','!=',$recipient->id]
+            ])->count();
+            $old_child_conflicts = Conflict::where('parent_id',$old_parent_conflict->id)->get();
+            $old_child_count = 0;
+            foreach ($old_child_conflicts as $one_child_conflict) {
+              $another_count = User::where([
+                ['moh_conflict_id',$one_child_conflict->id],
+                ['id','!=',$recipient->id]
+              ])->count();
+              $old_child_count += $another_count;
+            };
+            if ($old_parent_count + $old_child_count == 0) {
+              $old_parent_conflict->bobcat_recipients = 0;
+              $old_parent_conflict->save();
+            };
+          };
+        };
+        // Activates the new conflict (as well as its 'parent' conflict, if has one) by switching their 'bobcat_recipients' to 'true'
+        $new_conflict = Conflict::find($request->conflictId);
+        $new_conflict->bobcat_recipients = 1;
+        $new_conflict->save();
+        if ($new_conflict->parent_id != null) {
+          $new_parent = Conflict::find($new_conflict->parent_id);
+          $new_parent->bobcat_recipients = 1;
+          $new_parent->save();
+        };
+        $recipient->moh_conflict_id = $request->conflictId;
+
         // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
         //  $storagePath = 'images';
         //  $public_path = 'storage/images';
@@ -1008,6 +1164,7 @@ class AdminController extends Controller
       //   Storage::delete($member->veteran_img);
       //   User::find($member->id)->update(['veteran_img' => null]);
       // };
+
 
       return redirect()->route('edit.recipient.list');
     }
@@ -1569,6 +1726,7 @@ class AdminController extends Controller
         'startYear' => 'required|integer',
         'endYear' => 'nullable|integer',
         'hasCasualties' => 'required|integer',
+        'hasRecipients' => 'required|integer',
         'parentId' => 'required|integer'
       ]);
 
@@ -1582,6 +1740,7 @@ class AdminController extends Controller
       $input->start_year = $request->startYear;
       $input->end_year = $request->endYear;
       $input->bobcat_casualties = $request->hasCasualties;
+      $input->bobcat_recipients = $request->hasRecipients;
       $input->parent_id = $request->parentId;
 
       $input->save();
@@ -1689,6 +1848,34 @@ class AdminController extends Controller
             $new_parent->save();
           };
         };
+        // Checks to see if old parent conflict still has MOH recipients. If it doesn't, then it changes the 'bobcat_recipients' in the old parent conflict to 'false'.
+        if ($init_parent_id != null) {
+          $init_parent_recipients = User::where('moh_conflict_id',$init_parent_id)->count();
+          $other_child_conflicts = Conflict::where([
+            ['parent_id',$init_parent_id],
+            ['id','!=',$id]
+          ])->get();
+          foreach ($other_child_conflicts as $one_conflict) {
+            $recipients = User::where('moh_conflict_id',$one_conflict->id)->count();
+            $init_parent_recipients += $recipients;
+          };
+          $init_parent = Conflict::find($init_parent_id);
+          if ($init_parent_recipients > 0) {
+            $init_parent->bobcat_recipients = 1;
+          } else {
+            $init_parent->bobcat_recipients = 0;
+          };
+          $init_parent->save();
+        };
+        // Makes the 'bobcat_recipients' in the new parent conflict 'true' (event if it already is) as long as this conflict has some recipient
+        if ($request->parentId != null) {
+          $conflict_count = User::where('moh_conflict_id',$id)->count();
+          if ($conflict_count > 0) {
+            $new_parent = Conflict::find($request->parentId);
+            $new_parent->bobcat_recipients = 1;
+            $new_parent->save();
+          };
+        };
       };
 
       $conflict->name = $request->name;
@@ -1707,22 +1894,36 @@ class AdminController extends Controller
       $child_conflicts = Conflict::where('parent_id',$id)->get();
 
       // Counts casualties in the actual conflict
-      $count_by_primary = DB::table('users')
+      $count_by_casualty_primary = DB::table('users')
         ->where('users.casualty_conflict_id','=',$id)
         ->count();
 
       // Counts casualties in any 'child' conflict
-      $count_by_secondary = DB::table('users')
+      $count_by_casualty_secondary = DB::table('users')
         ->join('conflicts','users.casualty_conflict_id','=','conflicts.id')
         ->where('conflicts.parent_id','=',$conflict->id)
         ->count();
 
-      $total_count = $count_by_primary + $count_by_secondary;
+      $total_casualty_count = $count_by_casualty_primary + $count_by_casualty_secondary;
+
+      // Counts casualties in the actual conflict
+      $count_by_recipient_primary = DB::table('users')
+        ->where('users.moh_conflict_id','=',$id)
+        ->count();
+
+      // Counts casualties in any 'child' conflict
+      $count_by_recipient_secondary = DB::table('users')
+        ->join('conflicts','users.moh_conflict_id','=','conflicts.id')
+        ->where('conflicts.parent_id','=',$conflict->id)
+        ->count();
+
+      $total_recipient_count = $count_by_recipient_primary + $count_by_recipient_secondary;
 
       return view('admin.delete_conflict',[
         'id' => $id,
         'conflict' => $conflict,
-        'casualty_count' => $total_count,
+        'casualty_count' => $total_casualty_count,
+        'recipient_count' => $total_recipient_count,
         'all_children' => $child_conflicts
       ]);
     }
@@ -1733,9 +1934,10 @@ class AdminController extends Controller
       // Checks to see if there this conflict has any 'childr' conflicts
       $count_child_conflicts = Conflict::where('parent_id',$id)->count();
 
-      // Checks to see if there are any casualties in this conflict
+      // Checks to see if there are any casualties or recipients directly attached to this conflict
       $count_by_primary = DB::table('users')
         ->where('users.casualty_conflict_id','=',$id)
+        ->orWhere('users.moh_conflict_id','=',$id)
         ->count();
 
       if ($count_child_conflicts == 0 && $count_by_primary == 0) {

@@ -27,7 +27,7 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
-                          The conflict that '{{ $conflict->name }}' was part of:
+                          Was '{{ $conflict->name }}' part of a larger conflict? If so, select the overall conflict here.
                         </div>
                         @if (count($all_children) == 0)
                           <div>
@@ -52,7 +52,7 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
-                          Conflicts within '{{ $conflict->name }}':
+                          This is a list of the conflict that took place within '{{ $conflict->name }}'.
                         </div>
                         <div>
                           @if ($parent_conflict == null)

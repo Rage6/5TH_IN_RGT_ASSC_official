@@ -45,6 +45,21 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
+                          Did any Bobcats earn the Congressional Medal of Honor during this conflict?
+                        </div>
+                        <div>
+                          <select name="hasRecipients">
+                            <option selected value="0">
+                              No
+                            </option>
+                            <option value="1">
+                              Yes
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
                           If this conflict within a larger conflict, then select its overall 'parent' war/conflict.
                         </div>
                         <div>

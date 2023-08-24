@@ -48,7 +48,17 @@
                           </div>
                         </div>
                       @endif
-                      <button type="submit" name="addConflict" class="btn btn-primary" @if ($casualty_count > 0 || count($all_children) > 0) disabled @endif>
+                      @if ($recipient_count > 0)
+                        <div class="basicInfoGrid">
+                          <div>
+                            Are there any recipients of the Congressional Medal of Honor attached to this conflict?
+                          </div>
+                          <div>
+                            &#10060; According to our records, there @if ($recipient_count == 1) was 1 Bobcat recipient @else were {{ $recipient_count }} Bobcat recipient @endif during the '{{ $conflict->name }}' and any other conflicts within it. '{{ $conflict->name }}' cannot be deleted until no recipients are attached to it. You can do the with the 'Edit A Conflict' tool.
+                          </div>
+                        </div>
+                      @endif
+                      <button type="submit" name="addConflict" class="btn btn-primary" @if ($casualty_count > 0 || $recipient_count > 0 || count($all_children) > 0) disabled @endif>
                         DELETE THIS CONFLICT
                       </button>
                       <button class="btn">
