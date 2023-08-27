@@ -1,24 +1,11 @@
-.dailyAndSearchBox {
-  /* display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-areas: "dailyMemorial casualtyIntro" "leftSearchColumn rightSearchColumn"; */
-}
-
-.dailyMemorial {
-  margin-left: 7%;
-  border-radius: inherit;
-  float: right;
-  width: 60%;
-}
-
-.casualtyIntro {
-  font-size: 1.45rem;
-}
-
 .leftSearchColumn {
   display: grid;
   grid-template-areas: "search results";
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 20vw 80vw;
+}
+
+.blueBand {
+  background-position: top right 5%;
 }
 
 .casualtySearchForm {
@@ -31,74 +18,24 @@
   width: calc(90% - 8px);
 }
 
-.casualtyListTitle {
-  grid-template-columns: 40% 30% 30%;
-  grid-template-areas: "justName justUnit conflictName";
+.casualtyTotal {
+  width: 80vw;
 }
 
-.nameAndUnit {
-  display: none;
-}
-
-.justName {
-  display: block;
-}
-
-.justUnit {
-  display: block;
-}
-
-.allCasualtyListRows {
-  /* margin: 0 5%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap; */
-}
-
-.casualtyListRow {
-  grid-template-columns: 40% 30% 30%;
-  grid-template-areas:
-    "rowName rowUnit rowConflict";
-}
-
-.rightSearchColumn {
+.allOverallRows {
+  margin: 2vw;
   display: grid;
-  grid-template-areas:
-    "casualtyName casualtyName"
-    "casualtyImg casBio1"
-    "casBio2 casBio2";
-  grid-template-columns: 50% 50%;
-  grid-template-rows: max-content max-content auto;
+  grid-template-columns: 37vw 37vw;
+  grid-auto-rows: 37vw;
+  grid-gap: 2vw;
 }
 
-.selectedSection {
-  display: grid;
-  grid-template-areas:
-    "casualtyName casualtyName"
-    "casualtyImg casBio1"
-    "casBio2 casBio2";
-  grid-template-columns: 50% 50%;
-  grid-template-rows: max-content max-content auto;
+.overallRow {
+  margin: 0;
+  height: 100%;
+  width: 100%;
 }
 
-.casualtyName {
-  text-align: left;
-  width: 50%;
-}
-
-.casualtyImg {
-  background-position: top;
-  height: inherit;
-}
-
-.casualtyBioSummary {
-  font-size: 1.1rem;
-}
-
-.casualtyBioDetails {
-  /* border: 1px solid black; */
-  padding-bottom: 20px;
-  /* overflow-y: scroll;
-  max-height: 300px; */
+.rowDetails {
+  /* padding: 1vw 5vw; */
 }

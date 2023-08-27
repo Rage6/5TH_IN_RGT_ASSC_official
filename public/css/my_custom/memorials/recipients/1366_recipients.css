@@ -1,36 +1,11 @@
-.dailyAndSearchBox {
-  /* display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-areas: "dailyMemorial casualtyIntro" "leftSearchColumn rightSearchColumn"; */
-}
-
-.oneSection {
-  /* margin: 0 5% 30px 5% !important;
-  width: 90%; */
-}
-
-.dailyMemorial {
-  margin: 0 0 40px 30px;
-  float: right;
-  /* width: inherit; */
-  height: 400px;
-  width: 500px;
-}
-
-.purpleBand {
-  background-position: 100%, 90% 50%, 100%;
-  background-size: contain, 22%, contain;
-}
-
-.casualtyIntro {
-  font-size: 2rem;
-  line-height: 1.7;
-}
-
 .leftSearchColumn {
   display: grid;
   grid-template-areas: "search results";
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 20vw 80vw;
+}
+
+.blueBand {
+  background-position: top right 5%;
 }
 
 .casualtySearchForm {
@@ -43,76 +18,24 @@
   width: calc(90% - 8px);
 }
 
-.casualtyListTitle {
-  /* display: none; */
+.casualtyTotal {
+  width: 80vw;
 }
 
-.casualtyListTitle {
-  grid-template-columns: 40% 30% 30%;
-  grid-template-areas: "justName justUnit conflictName";
-}
-
-.nameAndUnit {
-  display: none;
-}
-
-.justName {
-  display: block;
-}
-
-.justUnit {
-  display: block;
-}
-
-.allCasualtyListRows {
-  /* margin: 0 5%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap; */
-}
-
-.casualtyListRow {
-  grid-template-columns: 40% 30% 30%;
-  grid-template-areas:
-    "rowName rowUnit rowConflict";
-}
-
-.rightSearchColumn {
+.allOverallRows {
+  margin: 1vw 1vw 1vw 2vw;
   display: grid;
-  grid-template-areas:
-    "casualtyName casBio2"
-    "casualtyImg casBio2"
-    "casBio1 casBio2";
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 110px 200px auto;
+  grid-template-columns: 25vw 25vw 25vw;
+  grid-auto-rows: 25vw;
+  grid-gap: 1vw;
 }
 
-.selectedSection {
-  display: grid;
-  grid-template-areas:
-    "casualtyName casualtyName"
-    "casualtyImg casBio1"
-    "casBio2 casBio2";
-  grid-template-columns: 50% 50%;
-  grid-template-rows: max-content max-content auto;
+.overallRow {
+  margin: 0;
+  height: 100%;
+  width: 100%;
 }
 
-.casualtyName {
-  text-align: left;
-}
-
-.casualtyImg {
-  background-position: top;
-  height: inherit;
-}
-
-.casualtyBioSummary {
-  font-size: 1.1rem;
-}
-
-.casualtyBioDetails {
-  /* border: 1px solid black; */
-  padding-bottom: 20px;
-  /* overflow-y: scroll; */
+.rowDetails {
+  /* padding: 1vw 5vw; */
 }

@@ -30,41 +30,25 @@ p {
   width: 1920px;
 }
 
-.whiteBand {
-  padding-left: calc(50% - 683px);
-  padding-right: calc(50% - 683px);
-}
-
-.dailyAndSearchBox {
+.leftSearchColumn {
   margin-left: calc(50% - 683px);
   margin-right: calc(50% - 683px);
-}
-
-.oneSection {
-  /* margin: 0 5% 30px 5% !important;
-  width: 90%; */
-}
-
-.dailyMemorial {
-  margin: 0 0 40px 30px;
-  float: right;
-  width: 500px;
-}
-
-.purpleBand {
-  background-position: 100%, 90% 50%, 100%;
-  background-size: contain, 22%, contain;
-}
-
-.casualtyIntro {
-  font-size: 2rem;
-  line-height: 1.7;
-}
-
-.leftSearchColumn {
   display: grid;
   grid-template-areas: "search results";
   grid-template-columns: 20% 80%;
+  width: 1366px;
+}
+
+.blueBand {
+  background-position: top right calc(50% - 550px);
+}
+
+.casualtyTitle {
+  padding: 0 0 10px calc(50% - 683px);
+}
+
+.casualtySubtitle {
+  padding: 0 0 10px calc(50% - 683px);
 }
 
 .casualtySearchForm {
@@ -77,76 +61,24 @@ p {
   width: calc(90% - 8px);
 }
 
-.casualtyListTitle {
-  /* display: none; */
+.casualtyTotal {
+  width: 100%;
 }
 
-.casualtyListTitle {
-  grid-template-columns: 40% 30% 30%;
-  grid-template-areas: "justName justUnit conflictName";
-}
-
-.nameAndUnit {
-  display: none;
-}
-
-.justName {
-  display: block;
-}
-
-.justUnit {
-  display: block;
-}
-
-.allCasualtyListRows {
-  /* margin: 0 5%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap; */
-}
-
-.casualtyListRow {
-  grid-template-columns: 40% 30% 30%;
-  grid-template-areas:
-    "rowName rowUnit rowConflict";
-}
-
-.rightSearchColumn {
+.allOverallRows {
+  margin: 10px;
   display: grid;
-  grid-template-areas:
-    "casualtyName casBio2"
-    "casualtyImg casBio2"
-    "casBio1 casBio2";
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 110px 200px auto;
+  grid-template-columns: 354px 355px 355px;
+  grid-auto-rows: 355px;
+  grid-gap: 10px;
 }
 
-.selectedSection {
-  display: grid;
-  grid-template-areas:
-    "casualtyName casualtyName"
-    "casualtyImg casBio1"
-    "casBio2 casBio2";
-  grid-template-columns: 50% 50%;
-  grid-template-rows: max-content max-content auto;
+.overallRow {
+  margin: 0;
+  height: 100%;
+  width: 100%;
 }
 
-.casualtyName {
-  text-align: left;
-}
-
-.casualtyImg {
-  background-position: top;
-  height: inherit;
-}
-
-.casualtyBioSummary {
-  font-size: 1.1rem;
-}
-
-.casualtyBioDetails {
-  /* border: 1px solid black; */
-  padding-bottom: 20px;
-  /* overflow-y: scroll; */
+.rowDetails {
+  /* padding: 1vw 5vw; */
 }
