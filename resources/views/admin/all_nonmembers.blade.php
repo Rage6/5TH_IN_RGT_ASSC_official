@@ -65,7 +65,7 @@
                             @endif
                             @if ($can_edit_casualty == true)
                               <div>
-                                <a href="{{ route('edit.casualty.index',['id' => $one_nonmember->id]) }}">
+                                <a href="{{ route('edit.casualty.index',['id' => $one_nonmember->id,'next_route' => 'nonmember-list']) }}">
                                   <button>
                                     EDIT CASUALTY
                                   </button>

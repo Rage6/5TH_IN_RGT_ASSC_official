@@ -253,7 +253,7 @@
                       </div>
                       @if ($can_edit_casualty == true && $member->kia_or_mia == 1)
                         <div>
-                          + Need to edit this person's casualty records? <a href="{{ route('edit.casualty.index',['id' => $id]) }}">Click here</a>
+                          + Need to edit this person's casualty records? <a href="{{ route('edit.casualty.index',['id' => $id,'next_route' => 'casualty-list']) }}">Click here</a>
                         </div>
                       @endif
                       @if ($can_edit_recipient == true && $member->moh_recipient == 1)

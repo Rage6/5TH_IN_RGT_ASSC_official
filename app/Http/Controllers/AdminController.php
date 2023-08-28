@@ -210,9 +210,15 @@ class AdminController extends Controller
       $can_edit_casualty = Auth::user()->check_for_permission("Edit Casualty Records");
       $can_edit_recipient = Auth::user()->check_for_permission("Edit MOH Recipient Records");
 
-      if ($request->isKiaMia == 1 && $can_edit_casualty) {
+      if ($request->isKiaMia == 1 && $can_edit_casualty && $request->isRecipient == 1 && $can_edit_recipient) {
         return redirect()->route('edit.casualty.index',[
-          'id' => $new_user->id
+          'id' => $new_user->id,
+          'next_route' => 'edit-recipient'
+        ]);
+      } elseif ($request->isKiaMia == 1 && $can_edit_casualty) {
+        return redirect()->route('edit.casualty.index',[
+          'id' => $new_user->id,
+          'next_route' => 'casualty-list'
         ]);
       } elseif ($request->isRecipient == 1 && $can_edit_recipient) {
         return redirect()->route('edit.recipient.index',[
@@ -638,7 +644,7 @@ class AdminController extends Controller
       ]);
     }
 
-    public function edit_casualty_index($id) {
+    public function edit_casualty_index($id,$next_route) {
       $casualty = User::find($id);
       if ($casualty->expiration_date == null) {
         $status = "nonmember";
@@ -685,11 +691,12 @@ class AdminController extends Controller
         'can_edit_member' => $can_edit_member,
         'can_edit_casualty' => $can_edit_casualty,
         'all_conflicts' => $all_conflicts,
-        'image_path' => $imagePath
+        'image_path' => $imagePath,
+        'next_route' => $next_route
       ]);
     }
 
-    public function edit_casualty_post(Request $request,$id) {
+    public function edit_casualty_post(Request $request,$id,$next_route) {
 
       $casualty = User::find($id);
 
@@ -846,8 +853,15 @@ class AdminController extends Controller
       //   Artisan::call('storage:link');
       // };
 
-
-      return redirect()->route('edit.casualty.list');
+      if ($next_route == 'edit-recipient') {
+        return redirect()->route('edit.recipient.index',[
+          'id' => $id
+        ]);
+      } elseif ($next_route == 'nonmember-list') {
+        return redirect()->route('edit.nonmember.list');
+      } elseif ($next_route == 'casualty-list') {
+        return redirect()->route('edit.casualty.list');
+      };
     }
 
     public function edit_casualty_disable($id) {
@@ -914,7 +928,10 @@ class AdminController extends Controller
         $member->save();
       };
 
-      return redirect()->route('edit.casualty.index',['id' => $id]);
+      return redirect()->route('edit.casualty.index',[
+        'id' => $id,
+        'next_route' => 'casualty'
+      ]);
     }
 
     public function all_casualties() {

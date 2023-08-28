@@ -141,9 +141,9 @@ Route::middleware('auth')->group(function() {
 
     Route::middleware(['permission:Edit Casualty Records'])->group(function() {
       Route::get('edit-casualties', [App\Http\Controllers\AdminController::class,'all_casualties'])->name('edit.casualty.list');
-      Route::get('edit-casualty/{id}',[App\Http\Controllers\AdminController::class,'edit_casualty_index'])->name('edit.casualty.index');
-      Route::post('edit-casualty/{id}/post',[App\Http\Controllers\AdminController::class,'edit_casualty_post'])->name('edit.casualty.post');
-      Route::get('edit-casualty/{id}/disable',[App\Http\Controllers\AdminController::class,'edit_casualty_disable'])->name('edit.casualty.disable');
+      Route::get('edit-casualty/{id}/{next_route}',[App\Http\Controllers\AdminController::class,'edit_casualty_index'])->name('edit.casualty.index');
+      Route::post('edit-casualty/{id}/post/{next_route}',[App\Http\Controllers\AdminController::class,'edit_casualty_post'])->name('edit.casualty.post');
+      Route::post('edit-casualty/{id}/disable',[App\Http\Controllers\AdminController::class,'edit_casualty_disable'])->name('edit.casualty.disable');
       // Prepare to delete a casualty's image
       Route::get('edit-casualty/{id}/delete-image/{img_type}/{edit_type}',[App\Http\Controllers\AdminController::class,'image_casualty_index'])->name('image.casualty.index');
       // Delete a member's image

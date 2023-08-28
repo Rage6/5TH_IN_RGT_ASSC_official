@@ -160,7 +160,7 @@
                     @endif
                     @if ($can_edit_casualty == true && $recipient->kia_or_mia == 1)
                       <div>
-                        + Do you need to edit this person's casualty records? <a href="{{ route('edit.casualty.index',['id' => $id]) }}">Click here</a>
+                        + Do you need to edit this person's casualty records? <a href="{{ route('edit.casualty.index',['id' => $id,'next_route' => 'casualty-list']) }}">Click here</a>
                       </div>
                     @endif
                 </div>

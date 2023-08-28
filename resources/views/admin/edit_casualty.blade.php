@@ -12,7 +12,14 @@
                     <a href="{{ route('edit.casualty.list') }}">
                       << BACK
                     </a>
-                    <form method="POST" action="{{ route('edit.casualty.post',['id' => $id]) }}" enctype="multipart/form-data">
+                    <form
+                      method="POST"
+                      action="{{ route('edit.casualty.post',[
+                        'id' => $id,
+                        'next_route' => $next_route
+                      ]) }}"
+                      enctype="multipart/form-data"
+                    >
                       @csrf
                       <div class="basicInfoGrid">
                         <div>First Name</div>
@@ -197,10 +204,18 @@
                       <button class="btn">
                         <a href="{{ route('edit.casualty.list') }}">{{ __('CANCEL') }}</a>
                       </button>
-                      <a class="btn btn-warning" href="{{ route('edit.casualty.disable',['id' => $id]) }}">
+                      <!-- <a class="btn btn-warning" href="{{ route('edit.casualty.disable',['id' => $id]) }}">
                         NOT A CASUALTY
-                      </a>
+                      </a> -->
                     </form>
+                    <div>
+                      <form method="POST" action="{{ route('edit.casualty.disable',['id' => $id]) }}">
+                        @csrf
+                        <button class="btn btn-warning">
+                          NOT A CASUALTY
+                        </button>
+                      </form>
+                    </div>
                     @if ($can_edit_member == true && $casualty->expiration_date != null)
                       <div>
                         + Do you need to edit this person's member records? <a href="{{ route('edit.member.index',['id' => $id]) }}">Click here</a>

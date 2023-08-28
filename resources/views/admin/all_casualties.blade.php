@@ -27,7 +27,10 @@
                           <div style="display:flex;flex-wrap:wrap">
                             @if ($can_edit == true)
                               <div>
-                                <a href="{{ route('edit.casualty.index',['id' => $one_casualty->id]) }}">
+                                <a href="{{ route('edit.casualty.index',[
+                                  'id' => $one_casualty->id,
+                                  'next_route' => 'casualty-list'
+                                ]) }}">
                                   <button>
                                     UPDATE
                                   </button>
