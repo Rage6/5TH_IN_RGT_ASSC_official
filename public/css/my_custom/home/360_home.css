@@ -185,6 +185,32 @@
   grid-template-columns: 110px 60px;
 }
 
+.externalLinkGrid {
+  margin-bottom: 20px;
+  border: 1px dashed black;
+  padding: 5px;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 50% 50%;
+  grid-template-areas:
+    "link link"
+    "edit delete"
+}
+
+.linkEl {
+  grid-area: link;
+}
+
+.editEl {
+  grid-area: edit;
+  text-align: center;
+}
+
+.deleteEl {
+  grid-area: delete;
+  text-align: center;
+}
+
 .documentation {
   margin-bottom:10px;
   border: 1px dashed black;

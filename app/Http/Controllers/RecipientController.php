@@ -148,11 +148,11 @@ class RecipientController extends Controller
 
        $recipient_data = null;
 
-       if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+       // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
          $imagePath = 'images/veteran';
-       } else {
-         $imagePath = 'public/images/veteran';
-       };
+       // } else {
+       //   $imagePath = 'public/images/veteran';
+       // };
 
        return view('recipients',[
          'style' => 'recipients_style',
@@ -206,24 +206,24 @@ class RecipientController extends Controller
        // The 'get_cart_count' function is in 'app\helper.php'
        $cart_count = get_cart_count($request)->cart_count;
 
-       $casualty = User::find($id);
-       $conflict = Conflict::where('id',$casualty->casualty_conflict_id)->first();
-       $all_links = Link::where('is_casualty_link',1)
-          ->where('user_id',$casualty->id)
+       $recipient = User::find($id);
+       $conflict = Conflict::where('id',$recipient->moh_conflict_id)->first();
+       $all_links = Link::where('is_moh_link',1)
+          ->where('user_id',$recipient->id)
           ->get();
 
-       if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+       // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
          $imagePath = 'images/veteran';
-       } else {
-         $imagePath = 'public/images/veteran';
-       };
+       // } else {
+       //   $imagePath = 'public/images/veteran';
+       // };
 
-       return view('selected',[
-         'style' => 'casualties_style',
+       return view('selected_recipient',[
+         'style' => 'recipients_style',
          'js' => '/js/my_custom/memorials/memorials.js',
-         'content' => 'casualties_selected',
+         'content' => 'recipients_selected',
          'cart_count' => $cart_count,
-         'casualty_data' => $casualty,
+         'recipient_data' => $recipient,
          'img_path' => $imagePath,
          'conflict' => $conflict,
          'all_links' => $all_links

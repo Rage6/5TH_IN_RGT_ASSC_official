@@ -67,6 +67,33 @@
                         <div>Burial Site</div>
                         <input name="burialSite" id="burialSite" value="{{ $casualty->burial_site }}" />
                       </div>
+                      <div class="basicInfoGrid">
+                        <div>External Links</div>
+                        <div>
+                          @foreach ($all_links as $one_link)
+                            <div class="externalLinkGrid">
+                              <div class="linkEl">
+                                <a href="{{ $one_link->url }}" target="_blank">
+                                  <u>{{ $one_link->name }}</u>
+                                </a>
+                              </div>
+                              <div class="editEl">
+                                <a href="{{ route('edit.casualty.link.index',['id'=>$id,'linkId'=>$one_link->id,'userType'=>'casualty']) }}">
+                                  EDIT
+                                </a>
+                              </div>
+                              <div class="deleteEl">
+                                <a href="{{ route('delete.casualty.link.index',['id'=>$id,'linkId'=>$one_link->id]) }}">
+                                  DELETE
+                                </a>
+                              </div>
+                            </div>
+                          @endforeach
+                          <a href="{{ route('add.casualty.link.index',['id'=>$id,'userType'=>'casualty']) }}">
+                            + ADD A LINK
+                          </a>
+                        </div>
+                      </div>
                       <!-- <div class="imgGrid">
                         @if ($casualty->veteran_img)
                           <div style="background-image: url('{{ url($casualty->veteran_img) }}')">

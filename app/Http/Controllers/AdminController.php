@@ -13,6 +13,7 @@ use App\Models\Payment;
 use App\Models\Item;
 use App\Models\Applicant;
 use App\Models\Conflict;
+use App\Models\Link;
 
 use App\Http\Controllers\stdClass;
 use Illuminate\Support\Facades\Hash;
@@ -148,7 +149,7 @@ class AdminController extends Controller
       // };
 
       if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-        $storagePath = 'images';
+        $storagePath = 'public/images';
       } else {
         $storagePath = 'public/images';
       };
@@ -499,11 +500,11 @@ class AdminController extends Controller
       //   Artisan::call('storage:link');
       // };
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
         $imagePath = 'images';
-      } else {
-        $imagePath = 'public/images';
-      };
+      // } else {
+      //   $imagePath = 'public/images';
+      // };
 
       return view('admin.delete_user',[
         'id'     => $id,
@@ -529,13 +530,13 @@ class AdminController extends Controller
         $member->all_user_roles()->detach($one_role->id);
       };
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-        $storagePath = 'images';
-        $public_path = 'storage/images';
-      } else {
-        $storagePath = 'storage/images';
-        $public_path = 'images';
-      };
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $storagePath = 'public/images';
+        // $public_path = 'storage/images';
+      // } else {
+      //   $storagePath = 'public/images';
+      //   $public_path = 'images';
+      // };
 
       if ($member->current_img) {
         Storage::delete($storagePath."/current/".$member->current_img);
@@ -543,6 +544,8 @@ class AdminController extends Controller
       if ($member->veteran_img) {
         Storage::delete($storagePath."/veteran/".$member->veteran_img);
       };
+
+      Link::where('user_id',$member->id)->delete();
 
       User::where('id',$id)->delete();
       return redirect()->route('delete.member.list');
@@ -652,6 +655,11 @@ class AdminController extends Controller
         $status = "member";
       };
 
+      $all_links = Link::where([
+        ['user_id',$id],
+        ['is_casualty_link',1]
+      ])->orderBy('name','asc')->get();
+
       // if (!file_exists('../public/storage')) {
       //   Artisan::call('storage:link');
       // };
@@ -691,6 +699,7 @@ class AdminController extends Controller
         'can_edit_member' => $can_edit_member,
         'can_edit_casualty' => $can_edit_casualty,
         'all_conflicts' => $all_conflicts,
+        'all_links' => $all_links,
         'image_path' => $imagePath,
         'next_route' => $next_route
       ]);
@@ -698,16 +707,16 @@ class AdminController extends Controller
 
     public function edit_casualty_post(Request $request,$id,$next_route) {
 
-      $casualty = User::find($id);
+      // $casualty = User::find($id);
 
-      if (!$request['membershipStatus'] || $casualty->expiration_date == null) {
-        $request['membershipStatus'] = "nonmember";
-      } else {
-        $request['membershipStatus'] = "1970-01-01 00:00:00";
-      };
-      if (!$request['mohStatus']) {
-        $request['mohStatus'] = $casualty->moh_recipient;
-      };
+      // if (!$request['membershipStatus'] || $casualty->expiration_date == null) {
+      //   $request['membershipStatus'] = "nonmember";
+      // } else {
+      //   $request['membershipStatus'] = "1970-01-01 00:00:00";
+      // };
+      // if (!$request['mohStatus']) {
+      //   $request['mohStatus'] = $casualty->moh_recipient;
+      // };
 
       $request->validate([
         'firstName'        => 'required|string',
@@ -725,6 +734,8 @@ class AdminController extends Controller
         'mohStatus'        => 'required|integer',
         'conflictId'       => 'required|numeric'
       ]);
+
+      $casualty = User::find($id);
 
       if ($request['membershipStatus'] == "nonmember") {
         $membershipStatus = null;
@@ -870,14 +881,16 @@ class AdminController extends Controller
 
       $user->kia_or_mia = 0;
 
-      $conflict_count = User::where([
-          ['casualty_conflict_id',$user->casualty_conflict_id],
-          ['kia_or_mia',1]
-        ])->count();
-      if ($conflict_count <= 1) {
-        $conflict = Conflict::find($user->casualty_conflict_id);
-        $conflict->bobcat_casualties = 0;
-        $conflict->save();
+      if ($user->casualty_conflict_id) {
+        $conflict_count = User::where([
+            ['casualty_conflict_id',$user->casualty_conflict_id],
+            ['kia_or_mia',1]
+          ])->count();
+        if ($conflict_count <= 1) {
+          $conflict = Conflict::find($user->casualty_conflict_id);
+          $conflict->bobcat_casualties = 0;
+          $conflict->save();
+        };
       };
 
       $user->save();
@@ -934,6 +947,186 @@ class AdminController extends Controller
       ]);
     }
 
+    public function add_casualty_link_index($id) {
+      return view('admin.new_link',[
+        'id' => $id,
+        'userType' => 'casualty'
+      ]);
+    }
+
+    public function add_casualty_link_post(Request $request,$id) {
+      $request->validate([
+        'name' => 'required|string',
+        'url' => 'required|string'
+      ]);
+
+      $new_link = new Link;
+      $new_link->name = $request->name;
+      $new_link->url = $request->url;
+      $new_link->is_casualty_link = 1;
+      $new_link->user_id = $id;
+
+      $new_link->save();
+
+      return redirect()->route('edit.casualty.index',[
+        'id' => $id,
+        'next_route' => 'casualty-list'
+      ]);
+    }
+
+    public function edit_casualty_link_index($id,$linkId) {
+
+      $link = Link::where('id',$linkId)->first();
+
+      return view('admin.new_link',[
+        'id' => $id,
+        'link' => $link,
+        'userType' => 'casualty',
+        'method' => 'edit'
+      ]);
+    }
+
+    public function edit_casualty_link_post(Request $request,$id,$linkId) {
+
+      $request->validate([
+        'name' => 'required|string',
+        'url' => 'required|string'
+      ]);
+
+      $link = Link::where([
+        ['id',$linkId],
+        ['is_casualty_link',1]
+      ])->first();
+      $link->name = $request->name;
+      $link->url = $request->url;
+      $link->is_casualty_link = 1;
+      $link->user_id = $id;
+
+      $link->save();
+
+      return redirect()->route('edit.casualty.index',[
+        'id' => $id,
+        'next_route' => 'casualty-list'
+      ]);
+    }
+
+    public function delete_casualty_link_index($id,$linkId) {
+
+      $link = Link::where([
+        ['id',$linkId],
+        ['is_casualty_link',1]
+      ])->first();
+
+      return view('admin.new_link',[
+        'id' => $id,
+        'link' => $link,
+        'userType' => 'casualty',
+        'method' => 'delete'
+      ]);
+    }
+
+    public function delete_casualty_link_post($id,$linkId) {
+      Link::where([
+        ['id',$linkId],
+        ['is_casualty_link',1]
+      ])->delete();
+
+      return redirect()->route('edit.casualty.index',[
+        'id' => $id,
+        'next_route' => 'casualty-list'
+      ]);
+    }
+
+    public function add_recipient_link_index($id) {
+      return view('admin.new_link',[
+        'id' => $id,
+        'userType' => 'recipient'
+      ]);
+    }
+
+    public function add_recipient_link_post(Request $request,$id) {
+      $request->validate([
+        'name' => 'required|string',
+        'url' => 'required|string'
+      ]);
+
+      $new_link = new Link;
+      $new_link->name = $request->name;
+      $new_link->url = $request->url;
+      $new_link->is_moh_link = 1;
+      $new_link->user_id = $id;
+
+      $new_link->save();
+
+      return redirect()->route('edit.recipient.index',[
+        'id' => $id,
+        'next_route' => 'recipient-list'
+      ]);
+    }
+
+    public function edit_recipient_link_index($id,$linkId) {
+
+      $link = Link::where('id',$linkId)->first();
+
+      return view('admin.new_link',[
+        'id' => $id,
+        'link' => $link,
+        'userType' => 'recipient',
+        'method' => 'edit'
+      ]);
+    }
+
+    public function edit_recipient_link_post(Request $request,$id,$linkId) {
+
+      $request->validate([
+        'name' => 'required|string',
+        'url' => 'required|string'
+      ]);
+
+      $link = Link::where([
+        ['id',$linkId],
+        ['is_moh_link',1]
+      ])->first();
+      $link->name = $request->name;
+      $link->url = $request->url;
+      $link->is_moh_link = 1;
+      $link->user_id = $id;
+
+      $link->save();
+
+      return redirect()->route('edit.recipient.index',[
+        'id' => $id,
+        'next_route' => 'recipient-list'
+      ]);
+    }
+
+    public function delete_recipient_link_index($id,$linkId) {
+
+      $link = Link::where([
+        ['id',$linkId],
+        ['is_moh_link',1]
+      ])->first();
+
+      return view('admin.new_link',[
+        'id' => $id,
+        'link' => $link,
+        'userType' => 'recipient',
+        'method' => 'delete'
+      ]);
+    }
+
+    public function delete_recipient_link_post($id,$linkId) {
+      Link::where([
+        ['id',$linkId],
+        ['is_moh_link',1]
+      ])->delete();
+
+      return redirect()->route('edit.recipient.index',[
+        'id' => $id,
+        'next_route' => 'recipient-list'
+      ]);
+    }
+
     public function all_casualties() {
       $all_casualties = User::where('kia_or_mia','1')
         ->orderBy('last_name','asc')
@@ -978,6 +1171,10 @@ class AdminController extends Controller
         $status = "nonmember";
       };
 
+      $all_links = Link::where([
+        ['user_id',$id],
+        ['is_moh_link',1]
+      ])->orderBy('name','asc')->get();
 
       // if (!file_exists('../public/storage')) {
       //   Artisan::call('storage:link');
@@ -1017,6 +1214,7 @@ class AdminController extends Controller
         'can_edit_recipient' => $can_edit_recipient,
         'can_edit_member' => $can_edit_member,
         'can_edit_casualty' => $can_edit_casualty,
+        'all_links' => $all_links,
         'all_conflicts' => $all_conflicts,
         'image_path' => $imagePath
       ]);

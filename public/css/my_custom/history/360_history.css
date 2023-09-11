@@ -116,9 +116,13 @@ p {
       to right,
       rgba(255,255,255,0.8),
       rgba(255,255,255,0.8)),
-    url('../../../images/history/lundy_lane_map.jpg');
+    url('/images/history/lundy_lane_map.jpg');
   background-position: center;
   background-size: cover;
+}
+
+.img1812 {
+  background-image:url('/images/history/BattleofLundysLane.jpg');
 }
 
 .mexicanWarSegment {
@@ -127,9 +131,13 @@ p {
       to right,
       rgba(255,255,255,0.7),
       rgba(255,255,255,0.7)),
-    url('../../../images/history/mexican_war_map.jpg');
+    url('/images/history/mexican_war_map.jpg');
   background-position: center;
   background-size: cover;
+}
+
+.imgMexican {
+  background-image:url('/images/history/Palo_Alto_nebel.jpg');
 }
 
 .civilWarSegment {
@@ -138,9 +146,13 @@ p {
       to right,
       rgba(255,255,255,0.8),
       rgba(255,255,255,0.8)),
-    url('../../../images/history/civil_war_map.jpg');
+    url('/images/history/civil_war_map.jpg');
   background-position: center;
   background-size: cover;
+}
+
+.imgCivilWar {
+  background-image:url('/images/history/Burning-of-Wagon-Train-at-Apache-Canyon.jpg');
 }
 
 .indianWarSegment {
@@ -149,9 +161,13 @@ p {
       to right,
       rgba(255,255,255,0.7),
       rgba(255,255,255,0.7)),
-    url('../../../images/history/bear_paw_map.png');
+    url('/images/history/bear_paw_map.png');
   background-position: center;
   background-size: cover;
+}
+
+.imgIndianWar {
+  background-image:url('/images/history/Montana_1879.jpg');
 }
 
 .occupationSegment {
@@ -160,7 +176,7 @@ p {
       to right,
       rgba(255,255,255,0.6),
       rgba(255,255,255,0.6)),
-    url('../../../images/history/philippine_islands_1909.jpg');
+    url('/images/history/philippine_islands_1909.jpg');
   background-position: center;
   background-size: cover;
 }
@@ -171,7 +187,7 @@ p {
       to right,
       rgba(255,255,255,0.8),
       rgba(255,255,255,0.8)),
-    url('../../../images/history/panama_canal_map.jpg');
+    url('/images/history/panama_canal_map.jpg');
   background-position: center;
   background-size: cover;
 }
@@ -182,7 +198,7 @@ p {
       to right,
       rgba(255,255,255,0.8),
       rgba(255,255,255,0.8)),
-    url('../../../images/history/71st_IN_DIV_map.jpeg');
+    url('/images/history/71st_IN_DIV_map.jpeg');
   background-position: center;
   background-size: cover;
 }
@@ -193,7 +209,7 @@ p {
       to right,
       rgba(255,255,255,0.8),
       rgba(255,255,255,0.8)),
-    url('../../../images/history/korean_war_map.jpg');
+    url('/images/history/korean_war_map.jpg');
   background-position: center;
   background-size: cover;
 }
@@ -204,7 +220,7 @@ p {
       to right,
       rgba(255,255,255,0.8),
       rgba(255,255,255,0.8)),
-    url('../../../images/history/1950_USHighways_map.jpg');
+    url('/images/history/1950_USHighways_map.jpg');
   background-position: center;
   background-size: cover;
 }
@@ -215,7 +231,7 @@ p {
       to right,
       rgba(255,255,255,0.8),
       rgba(255,255,255,0.8)),
-    url('../../../images/history/ben_cui_map.jpg');
+    url('/images/history/ben_cui_map.jpg');
   background-position: center;
   background-size: cover;
 }
@@ -226,7 +242,7 @@ p {
       to right,
       rgba(255,255,255,0.8),
       rgba(255,255,255,0.8)),
-    url('../../../images/history/south_korea_map.jpg');
+    url('/images/history/south_korea_map.jpg');
   background-position: center;
   background-size: cover;
 }
@@ -237,7 +253,7 @@ p {
       to right,
       rgba(255,255,255,0.8),
       rgba(255,255,255,0.8)),
-    url('../../../images/history/GWOT_2014_map.png');
+    url('/images/history/GWOT_2014_map.png');
   background-position: center;
   background-size: cover;
 }

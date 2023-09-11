@@ -48,6 +48,33 @@
                           @endforeach
                         </select>
                       </div>
+                      <div class="basicInfoGrid">
+                        <div>External Links</div>
+                        <div>
+                          @foreach ($all_links as $one_link)
+                            <div class="externalLinkGrid">
+                              <div class="linkEl">
+                                <a href="{{ $one_link->url }}" target="_blank">
+                                  <u>{{ $one_link->name }}</u>
+                                </a>
+                              </div>
+                              <div class="editEl">
+                                <a href="{{ route('edit.recipient.link.index',['id'=>$id,'linkId'=>$one_link->id,'userType'=>'recipient']) }}">
+                                  EDIT
+                                </a>
+                              </div>
+                              <div class="deleteEl">
+                                <a href="{{ route('delete.recipient.link.index',['id'=>$id,'linkId'=>$one_link->id]) }}">
+                                  DELETE
+                                </a>
+                              </div>
+                            </div>
+                          @endforeach
+                          <a href="{{ route('add.recipient.link.index',['id'=>$id]) }}">
+                            + ADD A LINK
+                          </a>
+                        </div>
+                      </div>
                       <div class="imgGrid">
                         <div></div>
                         @if ($recipient->veteran_img)

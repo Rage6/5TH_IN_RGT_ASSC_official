@@ -10,7 +10,7 @@ p {
 }
 
 .backBttn a {
-  color: white;
+  color: black;
 }
 
 .mainBody {
@@ -51,9 +51,7 @@ p {
 } */
 
 .whiteBand {
-  margin: 20px 0 0 0;
   padding: 5px 0;
-  /* background-color: white; */
   background:
     linear-gradient(
       rgba(0,0,0,0),
@@ -84,6 +82,7 @@ p {
   background-position: right;
   background-size: contain;
   background-repeat: no-repeat;
+  height: 194px;
 }
 
 .blueBand {
@@ -114,13 +113,31 @@ p {
 }
 
 .leftSearchColumn {
+  display: grid;
+  grid-template-areas:
+    "searchCol"
+    "searchList";
   background-size: cover;
   background-position: center;
+}
+
+.sidePad {
+  display: none;
+  background-color: white;
+}
+
+.leftPad {
+  grid-area: leftPad;
+}
+
+.rightPad {
+  grid-area: rightPad;
 }
 
 .casualtySearch {
   color: white;
   background-color: rgba(139,0,0,1);
+  grid-area: searchCol;
 }
 
 .casualtySearchTitle {
@@ -165,16 +182,18 @@ p {
 
 .casualtyList {
   color: black;
+  grid-area: searchList;
 }
 
 .casualtyTotal {
   margin: 0 0 20px 0;
   padding: 15px 0;
+  color: white;
   text-align: center;
   font-family: 'Special Elite', cursive;
   background: linear-gradient(
-    rgba(255,255,255,0.7),
-    rgba(255,255,255,0.7))
+    rgba(0,0,0,0.7),
+    rgba(0,0,0,0.7))
 }
 
 .casualtyListTitle div {
@@ -246,11 +265,135 @@ p {
 }
 
 .linkList {
-  width: 90%;
+
 }
 
 .linkRow a {
   color: white;
+}
+
+.recipientIntro {
+  margin: 0 5%;
+  padding-bottom: 40px;
+  /* display: flex;
+  justify-content: center;
+  flex-direction: column;
+  grid-area: recipientIntro; */
+  font-size: 1.3rem;
+  color: white;
+  /* background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)); */
+}
+
+.recipientNameAndImg {
+  display: grid;
+  grid-template-areas:
+    "recName"
+    "recImg"
+    "basicInfo";
+  /* background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)); */
+}
+
+.recipientName {
+  /* margin-left: 10%; */
+  /* margin-bottom: 15px; */
+  padding: 5px 10%;
+  font-size: 2rem;
+  background: linear-gradient(rgba(0,0,0,1),rgba(0,0,0,1));
+  grid-area: recName;
+  /* text-align: center; */
+  width: 80%;
+}
+
+.recipientName div:first-of-type {
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+.recipientName div:last-of-type {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.rankWithMedal {
+  display: grid;
+  border-bottom: 2px solid white;
+  padding-bottom: 5px;
+}
+
+.recipientImg {
+  /* margin-left: 5%; */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  grid-area: recImg;
+  height: 260px;
+  /* width: 90%; */
+}
+
+.actionDate {
+  /* margin-left: 5%; */
+  /* margin-bottom: 20px; */
+  padding: 10px 5%;
+  grid-area: basicInfo;
+  background-color: black;
+  /* width: 80%; */
+}
+
+.recipientBio {
+  margin: 10px 0;
+  padding: 15px 5%;
+  /* padding-bottom: 30px; */
+  font-size: 1.3rem;
+  background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+}
+
+.recipientBioSummary {
+  padding: 15px 5%;
+  background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+  /* min-height: 60vh; */
+}
+
+.recipientBioSummary div {
+  padding: 10px 0;
+}
+
+.externalBox {
+  margin-top: 15px;
+  margin-left: 5%;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5%;
+  background-color: black;
+  width: 80%;
+}
+
+.externalTitle {
+  margin-bottom: 20px;
+  padding: 0;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.linkRow a {
+  color: white;
+}
+
+.recipientBioDetails {
+  grid-area: casBio2;
+}
+
+.recipientBioTitle {
+  color: gold;
+}
+
+.recipientBioContent {
+  /* border: 1px dashed white; */
+  /* padding: 0 5%; */
+  font-size: 1.3rem;
+  color: white;
+  font-family: 'Times New Roman';
+  /* background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)); */
+  white-space: break-spaces;
 }
 
 /* PAGINATION  */

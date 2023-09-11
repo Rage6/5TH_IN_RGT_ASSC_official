@@ -39,3 +39,37 @@
 .rowDetails {
   /* padding: 1vw 5vw; */
 }
+
+.mainBody {
+  padding-top: 12vh;
+  min-height: 88vh;
+}
+
+.whiteBand {
+  height: 132px;
+}
+
+.leftSearchColumn {
+  border-bottom: 1px solid black;
+  min-height: calc(88vh - 142px);
+  grid-template-areas: "searchCol searchList"; 
+}
+
+.splitLetters {
+  display: none;
+}
+
+.recipientNameAndImg {
+  display: grid;
+  grid-template-columns: calc(50% - 5px) calc(50% - 5px);
+  grid-column-gap: 10px;
+  grid-template-areas:
+    "recName basicInfo"
+    "recImg basicInfo";
+}
+
+.linkList {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-column-gap: 10%;
+}

@@ -25,14 +25,17 @@
     <div class="whiteBand">
       <div class="blueBand">
         <div class="casualtyTitle">
-          ABOVE AND BEYOND
+          ABOVE & <br class="splitLetters">
+          BEYOND
         </div>
         <div class="casualtySubtitle">
-          Medal of Honor Recipients
+          Medal of Honor <br class="splitLetters">
+          Recipients
         </div>
       </div>
     </div>
     <div class="leftSearchColumn oneSection">
+      <div class="sidePad leftPad"></div>
       <div class="casualtySearch">
         <div class="casualtySearchTitle">FIND A RECIPIENT</div>
           <form method="POST" action="{{ route('recipients.search') }}">
@@ -106,6 +109,8 @@
         @else
           <div style="height:1px"></div>
         @endif
+      </div>
+      <div class="sidePad rightPad">
       </div>
     </div>
   </div>

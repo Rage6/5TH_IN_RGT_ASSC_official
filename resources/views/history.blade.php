@@ -3,7 +3,7 @@
 @section('history_style')
   <!-- History Styles -->
   <!-- Default CSS files; 0px -> 360px-->
-  <link rel="stylesheet" type="text/css" href="/{{ config('app.url_ext') }}css/my_custom/history/360_history.php">
+  <link rel="stylesheet" type="text/css" href="/{{ config('app.url_ext') }}css/my_custom/history/360_history.css">
   <!-- 361px -> 375px-->
   <link rel="stylesheet" media="screen and (min-width: 361px) and (max-width: 375px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/375_history.css">
   <!-- 376px -> 414px-->

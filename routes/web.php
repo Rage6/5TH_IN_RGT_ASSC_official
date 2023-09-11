@@ -82,6 +82,18 @@ Route::prefix('medal-of-honor')->group(function() {
   Route::get('recipient/{id}',[App\Http\Controllers\RecipientController::class,'show'])->name('recipients.select');
 });
 
+// Retrieves a 'current' image from the 'storage' directory
+Route::get('images/current/{filename}', function($filename){
+     $storagePath = storage_path('app/public/images/current/' . $filename);
+        return response()->file($storagePath);
+});
+
+// Retrieves a 'veteran' image from the 'storage' directory
+Route::get('images/veteran/{filename}', function($filename){
+     $storagePath = storage_path('app/public/images/veteran/' . $filename);
+        return response()->file($storagePath);
+});
+
 Route::middleware('auth')->group(function() {
 
   Route::prefix('/home')->group(function() {
@@ -148,6 +160,13 @@ Route::middleware('auth')->group(function() {
       Route::get('edit-casualty/{id}/delete-image/{img_type}/{edit_type}',[App\Http\Controllers\AdminController::class,'image_casualty_index'])->name('image.casualty.index');
       // Delete a member's image
       Route::post('edit-casualty/{id}/delete-image/{img_type}/complete',[App\Http\Controllers\AdminController::class,'image_casualty_delete'])->name('image.casualty.delete');
+      // To add, edit, or delete casualty links
+      Route::get('add-casualty-link/{id}',[App\Http\Controllers\AdminController::class,'add_casualty_link_index'])->name('add.casualty.link.index');
+      Route::post('add-casualty-link/{id}/post',[App\Http\Controllers\AdminController::class,'add_casualty_link_post'])->name('add.casualty.link.post');
+      Route::get('edit-casualty-link/{id}/{linkId}',[App\Http\Controllers\AdminController::class,'edit_casualty_link_index'])->name('edit.casualty.link.index');
+      Route::post('edit-casualty-link/{id}/{linkId}/post',[App\Http\Controllers\AdminController::class,'edit_casualty_link_post'])->name('edit.casualty.link.post');
+      Route::get('delete-casualty-link/{id}/{linkId}',[App\Http\Controllers\AdminController::class,'delete_casualty_link_index'])->name('delete.casualty.link.index');
+      Route::post('delete-casualty-link/{id}/{linkId}/post',[App\Http\Controllers\AdminController::class,'delete_casualty_link_post'])->name('delete.casualty.link.post');
     });
 
     Route::middleware(['permission:Edit MOH Recipient Records'])->group(function() {
@@ -159,6 +178,13 @@ Route::middleware('auth')->group(function() {
       Route::get('edit-recipient/{id}/delete-image/{img_type}/{edit_type}',[App\Http\Controllers\AdminController::class,'image_recipient_index'])->name('image.recipient.index');
       // Delete a member's image
       Route::post('edit-recipient/{id}/delete-image/{img_type}/complete',[App\Http\Controllers\AdminController::class,'image_recipient_delete'])->name('image.recipient.delete');
+      // To add, edit, or delete recipient links
+      Route::get('add-recipient-link/{id}',[App\Http\Controllers\AdminController::class,'add_recipient_link_index'])->name('add.recipient.link.index');
+      Route::post('add-recipient-link/{id}/post',[App\Http\Controllers\AdminController::class,'add_recipient_link_post'])->name('add.recipient.link.post');
+      Route::get('edit-recipient-link/{id}/{linkId}',[App\Http\Controllers\AdminController::class,'edit_recipient_link_index'])->name('edit.recipient.link.index');
+      Route::post('edit-recipient-link/{id}/{linkId}/post',[App\Http\Controllers\AdminController::class,'edit_recipient_link_post'])->name('edit.recipient.link.post');
+      Route::get('delete-recipient-link/{id}/{linkId}',[App\Http\Controllers\AdminController::class,'delete_recipient_link_index'])->name('delete.recipient.link.index');
+      Route::post('delete-recipient-link/{id}/{linkId}/post',[App\Http\Controllers\AdminController::class,'delete_recipient_link_post'])->name('delete.recipient.link.post');
     });
 
     Route::middleware(['permission:Add A Conflict'])->group(function() {

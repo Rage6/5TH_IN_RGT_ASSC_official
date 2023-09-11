@@ -13,11 +13,11 @@
 }
 
 .casualtyTitle {
-  padding: 0 0 10px calc(50% - 683px);
+  padding: 0 0 10px calc(50% - 615px);
 }
 
 .casualtySubtitle {
-  padding: 0 0 10px calc(50% - 683px);
+  padding: 0 0 10px calc(50% - 615px);
 }
 
 .casualtySearchForm {
@@ -50,4 +50,61 @@
 
 .rowDetails {
   /* padding: 1vw 5vw; */
+}
+
+.dailyAndSearchBox {
+  margin-left: calc(50% - 683px);
+  margin-right: calc(50% - 683px);
+  width: 1366px;
+}
+
+.mainBody {
+  padding-top: 12vh;
+  min-height: 88vh;
+}
+
+.whiteBand {
+  height: 132px;
+}
+
+.leftSearchColumn {
+  margin-left: 0;
+  margin-right: 0;
+  border-bottom: 1px solid black;
+  min-height: calc(88vh - 142px);
+  grid-template-areas: "leftPad searchCol searchList rightPad";
+  grid-template-columns: calc(50% - 683px) 273px 1093px calc(50% - 683px);
+  width: 100%;
+}
+
+.sidePad {
+  display: block;
+  background-color: rgba(255,255,255,0.7);
+}
+
+.leftPad {
+  grid-area: leftPad;
+}
+
+.rightPad {
+  grid-area: rightPad;
+}
+
+.splitLetters {
+  display: none;
+}
+
+.recipientNameAndImg {
+  display: grid;
+  grid-template-columns: calc(50% - 5px) calc(50% - 5px);
+  grid-column-gap: 10px;
+  grid-template-areas:
+    "recName basicInfo"
+    "recImg basicInfo";
+}
+
+.linkList {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-column-gap: 10%;
 }
