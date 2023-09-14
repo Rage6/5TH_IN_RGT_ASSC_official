@@ -8,9 +8,16 @@
                 <div class="card-header">{{ __('DELETE AN IMAGE  ') }}</div>
 
                 <div class="card-body">
-                    <a href="{{ route($return_name,[
-                      'id' => $member->id
-                    ]) }}">
+                    @if (request()->get('next_route') != null)
+                      <a href="{{ route($return_name,[
+                        'id' => $member->id,
+                        'next_route' => request()->get('next_route')
+                      ]) }}">
+                    @else
+                      <a href="{{ route($return_name,[
+                        'id' => $member->id
+                      ]) }}">
+                    @endif
                       << BACK
                     </a>
                     <div class="basicInfoSubtitle">
@@ -37,9 +44,18 @@
                       </button>
                     </form>
                     <button class="btn">
-                      <a href="{{ route($return_name,[
-                        'id' => $member->id
-                      ]) }}">{{ __('CANCEL') }}</a>
+                      @if (request()->get('next_route') != null)
+                        <a href="{{ route($return_name,[
+                          'id' => $member->id,
+                          'next_route' => request()->get('next_route')
+                        ]) }}">
+                      @else
+                        <a href="{{ route($return_name,[
+                          'id' => $member->id
+                        ]) }}">
+                      @endif
+                        {{ __('CANCEL') }}
+                      </a>
                     </button>
                 </div>
             </div>

@@ -31,6 +31,14 @@
                         <input name="rank" id="rank" value="{{ $recipient->rank }}" />
                       </div>
                       <div class="basicInfoGrid">
+                        <div>At what location did this action take place?</div>
+                        <input name="mohLocation" id="mohLocation" value="{{ $recipient->moh_location }}" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>What was there rank during this action?</div>
+                        <input name="mohRank" id="mohRank" value="{{ $recipient->moh_rank }}" />
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>Original City</div>
                         <input name="city" id="city" value="{{ $recipient->city }}" />
                       </div>

@@ -153,7 +153,8 @@
                             <a href="{{ route('image.casualty.index',[
                               'id' => $casualty->id,
                               'img_type' => 'veteran',
-                              'edit_type' => 'casualty'
+                              'edit_type' => 'casualty',
+                              'next_route' => $next_route
                             ]) }}">
                               <span class="btn btn-danger">
                                 REMOVE

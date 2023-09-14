@@ -515,14 +515,15 @@ class AdminController extends Controller
 
     public function delete_member_post($id) {
       $member = User::find($id);
-      // if ($member->current_img) {
-      //   $member->current_img = str_replace("storage/","",$member->current_img);
-      //   Storage::delete($member->current_img);
-      // };
-      // if ($member->veteran_img) {
-      //   $member->veteran_img = str_replace("storage/","",$member->veteran_img);
-      //   Storage::delete($member->veteran_img);
-      // };
+
+      if ($member->current_img) {
+        $fileWithPath = "public/images/current/".$member->current_img;
+        Storage::delete($member->current_img);
+      };
+      if ($member->veteran_img) {
+        $fileWithPath = "public/images/veteran/".$member->veteran_img;
+        Storage::delete($member->veteran_img);
+      };
 
       $past_roles = $member->all_user_roles;
       foreach ($past_roles as $one_role) {
@@ -839,13 +840,13 @@ class AdminController extends Controller
       $casualty->casualty_conflict_id = $request['conflictId'];
       $casualty->moh_recipient = $request['mohStatus'];
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-        $storagePath = 'images';
-        $public_path = 'storage/images';
-      } else {
-        $storagePath = 'storage/images';
-        $public_path = 'images';
-      };
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $storagePath = 'images';
+      //   $public_path = 'storage/images';
+      // } else {
+        $storagePath = 'public/images';
+      //   $public_path = 'images';
+      // };
 
       if (request('veteranImg')) {
         $old_veteran_filename = $casualty->veteran_img;
@@ -922,13 +923,13 @@ class AdminController extends Controller
 
       $member = User::find($id);
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-        $storagePath = 'images';
-        $public_path = 'storage/images';
-      } else {
-        $storagePath = 'storage/images';
-        $public_path = 'images';
-      };
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $storagePath = 'images';
+      //   $public_path = 'storage/images';
+      // } else {
+        $storagePath = 'public/images';
+      //   $public_path = 'images';
+      // };
 
       if ($img_type == 'current') {
         Storage::delete($storagePath."/current/".$member->current_img);
@@ -1230,6 +1231,7 @@ class AdminController extends Controller
         'conflictId'       => 'required|numeric',
         'city'             => 'nullable|string',
         'state'            => 'nullable|string',
+        'moh_location'     => 'nullable|string',
         // 'action'           => 'required|string',
         'isKiaMia'         => 'required|integer',
         'membershipStatus' => 'nullable|string',
@@ -1241,10 +1243,11 @@ class AdminController extends Controller
         $recipient->first_name = $request->firstName;
         $recipient->middle_name = $request->middleName;
         $recipient->last_name = $request->lastName;
-        // $member->veteran_img = $request->veteranImg;
+        $recipient->veteran_img = $request->veteranImg;
         $recipient->city = $request->city;
         $recipient->state = $request->state;
         $recipient->citation = $request->citation;
+        $recipient->moh_location = $request->mohLocation;
         $recipient->kia_or_mia = $request->isKiaMia;
 
         // // Checks to see if old parent conflict still has MOH recipients. If it doesn't, then it changes the 'bobcat_recipients' in the old parent conflict to 'false'.
@@ -1348,13 +1351,13 @@ class AdminController extends Controller
         //   $storagePath = 'storage/images';
         //   $public_path = 'storage/images';
         // };
-        if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-          $storagePath = 'images';
-          $public_path = 'storage/images';
-        } else {
-          $storagePath = 'storage/images';
-          $public_path = 'images';
-        };
+        // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        //   $storagePath = 'images';
+        //   $public_path = 'storage/images';
+        // } else {
+          $storagePath = 'public/images';
+        //   $public_path = 'public/images';
+        // };
 
         /*
         // if (!file_exists('../public/storage')) {
@@ -1450,13 +1453,13 @@ class AdminController extends Controller
 
       $member = User::find($id);
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-        $storagePath = 'images';
-        $public_path = 'storage/images';
-      } else {
-        $storagePath = 'storage/images';
-        $public_path = 'images';
-      };
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $storagePath = 'images';
+      //   $public_path = 'storage/images';
+      // } else {
+        $storagePath = 'public/images';
+      //   $public_path = 'images';
+      // };
 
       if ($img_type == 'current') {
         Storage::delete($storagePath."/current/".$member->current_img);
