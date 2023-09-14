@@ -74,7 +74,7 @@ class RecipientController extends Controller
        $all_recipients = User::whereRaw($raw_sql)
         ->orderBy('last_name','ASC')
         ->orderBy('first_name','ASC')
-        ->paginate(20);
+        ->paginate(18);
 
        for ($i = 0; $i < count($all_recipients); $i++) {
          $all_recipients[$i]->con_name = null;
@@ -96,7 +96,7 @@ class RecipientController extends Controller
          } elseif ($day == 3 || $day == 23) {
            $day.="rd";
          } else {
-           $day = null;
+           $day.= "th";
          };
          $month = $all_recipients[$i]->month_of_moh_action;
          if ($month != null) {

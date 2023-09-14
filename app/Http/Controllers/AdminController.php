@@ -333,12 +333,17 @@ class AdminController extends Controller
         //   $storagePath = 'storage/images';
         //   $public_path = 'storage/images';
         // };
+        // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        //   $storagePath = 'images';
+        //   $public_path = 'storage/images';
+        // } else {
+        //   $storagePath = 'storage/images';
+        //   $public_path = 'images';
+        // };
         if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-          $storagePath = 'images';
-          $public_path = 'storage/images';
+          $storagePath = 'public/images';
         } else {
-          $storagePath = 'storage/images';
-          $public_path = 'images';
+          $storagePath = 'public/images';
         };
 
         /*
@@ -465,13 +470,7 @@ class AdminController extends Controller
 
       $member = User::find($id);
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-        $storagePath = 'images';
-        $public_path = 'storage/images';
-      } else {
-        $storagePath = 'storage/images';
-        $public_path = 'images';
-      };
+      $storagePath = 'public/images';
 
       if ($img_type == 'current') {
         Storage::delete($storagePath."/current/".$member->current_img);

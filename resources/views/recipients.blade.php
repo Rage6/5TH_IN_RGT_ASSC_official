@@ -84,7 +84,13 @@
                 <div class="rowTextOverlap">
                   <div class="rowName">
                     <u>
-                      @if ($one_recipient_basic->rank) {{ $one_recipient_basic->rank }} @endif {{ $one_recipient_basic->first_name }} {{ $one_recipient_basic->last_name }}
+                      @if ($one_recipient_basic->rank)
+                        @if ($one_recipient_basic->moh_rank)
+                          {{ $one_recipient_basic->moh_rank }}
+                        @else
+                          {{ $one_recipient_basic->rank }}
+                        @endif
+                      @endif {{ $one_recipient_basic->first_name }} {{ $one_recipient_basic->last_name }}
                     </u>
                   </div>
                   <div>

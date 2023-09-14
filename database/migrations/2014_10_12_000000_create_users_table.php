@@ -43,6 +43,7 @@ return new class extends Migration
             $table->int('month_of_moh_action')->nullable();
             $table->int('year_of_moh_action')->nullable();
             $table->string('moh_locaction')->nullable();
+            $table->string('moh_rank')->nullable();
             $table->text('citation')->nullable();
             $table->boolean('awarded_posthumously')->default(0);
 
