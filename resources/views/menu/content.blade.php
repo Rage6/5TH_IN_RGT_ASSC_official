@@ -42,7 +42,9 @@
         <a href="{{ url('/newsletter') }}">
           <div class="mainMenuSubBttn">+ Newsletters</div>
         </a>
-        <div class="mainMenuSubBttn">+ Merchandise</div>
+        <a href="{{ url('items?purpose=merchandise.index&title=Bobcat%20Merchandise') }}">
+          <div class="mainMenuSubBttn">+ Merchandise</div>
+        </a>
         <a href="{{ url('/donations') }}">
           <div class="mainMenuSubBttn">+ Donations</div>
         </a>

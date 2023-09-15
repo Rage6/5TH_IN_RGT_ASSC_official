@@ -2016,6 +2016,102 @@ class AdminController extends Controller
       ]);
     }
 
+    public function add_item_index() {
+      return view('admin.new_item');
+    }
+
+    public function add_item_post(Request $request) {
+      $request->validate([
+        'itemTitle'       => 'required|string', // name
+        'itemPhoto'       => 'nullable|file',   // photo
+        'itemPrice'       => 'required|integer', // price
+        'itemDescription' => 'nullable|string', // description
+        'itemDuration'    => 'nullable|string', // how_long (the payment is good for)
+        'itemDonation'    => 'required|integer', // is_donation
+        'itemRoute'       => 'required|string', // purpose
+        'itemAdjust'      => 'required|integer'  // adjustable_price
+      ]);
+
+      $item = new Item;
+      $item->name = $request->itemTitle;
+      $item->price = $request->itemPrice;
+      $item->description = $request->itemDescription;
+      $item->how_long = $request->itemDuration;
+      $item->is_donation = $request->itemDonation;
+      $item->purpose = $request->itemRoute;
+      $item->adjustable_price = $request->itemAdjust;
+
+      $item->slug = 'item-'.time();
+
+      $item->save();
+
+      return redirect()->route('admin.index');
+    }
+
+    public function all_items() {
+      // $all_users = User::all();
+      $all_items = Item::orderBy('name','asc')->paginate(20);
+
+      $current_user = Auth::user();
+      $user_roles = User::find($current_user->id)->all_user_roles;
+      $role_model = new Role();
+      $users_permissions = $role_model->users_permissions($current_user->id);
+
+      $can_edit = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit An Item") {
+          $can_edit = true;
+        };
+      };
+
+      $can_delete = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Delete An Item") {
+          $can_delete = true;
+        };
+      };
+
+      return view('admin.all_items',[
+        'all_items' => $all_items,
+        'can_edit' => $can_edit,
+        'can_delete' => $can_delete
+      ]);
+    }
+
+    public function edit_item_index($id) {
+      $item = Item::find($id);
+      return view('admin.edit_item',[
+        'item' => $item
+      ]);
+    }
+
+    public function edit_item_post(Request $request,$id) {
+      $item = Item::find($id);
+
+      $request->validate([
+        'itemTitle'       => 'required|string', // name
+        'itemPhoto'       => 'nullable|file',   // photo
+        'itemPrice'       => 'required|integer', // price
+        'itemDescription' => 'nullable|string', // description
+        'itemDuration'    => 'nullable|string', // how_long (the payment is good for)
+        'itemDonation'    => 'required|integer', // is_donation
+        'itemRoute'       => 'required|string', // purpose
+        'itemAdjust'      => 'required|integer'  // adjustable_price
+      ]);
+
+      $item->name = $request->itemTitle;
+      $item->price = $request->itemPrice;
+      $item->description = $request->itemDescription;
+      $item->how_long = $request->itemDuration;
+      $item->is_donation = $request->itemDonation;
+      $item->purpose = $request->itemRoute;
+      $item->adjustable_price = $request->itemAdjust;
+
+      $item->save();
+
+      return redirect()->route('edit.item.list');
+    }
+
     public function add_conflict_post(Request $request) {
       $request->validate([
         'name' => 'required|string',

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\RegistrationEmail;
 
 use App\Models\Applicant;
+use App\Models\Item;
 
 use Illuminate\Support\Facades\App;
 
@@ -39,6 +40,13 @@ class RegistrationController extends Controller
         ->orderBy('start_year','asc')
         ->get();
 
+      $membership_options = Item::where(
+          [
+            ['purpose','registration.index'],
+            ['is_donation','=',0]
+          ])
+        ->get();
+
       $this_user = Auth::user();
       return view('member_registration',[
         'style' => 'registration_style',
@@ -46,7 +54,8 @@ class RegistrationController extends Controller
         'content' => 'registration_content',
         'this_user' => $this_user,
         'cart_count' => $cart_count,
-        'modern_conflicts' => $modern_conflicts
+        'modern_conflicts' => $modern_conflicts,
+        'membership_options' => $membership_options
       ]);
     }
 

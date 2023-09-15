@@ -71,9 +71,15 @@
           @php $count = 0 @endphp
           <div>
             <div class="itemDirections">
-              <a href="{{ route($purpose) }}">
-                << RETURN
-              </a>
+              @if ($purpose == "merchandise.index")
+                <a href="{{ route('welcome') }}">
+                  << RETURN
+                </a>
+              @else
+                <a href="{{ route($purpose) }}">
+                  << RETURN
+                </a>
+              @endif
               <input type="submit" value="CHECKOUT"/>
             </div>
             <div class="itemList">

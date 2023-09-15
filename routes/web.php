@@ -240,6 +240,17 @@ Route::middleware('auth')->group(function() {
       Route::post('delete-event/{id}',[App\Http\Controllers\AdminController::class,'delete_event_post'])->name('delete.event.post');
     });
 
+    Route::middleware(['permission:Add An Item'])->group(function() {
+      Route::get('add-item',[App\Http\Controllers\AdminController::class,'add_item_index'])->name('add.item.index');
+      Route::post('add-item-complete',[App\Http\Controllers\AdminController::class,'add_item_post'])->name('add.item.post');
+    });
+
+    Route::middleware(['permission:Edit An Item'])->group(function() {
+      Route::get('edit-item', [App\Http\Controllers\AdminController::class,'all_items'])->name('edit.item.list');
+      Route::get('edit-item/{id}',[App\Http\Controllers\AdminController::class,'edit_item_index'])->name('edit.item.index');
+      Route::post('edit-item/{id}/complete',[App\Http\Controllers\AdminController::class,'edit_item_post'])->name('edit.item.post');
+    });
+
     Route::middleware(['permission:See Payment History'])->group(function() {
       Route::get('payment-history',[App\Http\Controllers\AdminController::class,'payment_history_index'])->name('payment.history');
     });

@@ -243,7 +243,23 @@
                 If you would like to become a member, the dues and how long each due lasts are listed below. The prices of the "Lifetime" options are based on your age when you paid for your Lifetime membership.
               </div>
               <div class="costList">
-                <div class="cost">
+                @foreach ($membership_options as $one_option)
+                  <div class="cost">
+                    <div class="costTitle">
+                      {{ $one_option->name }}
+                    </div>
+                    @if ($one_option->how_long)
+                      <div class="costNumbers">
+                        ${{ $one_option->price }} for {{ $one_option->how_long }}
+                      </div>
+                    @else
+                      <div class="costNumbers">
+                        ${{ $one_option->price }}
+                      </div>
+                    @endif
+                  </div>
+                @endforeach
+                <!-- <div class="cost">
                   <div class="costTitle">
                     Active duty
                   </div>
@@ -298,7 +314,7 @@
                   <div class="costNumbers">
                     $100 once
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

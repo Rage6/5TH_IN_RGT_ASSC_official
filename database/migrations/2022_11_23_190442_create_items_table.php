@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('photo')->nullable();
             $table->string('slug');
             $table->string('purpose');
-            $table->string('stripe_item');
+            $table->string('stripe_item')->nullable();
             $table->integer('price');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->boolean('is_donation')->default(0);
             $table->timestamps();
         });
