@@ -1535,7 +1535,8 @@ class AdminController extends Controller
         'endMonth'         => 'nullable|integer',
         'endYear'          => 'nullable|integer',
         'location'         => 'nullable|string',
-        'form_options'         => 'nullable|string'
+        'form_options'         => 'nullable|string',
+        'eventPhoto'       => 'nullable|file'
       ]);
 
       if ($request->startYear && $request->startMonth && $request->startDay) {
@@ -1557,6 +1558,13 @@ class AdminController extends Controller
       $input['last_day'] = $lastDay;
       $input['location'] = $request->location;
       $input['form_options'] = $request->form_options;
+
+      if ($request->eventPhoto) {
+        $storagePath = 'public/images';
+        $input['photo'] = request('eventPhoto')->store($storagePath."/events");
+        $filename = request('eventPhoto')->hashName();
+        $input['photo'] = $filename;
+      };
 
       Event::create($input);
 
@@ -1635,6 +1643,7 @@ class AdminController extends Controller
     public function edit_event_post(Request $request,$id) {
       $request->validate([
         'eventTitle'       => 'required|string',
+        'eventPhoto'       => 'nullable|file',
         'startDay'         => 'nullable|integer',
         'startMonth'       => 'nullable|integer',
         'startYear'        => 'nullable|integer',
@@ -1687,11 +1696,69 @@ class AdminController extends Controller
 
       $event->form_options = $request->form_options;
 
+      if ($request->eventPhoto) {
+        $old_event_filename = $event->photo;
+        $event->photo = request('eventPhoto')->store("public/images/events");
+        $filename = request('eventPhoto')->hashName();
+        $event->photo = $filename;
+        if ($old_event_filename != null) {
+          Storage::delete("public/images/events/".$old_event_filename);
+        };
+      };
+
       $event->save();
 
       return redirect()->route('edit.event.list');
     }
 
+    public function image_event_index($id,$img_type,$edit_type) {
+      $event = Event::find($id);
+
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $imagePath = 'images';
+      // } else {
+        $imagePath = 'images';
+      // };
+
+      $return_route = 'edit.'.$edit_type.'.index';
+      $delete_method = 'image.event.delete';
+
+      return view('admin.delete_image',[
+        'member' => $event,
+        'img_type' => $img_type,
+        'image_path' => $imagePath,
+        'return_name' => $return_route,
+        'delete_method' => $delete_method
+      ]);
+    }
+
+    public function image_event_delete($id,$img_type) {
+
+      $event = Event::find($id);
+
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $storagePath = 'images';
+      //   $public_path = 'storage/images';
+      // } else {
+        $storagePath = 'public/images';
+      //   $public_path = 'images';
+      // };
+
+      // if ($img_type == 'current') {
+      //   Storage::delete($storagePath."/current/".$member->current_img);
+      //   $member->current_img = null;
+      //   $member->save();
+      // } elseif ($img_type == 'veteran') {
+        Storage::delete($storagePath."/events/".$event->photo);
+        $event->photo = null;
+        $event->save();
+      // };
+
+      return redirect()->route('edit.event.index',[
+        'id' => $id,
+        'next_route' => 'event'
+      ]);
+    }
 
     public function delete_event_index($id) {
       $event = Event::find($id);
@@ -1706,6 +1773,18 @@ class AdminController extends Controller
 
 
     public function delete_event_post($id) {
+      $storagePath = "public/images";
+
+      $event = Event::find($id);
+      if ($event->photo) {
+        Storage::delete($storagePath."/events/".$event->photo);
+      };
+
+      $all_subevents = Event::find($id)->all_event_subevents;
+      foreach($all_subevents as $one_subevent) {
+        Storage::delete($storagePath."/subevents/".$one_subevent->photo);
+      };
+
       Subevent::where('event_id',$id)->delete();
       Event::where('id',$id)->delete();
 

@@ -27,6 +27,38 @@
                         <div>Event Title</div>
                         <input name="eventTitle" id="eventTitle" placeholder="required" value="{{ $event->title }}" required />
                       </div>
+
+                      <div class="imgGrid">
+                        @if ($event->photo)
+                          <div style="background-image: url('/images/events/{{ $event->photo }}')">
+                          </div>
+                        @else
+                          <div style="background-image: url('{{ url('/images/default_landscape.png') }}')">
+                          </div>
+                        @endif
+                        <div></div>
+                        <input id="eventPhoto" type="file" class="form-control" name="eventPhoto">
+                        <div></div>
+                        <div>
+                          @if ($event->photo)
+                            <a href="{{ route('image.event.index',[
+                              'id' => $event->id,
+                              'img_type' => 'events',
+                              'edit_type' => 'event'
+                            ]) }}">
+                              <span class="btn btn-danger">
+                                REMOVE
+                              </span>
+                            </a>
+                          @else
+                            <div>
+                              <a>No image found</a>
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+                      <div></div>
+
                       <div class="basicInfoGrid">
                         <div>Start Date (MM/DD/YYYY)</div>
                         <div class="basicInfoDate">

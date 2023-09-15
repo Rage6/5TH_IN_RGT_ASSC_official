@@ -223,6 +223,8 @@ Route::middleware('auth')->group(function() {
       Route::get('edit-event', [App\Http\Controllers\AdminController::class,'all_events'])->name('edit.event.list');
       Route::get('edit-event/{id}',[App\Http\Controllers\AdminController::class,'edit_event_index'])->name('edit.event.index');
       Route::post('edit-event/{id}',[App\Http\Controllers\AdminController::class,'edit_event_post'])->name('edit.event.post');
+      Route::get('edit-event/{id}/delete-image/{img_type}/{edit_type}',[App\Http\Controllers\AdminController::class,'image_event_index'])->name('image.event.index');
+      Route::post('edit-event/{id}/delete-image/{img_type}/complete',[App\Http\Controllers\AdminController::class,'image_event_delete'])->name('image.event.delete');
       // Subevent
       Route::get('add-subevent/{event_id}',[App\Http\Controllers\AdminController::class,'add_subevent_index'])->name('subevent.add');
       Route::post('add-subevent/{event_id}/post',[App\Http\Controllers\AdminController::class,'add_subevent_post'])->name('subevent.add.post');

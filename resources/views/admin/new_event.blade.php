@@ -28,6 +28,10 @@
                         <input name="eventTitle" id="eventTitle" placeholder="required" required />
                       </div>
                       <div class="basicInfoGrid">
+                        <div>Event Photo</div>
+                        <input type="file" name="eventPhoto" id="eventPhoto" />
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>Start Date</div>
                         <div class="basicInfoDate">
                           <input

@@ -31,6 +31,16 @@
                       <div>Locatoion (by city and/or state)</div>
                       <div>{{ $event->location }}</div>
                     </div>
+                    <div class="imgGrid">
+                      @if ($event->photo)
+                        <div style="background-image: url('/images/events/{{ $event->photo }}')">
+                        </div>
+                      @else
+                        <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">
+                        </div>
+                      @endif
+                      <div></div>
+                    </div>
                     <div class="basicInfoGrid">
                       <div>
                         <u>Registration Form: Yes/No Questions</u>. Separate your questions with semicolons (;).

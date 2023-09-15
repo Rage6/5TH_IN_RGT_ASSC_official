@@ -29,6 +29,9 @@
                     @elseif ($img_type == 'veteran' && $member->veteran_img)
                       <div class="deleteImg" style="background-image: url('/{{ $image_path }}/veteran/{{ $member->veteran_img }}')">
                       </div>
+                    @elseif ($img_type == 'events' && $member->photo)
+                      <div class="deleteImg" style="background-image: url('/{{ $image_path }}/events/{{ $member->photo }}')">
+                      </div>
                     @else
                       <div class="deleteImg">
                         NO IMAGE FOUND
