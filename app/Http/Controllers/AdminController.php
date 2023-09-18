@@ -2043,6 +2043,13 @@ class AdminController extends Controller
 
       $item->slug = 'item-'.time();
 
+      if ($request->itemPhoto) {
+        $storagePath = 'public/images';
+        $item->photo = request('itemPhoto')->store($storagePath."/items");
+        $filename = request('itemPhoto')->hashName();
+        $item->photo = $filename;
+      };
+
       $item->save();
 
       return redirect()->route('admin.index');
@@ -2107,9 +2114,91 @@ class AdminController extends Controller
       $item->purpose = $request->itemRoute;
       $item->adjustable_price = $request->itemAdjust;
 
+      if ($request->itemPhoto) {
+        $old_item_filename = $item->photo;
+        $item->photo = request('itemPhoto')->store("public/images/items");
+        $filename = request('itemPhoto')->hashName();
+        $item->photo = $filename;
+        if ($old_item_filename != null) {
+          Storage::delete("public/images/items/".$old_item_filename);
+        };
+      };
+
       $item->save();
 
       return redirect()->route('edit.item.list');
+    }
+
+    public function image_item_index($id,$img_type,$edit_type) {
+      $item = Item::find($id);
+
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $imagePath = 'images';
+      // } else {
+        $imagePath = 'images';
+      // };
+
+      $return_route = 'edit.'.$edit_type.'.index';
+      $delete_method = 'image.item.delete';
+
+      return view('admin.delete_image',[
+        'member' => $item,
+        'img_type' => $img_type,
+        'image_path' => $imagePath,
+        'return_name' => $return_route,
+        'delete_method' => $delete_method
+      ]);
+    }
+
+    public function image_item_delete($id,$img_type) {
+
+      $item = Item::find($id);
+
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $storagePath = 'images';
+      //   $public_path = 'storage/images';
+      // } else {
+        $storagePath = 'public/images';
+      //   $public_path = 'images';
+      // };
+
+      // if ($img_type == 'current') {
+      //   Storage::delete($storagePath."/current/".$member->current_img);
+      //   $member->current_img = null;
+      //   $member->save();
+      // } elseif ($img_type == 'veteran') {
+        Storage::delete($storagePath."/items/".$item->photo);
+        $item->photo = null;
+        $item->save();
+      // };
+
+      return redirect()->route('edit.item.index',[
+        'id' => $id,
+        'next_route' => 'item'
+      ]);
+    }
+
+    public function delete_item_index($id) {
+      $item = Item::find($id);
+
+      return view('admin.delete_item',[
+        'id'     => $id,
+        'item' => $item
+      ]);
+    }
+
+
+    public function delete_item_post($id) {
+      $storagePath = "public/images";
+
+      $item = Item::find($id);
+      if ($item->photo) {
+        Storage::delete($storagePath."/items/".$item->photo);
+      };
+
+      Item::where('id',$id)->delete();
+
+      return redirect()->route('delete.item.list');
     }
 
     public function add_conflict_post(Request $request) {

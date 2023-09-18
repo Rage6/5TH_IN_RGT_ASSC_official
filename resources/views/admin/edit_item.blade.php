@@ -19,17 +19,44 @@
                       enctype="multipart/form-data">
                       @csrf
                       <div class="basicInfoSubtitle">
-                        EDIT A NEW ITEM
+                        EDIT AN ITEM
                       </div>
                       <br>
                       <div class="basicInfoGrid">
                         <div>Item Name</div>
                         <input name="itemTitle" value="{{ $item->name }}" id="itemTitle" placeholder="required" required />
                       </div>
-                      <div class="basicInfoGrid">
-                        <div>Item Photo</div>
-                        <input type="file" name="itemPhoto" id="itemPhoto" />
+
+                      <div class="imgGrid">
+                        @if ($item->photo)
+                          <div style="background-image: url('/images/items/{{ $item->photo }}')">
+                          </div>
+                        @else
+                          <div style="background-image: url('{{ url('/images/default_landscape.png') }}')">
+                          </div>
+                        @endif
+                        <div></div>
+                        <input id="itemPhoto" type="file" class="form-control" name="itemPhoto">
+                        <div></div>
+                        <div>
+                          @if ($item->photo)
+                            <a href="{{ route('image.item.index',[
+                              'id' => $item->id,
+                              'img_type' => 'items',
+                              'edit_type' => 'item'
+                            ]) }}">
+                              <span class="btn btn-danger">
+                                REMOVE
+                              </span>
+                            </a>
+                          @else
+                            <div>
+                              <a>No image found</a>
+                            </div>
+                          @endif
+                        </div>
                       </div>
+
                       <div class="basicInfoGrid">
                         <div>Item Price</div>
                         <input type="number" name="itemPrice" value="{{ $item->price }}" id="itemPrice" min='0' required />

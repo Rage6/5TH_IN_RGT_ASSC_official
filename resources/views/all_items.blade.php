@@ -84,57 +84,127 @@
             </div>
             <div class="itemList">
               @foreach($all_items as $item)
-                <!-- This gets the current price and amount -->
-                @php
-                  for ($i = 0; $i < count($cookie_test); $i++) {
-                    if ($cookie_test[$i][0] == $item->id) {
-                      $price = $cookie_test[$i][2];
-                      $amount = $cookie_test[$i][3];
+                @if (($item->members_only == 1 && $is_member == true) || $item->members_only == 0)
+                  <!-- This gets the current price and amount -->
+                  @php
+                    for ($i = 0; $i < count($cookie_test); $i++) {
+                      if ($cookie_test[$i][0] == $item->id) {
+                        $price = $cookie_test[$i][2];
+                        $amount = $cookie_test[$i][3];
+                      };
                     };
-                  };
-                @endphp
-                <div class="gridItem">
-                  <div>
-                    <input type="hidden" name="item_id_{{ $count }}" value="{{ $item->id }}">
-                  </div>
-                  <div class="gridName">
-                    <div>{{ $item->name }}</div>
-                    <input type="hidden" name="item_name_{{ $count }}" value="{{ $item->name }}">
-                  </div>
-                  <div class="gridDescription">
-                    {{ $item->description }}
-                  </div>
-                  <div class="gridPrice">
-                    <div>Price (USD)</div>
-                    @if ($item->adjustable_price)
-                      @if (isset($price))
-                        <input type="number" name="item_price_{{ $count }}" min="0" value="{{ $price }}">
-                      @else
-                        <input type="number" name="item_price_{{ $count }}" min="0" value="0">
-                      @endif
+                  @endphp
+                  <div class="gridItem">
+                    <div>
+                      <input type="hidden" name="item_id_{{ $count }}" value="{{ $item->id }}">
+                    </div>
+                    <div class="gridName">
+                      <div>{{ $item->name }}</div>
+                      <input type="hidden" name="item_name_{{ $count }}" value="{{ $item->name }}">
+                    </div>
+                    @if ($item->photo)
+                      <div class="gridPhoto" style="background-image:url('/images/items/{{ $item->photo }}')">
+                      </div>
                     @else
-                      <div>${{ $item->price }}</div>
-                      <input type="hidden" name="item_price_{{ $count }}" min="0" value="{{ $item->price }}" readonly>
+                      <div class="gridPhoto" style="background-image:url('/images/welcome/bobcat_logo_black_2-min.png')">
+                      </div>
                     @endif
-                  </div>
-                  <div class="gridCount">
-                    <div>Quantity</div>
-                    @if (!$item->set_quantity)
-                      @if ($item->count)
-                        <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}" min="0">
+                    <div class="gridDescription">
+                      {{ $item->description }}
+                    </div>
+                    <div class="gridPrice">
+                      <div>Price (USD)</div>
+                      @if ($item->adjustable_price)
+                        @if (isset($price))
+                          <input type="number" name="item_price_{{ $count }}" min="0" value="{{ $price }}">
+                        @else
+                          <input type="number" name="item_price_{{ $count }}" min="0" value="0">
+                        @endif
                       @else
-                        <input type="number" name="item_count_{{ $count }}" value="0" min="0">
+                        <div>${{ $item->price }}</div>
+                        <input type="hidden" name="item_price_{{ $count }}" min="0" value="{{ $item->price }}" readonly>
                       @endif
+                    </div>
+                    <div class="gridCount">
+                      <div>Quantity</div>
+                      @if ($item->out_of_stock == 0)
+                        @if (!$item->set_quantity)
+                          @if ($item->count)
+                            <input type="number" name="item_count_{{ $count }}" value="{{ $item->count }}" min="0">
+                          @else
+                            <input type="number" name="item_count_{{ $count }}" value="0" min="0">
+                          @endif
+                        @else
+                          <span>{{ $item->set_quantity }}</span>
+                          <input type="hidden" name="item_count_{{ $count }}" value="{{ $item->set_quantity }}" readonly>
+                        @endif
+                      @else
+                        <span>OUT OF STOCK</span>
+                        <input type="hidden" name="item_count_{{ $count }}" value="0" readonly>
+                      @endif
+                    </div>
+                    <div>
+                      <input type="hidden" name="item_return_{{ $count }}" value="{{ $item->purpose }}">
+                    </div>
+                  </div>
+                  @php $count++ @endphp
+                @else
+                  @php
+                    for ($i = 0; $i < count($cookie_test); $i++) {
+                      if ($cookie_test[$i][0] == $item->id) {
+                        $price = $cookie_test[$i][2];
+                        $amount = $cookie_test[$i][3];
+                      };
+                    };
+                  @endphp
+                  <div class="gridItem">
+                    <div class="gridName">
+                      <div>{{ $item->name }}</div>
+                    </div>
+                    @if ($item->photo)
+                      <div class="gridPhoto" style="background-image:url('/images/items/{{ $item->photo }}')">
+                      </div>
                     @else
-                      <span>{{ $item->set_quantity }}</span>
-                      <input type="hidden" name="item_count_{{ $count }}" value="{{ $item->set_quantity }}" readonly>
+                      <div class="gridPhoto" style="background-image:url('/images/welcome/bobcat_logo_black_2-min.png')">
+                      </div>
                     @endif
+                    <div class="gridDescription">
+                      {{ $item->description }}
+                    </div>
+                    <div class="gridCount">
+                      <div>Quantity</div>
+                      @if ($item->out_of_stock == 1)
+                        <div>
+                          <b>OUT OF STOCK</b>
+                        </div>
+                      @else
+                        <div>
+                          ---
+                        </div>
+                      @endif
+                    </div>
+                    <div class="gridPrice">
+                      <div>Price (USD)</div>
+                      @if ($item->adjustable_price)
+                        <div>
+                          ---
+                        </div>
+                      @else
+                        <div>${{ $item->price }}</div>
+                      @endif
+                    </div>
+                    <div class="gridMember">
+                      @if ($item->members_only == 1 && $is_member == false)
+                        <div>
+                          <a href="{{ route('registration.index') }}">
+                            <b>MEMBERSHIP REQUIRED</b>
+                          </a>
+                        </div>
+                      @endif
+                    </div>
                   </div>
-                  <div>
-                    <input type="hidden" name="item_return_{{ $count }}" value="{{ $item->purpose }}">
-                  </div>
-                </div>
-                @php $count++ @endphp
+                  @php $count++ @endphp
+                @endif
               @endforeach
             </div>
           </div>

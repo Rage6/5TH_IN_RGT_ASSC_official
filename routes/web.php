@@ -94,6 +94,12 @@ Route::get('images/veteran/{filename}', function($filename){
         return response()->file($storagePath);
 });
 
+// Retrieves an 'items' image from the 'storage' directory
+Route::get('images/items/{filename}', function($filename){
+     $storagePath = storage_path('app/public/images/items/' . $filename);
+        return response()->file($storagePath);
+});
+
 Route::middleware('auth')->group(function() {
 
   Route::prefix('/home')->group(function() {
@@ -249,6 +255,14 @@ Route::middleware('auth')->group(function() {
       Route::get('edit-item', [App\Http\Controllers\AdminController::class,'all_items'])->name('edit.item.list');
       Route::get('edit-item/{id}',[App\Http\Controllers\AdminController::class,'edit_item_index'])->name('edit.item.index');
       Route::post('edit-item/{id}/complete',[App\Http\Controllers\AdminController::class,'edit_item_post'])->name('edit.item.post');
+      Route::get('edit-item/{id}/delete-image/{img_type}/{edit_type}',[App\Http\Controllers\AdminController::class,'image_item_index'])->name('image.item.index');
+      Route::post('edit-item/{id}/delete-image/{img_type}/complete',[App\Http\Controllers\AdminController::class,'image_item_delete'])->name('image.item.delete');
+    });
+
+    Route::middleware(['permission:Delete An Item'])->group(function() {
+      Route::get('delete-item', [App\Http\Controllers\AdminController::class,'all_items'])->name('delete.item.list');
+      Route::get('delete-item/{id}',[App\Http\Controllers\AdminController::class,'delete_item_index'])->name('delete.item.index');
+      Route::post('delete-item/{id}',[App\Http\Controllers\AdminController::class,'delete_item_post'])->name('delete.item.post');
     });
 
     Route::middleware(['permission:See Payment History'])->group(function() {

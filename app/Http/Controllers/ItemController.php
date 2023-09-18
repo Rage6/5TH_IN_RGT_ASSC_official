@@ -40,6 +40,14 @@ class ItemController extends Controller
         $purpose = null;
         $title = null;
       };
+
+      $current_user = Auth::user();
+      if ($current_user) {
+        $is_member = true;
+      } else {
+        $is_member = false;
+      };
+
       // $all_items = Item::all();
       // $current_cart = $request->session()->get('cart');
       // $current_guest = $request->session()->get('guest');
@@ -69,7 +77,8 @@ class ItemController extends Controller
         'purpose' => $purpose,
         'title' => $title,
         'cart_count' => $cart_count,
-        'cookie_test' => $test_a
+        'cookie_test' => $test_a,
+        'is_member' => $is_member
       ]);
     }
 
@@ -343,6 +352,12 @@ class ItemController extends Controller
           $email_list_test = 'DONATION_EMAIL_TEST';
         } else {
           $email_list_official = 'DONATION_EMAIL_OFFICIAL';
+        };
+      } elseif ($request->get_email_list == "merchandise.index") {
+        if (App::environment() == 'local') {
+          $email_list_test = 'MERCHANDISE_EMAIL_TEST';
+        } else {
+          $email_list_official = 'MERCHANDISE_EMAIL_OFFICIAL';
         };
       };
 

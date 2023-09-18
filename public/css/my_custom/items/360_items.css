@@ -64,8 +64,10 @@
   display: grid;
   grid-template-areas:
     "name name"
+    "photo photo"
     "price count"
-    "description description";
+    "description description"
+    "member member";
   grid-template-columns: 50% 50%;
   background-color: white;
 }
@@ -76,6 +78,15 @@
   color: white;
   text-align: center;
   background-color: red;
+}
+
+.gridPhoto {
+  grid-area: photo;
+  background-color: white;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 200px;
 }
 
 .gridPrice {
@@ -99,4 +110,9 @@
   grid-area: description;
   margin: 10px 5% 15px 5%;
   width: 90%;
+}
+
+.gridMember {
+  grid-area: member;
+  text-align: center;
 }

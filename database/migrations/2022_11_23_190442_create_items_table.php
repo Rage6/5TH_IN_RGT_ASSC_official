@@ -20,9 +20,14 @@ return new class extends Migration
             $table->string('slug');
             $table->string('purpose');
             $table->string('stripe_item')->nullable();
+            $table->boolean('adjustable_price')->default(0);
+            $table->integer('set_quantity')->nullable();
             $table->integer('price');
             $table->string('description')->nullable();
             $table->boolean('is_donation')->default(0);
+            $table->boolean('members_only')->default(0);
+            $table->boolean('out_of_stock')->default(0);
+            $table->string('how_long')->nullable();
             $table->timestamps();
         });
     }
