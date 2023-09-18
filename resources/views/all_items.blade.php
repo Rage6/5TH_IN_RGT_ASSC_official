@@ -106,7 +106,8 @@
                       <div class="gridPhoto" style="background-image:url('/images/items/{{ $item->photo }}')">
                       </div>
                     @else
-                      <div class="gridPhoto" style="background-image:url('/images/welcome/bobcat_logo_black_2-min.png')">
+                      <div class="gridPhoto gridNoPhoto" style="background-image:url('/images/welcome/bobcat_logo_black_2-min.png')">
+                        <div>NO PHOTO AVAILABLE</div>
                       </div>
                     @endif
                     <div class="gridDescription">
@@ -165,7 +166,8 @@
                       <div class="gridPhoto" style="background-image:url('/images/items/{{ $item->photo }}')">
                       </div>
                     @else
-                      <div class="gridPhoto" style="background-image:url('/images/welcome/bobcat_logo_black_2-min.png')">
+                      <div class="gridPhoto gridNoPhoto" style="background-image:url('/images/welcome/bobcat_logo_black_2-min.png')">
+                        <div>NO AVAILABLE PHOTO</div>
                       </div>
                     @endif
                     <div class="gridDescription">
