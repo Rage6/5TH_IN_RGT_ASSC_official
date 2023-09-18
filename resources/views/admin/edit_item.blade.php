@@ -59,7 +59,9 @@
 
                       <div class="basicInfoGrid">
                         <div>Item Price</div>
-                        <input type="number" name="itemPrice" value="{{ $item->price }}" id="itemPrice" min='0' required />
+                        <div>
+                          $ <input style="width:90%" type="number" name="itemPrice" value="{{ $item->price }}" id="itemPrice" placeholder="required (max. of $9999)" min='0' max="9999.99" step="0.01" required />
+                        </div>
                       </div>
                       <div class="basicInfoGrid">
                         <div>Item Description</div>

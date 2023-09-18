@@ -134,7 +134,7 @@ class ItemController extends Controller
       for ($c = 0; $c < count($test_a); $c++) {
         for ($d = 0; $d < count($test_a[$c]); $d++) {
           if (is_numeric($test_a[$c][$d])) {
-            $test_a[$c][$d] = intval($test_a[$c][$d]);
+            $test_a[$c][$d] = floatval($test_a[$c][$d]);
           };
         };
       };
@@ -142,7 +142,7 @@ class ItemController extends Controller
 
       if ($cart_content) {
         for ($i = 0; $i < count($cart_content); $i++) {
-          if (intval($cart_content[$i][2]) > 0) {
+          if (floatval($cart_content[$i][2]) > 0) {
             $cart_count += intval($cart_content[$i][3]);
           } else {
             $cart_content[$i][2] = 0;
@@ -254,7 +254,7 @@ class ItemController extends Controller
       for ($c = 0; $c < count($test_a); $c++) {
         for ($d = 0; $d < count($test_a[$c]); $d++) {
           if (is_numeric($test_a[$c][$d])) {
-            $test_a[$c][$d] = intval($test_a[$c][$d]);
+            $test_a[$c][$d] = floatval($test_a[$c][$d]);
           };
         };
       };
@@ -262,7 +262,7 @@ class ItemController extends Controller
 
       if ($cart_content) {
         for ($i = 0; $i < count($cart_content); $i++) {
-          if (intval($cart_content[$i][2]) > 0) {
+          if (floatval($cart_content[$i][2]) > 0) {
             $cart_count += intval($cart_content[$i][3]);
           } else {
             $cart_content[$i][2] = "0";
@@ -301,7 +301,7 @@ class ItemController extends Controller
           $one_item = Item::find($one_id);
           $one_price = $one_item->price;
           if ($one_item->adjustable_price == 1) {
-            $one_price = intval($one_array[2]);
+            $one_price = floatval($one_array[2]);
           };
           $one_total = $one_quantity * $one_price * 100;
           $total_cost += $one_total;
@@ -321,7 +321,7 @@ class ItemController extends Controller
           $one_item = Item::find($one_id);
           $one_price = $one_item->price;
           if ($one_item->adjustable_price == 1) {
-            $one_price = intval($one_array[2]);
+            $one_price = floatval($one_array[2]);
           };
           $one_sum_price = $one_quantity * $one_price;
           $purchase_list[] = $one_item->name.": $".$one_price." x ".$one_quantity." = $".$one_sum_price;

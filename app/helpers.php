@@ -12,15 +12,18 @@ function get_cart_count($request) {
   };
   for ($c = 0; $c < count($test_a); $c++) {
     for ($d = 0; $d < count($test_a[$c]); $d++) {
-      if (is_numeric($test_a[$c][$d])) {
+      if (is_int($test_a[$c][$d])) {
         $test_a[$c][$d] = intval($test_a[$c][$d]);
+      };
+      if (is_float($test_a[$c][$d])) {
+        $test_a[$c][$d] = floatval($test_a[$c][$d]);
       };
     };
   };
   $cart_content = $test_a;
   if ($request->cookie('cart')) {
     for ($i = 0; $i < count($cart_content); $i++) {
-      if (intval($cart_content[$i][2]) > 0) {
+      if (floatval($cart_content[$i][2]) > 0) {
         $cart_count += intval($cart_content[$i][3]);
       } else {
         $cart_content[$i][2] = 0;

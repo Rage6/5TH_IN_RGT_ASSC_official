@@ -116,13 +116,13 @@
                       <div>Price (USD)</div>
                       @if ($item->adjustable_price)
                         @if (isset($price))
-                          <input type="number" name="item_price_{{ $count }}" min="0" value="{{ $price }}">
+                          <input type="number" name="item_price_{{ $count }}" min="0" max="9999.99" step="0.01" value="{{ $price }}">
                         @else
-                          <input type="number" name="item_price_{{ $count }}" min="0" value="0">
+                          <input type="number" name="item_price_{{ $count }}" min="0" max="9999.99" step="0.01" value="0">
                         @endif
                       @else
                         <div>${{ $item->price }}</div>
-                        <input type="hidden" name="item_price_{{ $count }}" min="0" value="{{ $item->price }}" readonly>
+                        <input type="hidden" name="item_price_{{ $count }}" min="0" max="9999.99" step="0.01" value="{{ $item->price }}" readonly>
                       @endif
                     </div>
                     <div class="gridCount">

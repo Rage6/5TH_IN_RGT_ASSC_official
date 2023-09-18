@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('stripe_item')->nullable();
             $table->boolean('adjustable_price')->default(0);
             $table->integer('set_quantity')->nullable();
-            $table->integer('price');
+            $table->float('price',6,2);
             $table->string('description')->nullable();
             $table->boolean('is_donation')->default(0);
             $table->boolean('members_only')->default(0);

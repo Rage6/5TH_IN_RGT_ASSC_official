@@ -2024,7 +2024,7 @@ class AdminController extends Controller
       $request->validate([
         'itemTitle'       => 'required|string', // name
         'itemPhoto'       => 'nullable|file',   // photo
-        'itemPrice'       => 'required|integer', // price
+        'itemPrice'       => 'required|numeric|min:0|max:9999.99', // price
         'itemDescription' => 'nullable|string', // description
         'itemDuration'    => 'nullable|string', // how_long (the payment is good for)
         'itemDonation'    => 'required|integer', // is_donation
@@ -2098,7 +2098,7 @@ class AdminController extends Controller
       $request->validate([
         'itemTitle'       => 'required|string', // name
         'itemPhoto'       => 'nullable|file',   // photo
-        'itemPrice'       => 'required|integer', // price
+        'itemPrice'       => 'required|numeric|min:0|max:9999.99', // price
         'itemDescription' => 'nullable|string', // description
         'itemDuration'    => 'nullable|string', // how_long (the payment is good for)
         'itemDonation'    => 'required|integer', // is_donation
