@@ -141,6 +141,12 @@
   grid-template-columns: 40% 60%;
 }
 
+.basicSubinfoGrid {
+  margin-bottom: 10px;
+  margin-left: 10%;
+  width: 90%;
+}
+
 .basicStatusGrid {
   margin-bottom: 50px;
   display: grid;

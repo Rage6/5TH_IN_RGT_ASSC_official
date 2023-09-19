@@ -2022,24 +2022,32 @@ class AdminController extends Controller
 
     public function add_item_post(Request $request) {
       $request->validate([
-        'itemTitle'       => 'required|string', // name
-        'itemPhoto'       => 'nullable|file',   // photo
-        'itemPrice'       => 'required|numeric|min:0|max:9999.99', // price
-        'itemDescription' => 'nullable|string', // description
-        'itemDuration'    => 'nullable|string', // how_long (the payment is good for)
-        'itemDonation'    => 'required|integer', // is_donation
-        'itemRoute'       => 'required|string', // purpose
-        'itemAdjust'      => 'required|integer'  // adjustable_price
+        'itemTitle'         => 'required|string', // name
+        'itemPhoto'         => 'nullable|file',   // photo
+        'itemPrice'         => 'required|numeric|min:0|max:9999.99', // price
+        'itemDescription'   => 'nullable|string', // description
+        'itemDurationYear'  => 'nullable|integer|min:0', // part of how_long
+        'itemDurationDay'   => 'nullable|integer|min:0', // part of how_long
+        'itemStockStatus'   => 'required|integer',
+        'itemDonation'      => 'required|integer', // is_donation
+        'itemRoute'         => 'required|string', // purpose
+        'itemAdjust'        => 'required|integer'  // adjustable_price
       ]);
 
       $item = new Item;
       $item->name = $request->itemTitle;
       $item->price = $request->itemPrice;
       $item->description = $request->itemDescription;
-      $item->how_long = $request->itemDuration;
+      $item->out_of_stock = $request->itemStockStatus;
       $item->is_donation = $request->itemDonation;
       $item->purpose = $request->itemRoute;
       $item->adjustable_price = $request->itemAdjust;
+
+      if ($request->itemDurationDay == 0 && $request->itemDurationYear == 0) {
+        $item->how_long = null;
+      } else {
+        $item->how_long = (60 * 60 * 24 * $request->itemDurationDay) + (60 * 60 * 24 * 365 * $request->itemDurationYear);
+      };
 
       $item->slug = 'item-'.time();
 
@@ -2087,8 +2095,25 @@ class AdminController extends Controller
 
     public function edit_item_index($id) {
       $item = Item::find($id);
+
+      if ($item->how_long) {
+        $total_days = $item->how_long / 60 / 60 / 24;
+        if ($total_days >= 365) {
+          $day_count = $total_days % 365;
+          $year_count = ($total_days - $day_count) / 365;
+        } else {
+          $day_count = $item->how_long / 60 / 60 / 24;
+          $year_count = 0;
+        };
+      } else {
+        $day_count = null;
+        $year_count = null;
+      };
+
       return view('admin.edit_item',[
-        'item' => $item
+        'item' => $item,
+        'year_count' => $year_count,
+        'day_count' => $day_count
       ]);
     }
 
@@ -2100,7 +2125,9 @@ class AdminController extends Controller
         'itemPhoto'       => 'nullable|file',   // photo
         'itemPrice'       => 'required|numeric|min:0|max:9999.99', // price
         'itemDescription' => 'nullable|string', // description
-        'itemDuration'    => 'nullable|string', // how_long (the payment is good for)
+        'itemDurationYear'  => 'nullable|integer|min:0', // part of how_long
+        'itemDurationDay'   => 'nullable|integer|min:0', // part of how_long
+        'itemStockStatus' => 'required|integer',
         'itemDonation'    => 'required|integer', // is_donation
         'itemRoute'       => 'required|string', // purpose
         'itemAdjust'      => 'required|integer'  // adjustable_price
@@ -2109,10 +2136,16 @@ class AdminController extends Controller
       $item->name = $request->itemTitle;
       $item->price = $request->itemPrice;
       $item->description = $request->itemDescription;
-      $item->how_long = $request->itemDuration;
+      $item->out_of_stock = $request->itemStockStatus;
       $item->is_donation = $request->itemDonation;
       $item->purpose = $request->itemRoute;
       $item->adjustable_price = $request->itemAdjust;
+
+      if ($request->itemDurationDay == 0 && $request->itemDurationYear == 0) {
+        $item->how_long = null;
+      } else {
+        $item->how_long = (60 * 60 * 24 * $request->itemDurationDay) + (60 * 60 * 24 * 365 * $request->itemDurationYear);
+      };
 
       if ($request->itemPhoto) {
         $old_item_filename = $item->photo;

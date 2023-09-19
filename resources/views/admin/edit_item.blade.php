@@ -68,19 +68,36 @@
                         <input name="itemDescription" value="{{ $item->description }}" maxlength="255" id="itemDescription" />
                       </div>
                       <div class="basicInfoGrid">
-                        <div>How long does payment for this item last? This is mostly applicable to membership payments. Leave empty if this purchase will not expire.</div>
+                        <div>If this item expire, how long will it last?</div>
                         <div>
-                          <input name="itemDuration" value="{{ $item->how_long }}" id="itemDuration" placeholder="ex. 1 year"/>
+                          <span>
+                            @if ($year_count)
+                              <input name="itemDurationYear" id="itemDurationYear" type="number" min="0" value="{{ $year_count }}"/> year(s) +
+                            @else
+                              <input name="itemDurationYear" id="itemDurationYear" type="number" min="0" value="0"/> year(s) +
+                            @endif
+                          </span>
+                          <span>
+                            @if ($day_count)
+                              <input name="itemDurationDay" id="itemDurationDay" type="number" min="0" value="{{ $day_count }}"/> day(s)
+                            @else
+                              <input name="itemDurationDay" id="itemDurationDay" type="number" min="0" value="0"/> day(s)
+                            @endif
+                          </span>
                         </div>
                       </div>
                       <div class="basicInfoGrid">
                         <div>
-                          Is this item actually a donation option?
+                          Is this item out of stock right now?
                         </div>
                         <div>
-                          <select name="itemDonation" id="itemDonation">
-                            <option value="0" @if ($item->is_donation == 0) selected @endif>NO</option>
-                            <option value="1" @if ($item->is_donation == 1) selected @endif>YES</option>
+                          <select name="itemStockStatus" id="itemRoute">
+                            <option value="0">
+                              NO
+                            </option>
+                            <option value="1">
+                              YES
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -107,7 +124,18 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
-                          Can the user decide how much to pay? This is usually for things like donations. The price set above will be ignored.
+                          Is this item a donation option?
+                        </div>
+                        <div>
+                          <select name="itemDonation" id="itemDonation">
+                            <option value="0" @if ($item->is_donation == 0) selected @endif>NO</option>
+                            <option value="1" @if ($item->is_donation == 1) selected @endif>YES</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="basicSubinfoGrid">
+                        <div>
+                          - Can the donor choose their amount, or only your preset 'item price'?
                         </div>
                         <div>
                           <select name="itemAdjust" id="itemAdjust">

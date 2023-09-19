@@ -115,7 +115,7 @@
                     </div>
                     <div class="gridPrice">
                       <div>Price (USD)</div>
-                      @if ($item->adjustable_price)
+                      @if ($item->is_donation && $item->adjustable_price)
                         @if (isset($price))
                           <input type="number" name="item_price_{{ $count }}" min="0" max="9999.99" step="0.01" value="{{ $price }}">
                         @else
@@ -187,7 +187,7 @@
                     </div>
                     <div class="gridPrice">
                       <div>Price (USD)</div>
-                      @if ($item->adjustable_price)
+                      @if ($item->is_donation && $item->adjustable_price)
                         <div>
                           ---
                         </div>

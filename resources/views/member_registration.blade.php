@@ -250,7 +250,17 @@
                     </div>
                     @if ($one_option->how_long)
                       <div class="costNumbers">
-                        ${{ $one_option->price }} for {{ $one_option->how_long }}
+                        @php
+                          $year_count = $one_option->how_long / 365 / 24 / 60 / 60;
+                          if ($year_count > 1) {
+                            $year_count.=" years";
+                          } elseif ($year_count == 1) {
+                            $year_count.=" year";
+                          } else {
+                            $year_count = null;
+                          };
+                        @endphp
+                        ${{ $one_option->price }} for {{ $year_count }}
                       </div>
                     @else
                       <div class="costNumbers">

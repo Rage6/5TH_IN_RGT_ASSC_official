@@ -27,7 +27,7 @@ return new class extends Migration
             $table->boolean('is_donation')->default(0);
             $table->boolean('members_only')->default(0);
             $table->boolean('out_of_stock')->default(0);
-            $table->string('how_long')->nullable();
+            $table->integer('how_long')->nullable();
             $table->timestamps();
         });
     }
