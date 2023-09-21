@@ -79,6 +79,8 @@ class HomeController extends Controller
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
         'email'            => 'nullable|string',
+        'phoneNumber'      => 'nullable|string',
+        'spouseName'       => 'nullable|string',
         'biography'        => 'nullable|string',
         'mailingAddress'   => 'nullable|string'
       ]);
@@ -88,6 +90,8 @@ class HomeController extends Controller
       $user['middle_name'] = $request->middleName;
       $user['last_name'] = $request->lastName;
       $user['email'] = $request->email;
+      $user['phone_number'] = $request->phoneNumber;
+      $user['spouse'] = $request->spouseName;
       $user['biography'] = $request->biography;
       $user['mailing_address'] = $request->mailingAddress;
 

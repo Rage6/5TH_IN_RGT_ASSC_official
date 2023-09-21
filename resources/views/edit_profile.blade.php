@@ -31,6 +31,14 @@
                         <input type="email" name="email" id="email" value="{{ $user->email }}"/>
                       </div>
                       <div class="basicInfoGrid">
+                        <div>Phone Number</div>
+                        <input name="phoneNumber" value="{{ $user->phone_number }}" id="phoneNumber"/>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Spouse</div>
+                        <input name="spouseName" value="{{ $user->spouse }}" id="spouseName"/>
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>Mailing Address</div>
                         <input name="mailingAddress" id="mailingAddress" value="{{ $user->mailing_address }}" />
                       </div>

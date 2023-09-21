@@ -32,7 +32,7 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>Phone Number</div>
-                        <input type="number" name="phoneNumber" value="{{ $member->phone_number }}" id="phoneNumber"/>
+                        <input name="phoneNumber" value="{{ $member->phone_number }}" id="phoneNumber"/>
                       </div>
                       <div class="basicInfoGrid">
                         <div>Spouse</div>

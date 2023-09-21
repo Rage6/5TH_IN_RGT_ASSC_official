@@ -34,7 +34,7 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>Phone Number</div>
-                        <input type="number" name="phoneNumber" id="phoneNumber"/>
+                        <input name="phoneNumber" id="phoneNumber"/>
                       </div>
                       <div class="basicInfoGrid">
                         <div>Spouse</div>

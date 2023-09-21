@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('injury_type')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
-            $table->integer('phone_number')->nullable();
+            $table->string('phone_number')->nullable();
             $table->string('spouse')->nullable();
             $table->string('burial_site')->nullable();
             $table->string('kia_location')->nullable();
