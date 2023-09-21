@@ -39,6 +39,18 @@
                         <input name="itemDescription" maxlength="255" id="itemDescription" />
                       </div>
                       <div class="basicInfoGrid">
+                        <div>Clothing Sizes (if applicable)</div>
+                        <input name="itemSizes" maxlength="255" id="itemSize" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Clothing Colors (if applicable)</div>
+                        <input name="itemColors" maxlength="255" id="itemColor" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Clothing Patches (already attached)</div>
+                        <input name="itemPatches" maxlength="255" id="itemPatch" />
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>If this item expire, how long will it last?</div>
                         <div>
                           <span>

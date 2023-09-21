@@ -83,6 +83,11 @@
                   $total_cost += $item_cost;
                 @endphp
                 @if ($item[3] > 0)
+                    <!-- <pre>
+                      @php
+                        var_dump($item);
+                      @endphp
+                    </pre> -->
                     <div class="cartItem">
                       <div class="quantity">
                         <div class="cartItemName">Quantity</div>
@@ -90,7 +95,24 @@
                       </div>
                       <div class="cost">
                         <div class="cartItemName">Cost</div>
-                        <div class="cartItemValue">${{ $item[2] }}</div>
+                        @php
+                          $string_cost = explode('.',strval($item[2]));
+                        @endphp
+                        @if (count($string_cost) > 1)
+                          @if (strlen($string_cost[1]) == 2)
+                            <div class="cartItemValue">
+                              ${{ strval($item[2]) }}
+                            </div>
+                          @else
+                            <div class="cartItemValue">
+                              ${{ strval($item[2]).'0' }}
+                            </div>
+                          @endif
+                        @else
+                          <div class="cartItemValue">
+                            ${{ strval($item[2]).'.00' }}
+                          </div>
+                        @endif
                       </div>
                       <div class="name">
                         <!-- <div class="cartItemName">Product Name</div> -->
@@ -107,7 +129,24 @@
                 @endif
               @endforeach
               <div>
-                TOTAL COST: ${{ $total_cost }}
+                @php
+                  $string_total = explode('.',strval($total_cost));
+                @endphp
+                @if (count($string_total) > 1)
+                  @if (strlen($string_total[1]) == 2)
+                    <div class="cartItemValue">
+                      TOTAL COST: ${{ strval($total_cost) }}
+                    </div>
+                  @else
+                    <div class="cartItemValue">
+                      TOTAL COST: ${{ strval($total_cost).'0' }}
+                    </div>
+                  @endif
+                @else
+                  <div class="cartItemValue">
+                    TOTAL COST: ${{ strval($total_cost).'.00' }}
+                  </div>
+                @endif
               </div>
             </div>
             <div>

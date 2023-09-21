@@ -17,6 +17,13 @@ class Item extends Model
         'adjustable_price',
         'set_quantity',
         'description',
-        'is_donation'
+        'sizes',
+        'colors',
+        'patches',
+        'purpose',
+        'is_donation',
+        'members_only',
+        'out_of_stock',
+        'how_long'
     ];
 }

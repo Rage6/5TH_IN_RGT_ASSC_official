@@ -2025,6 +2025,9 @@ class AdminController extends Controller
         'itemTitle'         => 'required|string', // name
         'itemPhoto'         => 'nullable|file',   // photo
         'itemPrice'         => 'required|numeric|min:0|max:9999.99', // price
+        'itemSizes'         => 'nullable|string', // sizes with added cost
+        'itemColors'        => 'nullable|string', // colors with added cost
+        'itemPatches'       => 'nullable|string', // patches with added cost
         'itemDescription'   => 'nullable|string', // description
         'itemDurationYear'  => 'nullable|integer|min:0', // part of how_long
         'itemDurationDay'   => 'nullable|integer|min:0', // part of how_long
@@ -2037,6 +2040,9 @@ class AdminController extends Controller
       $item = new Item;
       $item->name = $request->itemTitle;
       $item->price = $request->itemPrice;
+      $item->sizes = $request->itemSizes;
+      $item->colors = $request->itemColors;
+      $item->patches = $request->itemPatches;
       $item->description = $request->itemDescription;
       $item->out_of_stock = $request->itemStockStatus;
       $item->is_donation = $request->itemDonation;
@@ -2121,21 +2127,27 @@ class AdminController extends Controller
       $item = Item::find($id);
 
       $request->validate([
-        'itemTitle'       => 'required|string', // name
-        'itemPhoto'       => 'nullable|file',   // photo
-        'itemPrice'       => 'required|numeric|min:0|max:9999.99', // price
-        'itemDescription' => 'nullable|string', // description
+        'itemTitle'         => 'required|string', // name
+        'itemPhoto'         => 'nullable|file',   // photo
+        'itemPrice'         => 'required|numeric|min:0|max:9999.99', // price
+        'itemDescription'   => 'nullable|string', // description
+        'itemSizes'         => 'nullable|string', // sizes and added cost
+        'itemColors'        => 'nullable|string', // colors and added cost
+        'itemPatches'       => 'nullable|string', // patches and added cost
         'itemDurationYear'  => 'nullable|integer|min:0', // part of how_long
         'itemDurationDay'   => 'nullable|integer|min:0', // part of how_long
-        'itemStockStatus' => 'required|integer',
-        'itemDonation'    => 'required|integer', // is_donation
-        'itemRoute'       => 'required|string', // purpose
-        'itemAdjust'      => 'required|integer'  // adjustable_price
+        'itemStockStatus'   => 'required|integer',
+        'itemDonation'      => 'required|integer', // is_donation
+        'itemRoute'         => 'required|string', // purpose
+        'itemAdjust'        => 'required|integer'  // adjustable_price
       ]);
 
       $item->name = $request->itemTitle;
       $item->price = $request->itemPrice;
       $item->description = $request->itemDescription;
+      $item->sizes = $request->itemSizes;
+      $item->colors = $request->itemColors;
+      $item->patches = $request->itemPatches;
       $item->out_of_stock = $request->itemStockStatus;
       $item->is_donation = $request->itemDonation;
       $item->purpose = $request->itemRoute;

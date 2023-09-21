@@ -68,6 +68,18 @@
                         <input name="itemDescription" value="{{ $item->description }}" maxlength="255" id="itemDescription" />
                       </div>
                       <div class="basicInfoGrid">
+                        <div>Clothing Sizes</div>
+                        <input name="itemSizes" value="{{ $item->sizes }}" maxlength="255" id="itemSizes" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Clothing Colors</div>
+                        <input name="itemColors" value="{{ $item->colors }}" maxlength="255" id="itemColors" />
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Clothing Patches (if applicable)</div>
+                        <input name="itemPatches" value="{{ $item->patches }}" maxlength="255" id="itemPatches" />
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>If this item expire, how long will it last?</div>
                         <div>
                           <span>

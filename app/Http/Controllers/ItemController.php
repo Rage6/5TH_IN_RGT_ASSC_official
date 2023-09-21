@@ -59,12 +59,31 @@ class ItemController extends Controller
       if ($cart_content) {
         foreach ($all_items as $one_item) {
           $one_item->count = 0;
+          // Gets the current quantity selected
           for ($i = 0; count($cart_content) > $i; $i++) {
             if (intval($cart_content[$i][0]) == $one_item->id) {
               $one_item->count = $cart_content[$i][3];
               if ($one_item->count == null) {
                 $one_item->count = 0;
               };
+            };
+          };
+          // Gets the current size selected
+          for ($i = 0; count($cart_content) > $i; $i++) {
+            if (intval($cart_content[$i][0]) == $one_item->id) {
+              $one_item->size = $cart_content[$i][6];
+            };
+          };
+          // Gets the current color selected
+          for ($i = 0; count($cart_content) > $i; $i++) {
+            if (intval($cart_content[$i][0]) == $one_item->id) {
+              $one_item->selected_color = $cart_content[$i][7];
+            };
+          };
+          // Gets the current patch(es) selected
+          for ($i = 0; count($cart_content) > $i; $i++) {
+            if (intval($cart_content[$i][0]) == $one_item->id) {
+              $one_item->selected_patch = $cart_content[$i][8];
             };
           };
         };
@@ -95,13 +114,25 @@ class ItemController extends Controller
         if (!$request['item_shop_'.$i]) {
           $request['item_shop_'.$i] = null;
         };
+        if (!$request['item_size_'.$i]) {
+          $request['item_size_'.$i] = "";
+        };
+        if (!$request['item_color_'.$i]) {
+          $request['item_color_'.$i] = "";
+        };
+        if (!$request['item_patch_'.$i]) {
+          $request['item_patch_'.$i] = "";
+        };
         $a = [
           $request['item_id_'.$i],
           $request['item_name_'.$i],
           $request['item_price_'.$i],
           $request['item_count_'.$i],
           $request['item_return_'.$i],
-          $request['item_shop_'.$i]
+          $request['item_shop_'.$i],
+          $request['item_size_'.$i],
+          $request['item_color_'.$i],
+          $request['item_patch_'.$i]
         ];
         $init_cart[] = $a;
       };
@@ -110,9 +141,9 @@ class ItemController extends Controller
       $cart_string = null;
       for ($a = 0; $a < count($init_cart); $a++) {
         if ($a > 0) {
-          $cart_string = $cart_string."&".$init_cart[$a][0]."#".$init_cart[$a][1]."#".$init_cart[$a][2]."#".$init_cart[$a][3]."#".$init_cart[$a][4]."#".$init_cart[$a][5];
+          $cart_string = $cart_string."&".$init_cart[$a][0]."#".$init_cart[$a][1]."#".$init_cart[$a][2]."#".$init_cart[$a][3]."#".$init_cart[$a][4]."#".$init_cart[$a][5]."#".$init_cart[$a][6]."#".$init_cart[$a][7]."#".$init_cart[$a][8];
         } else {
-          $cart_string = $init_cart[$a][0]."#".$init_cart[$a][1]."#".$init_cart[$a][2]."#".$init_cart[$a][3]."#".$init_cart[$a][4]."#".$init_cart[$a][5];
+          $cart_string = $init_cart[$a][0]."#".$init_cart[$a][1]."#".$init_cart[$a][2]."#".$init_cart[$a][3]."#".$init_cart[$a][4]."#".$init_cart[$a][5]."#".$init_cart[$a][6]."#".$init_cart[$a][7]."#".$init_cart[$a][8];
         };
       };
       $one_day = 60 * 24;
@@ -147,6 +178,34 @@ class ItemController extends Controller
           } else {
             $cart_content[$i][2] = 0;
           };
+
+          $item_name_details = "";
+
+          $patch_pricing = explode(":",$cart_content[$i][8]);
+          if (count($patch_pricing) > 1) {
+            $cart_content[$i][2] += floatval($patch_pricing[1]);
+          };
+          if ($patch_pricing[0] != "") {
+            $item_name_details = $item_name_details." with ".$patch_pricing[0];
+          };
+
+          $size_pricing = explode(":",$cart_content[$i][6]);
+          if (count($size_pricing) > 1) {
+            $cart_content[$i][2] += floatval($size_pricing[1]);
+          };
+          if ($size_pricing[0] != "") {
+            $item_name_details = $item_name_details.", ".$size_pricing[0];
+          };
+
+          $color_pricing = explode(":",$cart_content[$i][7]);
+          if (count($color_pricing) > 1) {
+            $cart_content[$i][2] += floatval($color_pricing[1]);
+          };
+          if ($color_pricing[0] != "") {
+            $item_name_details = $item_name_details.", ".$color_pricing[0];
+          };
+
+          $cart_content[$i][1] = $cart_content[$i][1].$item_name_details;
         };
       };
       if (isset($_GET['purpose']) && isset($_GET['title'])) {
@@ -210,7 +269,13 @@ class ItemController extends Controller
           .strval($i)."[]=".strval($cart[$i][2])."&" // price
           .strval($i)."[]=".strval($cart[$i][3])."&" // quantity
           .strval($i)."[]=".strval($cart[$i][4])."&" // return route
-          .strval($i)."[]=".strval($cart[$i][5]);    // return page title
+          .strval($i)."[]=".strval($cart[$i][5])."&" // return page title
+          .strval($i)."[]=".strval($cart[$i][6])."&" // clothing size
+          .strval($i)."[]=".strval($cart[$i][7])."&" // clothing color
+          .strval($i)."[]=".strval($cart[$i][8]);    // clothing patches
+          // if ($cart[$i][6]) {
+          //   $text_cart.strval($i)."[]=".strval($cart[$i][6]); // clothing size
+          // };
           if (intval($cart[$i][3]) > 0) {
             $count++;
           };
@@ -303,6 +368,24 @@ class ItemController extends Controller
           if ($one_item->adjustable_price == 1) {
             $one_price = floatval($one_array[2]);
           };
+          if ($one_array[6] != "" || $one_array[6] != null) {
+            $size_price = explode(":",$one_array[6]);
+            if (count($size_price) > 1) {
+              $one_price += floatval($size_price[1]);
+            };
+          };
+          if ($one_array[7] != "" || $one_array[7] != null) {
+            $color_price = explode(":",$one_array[7]);
+            if (count($color_price) > 1) {
+              $one_price += floatval($color_price[1]);
+            };
+          };
+          if ($one_array[8] != "" || $one_array[8] != null) {
+            $patch_price = explode(":",$one_array[8]);
+            if (count($patch_price) > 1) {
+              $one_price += floatval($patch_price[1]);
+            };
+          };
           $one_total = $one_quantity * $one_price * 100;
           $total_cost += $one_total;
         };
@@ -323,7 +406,37 @@ class ItemController extends Controller
           if ($one_item->adjustable_price == 1) {
             $one_price = floatval($one_array[2]);
           };
+          if ($one_array[6] != "" || $one_array[6] != null) {
+            $size_price = explode(":",$one_array[6]);
+            if (count($size_price) > 1) {
+              $one_price += floatval($size_price[1]);
+            };
+          };
+          if ($one_array[7] != "" || $one_array[7] != null) {
+            $color_price = explode(":",$one_array[7]);
+            if (count($color_price) > 1) {
+              $one_price += floatval($color_price[1]);
+            };
+          };
+          if ($one_array[8] != "" || $one_array[8] != null) {
+            $patch_price = explode(":",$one_array[8]);
+            if (count($patch_price) > 1) {
+              $one_price += floatval($patch_price[1]);
+            };
+          };
           $one_sum_price = $one_quantity * $one_price;
+          $size_name = explode(":",$one_array[6])[0];
+          $color_name = explode(":",$one_array[7])[0];
+          $patch_name = explode(":",$one_array[8])[0];
+          if ($patch_name !== null && $patch_name != "") {
+            $one_item->name = $one_item->name." with ".$patch_name." patches";
+          };
+          if ($color_name !== null && $color_name != "") {
+            $one_item->name = $one_item->name.", Color:".$color_name;
+          };
+          if ($size_name !== null && $size_name != "") {
+            $one_item->name = $one_item->name.", Size: ".$size_name;
+          };
           $purchase_list[] = $one_item->name.": $".$one_price." x ".$one_quantity." = $".$one_sum_price;
           $overall_total += $one_sum_price;
         };

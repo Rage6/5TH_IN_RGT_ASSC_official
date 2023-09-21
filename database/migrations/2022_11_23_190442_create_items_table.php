@@ -24,6 +24,9 @@ return new class extends Migration
             $table->integer('set_quantity')->nullable();
             $table->float('price',6,2);
             $table->string('description')->nullable();
+            $table->string('sizes')->nullable();
+            $table->string('colors')->nullable();
+            $table->string('patches')->nullable();
             $table->boolean('is_donation')->default(0);
             $table->boolean('members_only')->default(0);
             $table->boolean('out_of_stock')->default(0);
