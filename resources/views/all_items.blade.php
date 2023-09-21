@@ -149,94 +149,96 @@
                         <input type="hidden" name="item_count_{{ $count }}" value="0" readonly>
                       @endif
                     </div>
-                    @if ($item->sizes)
-                      <div>
-                        <div>Size</div>
-                        @php
-                          $all_sizes = [];
-                          $sizes_string = str_replace(" ","",$item->sizes);
-                          $sizes_split = explode(",",$sizes_string);
-                          for ($a = 0; $a < count($sizes_split); $a++) {
-                            $all_sizes[] = $sizes_split[$a];
-                          };
-                        @endphp
-                        <div>
-                          <select name="item_size_{{ $count }}">
-                            @for ($i = 0; $i < count($all_sizes); $i++)
-                              @php
-                                if ($all_sizes[$i] == $item->size) {
-                                  $selected = true;
-                                } else {
-                                  $selected = false;
-                                };
-                              @endphp
-                              <option value="{{$all_sizes[$i]}}" @if ($selected) selected @endif>
-                                {{ $all_sizes[$i] }}
-                              </option>
-                            @endfor
-                          </select>
+                    <div class="gridOptions">
+                      @if ($item->sizes)
+                        <div class="oneOption">
+                          <div>Size</div>
+                          @php
+                            $all_sizes = [];
+                            $sizes_string = str_replace(" ","",$item->sizes);
+                            $sizes_split = explode(",",$sizes_string);
+                            for ($a = 0; $a < count($sizes_split); $a++) {
+                              $all_sizes[] = $sizes_split[$a];
+                            };
+                          @endphp
+                          <div>
+                            <select name="item_size_{{ $count }}">
+                              @for ($i = 0; $i < count($all_sizes); $i++)
+                                @php
+                                  if ($all_sizes[$i] == $item->size) {
+                                    $selected = true;
+                                  } else {
+                                    $selected = false;
+                                  };
+                                @endphp
+                                <option value="{{$all_sizes[$i]}}" @if ($selected) selected @endif>
+                                  {{ $all_sizes[$i] }}
+                                </option>
+                              @endfor
+                            </select>
+                          </div>
                         </div>
-                      </div>
-                    @endif
-                    @if ($item->colors)
-                      <div>
-                        <div>Color</div>
-                        @php
-                          $all_colors = [];
-                          $colors_string = str_replace(" ","",$item->colors);
-                          $colors_split = explode(",",$colors_string);
-                          for ($a = 0; $a < count($colors_split); $a++) {
-                            $all_colors[] = $colors_split[$a];
-                          };
-                        @endphp
-                        <div>
-                          <select name="item_color_{{ $count }}">
-                            @for ($i = 0; $i < count($all_colors); $i++)
-                              @php
-                                if ($all_colors[$i] == $item->selected_color) {
-                                  $selected = true;
-                                } else {
-                                  $selected = false;
-                                };
-                              @endphp
-                              <option value="{{$all_colors[$i]}}" @if ($selected) selected @endif>
-                                {{ $all_colors[$i] }}
-                              </option>
-                            @endfor
-                          </select>
+                      @endif
+                      @if ($item->colors)
+                        <div class="oneOption">
+                          <div>Color</div>
+                          @php
+                            $all_colors = [];
+                            $colors_string = str_replace(" ","",$item->colors);
+                            $colors_split = explode(",",$colors_string);
+                            for ($a = 0; $a < count($colors_split); $a++) {
+                              $all_colors[] = $colors_split[$a];
+                            };
+                          @endphp
+                          <div>
+                            <select name="item_color_{{ $count }}">
+                              @for ($i = 0; $i < count($all_colors); $i++)
+                                @php
+                                  if ($all_colors[$i] == $item->selected_color) {
+                                    $selected = true;
+                                  } else {
+                                    $selected = false;
+                                  };
+                                @endphp
+                                <option value="{{$all_colors[$i]}}" @if ($selected) selected @endif>
+                                  {{ $all_colors[$i] }}
+                                </option>
+                              @endfor
+                            </select>
+                          </div>
                         </div>
-                      </div>
-                    @endif
-                    @if ($item->patches)
-                      <div>
-                        <div>Patches</div>
-                        @php
-                          $all_patches = [];
+                      @endif
+                      @if ($item->patches)
+                        <div class="oneOption">
+                          <div>Patches</div>
+                          @php
+                            $all_patches = [];
 
-                          $patches_split = explode(",",$item->patches);
+                            $patches_split = explode(",",$item->patches);
 
-                          for ($a = 0; $a < count($patches_split); $a++) {
-                            $all_patches[] = $patches_split[$a];
-                          };
-                        @endphp
-                        <div>
-                          <select name="item_patch_{{ $count }}">
-                            @for ($i = 0; $i < count($all_patches); $i++)
-                              @php
-                                if ($all_patches[$i] == $item->selected_patch) {
-                                  $selected = true;
-                                } else {
-                                  $selected = false;
-                                };
-                              @endphp
-                              <option value="{{$all_patches[$i]}}" @if ($selected) selected @endif>
-                                {{ $all_patches[$i] }}
-                              </option>
-                            @endfor
-                          </select>
+                            for ($a = 0; $a < count($patches_split); $a++) {
+                              $all_patches[] = $patches_split[$a];
+                            };
+                          @endphp
+                          <div>
+                            <select name="item_patch_{{ $count }}">
+                              @for ($i = 0; $i < count($all_patches); $i++)
+                                @php
+                                  if ($all_patches[$i] == $item->selected_patch) {
+                                    $selected = true;
+                                  } else {
+                                    $selected = false;
+                                  };
+                                @endphp
+                                <option value="{{$all_patches[$i]}}" @if ($selected) selected @endif>
+                                  {{ $all_patches[$i] }}
+                                </option>
+                              @endfor
+                            </select>
+                          </div>
                         </div>
-                      </div>
-                    @endif
+                      @endif
+                    </div>
                     <div>
                       <input type="hidden" name="item_return_{{ $count }}" value="{{ $item->purpose }}">
                     </div>

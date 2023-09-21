@@ -66,6 +66,7 @@
     "name name"
     "photo photo"
     "price count"
+    "options options"
     "description description"
     "member member";
   grid-template-columns: 50% 50%;
@@ -117,6 +118,27 @@
 
 .gridCount input {
   width: 30%;
+}
+
+.gridOptions {
+  padding: 20px 5%;
+  grid-area: options;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 10px;
+}
+
+.oneOption {
+  width: 40%;
+}
+
+.oneOption input {
+  width: 100%;
+}
+
+.oneOption select {
+  width: 100%;
 }
 
 .gridDescription {
