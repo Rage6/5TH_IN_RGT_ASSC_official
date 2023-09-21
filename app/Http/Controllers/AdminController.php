@@ -93,6 +93,8 @@ class AdminController extends Controller
         'veteranImg'       => 'nullable|file',
         // 'tombstoneImg'     => 'nullable|file',
         // 'biography'        => 'nullable|string',
+        'phone_number'     => 'nullable|integer',
+        'spouse'           => 'nullable|string',
         'isDeceased'       => 'required|integer',
         'isKiaMia'         => 'required|integer',
         'isRecipient'      => 'required|integer',
@@ -112,21 +114,14 @@ class AdminController extends Controller
       $input['middle_name'] = $request->middleName;
       $input['last_name'] = $request->lastName;
       $input['email'] = $request->email;
+      $input['phone_number'] = $request->phoneNumber;
+      $input['spouse'] = $request->spouseName;
       $input['current_img'] = $request->currentImg;
       $input['veteran_img'] = $request->veteranImg;
-      // $input['tombstone_img'] = $request->tombstoneImg;
-      // $input['biography'] = $request->biography;
       $input['deceased'] = $request->isDeceased;
-      // $input['mailing_address'] = $request->mailingAddress;
       $input['rank'] = $request->rank;
-      // $input['kia_location'] = $request->kiaLocation;
       $input['kia_or_mia'] = $request->isKiaMia;
       $input['moh_recipient'] = $request->isRecipient;
-      // $input['injury_type'] = $request->injuryType;
-      // $input['burial_site'] = $request->burialSite;
-      // $input['day_of_death'] = $request->dayOfDeath;
-      // $input['month_of_death'] = $request->monthOfDeath;
-      // $input['year_of_death'] = $request->yearOfDeath;
 
       $random_password = '';
       $all_characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -296,6 +291,8 @@ class AdminController extends Controller
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
         'email'            => 'nullable|string',
+        'phoneNumber'      => 'nullable|integer',
+        'spouseName'       => 'nullable|string',
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file',
         // 'biography'        => 'nullable|string',
@@ -314,6 +311,8 @@ class AdminController extends Controller
         $member->middle_name = $request['middleName'];
         $member->last_name = $request['lastName'];
         $member->email = $request['email'];
+        $member->phone_number = $request['phoneNumber'];
+        $member->spouse = $request['spouseName'];
         // $member->current_img = $request->currentImg;
         // $member->veteran_img = $request->veteranImg;
         // $member->biography = $request['biography'];

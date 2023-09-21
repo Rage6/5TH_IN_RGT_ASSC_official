@@ -33,6 +33,14 @@
                         <input type="email" name="email" id="email"/>
                       </div>
                       <div class="basicInfoGrid">
+                        <div>Phone Number</div>
+                        <input type="number" name="phoneNumber" id="phoneNumber"/>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Spouse</div>
+                        <input name="spouseName" id="spouseName"/>
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>Current Photo</div>
                         <input type="file" name="currentImg" id="current"/>
                       </div>

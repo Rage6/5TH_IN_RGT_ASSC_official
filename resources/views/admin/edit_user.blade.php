@@ -30,6 +30,14 @@
                         <div>Email</div>
                         <input type="email" name="email" id="email" value="{{ $member->email }}"/>
                       </div>
+                      <div class="basicInfoGrid">
+                        <div>Phone Number</div>
+                        <input type="number" name="phoneNumber" value="{{ $member->phone_number }}" id="phoneNumber"/>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Spouse</div>
+                        <input name="spouseName" value="{{ $member->spouse }}" id="spouseName"/>
+                      </div>
                       <div class="imgGrid">
                         @if ($member->current_img)
                           <div style="background-image: url('/{{ $image_path }}/current/{{ $member->current_img }}')">
