@@ -34,12 +34,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- <link href="{{ asset('css/my_custom/layout_header.css') }}" rel="stylesheet"> -->
-    <link href="{{ asset('css/my_custom/home/360_home.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/my_custom/home/375_home.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/my_custom/home/414_home.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/my_custom/home/768_home.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/my_custom/home/1366_home.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/my_custom/home/1920_home.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/my_custom/home/360_home.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/my_custom/home/375_home.css') }}" rel="stylesheet" media="screen and (min-width: 361px) and (max-width: 375px)" type="text/css">
+    <link href="{{ asset('css/my_custom/home/414_home.css') }}" rel="stylesheet" media="screen and (min-width: 376px) and (max-width: 414px)" type="text/css">
+    <link href="{{ asset('css/my_custom/home/768_home.css') }}" rel="stylesheet" media="screen and (min-width: 414px) and (max-width: 768px)" type="text/css">
+    <link href="{{ asset('css/my_custom/home/1366_home.css') }}" rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 1366px)" type="text/css">
+    <link href="{{ asset('css/my_custom/home/1920_home.css') }}" rel="stylesheet" media="screen and (min-width: 1367px)" type="text/css">
 </head>
 <body>
     <div id="app">

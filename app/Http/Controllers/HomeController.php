@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
 use App\Models\Role;
@@ -82,7 +83,9 @@ class HomeController extends Controller
         'phoneNumber'      => 'nullable|string',
         'spouseName'       => 'nullable|string',
         'biography'        => 'nullable|string',
-        'mailingAddress'   => 'nullable|string'
+        'mailingAddress'   => 'nullable|string',
+        'currentImg'       => 'nullable|file',
+        'veteranImg'       => 'nullable|file'
       ]);
 
       $user = Auth::user();
@@ -95,9 +98,69 @@ class HomeController extends Controller
       $user['biography'] = $request->biography;
       $user['mailing_address'] = $request->mailingAddress;
 
+      if (request('currentImg')) {
+        $old_current_filename = $user->current_img;
+        $user['current_img'] = request('currentImg')->store("public/images/current");
+        $filename = request('currentImg')->hashName();
+        $user->current_img = $filename;
+        if ($old_current_filename != null) {
+          Storage::delete("public/images/current/".$old_current_filename);
+        };
+      };
+      if (request('veteranImg')) {
+        $old_veteran_filename = $user->veteran_img;
+        $user['veteran_img'] = request('veteranImg')->store("public/images/veteran");
+        $filename = request('veteranImg')->hashName();
+        $user->veteran_img = $filename;
+        if ($old_veteran_filename != null) {
+          Storage::delete("public/images/veteran/".$old_veteran_filename);
+        };
+      };
+
       $user->save();
 
       return redirect()->route('home');
+    }
+
+    public function image_personal_index($img_type) {
+      $member = Auth::user();
+
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $imagePath = 'images';
+      } else {
+        $imagePath = 'images';
+      };
+
+      $return_route = 'profile.edit';
+      // $delete_method = 'image.member.delete';
+      $delete_method = 'delete.personal.image.complete';
+
+      return view('admin.delete_image',[
+        'member' => $member,
+        'img_type' => $img_type,
+        'image_path' => $imagePath,
+        'return_name' => $return_route,
+        'delete_method' => $delete_method
+      ]);
+    }
+
+    public function image_personal_delete($img_type) {
+
+      $member = Auth::user();
+
+      $storagePath = 'public/images';
+
+      if ($img_type == 'current') {
+        Storage::delete($storagePath."/current/".$member->current_img);
+        $member->current_img = null;
+        $member->save();
+      } elseif ($img_type == 'veteran') {
+        Storage::delete($storagePath."/veteran/".$member->veteran_img);
+        $member->veteran_img = null;
+        $member->save();
+      };
+
+      return redirect()->route('profile.edit');
     }
 
     public function edit_password_index($message = null) {

@@ -1,0 +1,17 @@
+.memberStats {
+  margin-top: 50px;
+  border-radius: 5px;
+  padding: 10px 4%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: grey;
+}
+
+.oneStat {
+  border-radius: 5px;
+  padding: 5px 5%;
+  /* color: darkgrey; */
+  background-color: white;
+  width: 48%;
+}

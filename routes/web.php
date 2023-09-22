@@ -106,6 +106,8 @@ Route::middleware('auth')->group(function() {
     Route::get('', [App\Http\Controllers\HomeController::class,'index'])->name('home');
     Route::get('edit-profile', [App\Http\Controllers\HomeController::class,'edit_profile_index'])->name('profile.edit');
     Route::post('edit-profile-change', [App\Http\Controllers\HomeController::class,'edit_profile_change'])->name('profile.edit.change');
+    Route::get('delete-personal-image/{img_type}', [App\Http\Controllers\HomeController::class,'image_personal_index'])->name('delete.personal.image.index');
+    Route::post('delete-personal-image-complete{img_type}', [App\Http\Controllers\HomeController::class,'image_personal_delete'])->name('delete.personal.image.complete');
     Route::get('edit-password', [App\Http\Controllers\HomeController::class,'edit_password_index'])->name('password.edit');
     Route::post('edit-password-change', [App\Http\Controllers\HomeController::class,'edit_password_change'])->name('password.edit.change');
   });

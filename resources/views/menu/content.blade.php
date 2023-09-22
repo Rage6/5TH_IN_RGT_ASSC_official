@@ -107,13 +107,14 @@
                     + My Profile
                   </div>
                 </a>
-                <div class="mainMenuSubBttn">+ Clothing & Items</div>
-                <a href="{{ route('reunion.index') }}">
-                  <div class="mainMenuSubBttn">+ Reunions</div>
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                  <div class="mainMenuSubBttn">
+                    + Logout
+                  </div>
                 </a>
-                <a href="{{ route('newsletter.index') }}">
-                  <div class="mainMenuSubBttn">+ Newsletters</div>
-                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             @else
                 <a href="{{ route('login') }}">
                   <div class="mainMenuSubBttn">+ Login</div>
