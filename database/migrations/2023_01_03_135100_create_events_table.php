@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('slug',100);
             $table->date('first_day')->nullable();
             $table->date('last_day')->nullable();
-            $table->string('location')->nullable();
+            $table->string('location',255)->nullable();
+            $table->string('form_options',10000)->nullable();
+            $table->string('primary_image',255)->nullable();
             $table->timestamps();
         });
     }

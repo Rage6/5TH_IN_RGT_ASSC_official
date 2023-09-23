@@ -231,6 +231,7 @@ Route::middleware('auth')->group(function() {
       Route::get('edit-event', [App\Http\Controllers\AdminController::class,'all_events'])->name('edit.event.list');
       Route::get('edit-event/{id}',[App\Http\Controllers\AdminController::class,'edit_event_index'])->name('edit.event.index');
       Route::post('edit-event/{id}',[App\Http\Controllers\AdminController::class,'edit_event_post'])->name('edit.event.post');
+      // Event image deletion
       Route::get('edit-event/{id}/delete-image/{img_type}/{edit_type}',[App\Http\Controllers\AdminController::class,'image_event_index'])->name('image.event.index');
       Route::post('edit-event/{id}/delete-image/{img_type}/complete',[App\Http\Controllers\AdminController::class,'image_event_delete'])->name('image.event.delete');
       // Subevent
@@ -240,6 +241,9 @@ Route::middleware('auth')->group(function() {
       Route::post('edit-subevent/{event_id}/{id}/post',[App\Http\Controllers\AdminController::class,'edit_subevent_post'])->name('subevent.edit.post');
       Route::get('delete-subevent/{event_id}/{id}',[App\Http\Controllers\AdminController::class,'delete_subevent_index'])->name('subevent.delete');
       Route::post('delete-subevent/{event_id}/{id}/post',[App\Http\Controllers\AdminController::class,'delete_subevent_post'])->name('subevent.delete.post');
+      // Subevent image deletion
+      Route::get('edit-subevent/{id}/delete-image/{img_type}/{edit_type}',[App\Http\Controllers\AdminController::class,'image_subevent_index'])->name('image.subevent.index');
+      Route::post('edit-subevent/{id}/delete-image/{img_type}/complete',[App\Http\Controllers\AdminController::class,'image_subevent_delete'])->name('image.subevent.delete');
     });
 
     Route::middleware(['permission:Delete An Event'])->group(function() {

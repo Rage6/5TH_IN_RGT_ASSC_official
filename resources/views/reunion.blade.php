@@ -64,41 +64,54 @@
 @section('reunion_content')
   <div class="main">
     <div class="content">
-      <div class="regIntro">
-        <div class="mainTitle">
-          <span>{{ $reunion_main->title }}</span>
-        </div>
-        @php
-          $months = [
-            'January','February','March','April','May','June','July','August','September','October','November','December'
-          ];
-        @endphp
-        <!-- <div class="reunionDate dateAndLocation"> -->
-        @if ($reunion_main->first_day && $reunion_main->last_day)
-          <div class="reunionDate dateAndLocation">
-            {{ $months[intval(substr($reunion_main->first_day,-5,2)) - 1] }} {{ substr($reunion_main->first_day,-2,2) }} - {{ substr($reunion_main->last_day,-2,2) }}, {{ substr($reunion_main->first_day,0,4) }}
+      @if ($reunion_main->primary_image)
+      <div style="background:
+        linear-gradient(
+          rgba(255,255,255,0.5),
+          rgba(255,255,255,0.5)),
+        url('/images/events/{{ $reunion_main->primary_image }}');
+        background-repeat: no-repeat, no-repeat, repeat;
+        background-size: auto 100%, cover, auto;
+        background-position: left, center, left;" class="regIntro">
+      @else
+      <div class="regIntroDefault">
+      @endif
+        <div class="regIntroCover">
+          <div class="mainTitle">
+            <span>{{ $reunion_main->title }}</span>
           </div>
-        @else
-          <div class="reunionDate dateAndLocation" style="color:rgba(0,0,0,0)">
-            No date/time available
-          </div>
-        @endif
-        <!-- </div> -->
-        @if ($reunion_main->location)
-          <div class="reunionLocation dateAndLocation">
-            {{ $reunion_main->location }}
-          </div>
-        @else
-          <div class="reunionLocation dateAndLocation" style="color: rgba(0,0,0,0)">
-            No location available
-          </div>
-        @endif
-        <div>
-          <div class="dateAndLocation regBttnIntro">
-            Want To Attend?
-          </div>
-          <div class="regBttn" id="regBttn" onclick="openAndCloseForm()">
-            Click Here!
+          @php
+            $months = [
+              'January','February','March','April','May','June','July','August','September','October','November','December'
+            ];
+          @endphp
+          <!-- <div class="reunionDate dateAndLocation"> -->
+          @if ($reunion_main->first_day && $reunion_main->last_day)
+            <div class="reunionDate dateAndLocation">
+              {{ $months[intval(substr($reunion_main->first_day,-5,2)) - 1] }} {{ substr($reunion_main->first_day,-2,2) }} - {{ substr($reunion_main->last_day,-2,2) }}, {{ substr($reunion_main->first_day,0,4) }}
+            </div>
+          @else
+            <div class="reunionDate dateAndLocation" style="color:rgba(0,0,0,0)">
+              No date/time available
+            </div>
+          @endif
+          <!-- </div> -->
+          @if ($reunion_main->location)
+            <div class="reunionLocation dateAndLocation">
+              {{ $reunion_main->location }}
+            </div>
+          @else
+            <div class="reunionLocation dateAndLocation" style="color: rgba(0,0,0,0)">
+              No location available
+            </div>
+          @endif
+          <div>
+            <div class="dateAndLocation regBttnIntro">
+              Want To Attend?
+            </div>
+            <div class="regBttn" id="regBttn" onclick="openAndCloseForm()">
+              Click Here!
+            </div>
           </div>
         </div>
       </div>
@@ -201,30 +214,30 @@
       <div class="regRow">
         @foreach ($all_subevents as $one_subevent)
           @if ($one_subevent->is_payment == null)
-            <div class="regSection {{ explode(',',$one_subevent->classes)[0] }}">
-              <div
-                class="reunionSectBttn"
-                data-id="{{ strval($one_subevent->id) }}"
-                @if ($one_subevent->classes)
-                  data-section="{{ str_replace('Section','',$one_subevent->classes) }}"
-                @endif
-                data-type="button"
-                onclick="clickSection({{ strval($one_subevent->id) }},'button')">{{ strtoupper($one_subevent->title) }}</div>
+            <div class="regSection" style="background-image:url('/images/events/subevents/{{ $one_subevent->primary_image }}')">
+              <div class="regSectionCoating {{ explode(',',$one_subevent->classes)[0] }}">
+                <div
+                  class="reunionSectBttn"
+                  data-id="{{ strval($one_subevent->id) }}"
+                  @if ($one_subevent->classes)
+                    data-section="{{ str_replace('Section','',$one_subevent->classes) }}"
+                  @endif
+                  data-type="button"
+                  onclick="clickSection({{ strval($one_subevent->id) }},'button')">{{ strtoupper($one_subevent->title) }}</div>
+              </div>
             </div>
           @else
             @php
               $param_array = explode(";",$one_subevent->is_payment);
             @endphp
-            @if ($one_subevent->classes)
-              <div class="regSection {{ $one_subevent->classes }}">
-            @else
-              <div class="regSection">
-            @endif
-              <a href="{{ route('items.all',['purpose'=> $param_array[0],'title'=>$param_array[1]]) }}">
-                <div class="reunionSectBttn">
-                  {{ strtoupper($one_subevent->title) }}
-                </div>
-              </a>
+            <div class="regSection @if ($one_subevent->classes) {{ $one_subevent->classes }} @endif" style="background-image:url('/images/events/subevents/{{ $one_subevent->primary_image }}')">
+              <div class="regSectionCoating {{ explode(',',$one_subevent->classes)[0] }}">
+                <a href="{{ route('items.all',['purpose'=> $param_array[0],'title'=>$param_array[1]]) }}">
+                  <div class="reunionSectBttn">
+                    {{ strtoupper($one_subevent->title) }}
+                  </div>
+                </a>
+              </div>
             </div>
           @endif
         @endforeach

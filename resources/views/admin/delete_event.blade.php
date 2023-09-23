@@ -32,8 +32,8 @@
                       <div>{{ $event->location }}</div>
                     </div>
                     <div class="imgGrid">
-                      @if ($event->photo)
-                        <div style="background-image: url('/images/events/{{ $event->photo }}')">
+                      @if ($event->primary_image)
+                        <div style="background-image: url('/images/events/{{ $event->primary_image }}')">
                         </div>
                       @else
                         <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">

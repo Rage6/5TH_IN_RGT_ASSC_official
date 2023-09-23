@@ -1534,7 +1534,7 @@ class AdminController extends Controller
         'endMonth'         => 'nullable|integer',
         'endYear'          => 'nullable|integer',
         'location'         => 'nullable|string',
-        'form_options'         => 'nullable|string',
+        'form_options'     => 'nullable|string',
         'eventPhoto'       => 'nullable|file'
       ]);
 
@@ -1557,12 +1557,13 @@ class AdminController extends Controller
       $input['last_day'] = $lastDay;
       $input['location'] = $request->location;
       $input['form_options'] = $request->form_options;
+      $input['primary_image'] = $request->eventPhoto;
 
-      if ($request->eventPhoto) {
-        $storagePath = 'public/images';
-        $input['photo'] = request('eventPhoto')->store($storagePath."/events");
+      if (request('eventPhoto')) {
+        // $storagePath = 'public/images';
+        $input['primary_image'] = request('eventPhoto')->store("public/images/events");
         $filename = request('eventPhoto')->hashName();
-        $input['photo'] = $filename;
+        $input['primary_image'] = $filename;
       };
 
       Event::create($input);
@@ -1650,7 +1651,8 @@ class AdminController extends Controller
         'endMonth'         => 'nullable|integer',
         'endYear'          => 'nullable|integer',
         'location'         => 'nullable|string',
-        'form_options'     => 'nullable|string'
+        'form_options'     => 'nullable|string',
+        'eventPhoto'       => 'nullable|file'
       ]);
 
       $event = Event::find($id);
@@ -1695,11 +1697,11 @@ class AdminController extends Controller
 
       $event->form_options = $request->form_options;
 
-      if ($request->eventPhoto) {
-        $old_event_filename = $event->photo;
-        $event->photo = request('eventPhoto')->store("public/images/events");
+      if (request('eventPhoto')) {
+        $old_event_filename = $event->primary_image;
+        $event->primary_image = request('eventPhoto')->store("public/images/events");
         $filename = request('eventPhoto')->hashName();
-        $event->photo = $filename;
+        $event->primary_image = $filename;
         if ($old_event_filename != null) {
           Storage::delete("public/images/events/".$old_event_filename);
         };
@@ -1719,7 +1721,7 @@ class AdminController extends Controller
         $imagePath = 'images';
       // };
 
-      $return_route = 'edit.'.$edit_type.'.index';
+      $return_route = 'edit.event.index';
       $delete_method = 'image.event.delete';
 
       return view('admin.delete_image',[
@@ -1748,8 +1750,8 @@ class AdminController extends Controller
       //   $member->current_img = null;
       //   $member->save();
       // } elseif ($img_type == 'veteran') {
-        Storage::delete($storagePath."/events/".$event->photo);
-        $event->photo = null;
+        Storage::delete($storagePath."/events/".$event->primary_image);
+        $event->primary_image = null;
         $event->save();
       // };
 
@@ -1775,8 +1777,8 @@ class AdminController extends Controller
       $storagePath = "public/images";
 
       $event = Event::find($id);
-      if ($event->photo) {
-        Storage::delete($storagePath."/events/".$event->photo);
+      if ($event->primary_image) {
+        Storage::delete($storagePath."/events/".$event->primary_image);
       };
 
       $all_subevents = Event::find($id)->all_event_subevents;
@@ -1817,7 +1819,7 @@ class AdminController extends Controller
         'classes'          => 'nullable|string',
         'description'      => 'nullable|string',
         'location'         => 'nullable|string',
-        // 'image_src'        => 'nullable|string',
+        'subeventImage'    => 'nullable|file',
         'is_payment'       => 'nullable|string'
       ]);
 
@@ -1869,9 +1871,16 @@ class AdminController extends Controller
       $input['order_number'] = $request->order_num;
       $input['location'] = $request->location;
       $input['iframe_map_src'] = $request->iframe_map_src;
-      // $input['image_src'] = $request->imgSource;
+      $input['primary_image'] = $request->subeventImage;
       $input['is_payment'] = $request->is_payment;
       $input['event_id'] = $event_id;
+
+      if (request('subeventImage')) {
+        // $storagePath = 'public/images';
+        $input['primary_image'] = request('subeventImage')->store("public/images/events/subevents");
+        $filename = request('subeventImage')->hashName();
+        $input['primary_image'] = $filename;
+      };
 
       Subevent::create($input);
 
@@ -1925,6 +1934,7 @@ class AdminController extends Controller
 
       $request->validate([
         'subeventTitle'    => 'required|string',
+        'subeventPhoto'    => 'nullable|file',
         'startDay'         => 'nullable|integer',
         'startMonth'       => 'nullable|integer',
         'startYear'        => 'nullable|integer',
@@ -2002,6 +2012,16 @@ class AdminController extends Controller
       // $input['image_src'] = $request->imgSource;
       $input['is_payment'] = $request->is_payment;
       $input['event_id'] = $event_id;
+
+      if (request('subeventPhoto')) {
+        $old_event_filename = $input['primary_image'];
+        $input['primary_image'] = request('subeventPhoto')->store("public/images/events/subevents");
+        $filename = request('subeventPhoto')->hashName();
+        $input['primary_image'] = $filename;
+        if ($old_event_filename != null) {
+          Storage::delete("public/images/events/subevents/".$old_event_filename);
+        };
+      };
 
       $input->save();
 
@@ -2473,6 +2493,56 @@ class AdminController extends Controller
           'id' => $id
         ]);
       };
+    }
+
+    public function image_subevent_index($id,$img_type,$edit_type) {
+      $subevent = Subevent::find($id);
+
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $imagePath = 'images';
+      // } else {
+        $imagePath = 'images';
+      // };
+
+      $return_route = 'subevent.edit';
+      $delete_method = 'image.subevent.delete';
+
+      return view('admin.delete_image',[
+        'member' => $subevent,
+        'img_type' => $img_type,
+        'image_path' => $imagePath,
+        'return_name' => $return_route,
+        'delete_method' => $delete_method
+      ]);
+    }
+
+    public function image_subevent_delete($id,$img_type) {
+
+      $subevent = Subevent::find($id);
+
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $storagePath = 'images';
+      //   $public_path = 'storage/images';
+      // } else {
+        $storagePath = 'public/images';
+      //   $public_path = 'images';
+      // };
+
+      // if ($img_type == 'current') {
+      //   Storage::delete($storagePath."/current/".$member->current_img);
+      //   $member->current_img = null;
+      //   $member->save();
+      // } elseif ($img_type == 'veteran') {
+        Storage::delete($storagePath."/events/subevents/".$subevent->primary_image);
+        $subevent->primary_image = null;
+        $subevent->save();
+      // };
+
+      return redirect()->route('subevent.edit',[
+        'id' => $id,
+        'event_id' => $subevent->event_id,
+        'next_route' => 'subevent'
+      ]);
     }
 
     public function delete_subevent_index($event_id, $id) {

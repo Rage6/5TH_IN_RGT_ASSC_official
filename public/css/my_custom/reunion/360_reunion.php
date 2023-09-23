@@ -28,7 +28,7 @@
   display: flex;
   flex-direction: column;
   margin: 0 0 10vh 0;
-  padding-top: 5vh;
+  padding-top: 15vh;
   text-align: center;
   font-size: 2.5rem;
   font-family: 'Vollkorn SC', sans-serif;
@@ -66,18 +66,32 @@
 }
 
 .regIntro {
+  text-align: center;
+  height: 90vh;
+}
+
+.regIntroDefault {
   padding: 5vh 0;
   text-align: center;
   height: 80vh;
   background:
-    url('<?php echo($url_ext) ?>/images/registration/COA_right_half.png'),
+    /* url('/images/registration/COA_right_half.png'), */
     linear-gradient(
       rgba(255,255,255,0.5),
       rgba(255,255,255,0.5)),
-    url('<?php echo($url_ext) ?>/images/registration/collage.png');
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-size: auto 100%, cover, auto;
-  background-position: left, center, left;
+    url('/images/registration/collage.png');
+  background-repeat: no-repeat, repeat;
+  background-size: cover, auto;
+  background-position: center, left;
+}
+
+.regIntroCover {
+  background-image: url('/images/registration/COA_right_half.png');
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position: left;
+  height: 100%;
+  width: 100%;
 }
 
 .regBttnIntro {
@@ -253,17 +267,26 @@
 }
 
 .regSection {
-  /* padding: 20px 5%; */
+  /* padding: 20px 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   color: white;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   font-size: 1.2rem;
   font-family: 'Bellefair', serif;
+}
+
+.regSectionCoating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;;
+  width: 100%;
+  height: 100%;
 }
 
 .regSection a {
@@ -280,24 +303,21 @@
   background-image:
     linear-gradient(
       rgba(0,0,0,0.8),
-      rgba(0,0,0,0.3)),
-    url('<?php echo($url_ext) ?>/images/registration/hotel.jpg');
+      rgba(0,0,0,0.3));
 }
 
 .dayOneSection {
   background-image:
     linear-gradient(
       rgba(0,100,0,0.8),
-      rgba(0,100,0,0.3)),
-    url('<?php echo($url_ext) ?>/images/registration/day_one.jpeg');
+      rgba(0,100,0,0.3));
 }
 
 .dayTwoSection {
   background-image:
     linear-gradient(
       rgba(139,0,0,0.8),
-      rgba(139,0,0,0.3)),
-    url('<?php echo($url_ext) ?>/images/registration/day_two.jpeg');
+      rgba(139,0,0,0.3));
 }
 
 .dayThreeSection {
@@ -306,8 +326,7 @@
   background-image:
     linear-gradient(
       rgba(255,255,255,0.8),
-      rgba(255,255,255,0.3)),
-    url('<?php echo($url_ext) ?>/images/registration/day_three.jpeg');
+      rgba(255,255,255,0.3));
 }
 
 .dayThreeSection .reunionSectBttn {
@@ -318,16 +337,18 @@
   background-image:
     linear-gradient(
       rgba(0,0,0,0.8),
-      rgba(0,0,0,0.3)),
-    url('<?php echo($url_ext) ?>/images/registration/day_four.jpeg');
+      rgba(0,0,0,0.3));
 }
 
 .paymentSection {
   background-image:
     linear-gradient(
       rgba(0,100,0,0.8),
-      rgba(0,100,0,0.3)),
-    url('<?php echo($url_ext) ?>/images/registration/payments.jpeg');
+      rgba(0,100,0,0.3));
+}
+
+.bottomPaymentSection {
+  background-image: url('/images/events/subevents/payments.jpeg');
 }
 
 .reunionSectBox {

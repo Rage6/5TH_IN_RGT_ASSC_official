@@ -27,19 +27,18 @@ body {
 .mainTitle {
   margin-left: 35%;
   margin-bottom: 8vh;
-  padding-top: 8vh;
+  padding-top: 14vh;
   display: block;
   font-size: 5.5rem;
   width: 60%;
 }
 
 .regIntro {
-  padding: 4vh 0;
-  background-image: url('<?php echo($url_ext) ?>/images/welcome/5INF_COA-min.png'),
-    linear-gradient(
-      rgba(255,255,255,0.5),
-      rgba(255,255,255,0.5)),
-    url('<?php echo($url_ext) ?>/images/registration/collage.png');
+  height: 88vh;
+}
+
+.regIntroCover {
+  background-image: url('/images/welcome/5INF_COA-min.png');
 }
 
 .regBttn {

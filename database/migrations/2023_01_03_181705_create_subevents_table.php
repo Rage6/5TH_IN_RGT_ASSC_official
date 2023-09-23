@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('description',10000)->nullable();
             $table->string('location')->nullable();
             $table->string('is_payment')->nullable()->default(null);
-            $table->string('image_src')->nullable();
+            $table->string('primary_image')->nullable();
             $table->integer('order_number')->nullable()->default(null);
             $table->foreignId('event_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->unsigned()->nullable();
             $table->timestamps();

@@ -29,8 +29,8 @@
                       </div>
 
                       <div class="imgGrid">
-                        @if ($event->photo)
-                          <div style="background-image: url('/images/events/{{ $event->photo }}')">
+                        @if ($event->primary_image)
+                          <div style="background-image: url('/images/events/{{ $event->primary_image }}')">
                           </div>
                         @else
                           <div style="background-image: url('{{ url('/images/default_landscape.png') }}')">
@@ -40,7 +40,7 @@
                         <input id="eventPhoto" type="file" class="form-control" name="eventPhoto">
                         <div></div>
                         <div>
-                          @if ($event->photo)
+                          @if ($event->primary_image)
                             <a href="{{ route('image.event.index',[
                               'id' => $event->id,
                               'img_type' => 'events',

@@ -15,6 +15,7 @@ class Event extends Model
       'first_day',
       'last_day',
       'location',
+      'primary_image',
       'form_options'
     ];
 

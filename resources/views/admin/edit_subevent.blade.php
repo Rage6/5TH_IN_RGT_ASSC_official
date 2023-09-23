@@ -26,6 +26,38 @@
                         <div>Subevent Title</div>
                         <input name="subeventTitle" id="subeventTitle" value="{{ $subevent->title }}" placeholder="required" required />
                       </div>
+
+                      <div class="imgGrid">
+                        @if ($subevent->primary_image)
+                          <div style="background-image: url('/images/events/subevents/{{ $subevent->primary_image }}')">
+                          </div>
+                        @else
+                          <div style="background-image: url('{{ url('/images/default_landscape.png') }}')">
+                          </div>
+                        @endif
+                        <div></div>
+                        <input id="subeventPhoto" type="file" class="form-control" name="subeventPhoto">
+                        <div></div>
+                        <div>
+                          @if ($subevent->primary_image)
+                            <a href="{{ route('image.subevent.index',[
+                              'id' => $subevent->id,
+                              'img_type' => 'subevents',
+                              'edit_type' => 'subevent'
+                            ]) }}">
+                              <span class="btn btn-danger">
+                                REMOVE
+                              </span>
+                            </a>
+                          @else
+                            <div>
+                              <a>No image found</a>
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+                      <div></div>
+
                       <div class="basicInfoGrid">
                         <div>Start Date (MM/DD/YYYY)</div>
                         <div class="basicInfoDate">

@@ -28,6 +28,10 @@
                         <input name="subeventTitle" id="subeventTitle" placeholder="required" required />
                       </div>
                       <div class="basicInfoGrid">
+                        <div>Subevent Photo</div>
+                        <input type="file" name="subeventImage" id="subeventImage" />
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>Start Date (MM/DD/YYYY)</div>
                         <div class="basicInfoDate">
                           <input name="startMonth" type="number" id="startMonth" placeholder="MM" min="1" max="12" data-level="date" data-phase="start" />
