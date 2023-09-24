@@ -37,6 +37,10 @@ body {
   height: 88vh;
 }
 
+.regIntroDefault {
+  height: 88vh;
+}
+
 .regIntroCover {
   background-image: url('/images/welcome/5INF_COA-min.png');
 }
