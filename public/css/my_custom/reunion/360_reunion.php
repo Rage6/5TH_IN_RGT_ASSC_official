@@ -71,9 +71,9 @@
 }
 
 .regIntroDefault {
-  padding: 5vh 0;
+  padding: 0;
   text-align: center;
-  height: 80vh;
+  height: 90vh;
   background:
     /* url('/images/registration/COA_right_half.png'), */
     linear-gradient(

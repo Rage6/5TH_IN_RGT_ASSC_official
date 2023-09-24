@@ -100,6 +100,18 @@ Route::get('images/items/{filename}', function($filename){
         return response()->file($storagePath);
 });
 
+// Retrieves an 'event' image from the 'storage' directory
+Route::get('images/events/{filename}', function($filename){
+     $storagePath = storage_path('app/public/images/events/' . $filename);
+        return response()->file($storagePath);
+});
+
+// Retrieves an 'event' image from the 'storage' directory
+Route::get('images/events/subevents/{filename}', function($filename){
+     $storagePath = storage_path('app/public/images/events/subevents/' . $filename);
+        return response()->file($storagePath);
+});
+
 Route::middleware('auth')->group(function() {
 
   Route::prefix('/home')->group(function() {
