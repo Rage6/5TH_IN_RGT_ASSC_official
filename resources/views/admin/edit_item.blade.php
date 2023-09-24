@@ -104,11 +104,26 @@
                         </div>
                         <div>
                           <select name="itemStockStatus" id="itemRoute">
-                            <option value="0">
+                            <option value="0" @if ($item->out_of_stock == 0) selected @endif >
                               NO
                             </option>
-                            <option value="1">
+                            <option value="1" @if ($item->out_of_stock == 1) selected @endif >
                               YES
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
+                          Can anyone pay for this item, or only members?
+                        </div>
+                        <div>
+                          <select name="itemMembership" id="itemRoute">
+                            <option value="0" @if ($item->members_only == 0) selected @endif >
+                              Anyone
+                            </option>
+                            <option value="1" @if ($item->members_only == 1) selected @endif>
+                              Members Only
                             </option>
                           </select>
                         </div>

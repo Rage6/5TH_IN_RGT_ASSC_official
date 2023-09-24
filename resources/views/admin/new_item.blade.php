@@ -78,6 +78,21 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
+                          Can anyone pay for this item, or only members?
+                        </div>
+                        <div>
+                          <select name="itemMembership" id="itemRoute">
+                            <option value="0">
+                              Anyone
+                            </option>
+                            <option value="1">
+                              Members Only
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
                           Which page is this item related to?
                         </div>
                         <div>

@@ -2051,6 +2051,7 @@ class AdminController extends Controller
         'itemDurationYear'  => 'nullable|integer|min:0', // part of how_long
         'itemDurationDay'   => 'nullable|integer|min:0', // part of how_long
         'itemStockStatus'   => 'required|integer',
+        'itemMembership'    => 'required|integer',
         'itemDonation'      => 'required|integer', // is_donation
         'itemRoute'         => 'required|string', // purpose
         'itemAdjust'        => 'required|integer'  // adjustable_price
@@ -2064,6 +2065,7 @@ class AdminController extends Controller
       $item->patches = $request->itemPatches;
       $item->description = $request->itemDescription;
       $item->out_of_stock = $request->itemStockStatus;
+      $item->members_only = $request->itemMembership;
       $item->is_donation = $request->itemDonation;
       $item->purpose = $request->itemRoute;
       $item->adjustable_price = $request->itemAdjust;
@@ -2156,6 +2158,7 @@ class AdminController extends Controller
         'itemDurationYear'  => 'nullable|integer|min:0', // part of how_long
         'itemDurationDay'   => 'nullable|integer|min:0', // part of how_long
         'itemStockStatus'   => 'required|integer',
+        'itemMembership'    => 'required|integer',
         'itemDonation'      => 'required|integer', // is_donation
         'itemRoute'         => 'required|string', // purpose
         'itemAdjust'        => 'required|integer'  // adjustable_price
@@ -2169,6 +2172,7 @@ class AdminController extends Controller
       $item->patches = $request->itemPatches;
       $item->out_of_stock = $request->itemStockStatus;
       $item->is_donation = $request->itemDonation;
+      $item->members_only = $request->itemMembership;
       $item->purpose = $request->itemRoute;
       $item->adjustable_price = $request->itemAdjust;
 
