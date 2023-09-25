@@ -38,7 +38,38 @@
   width: 100%;
 }
 
-.customCard {
+/* START BOBCAT LIST */
+
+.listRow {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  color: white;
+  background-color: rgb(139,0,0);
+}
+
+.rowLink:hover {
+  color: white;
+}
+
+.rowName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rowImg {
+  background-position: center;
+  background-size: contain;
+  height: 40px;
+  width: 40px
+}
+
+/* END BOBCAT LIST */
+
+/* .customCard {
   margin-bottom: 30px;
 }
 
@@ -55,7 +86,7 @@
   margin-bottom: 20px;
   font-size: 1.5rem;
   text-decoration: underline;
-}
+} */
 
 .primaryImg {
   background-size:contain;
@@ -86,7 +117,7 @@
   background-repeat:no-repeat;
 }
 
-.troublesBox {
+/* .troublesBox {
   display: none;
 }
 
@@ -145,7 +176,7 @@
   background-position:center;
   background-repeat:no-repeat;
   height:5vh;
-}
+} */
 
 /* START View */
 
@@ -161,6 +192,19 @@
 
 .memberInfoContent {
   margin-left: 5%;
+}
+
+.memberInfoContact {
+  display: grid;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  grid-template-columns: 40% 60%;
+}
+
+.memberInfoContact div {
+  padding: 3px 5px;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 /* END View */

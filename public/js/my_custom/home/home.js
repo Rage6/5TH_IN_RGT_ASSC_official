@@ -4,7 +4,7 @@ $(document).ready(() => {
   // $(".categoryBox").css('display','none');
 
   // Shows the selected
-  const showCategorySearch = (category) => {
+  /* const showCategorySearch = (category) => {
     $(".categoryBox").css('display','none');
     let thisCategory = null;
     if (event == undefined) {
@@ -99,10 +99,10 @@ $(document).ready(() => {
   // Shows the tips for using the search tool
   $("#troublesBttn").click(() => {
     showGenericBox("#troublesBox","block");
-  });
+  }); */
 
   // Swaps the Bobcat's current and veteran images
-  /* let mainImg = $("#primaryImg").css('background-image');
+  let mainImg = $("#primaryImg").css('background-image');
   mainImg = mainImg.replace('url("','').replace('")','');
   let cornerImg = $("#secondaryImg").css('background-image');
   cornerImg = cornerImg.replace('url("','').replace('")','');
@@ -117,6 +117,6 @@ $(document).ready(() => {
 
   $("#secondaryImg").click(()=>{
     swapImages();
-  }); */
+  });
 
 });

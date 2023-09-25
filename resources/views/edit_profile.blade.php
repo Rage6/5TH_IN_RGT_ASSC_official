@@ -31,8 +31,26 @@
                         <input type="email" name="email" id="email" value="{{ $user->email }}"/>
                       </div>
                       <div class="basicInfoGrid">
+                        <div>Can members see your email address?</div>
+                        <div>
+                          <select name="email_visible">
+                            <option @if ($user->email_visible == 1) selected @endif value="1">YES</option>
+                            <option @if ($user->email_visible == 0) selected @endif value="0">NO</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>Phone Number</div>
                         <input name="phoneNumber" value="{{ $user->phone_number }}" id="phoneNumber"/>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Can members see your phone number?</div>
+                        <div>
+                          <select name="phone_visible">
+                            <option @if ($user->phone_visible == 1) selected @endif value="1">YES</option>
+                            <option @if ($user->phone_visible == 0) selected @endif value="0">NO</option>
+                          </select>
+                        </div>
                       </div>
                       <div class="basicInfoGrid">
                         <div>Spouse</div>

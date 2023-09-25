@@ -15,9 +15,11 @@
                   @endif
                   <div>
                     <div class="homeContent">
-                      <!-- <div class="contentButton">
-                        <div>FIND A BOBCAT</div>
-                      </div> -->
+                      <a href="{{ route('bobcat.list.index') }}">
+                        <div class="contentButton">
+                          <div>FIND A BOBCAT</div>
+                        </div>
+                      </a>
                       <a href="{{ route('newsletter.index') }}">
                         <div class="contentButton">
                           <div>NEWSLETTERS</div>

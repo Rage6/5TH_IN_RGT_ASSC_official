@@ -116,6 +116,8 @@ Route::middleware('auth')->group(function() {
 
   Route::prefix('/home')->group(function() {
     Route::get('', [App\Http\Controllers\HomeController::class,'index'])->name('home');
+    Route::get('list-of-bobcats', [App\Http\Controllers\HomeController::class,'bobcat_list_index'])->name('bobcat.list.index');
+    Route::get('profile/{id}', [App\Http\Controllers\HomeController::class,'bobcat_profile_index'])->name('bobcat.profile.index');
     Route::get('edit-profile', [App\Http\Controllers\HomeController::class,'edit_profile_index'])->name('profile.edit');
     Route::post('edit-profile-change', [App\Http\Controllers\HomeController::class,'edit_profile_change'])->name('profile.edit.change');
     Route::get('delete-personal-image/{img_type}', [App\Http\Controllers\HomeController::class,'image_personal_index'])->name('delete.personal.image.index');

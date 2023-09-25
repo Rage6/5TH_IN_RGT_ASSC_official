@@ -31,6 +31,8 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('phone_number')->nullable();
+            $table->boolean('phone_visible')->default(0);
+            $table->boolean('email_visible')->default(0);
             $table->string('spouse')->nullable();
             $table->string('burial_site')->nullable();
             $table->string('kia_location')->nullable();

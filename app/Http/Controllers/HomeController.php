@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Link;
 
 class HomeController extends Controller
 {
@@ -80,7 +81,9 @@ class HomeController extends Controller
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
         'email'            => 'nullable|string',
+        'email_visible'    => 'required|integer',
         'phoneNumber'      => 'nullable|string',
+        'phone_visible'    => 'required|integer',
         'spouseName'       => 'nullable|string',
         'biography'        => 'nullable|string',
         'mailingAddress'   => 'nullable|string',
@@ -93,7 +96,9 @@ class HomeController extends Controller
       $user['middle_name'] = $request->middleName;
       $user['last_name'] = $request->lastName;
       $user['email'] = $request->email;
+      $user['email_visible'] =$request->email_visible;
       $user['phone_number'] = $request->phoneNumber;
+      $user['phone_visible'] =$request->phone_visible;
       $user['spouse'] = $request->spouseName;
       $user['biography'] = $request->biography;
       $user['mailing_address'] = $request->mailingAddress;
@@ -183,5 +188,33 @@ class HomeController extends Controller
         $user->save();
         return redirect()->route('profile.edit');
       };
+    }
+
+    public function bobcat_list_index() {
+
+      $all_bobcats = User::where([
+        ['deceased',"=",0],
+        ['expiration_date',">",date('Y-m-d h:m:s')]
+      ])
+      ->orWhere([
+        ['deceased',"=",0],
+        ['expiration_date',"=",'1970-01-01 00:00:00']
+      ])
+      ->paginate(20);
+      return view('all_bobcats',[
+        'all_bobcats' => $all_bobcats
+      ]);
+    }
+
+    public function bobcat_profile_index($id) {
+
+      $bobcat = User::where('id',$id)->first();
+
+      $all_links = Link::where('user_id',$bobcat->id)->get();
+
+      return view('profile',[
+        'bobcat' => $bobcat,
+        'all_links' => $all_links
+      ]);
     }
 }
