@@ -70,6 +70,8 @@
     "description description"
     "member member";
   grid-template-columns: 50% 50%;
+  font-size: 1.2rem;
+  font-family: 'Bellefair', serif;
   background-color: white;
 }
 
@@ -78,7 +80,8 @@
   grid-area: name;
   color: white;
   text-align: center;
-  background-color: red;
+  font-size: 1.3rem;
+  background-color: rgb(139,0,0);
 }
 
 .gridPhoto {

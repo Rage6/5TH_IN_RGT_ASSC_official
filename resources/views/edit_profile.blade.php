@@ -128,6 +128,36 @@
                         <label for="biography">Personal History</label>
                         <textarea class="form-control" id="biography" name="biography" maxlength="255" placeholder="Provide a brief summary of yourself and your time in the 5th">{{ $user->biography }}</textarea>
                       </div>
+                      <div class="form-group">
+                        <label for="links">Personal Links</label>
+                        @if (count($all_links) > 0)
+                          <div class="linkBox">
+                            @foreach ($all_links as $one_link)
+                              <div>
+                                <a href="{{ $one_link->url }}" target="_blank">
+                                  {{ $one_link->name }}
+                                </a>
+                              </div>
+                              <div>
+                                <a href="{{ route('profile.link.view',[
+                                  'link_id' => $one_link->id
+                                ]) }}">
+                                  EDIT
+                                </a>
+                              </div>
+                            @endforeach
+                          </div>
+                        @else
+                          <div>
+                            <i>No links found</i>
+                          </div>
+                        @endif
+                        <a href="{{ route('profile.link.new') }}">
+                          <span class="addLink">
+                            ADD A LINK
+                          </span>
+                        </a>
+                      </div>
                       <div style="display:flex; flex-direction: row-reverse;">
                         <button class="btn">
                           <a href="{{ route('password.edit') }}">{{ __('CHANGE PASSWORD') }}</a>

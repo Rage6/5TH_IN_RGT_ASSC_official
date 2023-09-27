@@ -207,6 +207,82 @@
   border-bottom: 1px solid black;
 }
 
+.bobcatTimespan {
+  border: 1px solid grey;
+}
+
+.bobcatTimespanRow {
+  padding: 5px;
+  display: grid;
+  grid-template-areas:
+    "job started"
+    ". dash"
+    "unit ended";
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto auto;
+}
+
+.bobcatJob {
+  grid-area: job;
+}
+
+.bobcatUnit {
+  grid-area: unit;
+}
+
+.bobcatStart {
+  text-align: center;
+  grid-area: started;
+}
+
+.bobcatDash {
+  /* background: conic-gradient(from 0deg at 50% 100%, green 30deg, white 30deg, white 330deg, green 330deg); */
+  background-image: url('/images/green-arrow-down2.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 15px;
+  grid-area: dash;
+}
+
+.bobcatEnd {
+  text-align: center;
+  grid-area: ended;
+}
+
+.linkBox {
+  margin-bottom: 20px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 78% 20%;
+  grid-column-gap: 2%;
+  grid-row-gap: 10px;
+}
+
+.addLink {
+  border-radius: 15px;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  background-color: green;
+  cursor: pointer;
+}
+
+.deleteEl {
+  margin-top: 80px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.deleteEl a {
+  padding: 5px;
+  color: white;
+  text-align: center;
+  background-color: red;
+}
+
 /* END View */
 
 /* START Edit page */
@@ -261,6 +337,28 @@
 
 .basicInfoGrid span {
   color: #3490dc;
+}
+
+.timespanBox {
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+}
+
+.timespanBox div {
+  padding: 5px 10px;
+}
+
+.addMemberTimespan {
+  margin: 10px 0 40px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.addMemberTimespan a span{
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
+  background-color: green;
 }
 
 .basicInfoDate {

@@ -14,6 +14,7 @@ use App\Models\Item;
 use App\Models\Applicant;
 use App\Models\Conflict;
 use App\Models\Link;
+use App\Models\Timespan;
 
 use App\Http\Controllers\stdClass;
 use Illuminate\Support\Facades\Hash;
@@ -235,6 +236,8 @@ class AdminController extends Controller
         $status = "nonmember";
       };
 
+      $all_timespans = Timespan::where('user_id',$id)->get();
+
       $current_user = Auth::user();
       $user_roles = User::find($current_user->id)->all_user_roles;
       $role_model = new Role();
@@ -271,7 +274,8 @@ class AdminController extends Controller
         'can_edit_recipient' => $can_edit_recipient,
         'can_edit_member' => $can_edit_member,
         'can_edit_casualty' => $can_edit_casualty,
-        'image_path' => $imagePath
+        'image_path' => $imagePath,
+        'all_timespans' => $all_timespans
       ]);
     }
 
@@ -444,6 +448,88 @@ class AdminController extends Controller
       return redirect()->route('edit.member.index',['id' => $id]);
     }
 
+    public function add_member_timespan_index($id) {
+      return view('admin.new_timespan',[
+        'id' => $id
+      ]);
+    }
+
+    public function add_member_timespan_post(Request $request,$id) {
+
+      $request->validate([
+        'startMonth' => 'nullable|integer',
+        'startYear' => 'required|integer',
+        'endMonth' => 'nullable|integer',
+        'endYear' => 'nullable|integer',
+        'job' => 'nullable|string',
+        'unit' => 'nullable|string'
+      ]);
+
+      $timespan = new Timespan;
+      $timespan->start_month = $request->startMonth;
+      $timespan->start_year = $request->startYear;
+      $timespan->end_month = $request->endMonth;
+      $timespan->end_year = $request->endYear;
+      $timespan->job = $request->job;
+      $timespan->unit = $request->unit;
+      $timespan->user_id = $id;
+
+      $timespan->save();
+
+      return redirect()->route('edit.member.index',[
+        'id' => $id
+      ]);
+    }
+
+    public function edit_member_timespan_index($id,$timespan_id) {
+      $timespan = Timespan::find($timespan_id);
+      return view('admin.edit_timespan',[
+        'timespan' => $timespan,
+        'id' => $id
+      ]);
+    }
+
+    public function edit_member_timespan_post(Request $request,$id,$timespan_id) {
+
+      $request->validate([
+        'startMonth' => 'nullable|integer',
+        'startYear' => 'required|integer',
+        'endMonth' => 'nullable|integer',
+        'endYear' => 'nullable|integer',
+        'job' => 'nullable|string',
+        'unit' => 'nullable|string'
+      ]);
+
+      $timespan = Timespan::find($timespan_id);
+      if ($request->startMonth == 0) {
+        $timespan->start_month = null;
+      } else {
+        $timespan->start_month = $request->startMonth;
+      };
+      $timespan->start_year = $request->startYear;
+      if ($request->endMonth == 0) {
+        $timespan->end_month = null;
+      } else {
+        $timespan->end_month = $request->endMonth;
+      };
+      $timespan->end_year = $request->endYear;
+      $timespan->job = $request->job;
+      $timespan->unit = $request->unit;
+
+      $timespan->save();
+
+      return redirect()->route('edit.member.index',[
+        'id' => $id
+      ]);
+    }
+
+    public function delete_member_timespan($id,$timespan_id) {
+
+      Timespan::where('id',$timespan_id)->delete();
+
+      return redirect()->route('edit.member.index',['id' => $id]);
+    }
+
     public function image_member_index($id,$img_type,$edit_type) {
       $member = User::find($id);
 
@@ -545,6 +631,8 @@ class AdminController extends Controller
       };
 
       Link::where('user_id',$member->id)->delete();
+
+      Timespan::where('user_id',$member->id)->delete();
 
       User::where('id',$id)->delete();
       return redirect()->route('delete.member.list');

@@ -13,18 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
           $table->index('casualty_conflict_id');
           $table->foreign('casualty_conflict_id')
           ->references('id')
           ->on('conflicts')
-          ->onUpdate('cascade');
+          ->onUpdate('cascade')
           ->onDelete('cascade');
           $table->index('moh_conflict_id');
           $table->foreign('moh_conflict_id')
           ->references('id')
           ->on('conflicts')
-          ->onUpdate('cascade');
+          ->onUpdate('cascade')
           ->onDelete('cascade');
         });
     }

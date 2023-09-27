@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Link;
+use App\Models\Timespan;
 
 class HomeController extends Controller
 {
@@ -69,8 +70,10 @@ class HomeController extends Controller
 
     public function edit_profile_index() {
       $user = Auth::user();
+      $all_links = Link::where('user_id',$user->id)->where('is_member_link',1)->get();
       return view('edit_profile',[
-        'user' => $user
+        'user' => $user,
+        'all_links' => $all_links
       ]);
     }
 
@@ -125,6 +128,86 @@ class HomeController extends Controller
       $user->save();
 
       return redirect()->route('home');
+    }
+
+    public function profile_link_new() {
+      return view('profile_link');
+    }
+
+    public function profile_link_new_post(Request $request) {
+
+      $user_id = Auth::user()->id;
+
+      $request->validate([
+        'linkName' => 'required|string',
+        'linkUrl'  => 'required|string'
+      ]);
+
+      $new_link = new Link;
+      $new_link->name = $request->linkName;
+      $new_link->url = $request->linkUrl;
+      $new_link->is_member_link = 1;
+      $new_link->user_id = $user_id;
+
+      $new_link->save();
+
+      return redirect()->route('profile.edit');
+    }
+
+    public function profile_link_existing($link_id) {
+
+      $user = Auth::user();
+
+      $this_link = Link::find($link_id);
+
+      if ($this_link->user_id == $user->id) {
+        return view('profile_link',[
+          'link' => $this_link
+        ]);
+      } else {
+        $all_links = Link::where('user_id',$user->id)->get();
+        return view('edit_profile',[
+          'user' => $user,
+          'all_links' => $all_links
+        ]);
+      };
+    }
+
+    public function profile_link_change(Request $request,$link_id) {
+
+      $user = Auth::user();
+
+      $this_link = Link::find($link_id);
+
+      if ($this_link->user_id == $user->id) {
+
+        $request->validate([
+          'linkName' => 'required|string',
+          'linkUrl'  => 'required|string'
+        ]);
+
+        $this_link->name = $request->linkName;
+        $this_link->url  = $request->linkUrl;
+        $this_link->save();
+
+        return redirect()->route('profile.edit');
+      } else {
+        return view('edit_profile');
+      };
+    }
+
+    public function profile_link_delete($link_id) {
+
+      $user = Auth::user();
+
+      $this_link = Link::find($link_id);
+
+      if ($this_link->user_id == $user->id) {
+        Link::where('id',$link_id)->delete();
+        return redirect()->route('profile.edit');
+      } else {
+        return view('edit_profile');
+      };
     }
 
     public function image_personal_index($img_type) {
@@ -212,9 +295,38 @@ class HomeController extends Controller
 
       $all_links = Link::where('user_id',$bobcat->id)->get();
 
+      $all_raw_jobs = Timespan::where('user_id',$bobcat->id)->orderBy('end_year','asc')->orderBy('end_month','asc')->get();
+      $months = [
+        ['JAN',1],
+        ['FEB',2],
+        ['MAR',3],
+        ['APR',4],
+        ['MAY',5],
+        ['JUN',6],
+        ['JUL',7],
+        ['AUG',8],
+        ['SEP',9],
+        ['OCT',10],
+        ['NOV',11],
+        ['DEC',12]
+      ];
+      $all_jobs = [];
+      foreach ($all_raw_jobs as $one_job) {
+        for ($i = 0; count($months) > $i; $i++) {
+          if ($one_job->start_month == $months[$i][1]) {
+            $one_job->start_month = $months[$i][0];
+          };
+          if ($one_job->end_month == $months[$i][1]) {
+            $one_job->end_month = $months[$i][0];
+          };
+        };
+        $all_jobs[] = $one_job;
+      };
+
       return view('profile',[
         'bobcat' => $bobcat,
-        'all_links' => $all_links
+        'all_links' => $all_links,
+        'all_jobs' => $all_jobs
       ]);
     }
 }

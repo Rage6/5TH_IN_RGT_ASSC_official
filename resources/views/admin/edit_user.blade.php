@@ -106,10 +106,38 @@
                           @endif
                         </div>
                       </div>
-                      <!-- <div class="form-group historyBox">
-                        <label for="biography">Personal History</label>
-                        <textarea class="form-control" id="biography" name="biography" maxlength="255" placeholder="Provide a brief summary of yourself and your time in the 5th">{{ $member->biography }}</textarea>
-                      </div> -->
+                      <div>
+                        <div>
+                          BOBCAT HISTORY
+                        </div>
+                        <div>
+                          <div class="timespanBox">
+                            @if (count($all_timespans) > 0)
+                              @foreach ($all_timespans as $one_timespan)
+                                <div>
+                                  <a href="{{ route('edit.member.timespan.index',[
+                                    'id' => $one_timespan->user_id,
+                                    'timespan_id' => $one_timespan->id
+                                  ]) }}">
+                                    {{ $one_timespan->job }}, {{ $one_timespan->unit }}: {{ $one_timespan->start_year }} @if ($one_timespan->end_year) - {{ $one_timespan->end_year }} @endif
+                                  </a>
+                                </div>
+                              @endforeach
+                            @else
+                              <div>
+                                <i>No timespans found</i>
+                              </div>
+                            @endif
+                          </div>
+                          <div class="addMemberTimespan">
+                            <a href="{{ route('add.member.timespan.index',['id' => $member->id]) }}">
+                              <span>
+                                ADD A TIMESPAN
+                              </span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
                       <div class="basicInfoGrid">
                         <div>
                           Mailing Address

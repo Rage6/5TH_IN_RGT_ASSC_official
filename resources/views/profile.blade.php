@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                  KNOW A BOBCAT
+                  FIND A BOBCAT
                 </div>
                 <div class="card-body">
                     <a href="{{ route('bobcat.list.index') }}">
@@ -38,6 +38,41 @@
                           <i>{{ __('No biography at this time') }}</i>
                         @endif
                       </div>
+                      @if (count($all_jobs) > 0)
+                        <div class="card-subtitle memberInfoTitle">
+                          Bobcat History
+                        </div>
+                        <div class="card-text memberInfoContent bobcatTimespan">
+                          @php
+                            $background_color = 'lightgrey';
+                          @endphp
+                          @for ($i = 0; count($all_jobs) > $i; $i++)
+                            <div class="bobcatTimespanRow" style="background-color:{{ $background_color }}">
+                              <div class="bobcatJob">
+                                {{ $all_jobs[$i]->job }}
+                              </div>
+                              <div class="bobcatUnit">
+                                {{ $all_jobs[$i]->unit }}
+                              </div>
+                              <div class="bobcatStart">
+                                {{ $all_jobs[$i]->start_month }}, {{ $all_jobs[$i]->start_year }}
+                              </div>
+                              <div class="bobcatDash">
+                              </div>
+                              <div class="bobcatEnd">
+                                {{ $all_jobs[$i]->end_month }}, {{ $all_jobs[$i]->end_year }}
+                              </div>
+                            </div>
+                            @php
+                              if ($background_color != 'lightgrey') {
+                                $background_color = 'lightgrey';
+                              } else {
+                                $background_color = 'white';
+                              };
+                            @endphp
+                          @endfor
+                        </div>
+                      @endif
                       @if ($bobcat->email_visible == 1 || $bobcat->phone_visible == 1)
                         <div class="card-subtitle memberInfoTitle">
                           Contact Information
@@ -67,18 +102,20 @@
 
                         </ul>
                       </div> -->
-                      <div class="card-subtitle memberInfoTitle">
-                        Personal Links
-                      </div>
-                      <div class="card-text memberInfoContent">
-                        <ul>
-                          @foreach ($all_links as $one_link)
-                            <li>
-                              <a href="{{ $one_link->url }}">{{ $one_link->name }}</a>
-                            </li>
-                          @endforeach
-                        </ul>
-                      </div>
+                      @if (count($all_links) > 0)
+                        <div class="card-subtitle memberInfoTitle">
+                          Personal Links
+                        </div>
+                        <div class="card-text memberInfoContent">
+                          <ul>
+                            @foreach ($all_links as $one_link)
+                              <li>
+                                <a href="{{ $one_link->url }}">{{ $one_link->name }}</a>
+                              </li>
+                            @endforeach
+                          </ul>
+                        </div>
+                      @endif
                     </div>
                 </div>
             </div>

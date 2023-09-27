@@ -120,6 +120,16 @@ Route::middleware('auth')->group(function() {
     Route::get('profile/{id}', [App\Http\Controllers\HomeController::class,'bobcat_profile_index'])->name('bobcat.profile.index');
     Route::get('edit-profile', [App\Http\Controllers\HomeController::class,'edit_profile_index'])->name('profile.edit');
     Route::post('edit-profile-change', [App\Http\Controllers\HomeController::class,'edit_profile_change'])->name('profile.edit.change');
+    // Prepare to add/edit a link
+    Route::get('add-link-to-profile', [App\Http\Controllers\HomeController::class,'profile_link_new'])->name('profile.link.new');
+    // Add a new profile link
+    Route::post('add-profile-link', [App\Http\Controllers\HomeController::class,'profile_link_new_post'])->name('profile.link.add');
+    // Prepare to edit/delete a link
+    Route::get('edit-or-delete-profile-link/{link_id}', [App\Http\Controllers\HomeController::class,'profile_link_existing'])->name('profile.link.view');
+    // Edit a link
+    Route::post('edit-profile-link/{link_id}', [App\Http\Controllers\HomeController::class,'profile_link_change'])->name('profile.link.change');
+    // Delete a link
+    Route::get('delete-profile-link/{link_id}', [App\Http\Controllers\HomeController::class,'profile_link_delete'])->name('profile.link.delete');
     Route::get('delete-personal-image/{img_type}', [App\Http\Controllers\HomeController::class,'image_personal_index'])->name('delete.personal.image.index');
     Route::post('delete-personal-image-complete{img_type}', [App\Http\Controllers\HomeController::class,'image_personal_delete'])->name('delete.personal.image.complete');
     Route::get('edit-password', [App\Http\Controllers\HomeController::class,'edit_password_index'])->name('password.edit');
@@ -161,6 +171,16 @@ Route::middleware('auth')->group(function() {
       Route::post('edit-bobcat/{id}/edit-deadline/permanent',[App\Http\Controllers\AdminController::class,'edit_member_deadline_permanent'])->name('edit.member.permanent');
       Route::post('edit-bobcat/{id}/edit-deadline/nonmember',[App\Http\Controllers\AdminController::class,'edit_member_deadline_nonmember'])->name('edit.member.nonmember');
       Route::post('edit-bobcat/{id}/edit-deadline/expiration-date',[App\Http\Controllers\AdminController::class,'edit_member_deadline_manual'])->name('edit.member.manual');
+      // Prepare to add new timespan of a member in a Bobcat unit
+      Route::get('edit-bobcat/{id}/add-new-timespan',[App\Http\Controllers\AdminController::class,'add_member_timespan_index'])->name('add.member.timespan.index');
+      // Add new timespan of a member in a Bobcat unit
+      Route::post('edit-bobcat/{id}/add-new-timespan-complete',[App\Http\Controllers\AdminController::class,'add_member_timespan_post'])->name('add.member.timespan.post');
+      // Prepare to edit the timespan of a member in a Bobcat unit
+      Route::get('edit-bobcat/{id}/change-timespan/{timespan_id}',[App\Http\Controllers\AdminController::class,'edit_member_timespan_index'])->name('edit.member.timespan.index');
+      // Edit the timespan of a member in a Bobcat unit
+      Route::post('edit-bobcat/{id}/change-timespan-complete/{timespan_id}',[App\Http\Controllers\AdminController::class,'edit_member_timespan_post'])->name('edit.member.timespan.post');
+      // Delete the timespan of a member in a Bobcat unit
+      Route::get('edit-bobcat/{id}/delete-timespan/{timespan_id}',[App\Http\Controllers\AdminController::class,'delete_member_timespan'])->name('edit.member.timespan.delete');
     });
 
     Route::middleware(['permission:See Nonmembers'])->group(function() {
