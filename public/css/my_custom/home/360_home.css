@@ -708,6 +708,8 @@
 }
 
 .oneTimespanBox {
+  margin-top: 25px;
+  border: 2px solid gray;
   display: grid;
   grid-template-areas:
   "job job delete"
@@ -717,6 +719,11 @@
   grid-template-columns: 46% 46% 6%;
   grid-column-gap: 1%;
   grid-row-gap: 5px;
+  background-color: gray;
+}
+
+.oneTimespanBox:first-of-type {
+  margin-top: 0;
 }
 
 .oneTimeSpanBox div input {
@@ -755,6 +762,8 @@
 }
 
 .gridDelete span {
+  border: 1px solid white;
+  border-radius: 5px;
   color: white;
   text-align: center;
   background-color: red;
