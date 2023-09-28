@@ -16,9 +16,17 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  height: 60px;
+}
+
+.homeButton {
   color: white;
   background-color: rgb(139,0,0);
-  height: 60px;
+}
+
+.logoutButton {
+  color: black;
+  background-color: lightgray;
 }
 
 .memberStats {
@@ -69,25 +77,6 @@
 
 /* END BOBCAT LIST */
 
-/* .customCard {
-  margin-bottom: 30px;
-}
-
-.customHeader {
-  color: white;
-  background-color: rgba(255,0,0,0.8);
-}
-
-.customText {
-  margin-bottom: 20px;
-}
-
-.userTitle {
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  text-decoration: underline;
-} */
-
 .primaryImg {
   background-size:contain;
   background-position:center;
@@ -116,67 +105,6 @@
   background-position:center;
   background-repeat:no-repeat;
 }
-
-/* .troublesBox {
-  display: none;
-}
-
-.searchBttnRow {
-  display: flex;
-  justify-content: space-between;
-}
-
-.searchBttnRow div {
-  margin-bottom: 5px;
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 5px 1%;
-  color: black;
-  text-align: center;
-  width: 30%;
-}
-
-.searchBttnRow div:last-child {
-  color: white;
-  background-color: black;
-}
-
-.categoryBox {
-  display: none;
-}
-
-.allSearchResults {
-  margin: 0 2% 20px 2%;
-  background-color: rgba(0,0,0,0.1);
-  border-radius: 5px;
-  padding: 0 2%;
-  overflow-y: scroll;
-}
-
-.oneSearchResult {
-  margin-top: 10px;
-  border-radius: 15px;
-  padding: 10px 2%;
-  display: grid;
-  grid-template-columns: 70% 13% 13%;
-  column-gap: 2%;
-  background-color: rgba(0,100,0,0.5);
-}
-
-.oneSearchResult:last-child {
-  margin-bottom: 10px;
-}
-
-.oneResultName {
-  overflow-x: scroll;
-}
-
-.searchResultBttn {
-  background-size: contain;
-  background-position:center;
-  background-repeat:no-repeat;
-  height:5vh;
-} */
 
 /* START View */
 
@@ -236,7 +164,6 @@
 }
 
 .bobcatDash {
-  /* background: conic-gradient(from 0deg at 50% 100%, green 30deg, white 30deg, white 330deg, green 330deg); */
   background-image: url('/images/green-arrow-down2.png');
   background-position: center;
   background-repeat: no-repeat;
@@ -284,6 +211,45 @@
 }
 
 /* END View */
+
+/* START Bobcat Staff */
+
+.staffEl {
+  margin-top: 30px;
+}
+
+.staffTitle span {
+  font-size: 1.1rem;
+  color: rgb(139,0,0);
+}
+
+.staffMemberList {
+
+}
+
+.staffMember {
+  margin-top: 10px;
+  background-color: rgba(0,100,0,0.1);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  min-height: 100px;
+}
+
+.staffMember div:first-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.staffMember div:last-child {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* END Contact List */
 
 /* START Edit page */
 

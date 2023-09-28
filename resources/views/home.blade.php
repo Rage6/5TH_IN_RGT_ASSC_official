@@ -16,39 +16,41 @@
                   <div>
                     <div class="homeContent">
                       <a href="{{ route('bobcat.list.index') }}">
-                        <div class="contentButton">
+                        <div class="homeButton contentButton">
                           <div>FIND A BOBCAT</div>
                         </div>
                       </a>
                       <a href="{{ route('newsletter.index') }}">
-                        <div class="contentButton">
+                        <div class="homeButton contentButton">
                           <div>NEWSLETTERS</div>
                         </div>
                       </a>
                       <a href="{{ route('reunion.index') }}">
-                        <div class="contentButton">
+                        <div class="homeButton contentButton">
                           <div>YEARLY REUNION</div>
                         </div>
                       </a>
                       <a href="{{ url('items?purpose=merchandise.index&title=Bobcat%20Merchandise') }}">
-                        <div class="contentButton">
+                        <div class="homeButton contentButton">
                           <div>MERCHANDISE</div>
                         </div>
                       </a>
-                      <!-- <div class="contentButton">
+                      <a href="{{ route('staff.index') }}">
+                        <div class="homeButton contentButton">
+                          <div>BOBCAT STAFF</div>
+                        </div>
+                      </a>
+                      <!-- <div class="homeButton contentButton">
                         <div>PAYMENT HISTORY</div>
                       </div> -->
-                      <!-- <div class="contentButton">
-                        <div>CONTACT US</div>
-                      </div> -->
                       <a href="{{ route('profile.edit') }}">
-                        <div class="contentButton">
+                        <div class="homeButton contentButton">
                           <div>CHANGE ACCOUNT</div>
                         </div>
                       </a>
                       @if ($is_admin)
                         <a href="{{route('admin.index')}}">
-                          <div class="contentButton">
+                          <div class="homeButton contentButton">
                             <div>ADMINISTRATOR</div>
                           </div>
                         </a>
@@ -91,7 +93,7 @@
                     </div>
                     <div class="homeContent">
                       <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        <div class="contentButton">
+                        <div class="logoutButton contentButton">
                           <div>LOG OUT</div>
                         </div>
                       </a>

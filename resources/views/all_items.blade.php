@@ -127,7 +127,15 @@
                           <input type="number" name="item_price_{{ $count }}" min="0" max="9999.99" step="0.01" value="0">
                         @endif
                       @else
-                        <div>${{ $item->price }}</div>
+                        @if (count(explode(".",$item->price)) > 1)
+                          @if (strlen(explode(".",$item->price)[1]) == 1)
+                            <div>${{ $item->price."0" }}</div>
+                          @else
+                            <div>${{ $item->price }}</div>
+                          @endif
+                        @else
+                          <div>${{ $item->price.".00" }}</div>
+                        @endif
                         <input type="hidden" name="item_price_{{ $count }}" min="0" max="9999.99" step="0.01" value="{{ $item->price }}" readonly>
                       @endif
                     </div>

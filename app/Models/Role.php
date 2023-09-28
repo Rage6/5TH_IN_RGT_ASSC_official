@@ -15,6 +15,10 @@ class Role extends Model
       return Role::all();
     }
 
+    public function all_role_users() {
+      return $this->belongsToMany('App\Models\User');
+    }
+
     public function all_role_permissions() {
       return $this->belongsToMany('App\Models\Permission');
     }

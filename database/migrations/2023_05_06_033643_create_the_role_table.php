@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string("title")->unique();
             $table->string("slug")->unique();
+            $table->boolean("public")->default(0);
+            $table->text("description")->nullable();
             $table->timestamps();
         });
     }

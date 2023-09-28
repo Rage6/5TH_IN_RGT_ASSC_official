@@ -273,6 +273,19 @@ class HomeController extends Controller
       };
     }
 
+    public function bobcat_staff_index() {
+      $all_roles = Role::where('public',1)->orderBy('title','ASC')->get();
+
+      foreach ($all_roles as $one_role) {
+        $all_users = Role::find($one_role->id)->all_role_users;
+        $one_role->all_users = $all_users;
+      };
+
+      return view('staff',[
+        'all_staff' => $all_roles
+      ]);
+    }
+
     public function bobcat_list_index() {
 
       $all_bobcats = User::where([
@@ -283,6 +296,8 @@ class HomeController extends Controller
         ['deceased',"=",0],
         ['expiration_date',"=",'1970-01-01 00:00:00']
       ])
+      ->orderBy('last_name','ASC')
+      ->orderBy('first_name','ASC')
       ->paginate(20);
       return view('all_bobcats',[
         'all_bobcats' => $all_bobcats

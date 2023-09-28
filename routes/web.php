@@ -115,9 +115,15 @@ Route::get('images/events/subevents/{filename}', function($filename){
 Route::middleware('auth')->group(function() {
 
   Route::prefix('/home')->group(function() {
+    // Enter the homepage
     Route::get('', [App\Http\Controllers\HomeController::class,'index'])->name('home');
+    // See all Bobcats
     Route::get('list-of-bobcats', [App\Http\Controllers\HomeController::class,'bobcat_list_index'])->name('bobcat.list.index');
+    // See one Bobcat's profiles
     Route::get('profile/{id}', [App\Http\Controllers\HomeController::class,'bobcat_profile_index'])->name('bobcat.profile.index');
+    // See the staff of the Bobcat organization
+    Route::get('contact-us', [App\Http\Controllers\HomeController::class,'bobcat_staff_index'])->name('staff.index');
+    // Editing the user's profile
     Route::get('edit-profile', [App\Http\Controllers\HomeController::class,'edit_profile_index'])->name('profile.edit');
     Route::post('edit-profile-change', [App\Http\Controllers\HomeController::class,'edit_profile_change'])->name('profile.edit.change');
     // Prepare to add/edit a link
