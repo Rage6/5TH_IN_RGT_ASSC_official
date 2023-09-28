@@ -707,4 +707,71 @@
   margin-top: 15px;
 }
 
+.oneTimespanBox {
+  display: grid;
+  grid-template-areas:
+  "job job delete"
+  "unit unit delete"
+  "startMonth startYear delete"
+  "endMonth endYear delete";
+  grid-template-columns: 46% 46% 6%;
+  grid-column-gap: 1%;
+  grid-row-gap: 5px;
+}
+
+.oneTimeSpanBox div input {
+  width: 100%;
+}
+
+.gridJob {
+  grid-area: job;
+}
+
+.gridUnit {
+  grid-area: unit;
+}
+
+.gridStartMonth {
+  grid-area: startMonth;
+}
+
+.gridStartYear {
+  grid-area: startYear;
+}
+
+.gridEndMonth {
+  grid-area: endMonth;
+}
+
+.gridEndYear {
+  grid-area: endYear;
+}
+
+.gridDelete {
+  grid-area: delete;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gridDelete span {
+  color: white;
+  text-align: center;
+  background-color: red;
+}
+
+.addEntryRow {
+  margin: 5px 0 20px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.addEntryRow span {
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
+  text-align: center;
+  background-color: green;
+}
+
 /* END Administration page */

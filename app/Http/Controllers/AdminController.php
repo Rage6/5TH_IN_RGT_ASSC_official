@@ -104,7 +104,8 @@ class AdminController extends Controller
         'rank'             => 'nullable|string',
         // 'kiaLocation'      => 'nullable|string',
         // 'injuryType'       => 'nullable|string',
-        // 'burialSite'       => 'nullable|string'
+        // 'burialSite'       => 'nullable|string',
+        'timespanIndexList' => 'nullable|string'
       ]);
 
       if ($request->isKiaMia == 1 || $request->isKiaMia == "1") {
@@ -197,6 +198,38 @@ class AdminController extends Controller
       $input['expiration_date'] = $timestamp;
 
       $new_user = User::create($input);
+
+      if ($request->timespanIndexList != null && $request->timespanIndexList != "") {
+        $string = $request->timespanIndexList;
+        $stringArray = explode(",",$string);
+        for ($i = 0; count($stringArray) > $i; $i++) {
+          $jobKey = 'timespanJob_'.$stringArray[$i];
+          $unitKey = 'timespanUnit_'.$stringArray[$i];
+          $startMonthKey = 'startMonth_'.$stringArray[$i];
+          $startYearKey = 'startYear_'.$stringArray[$i];
+          $endMonthKey = 'endMonth_'.$stringArray[$i];
+          $endYearKey = 'endYear_'.$stringArray[$i];
+          $request->validate([
+            $jobKey => 'nullable|string',
+            $unitKey => 'nullable|string',
+            $startMonthKey => 'nullable|numeric|min:1|max:12',
+            $startYearKey => 'nullable|numeric|min:1812|max:3000',
+            $endMonthKey => 'nullable|numeric|min:1|max:12',
+            $endYearKey => 'nullable|numeric|min:1812|max:3000',
+          ]);
+          if ($request[$jobKey] || $request[$unitKey] || $request[$startMonthKey] || $request[$startYearKey] || $request[$endMonthKey] || $request[$endYearKey]) {
+            $new_timespan = new Timespan;
+            $new_timespan->job = $request[$jobKey];
+            $new_timespan->unit = $request[$unitKey];
+            $new_timespan->start_month = $request[$startMonthKey];
+            $new_timespan->start_year = $request[$startYearKey];
+            $new_timespan->end_month = $request[$endMonthKey];
+            $new_timespan->end_year = $request[$endYearKey];
+            $new_timespan->user_id = $new_user->id;
+            $new_timespan->save();
+          };
+        };
+      };
 
       $role_id = Role::where('slug','basic-member')->first();
 

@@ -377,4 +377,68 @@ $(document).ready(() => {
     };
   });
 
+  // Delete a 'timespan' entry
+  function deleteTimespan(indexNum) {
+    $('[data-tag="delete"][data-index="'+indexNum+'"]').click(()=>{
+      // Removes the target element...
+      $('[data-tag="entry"][data-index="'+indexNum+'"]').remove();
+      // ...and removes it from the index list
+      var oldIndex = indexNum.toString();
+      var oldListString = $('[data-tag="list"]').val();
+      var oldListArray = oldListString.split(",");
+      var newListString = "";
+      var firstIndex = true;
+      for (var i = 0; oldListArray.length > i; i++) {
+        if (oldListArray[i] != oldIndex) {
+          if (firstIndex == true) {
+            newListString += oldListArray[i];
+            firstIndex = false;
+          } else {
+            newListString = newListString + "," + oldListArray[i];
+          };
+        };
+      };
+      $('[data-tag="list"]').val(newListString);
+    });
+  };
+  deleteTimespan(1);
+
+  // Add a new 'timespan' of how long the member was assigned to the 5th
+  $('[data-tag="button"]').click(()=>{
+
+    var oldListString = $('[data-tag="list"]').val();
+    if (oldListString == false) {
+      var indexList = null;
+      var newIndex = 1;
+    } else {
+      var indexList = oldListString.split(",");
+      var initIndex = parseInt(indexList[indexList.length-1]);
+      var newIndex = initIndex + 1;
+    };
+
+    var newEntryEl = "\
+    <div data-tag=\"entry\" data-index=\""+newIndex+"\" class=\"oneTimespanBox\">\
+    <input class=\"gridJob\" type=\"text\" data-tag=\"job\" data-index=\""+newIndex+"\" name=\"timespanJob_"+newIndex+"\" placeholder=\"Job\">\
+    <input class=\"gridUnit\" type=\"text\" data-tag=\"unit\" data-index=\""+newIndex+"\" name=\"timespanUnit_"+newIndex+"\" placeholder=\"Unit\">\
+    <input class=\"gridStartMonth\" type=\"text\" data-tag=\"startMonth\" data-index=\""+newIndex+"\" name=\"startMonth_"+newIndex+"\" placeholder=\"Start Month (1-12)\">\
+    <input class=\"gridStartYear\" type=\"text\" data-tag=\"startYear\" data-index=\""+newIndex+"\" name=\"startYear_"+newIndex+"\" placeholder=\"Start Year\">\
+    <input class=\"gridEndMonth\" type=\"text\" data-tag=\"endMonth\" data-index=\""+newIndex+"\" name=\"endMonth_"+newIndex+"\" placeholder=\"End Month (1-12)\">\
+    <input class=\"gridEndYear\" type=\"text\" data-tag=\"endYear\" data-index=\""+newIndex+"\" name=\"endYear_"+newIndex+"\" placeholder=\"End Year\">\
+    <div class=\"gridDelete\"><span data-tag=\"delete\" data-index=\""+newIndex+"\">X</span></div>\
+    </div>";
+    // Creates new entry...
+    $("[data-tag='entries']").append(newEntryEl);
+    // ...and binds the 'delete' button to it.
+    $("[data-tag='delete'][data-index='"+newIndex+"']").bind("click",deleteTimespan(newIndex));
+
+    if (indexList != null) {
+      indexList = indexList + "," + newIndex.toString();
+    } else {
+      indexList = newIndex.toString();
+    };
+
+    $('[data-tag="list"]').val(indexList);
+    initIndex = newIndex;
+  });
+
 });

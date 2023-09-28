@@ -85,6 +85,30 @@
                           </select>
                         </div>
                       </div>
+                      <div>
+                        <div>
+                          With which job & unit were they part of the regiment, and when?
+                        </div>
+                        <input type="hidden" data-tag="list" name="timespanIndexList" value="1"/>
+                        <div class="allTimespanBox" data-tag="entries">
+                          <div class="oneTimespanBox" data-tag="entry" data-index="1">
+                            <input class="gridJob" type="text" data-tag="job" data-index="1" name="timespanJob_1" placeholder="Job">
+                            <input class="gridUnit" type="text" data-tag="unit" data-index="1" name="timespanUnit_1" placeholder="Unit"/>
+                            <input class="gridStartMonth" type="number" data-tag="startMonth" data-index="1" name="startMonth_1" placeholder="Start Month (1-12)" min="1" max="12">
+                            <input class="gridStartYear" type="number" data-tag="startYear" data-index="1" name="startYear_1" placeholder="Start Year" min="1812">
+                            <input class="gridEndMonth" type="number" data-tag="endMonth" data-index="1" name="endMonth_1" placeholder="End Month (1-12)" min="1" max="12">
+                            <input class="gridEndYear" type="number" data-tag="endYear" data-index="1" name="endYear_1" placeholder="End Year" min="1812">
+                            <div class="gridDelete">
+                              <span data-tag="delete" data-index="1">X</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="addEntryRow">
+                          <span data-tag="button">
+                            + ADD TIMESPAN
+                          </span>
+                        </div>
+                      </div>
                       <div class="basicInfoGrid">
                         <div>
                           Is this person deceased?
