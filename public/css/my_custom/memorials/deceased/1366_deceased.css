@@ -4,9 +4,26 @@
   grid-template-columns: 20vw 80vw;
 }
 
-.blueBand {
+/* .blueBand {
   background-position: top right 5%;
-  height: 82px;
+} */
+
+.titleBand {
+  /* the Arlington image size is: 1418 tall x 3492 wide; ration: 1418/3492 = 142/y; y ~ 350  */
+  background:
+    linear-gradient(
+      90deg,
+      rgba(105,105,105,1),
+      rgba(105,105,105,1) calc(100vw - 850px),
+      rgba(105,105,105,0.1)
+    ),
+    url('/images/deceased/arlington2-min.jpg'),
+    linear-gradient(
+      rgba(0,0,0,1),rgba(0,0,0,1)
+    );
+  background-position: right;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .casualtySearchForm {
@@ -24,11 +41,11 @@
 }
 
 .allOverallRows {
-  margin: 2vw;
+  margin: 1vw 1vw 1vw 2vw;
   display: grid;
-  grid-template-columns: 37vw 37vw;
-  grid-auto-rows: 37vw;
-  grid-gap: 2vw;
+  grid-template-columns: 25vw 25vw 25vw;
+  grid-auto-rows: 25vw;
+  grid-gap: 1vw;
 }
 
 .overallRow {

@@ -41,6 +41,7 @@ p {
 
 .blueBand {
   background-position: top right calc(50% - 550px);
+  height: 82px;
 }
 
 .casualtyTitle {

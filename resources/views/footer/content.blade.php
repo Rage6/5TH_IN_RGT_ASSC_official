@@ -42,9 +42,9 @@
     <a href="{{ route('recipients.all') }}">
       <div class="pageLink">Medal of Honor Recipients</div>
     </a>
-    <!-- <a href="{{ route('history.timeline') }}"> -->
+    <a href="{{ route('deceased.all') }}">
       <div class="pageLink">Deceased Members</div>
-    <!-- </a> -->
+    </a>
   </div>
   <div>
     <div>PHOTO ALBUM</div>

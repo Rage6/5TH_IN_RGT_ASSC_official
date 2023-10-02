@@ -6,6 +6,7 @@
 
 .blueBand {
   background-position: top right 5%;
+  height: 82px;
 }
 
 .casualtySearchForm {
@@ -52,7 +53,7 @@
 .leftSearchColumn {
   border-bottom: 1px solid black;
   min-height: calc(88vh - 142px);
-  grid-template-areas: "searchCol searchList"; 
+  grid-template-areas: "searchCol searchList";
 }
 
 .splitLetters {

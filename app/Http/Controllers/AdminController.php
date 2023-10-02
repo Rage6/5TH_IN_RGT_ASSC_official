@@ -97,6 +97,9 @@ class AdminController extends Controller
         'phoneNumber'      => 'nullable|string',
         'spouse'           => 'nullable|string',
         'isDeceased'       => 'required|integer',
+        'monthOfDeath'     => 'nullable|integer',
+        'dayOfDeath'       => 'nullable|integer',
+        'yearOfDeath'      => 'nullable|integer',
         'isKiaMia'         => 'required|integer',
         'isRecipient'      => 'required|integer',
         'membershipStatus' => 'required|string',
@@ -112,6 +115,10 @@ class AdminController extends Controller
         $request->isDeceased = 1;
       };
 
+      if ($request->monthOfDeath || $request->dayOfDeath || $request->yearOfDeath) {
+        $request->isDeceased = 1;
+      }
+
       $input['first_name'] = $request->firstName;
       $input['middle_name'] = $request->middleName;
       $input['last_name'] = $request->lastName;
@@ -121,6 +128,9 @@ class AdminController extends Controller
       $input['current_img'] = $request->currentImg;
       $input['veteran_img'] = $request->veteranImg;
       $input['deceased'] = $request->isDeceased;
+      $input['month_of_death'] = $request->monthOfDeath;
+      $input['day_of_death'] = $request->dayOfDeath;
+      $input['year_of_death'] = $request->yearOfDeath;
       $input['rank'] = $request->rank;
       $input['kia_or_mia'] = $request->isKiaMia;
       $input['moh_recipient'] = $request->isRecipient;
@@ -334,6 +344,9 @@ class AdminController extends Controller
         'veteranImg'       => 'nullable|file',
         // 'biography'        => 'nullable|string',
         'isDeceased'       => 'required|integer',
+        'monthOfDeath'     => 'nullable|integer|min:1|max:12',
+        'dayOfDeath'       => 'nullable|integer|min:1|max:31',
+        'yearOfDeath'      => 'nullable|integer|min:1900|max:3000',
         'isKiaMia'         => 'required|integer',
         'isRecipient'      => 'required|integer',
         // 'action'           => 'required',
@@ -354,6 +367,9 @@ class AdminController extends Controller
         // $member->veteran_img = $request->veteranImg;
         // $member->biography = $request['biography'];
         $member->deceased = $request['isDeceased'];
+        $member->month_of_death = $request['monthOfDeath'];
+        $member->day_of_death = $request['dayOfDeath'];
+        $member->year_of_death = $request['yearOfDeath'];
         $member->mailing_address = $request['mailingAddress'];
         $member->kia_or_mia = $request['isKiaMia'];
         $member->moh_recipient = $request['isRecipient'];

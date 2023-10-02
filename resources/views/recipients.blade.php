@@ -110,7 +110,7 @@
             <div>No recipients found</div>
           @endif
         </div>
-        @if ($recipient_count > 20)
+        @if ($recipient_count > 18)
           {{ $all_recipient_basics->links('pagination::casualty-list') }}
         @else
           <div style="height:1px"></div>

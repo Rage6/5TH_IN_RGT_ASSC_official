@@ -122,6 +122,23 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
+                          Date of Death
+                        </div>
+                        <div>
+                          <div>
+                            <input name="monthOfDeath" type="number" min="1" max="12" placeholder="MM">
+                            <input name="dayOfDeath" type="number" min="1" max="31" placeholder="DD">
+                            <input name="yearOfDeath" type="number" min="1900" max="3000" placeholder="YYYY">
+                          </div>
+                          <div>
+                            <div>Month</div>
+                            <div>Day</div>
+                            <div>Year</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
                           If deceased, where is this person buried?
                         </div>
                         <div>

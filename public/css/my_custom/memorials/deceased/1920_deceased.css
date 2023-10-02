@@ -1,12 +1,23 @@
 .leftSearchColumn {
+  margin-left: calc(50% - 683px);
+  margin-right: calc(50% - 683px);
   display: grid;
   grid-template-areas: "search results";
-  grid-template-columns: 20vw 80vw;
+  grid-template-columns: 20% 80%;
+  width: 1366px;
 }
 
 .blueBand {
-  background-position: top right 5%;
-  height: 82px;
+  background-position: top right calc(50% - 550px);
+  /* Got this by (1920px - 1366px) / 2 */
+}
+
+.casualtyTitle {
+  padding: 0 0 10px calc(50% - 615px);
+}
+
+.casualtySubtitle {
+  padding: 0 0 10px calc(50% - 615px);
 }
 
 .casualtySearchForm {
@@ -20,15 +31,15 @@
 }
 
 .casualtyTotal {
-  width: 80vw;
+  width: 100%;
 }
 
 .allOverallRows {
-  margin: 2vw;
+  margin: 10px;
   display: grid;
-  grid-template-columns: 37vw 37vw;
-  grid-auto-rows: 37vw;
-  grid-gap: 2vw;
+  grid-template-columns: 354px 355px 355px;
+  grid-auto-rows: 355px;
+  grid-gap: 10px;
 }
 
 .overallRow {
@@ -41,6 +52,12 @@
   /* padding: 1vw 5vw; */
 }
 
+.dailyAndSearchBox {
+  margin-left: calc(50% - 683px);
+  margin-right: calc(50% - 683px);
+  width: 1366px;
+}
+
 .mainBody {
   padding-top: 12vh;
   min-height: 88vh;
@@ -51,9 +68,26 @@
 }
 
 .leftSearchColumn {
+  margin-left: 0;
+  margin-right: 0;
   border-bottom: 1px solid black;
   min-height: calc(88vh - 142px);
-  grid-template-areas: "searchCol searchList";
+  grid-template-areas: "leftPad searchCol searchList rightPad";
+  grid-template-columns: calc(50% - 683px) 273px 1093px calc(50% - 683px);
+  width: 100%;
+}
+
+.sidePad {
+  display: block;
+  background-color: rgba(255,255,255,0.7);
+}
+
+.leftPad {
+  grid-area: leftPad;
+}
+
+.rightPad {
+  grid-area: rightPad;
 }
 
 .splitLetters {

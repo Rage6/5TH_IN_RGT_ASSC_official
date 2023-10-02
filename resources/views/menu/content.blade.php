@@ -77,7 +77,9 @@
         <a href="{{ route('recipients.all') }}">
           <div class="mainMenuSubBttn">+ Medal of Honor Recipients</div>
         </a>
-        <div class="mainMenuSubBttn">+ Deceased Members</div>
+        <a href="{{ route('deceased.all') }}">
+          <div class="mainMenuSubBttn">+ Deceased Members</div>
+        </a>
       </div>
     </div>
     <div>

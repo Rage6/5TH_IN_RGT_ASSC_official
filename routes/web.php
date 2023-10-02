@@ -76,6 +76,11 @@ Route::prefix('memorials')->group(function() {
   Route::get('{id}',[App\Http\Controllers\MemorialController::class,'show'])->name('casualties.select');
 });
 
+Route::prefix('deceased-members')->group(function() {
+  Route::get('',[App\Http\Controllers\DeceasedController::class,'index'])->name('deceased.all');
+  Route::get('{id}',[App\Http\Controllers\DeceasedController::class,'show'])->name('deceased.select');
+});
+
 Route::prefix('medal-of-honor')->group(function() {
   Route::get('recipients',[App\Http\Controllers\RecipientController::class,'index'])->name('recipients.all');
   Route::post('recipient-search',[App\Http\Controllers\RecipientController::class,'search'])->name('recipients.search');
