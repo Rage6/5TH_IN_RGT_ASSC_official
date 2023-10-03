@@ -22,7 +22,7 @@
 @section('deceased_content')
 <div class="mainAndFooter">
   <div class="mainBody">
-    <!-- <div class="whiteBand"> -->
+    <div class="titleWrap">
       <div class="titleBand">
         <div class="casualtyTitle">
           PLAYING TAPS
@@ -32,7 +32,7 @@
           Deceased Members
         </div>
       </div>
-    <!-- </div> -->
+    </div>
     <div class="leftSearchColumn oneSection">
       <div class="sidePad leftPad"></div>
       <div class="casualtySearch">
@@ -55,10 +55,12 @@
             @foreach ($all_deceased_basics as $one_deceased_basic)
               <div class="overallRow">
                 <div class="casualtyListRow"
-                @if ($one_deceased_basic->veteran_img)
+                @if ($one_deceased_basic->current_img)
+                  style="background-image:url('/images/current/{{ $one_deceased_basic->current_img }}')"
+                @elseif ($one_deceased_basic->veteran_img)
                   style="background-image:url('/images/veteran/{{ $one_deceased_basic->veteran_img }}')"
                 @else
-                  style="background-image:url('/images/deceased/default_tombstone.png')"
+                  style="background-image:url('/images/deceased/default_tombstone.png');filter:grayscale();"
                 @endif>
                 </div>
                 <div class="rowTextOverlap">
@@ -71,7 +73,7 @@
                   </div>
                   <div>
                     <div class="rowDetails">
-                      {{ $one_deceased_basic->month_of_death }}/{{ $one_deceased_basic->day_of_death }}/{{ $one_deceased_basic->year_of_death }}
+                      @if ($one_deceased_basic->month_of_death) {{ $one_deceased_basic->month_of_death }} @else __ @endif/@if ($one_deceased_basic->day_of_death) {{ $one_deceased_basic->day_of_death }} @else __ @endif/@if ($one_deceased_basic->year_of_death) {{ $one_deceased_basic->year_of_death }} @else ____ @endif
                     </div>
                     <div class="rowLink">
                       <a href="{{ route('deceased.select',['id' => $one_deceased_basic->id]) }}">

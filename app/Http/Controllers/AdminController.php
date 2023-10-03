@@ -69,10 +69,13 @@ class AdminController extends Controller
       $can_edit_casualty = Auth::user()->check_for_permission("Edit Casualty Records");
       $can_edit_recipient = Auth::user()->check_for_permission("Edit MOH Recipient Records");
       $all_reg_options = Item::where('purpose','registration.index')->get();
+      $oldest_date = intval(date("Y")) - 100;
+      $all_conflicts = Conflict::where('end_year','>',$oldest_date)->orderBy('end_year','ASC')->get();
       return view('admin.new_user',[
         'can_edit_casualty' => $can_edit_casualty,
         'can_edit_recipient' => $can_edit_recipient,
-        'all_reg_options' => $all_reg_options
+        'all_reg_options' => $all_reg_options,
+        'all_conflicts' => $all_conflicts
       ]);
     }
 
@@ -108,7 +111,8 @@ class AdminController extends Controller
         // 'kiaLocation'      => 'nullable|string',
         // 'injuryType'       => 'nullable|string',
         // 'burialSite'       => 'nullable|string',
-        'timespanIndexList' => 'nullable|string'
+        'timespanIndexList' => 'nullable|string',
+        'conflictTotal' => 'required|string'
       ]);
 
       if ($request->isKiaMia == 1 || $request->isKiaMia == "1") {
@@ -241,6 +245,20 @@ class AdminController extends Controller
         };
       };
 
+      $conflict_total = intval($request->conflictTotal);
+      if ($conflict_total > 0) {
+        for ($i = 1; $i <= $conflict_total; $i++) {
+          $this_conflict = 'conflict_'.strval($i);
+          if ($request[$this_conflict] == true) {
+            $request->validate([
+              $this_conflict => 'required|integer'
+            ]);
+            $conflict = $request[$this_conflict];
+            User::find($new_user->id)->all_user_conflicts()->attach($request[$this_conflict]);
+          };
+        };
+      };
+
       $role_id = Role::where('slug','basic-member')->first();
 
       if ($input['expiration_date'] != null) {
@@ -281,6 +299,19 @@ class AdminController extends Controller
 
       $all_timespans = Timespan::where('user_id',$id)->get();
 
+      $all_conflicts = Conflict::orderBy('start_year','ASC')->get();
+
+      $member_conflicts = $member->all_user_conflicts()->get();
+
+      foreach ($all_conflicts as $one_overall) {
+        $one_overall->selected = false;
+        foreach ($member_conflicts as $member_conflict) {
+          if ($one_overall->id == $member_conflict->id) {
+            $one_overall->selected = true;
+          };
+        };
+      };
+
       $current_user = Auth::user();
       $user_roles = User::find($current_user->id)->all_user_roles;
       $role_model = new Role();
@@ -318,7 +349,8 @@ class AdminController extends Controller
         'can_edit_member' => $can_edit_member,
         'can_edit_casualty' => $can_edit_casualty,
         'image_path' => $imagePath,
-        'all_timespans' => $all_timespans
+        'all_timespans' => $all_timespans,
+        'all_conflicts' => $all_conflicts
       ]);
     }
 
@@ -350,89 +382,84 @@ class AdminController extends Controller
         'isKiaMia'         => 'required|integer',
         'isRecipient'      => 'required|integer',
         // 'action'           => 'required',
-        'mailingAddress'   => 'nullable|string'
+        'mailingAddress'   => 'nullable|string',
+        'conflictTotal'    => 'required|string'
       ]);
 
       // $old_current_filename = $member->current_img;
       // $old_veteran_filename = $member->veteran_img;
 
-      // if ($request->action == 'update') {
-        $member->first_name = $request['firstName'];
-        $member->middle_name = $request['middleName'];
-        $member->last_name = $request['lastName'];
-        $member->email = $request['email'];
-        $member->phone_number = $request['phoneNumber'];
-        $member->spouse = $request['spouseName'];
-        // $member->current_img = $request->currentImg;
-        // $member->veteran_img = $request->veteranImg;
-        // $member->biography = $request['biography'];
-        $member->deceased = $request['isDeceased'];
-        $member->month_of_death = $request['monthOfDeath'];
-        $member->day_of_death = $request['dayOfDeath'];
-        $member->year_of_death = $request['yearOfDeath'];
-        $member->mailing_address = $request['mailingAddress'];
-        $member->kia_or_mia = $request['isKiaMia'];
-        $member->moh_recipient = $request['isRecipient'];
+      $member->first_name = $request['firstName'];
+      $member->middle_name = $request['middleName'];
+      $member->last_name = $request['lastName'];
+      $member->email = $request['email'];
+      $member->phone_number = $request['phoneNumber'];
+      $member->spouse = $request['spouseName'];
+      // $member->current_img = $request->currentImg;
+      // $member->veteran_img = $request->veteranImg;
+      // $member->biography = $request['biography'];
+      $member->deceased = $request['isDeceased'];
+      $member->month_of_death = $request['monthOfDeath'];
+      $member->day_of_death = $request['dayOfDeath'];
+      $member->year_of_death = $request['yearOfDeath'];
+      $member->mailing_address = $request['mailingAddress'];
+      $member->kia_or_mia = $request['isKiaMia'];
+      $member->moh_recipient = $request['isRecipient'];
 
-        if ($member->kia_or_mia == 1) {
-          $member->deceased = 1;
-        };
+      if ($member->kia_or_mia == 1) {
+        $member->deceased = 1;
+      };
 
-        // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-        //  $storagePath = 'images';
-        //  $public_path = 'storage/images';
-        // } else {
-        //   $storagePath = 'storage/images';
-        //   $public_path = 'storage/images';
-        // };
-        // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-        //   $storagePath = 'images';
-        //   $public_path = 'storage/images';
-        // } else {
-        //   $storagePath = 'storage/images';
-        //   $public_path = 'images';
-        // };
-        if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
-          $storagePath = 'public/images';
-        } else {
-          $storagePath = 'public/images';
-        };
+      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+        $storagePath = 'public/images';
+      } else {
+        $storagePath = 'public/images';
+      };
 
-        /*
-        // if (!file_exists('../public/storage')) {
-        //   Artisan::call('storage:link');
-        // };
-        */
-
-        if (request('currentImg')) {
-          $old_current_filename = $member->current_img;
-          $member['current_img'] = request('currentImg')->store($storagePath."/current");
-          $filename = request('currentImg')->hashName();
-          $member->current_img = $filename;
-          if ($old_current_filename != null) {
-            Storage::delete($storagePath."/current/".$old_current_filename);
-          };
-        };
-        if (request('veteranImg')) {
-          $old_veteran_filename = $member->veteran_img;
-          $member['veteran_img'] = request('veteranImg')->store($storagePath."/veteran");
-          $filename = request('veteranImg')->hashName();
-          $member->veteran_img = $filename;
-          if ($old_veteran_filename != null) {
-            Storage::delete($storagePath."/veteran/".$old_veteran_filename);
-          };
-        };
-
-        $member->save();
-      // } elseif ($request->action == 'current') {
-      //   $member->current_img = str_replace("storage/","",$member->current_img);
-      //   Storage::delete($member->current_img);
-      //   User::find($member->id)->update(['current_img' => null]);
-      // } elseif ($request->action == 'veteran') {
-      //   $member->veteran_img = str_replace("storage/","",$member->veteran_img);
-      //   Storage::delete($member->veteran_img);
-      //   User::find($member->id)->update(['veteran_img' => null]);
+      /*
+      // if (!file_exists('../public/storage')) {
+      //   Artisan::call('storage:link');
       // };
+      */
+
+      if (request('currentImg')) {
+        $old_current_filename = $member->current_img;
+        $member['current_img'] = request('currentImg')->store($storagePath."/current");
+        $filename = request('currentImg')->hashName();
+        $member->current_img = $filename;
+        if ($old_current_filename != null) {
+          Storage::delete($storagePath."/current/".$old_current_filename);
+        };
+      };
+      if (request('veteranImg')) {
+        $old_veteran_filename = $member->veteran_img;
+        $member['veteran_img'] = request('veteranImg')->store($storagePath."/veteran");
+        $filename = request('veteranImg')->hashName();
+        $member->veteran_img = $filename;
+        if ($old_veteran_filename != null) {
+          Storage::delete($storagePath."/veteran/".$old_veteran_filename);
+        };
+      };
+
+      $member->save();
+
+      $past_conflicts = $member->all_user_conflicts;
+      foreach ($past_conflicts as $one_conflict) {
+        $member->all_user_conflicts()->detach($one_conflict->id);
+      };
+      $conflict_total = intval($request->conflictTotal);
+      if ($conflict_total > 0) {
+        for ($i = 1; $i <= $conflict_total; $i++) {
+          $this_conflict = 'conflict_'.strval($i);
+          if ($request[$this_conflict] == true) {
+            $request->validate([
+              $this_conflict => 'required|integer'
+            ]);
+            $conflict = $request[$this_conflict];
+            User::find($member->id)->all_user_conflicts()->attach($request[$this_conflict]);
+          };
+        };
+      };
 
       return redirect()->route('edit.member.list');
     }
@@ -682,6 +709,11 @@ class AdminController extends Controller
       Link::where('user_id',$member->id)->delete();
 
       Timespan::where('user_id',$member->id)->delete();
+
+      $all_conflicts = Conflict::all();
+      foreach ($all_conflicts as $one_conflict) {
+        $member->all_user_conflicts()->detach($one_conflict);
+      };
 
       User::where('id',$id)->delete();
       return redirect()->route('delete.member.list');

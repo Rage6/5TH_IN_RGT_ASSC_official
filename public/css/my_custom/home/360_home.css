@@ -279,6 +279,11 @@
   grid-row-gap: 10px;
 }
 
+.basicDateInfo {
+  display: grid;
+  grid-template-columns: 33% 32% 33%;
+}
+
 .setDateInput {
   display: grid;
   grid-template-columns: 30% 60%;

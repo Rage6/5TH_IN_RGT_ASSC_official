@@ -81,6 +81,10 @@ class User extends Authenticatable
       return $this->belongsToMany('App\Models\Role');
     }
 
+    public function all_user_conflicts() {
+      return $this->belongsToMany('App\Models\Conflict');
+    }
+
     // For example, this function is used by the 'UserRole.php' middleware that I made.
     public function check_for_role($role_title) {
       foreach ($this->all_user_roles as $one_role) {

@@ -111,6 +111,22 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
+                          Which conflicts/wars did this person participate in?
+                        </div>
+                        <div>
+                          @php $conflict_number = 1 @endphp
+                          @foreach ($all_conflicts as $one_conflict)
+                            @php
+                              $input_name = 'conflict_'.$conflict_number;
+                            @endphp
+                            <input type="checkbox" name="{{ $input_name }}" value="{{ $one_conflict->id }}" /><span> {{ $one_conflict->name }}</span><br>
+                            @php $conflict_number++ @endphp
+                          @endforeach
+                          <input type="hidden" name="conflictTotal" value="{{ count($all_conflicts) }}">
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
                           Is this person deceased?
                         </div>
                         <div>
@@ -125,12 +141,11 @@
                           Date of Death
                         </div>
                         <div>
-                          <div>
+                          <div class="basicDateInfo">
                             <input name="monthOfDeath" type="number" min="1" max="12" placeholder="MM">
                             <input name="dayOfDeath" type="number" min="1" max="31" placeholder="DD">
                             <input name="yearOfDeath" type="number" min="1900" max="3000" placeholder="YYYY">
-                          </div>
-                          <div>
+
                             <div>Month</div>
                             <div>Day</div>
                             <div>Year</div>

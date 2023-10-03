@@ -7,6 +7,30 @@
   width: 1366px;
 }
 
+.titleWrap {
+  background-color: rgba(255,255,255,0.7);
+}
+
+.titleBand {
+  /* the Arlington image size is: 1418 tall x 3492 wide; ration: 1418/3492 = 142/y; y ~ 350  */
+  margin-left: calc(50vw - 683px);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(105,105,105,0.9),
+      rgba(105,105,105,0.9) calc(100vw - 850px),
+      rgba(105,105,105,0.1)
+    ),
+    url('/images/deceased/arlington2-min.jpg'),
+    linear-gradient(
+      rgba(0,0,0,1),rgba(0,0,0,1)
+    );
+  background-position: right;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 1366px;
+}
+
 .blueBand {
   background-position: top right calc(50% - 550px);
   /* Got this by (1920px - 1366px) / 2 */

@@ -13,8 +13,8 @@
   background:
     linear-gradient(
       90deg,
-      rgba(105,105,105,1),
-      rgba(105,105,105,1) calc(100vw - 850px),
+      rgba(105,105,105,0.9),
+      rgba(105,105,105,0.9) calc(100vw - 850px),
       rgba(105,105,105,0.1)
     ),
     url('/images/deceased/arlington2-min.jpg'),
