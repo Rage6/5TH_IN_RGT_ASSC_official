@@ -253,8 +253,30 @@ class AdminController extends Controller
             $request->validate([
               $this_conflict => 'required|integer'
             ]);
-            $conflict = $request[$this_conflict];
-            User::find($new_user->id)->all_user_conflicts()->attach($request[$this_conflict]);
+
+            $conflict = Conflict::find($request[$this_conflict]);
+            $user_conflicts = User::find($new_user->id)->all_user_conflicts;
+            // Below is to see if the current conflict is already attached.
+            $child_already_selected = false;
+            foreach ($user_conflicts as $child_check) {
+              if ($child_check->id == $conflict->id) {
+                $child_already_selected = true;
+              };
+            };
+            // Below is to see if a child conflict has already attached this conflict
+            $parent_already_selected = false;
+            foreach ($user_conflicts as $parent_check) {
+              if ($parent_check->id == $conflict->parent_id) {
+                $parent_already_selected = true;
+              };
+            };
+
+            if ($child_already_selected == false) {
+              User::find($new_user->id)->all_user_conflicts()->attach($conflict->id);
+              if ($parent_already_selected == false && $conflict->parent_id != null) {
+                User::find($new_user->id)->all_user_conflicts()->attach($conflict->parent_id);
+              };
+            };
           };
         };
       };
@@ -449,14 +471,37 @@ class AdminController extends Controller
       };
       $conflict_total = intval($request->conflictTotal);
       if ($conflict_total > 0) {
+        // $all_conflicts = Conflict::all();
         for ($i = 1; $i <= $conflict_total; $i++) {
           $this_conflict = 'conflict_'.strval($i);
           if ($request[$this_conflict] == true) {
             $request->validate([
               $this_conflict => 'required|integer'
             ]);
-            $conflict = $request[$this_conflict];
-            User::find($member->id)->all_user_conflicts()->attach($request[$this_conflict]);
+
+            $conflict = Conflict::find($request[$this_conflict]);
+            $user_conflicts = User::find($member->id)->all_user_conflicts;
+            // Below is to see if the current conflict is already attached.
+            $child_already_selected = false;
+            foreach ($user_conflicts as $child_check) {
+              if ($child_check->id == $conflict->id) {
+                $child_already_selected = true;
+              };
+            };
+            // Below is to see if a child conflict has already attached this conflict
+            $parent_already_selected = false;
+            foreach ($user_conflicts as $parent_check) {
+              if ($parent_check->id == $conflict->parent_id) {
+                $parent_already_selected = true;
+              };
+            };
+
+            if ($child_already_selected == false) {
+              User::find($member->id)->all_user_conflicts()->attach($conflict->id);
+              if ($parent_already_selected == false && $conflict->parent_id != null) {
+                User::find($member->id)->all_user_conflicts()->attach($conflict->parent_id);
+              };
+            };
           };
         };
       };

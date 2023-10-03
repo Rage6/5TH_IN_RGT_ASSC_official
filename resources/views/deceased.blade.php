@@ -75,11 +75,11 @@
                     <div class="rowDetails">
                       @if ($one_deceased_basic->month_of_death) {{ $one_deceased_basic->month_of_death }} @else __ @endif/@if ($one_deceased_basic->day_of_death) {{ $one_deceased_basic->day_of_death }} @else __ @endif/@if ($one_deceased_basic->year_of_death) {{ $one_deceased_basic->year_of_death }} @else ____ @endif
                     </div>
-                    <div class="rowLink">
+                    <!-- <div class="rowLink">
                       <a href="{{ route('deceased.select',['id' => $one_deceased_basic->id]) }}">
                         LEARN MORE >>
                       </a>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
