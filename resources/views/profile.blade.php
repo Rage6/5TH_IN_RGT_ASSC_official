@@ -73,6 +73,30 @@
                           @endfor
                         </div>
                       @endif
+                      @if (count($all_conflicts) > 0)
+                        <div class="card-subtitle memberInfoTitle">
+                          Veteran of...
+                        </div>
+                        <div class="card-text memberInfoContent bobcatTimespan">
+                          @php
+                            $background_color = 'lightgrey';
+                          @endphp
+                          @for ($i = 0; count($all_conflicts) > $i; $i++)
+                            <div class="bobcatTimespanRow" style="background-color:{{ $background_color }}">
+                              <div class="bobcatJob">
+                                {{ $all_conflicts[$i]->name }}
+                              </div>
+                            </div>
+                            @php
+                              if ($background_color != 'lightgrey') {
+                                $background_color = 'lightgrey';
+                              } else {
+                                $background_color = 'white';
+                              };
+                            @endphp
+                          @endfor
+                        </div>
+                      @endif
                       @if ($bobcat->email_visible == 1 || $bobcat->phone_visible == 1)
                         <div class="card-subtitle memberInfoTitle">
                           Contact Information

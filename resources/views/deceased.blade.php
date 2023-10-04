@@ -37,11 +37,21 @@
       <div class="sidePad leftPad"></div>
       <div class="casualtySearch">
         <div class="casualtySearchTitle">FIND A MEMBER</div>
-        <form method="POST" action="">
+        <form method="POST" action="{{ route('deceased.search') }}">
           @csrf
           <div class="casualtySearchForm">
-            <input class="firstNameInput" type="text" name="firstName" placeholder="First Name"/>
-            <input class="lastNameInput" type="text" name="lastName" placeholder="Last Name"/>
+            <input class="firstNameInput" type="text" name="firstName" @if ($search_first) value="{{ $search_first }}" @endif placeholder="First Name"/>
+            <input class="lastNameInput" type="text" name="lastName" @if ($search_last) value="{{ $search_last }}" @endif placeholder="Last Name"/>
+            <select class="conflictInput" name="conflictId">
+              <option value="">
+                Choose war/conflict
+              </option>
+              @foreach ($possible_conflicts as $one_conflict)
+                <option value="{{ $one_conflict->id }}" @if ($search_conflict == $one_conflict->id) selected @endif>
+                  {{ $one_conflict->name }}
+                </option>
+              @endforeach
+            </select>
             <input class="submitInput" type="submit" name="submitSearch" />
           </div>
         </form>
@@ -71,14 +81,17 @@
                       @endif {{ $one_deceased_basic->first_name }} {{ $one_deceased_basic->last_name }}
                     </u>
                   </div>
+                  <!-- <pre>
+                    @php
+                      var_dump($one_deceased_basic->all_conflicts)
+                    @endphp
+                  </pre> -->
                   <div>
                     <div class="rowDetails">
-                      @if ($one_deceased_basic->month_of_death) {{ $one_deceased_basic->month_of_death }} @else __ @endif/@if ($one_deceased_basic->day_of_death) {{ $one_deceased_basic->day_of_death }} @else __ @endif/@if ($one_deceased_basic->year_of_death) {{ $one_deceased_basic->year_of_death }} @else ____ @endif
+                      Passed away: @if ($one_deceased_basic->month_of_death) {{ $one_deceased_basic->month_of_death }} @else __ @endif/@if ($one_deceased_basic->day_of_death) {{ $one_deceased_basic->day_of_death }} @else __ @endif/@if ($one_deceased_basic->year_of_death) {{ $one_deceased_basic->year_of_death }} @else ____ @endif
                     </div>
                     <!-- <div class="rowLink">
-                      <a href="{{ route('deceased.select',['id' => $one_deceased_basic->id]) }}">
-                        LEARN MORE >>
-                      </a>
+
                     </div> -->
                   </div>
                 </div>

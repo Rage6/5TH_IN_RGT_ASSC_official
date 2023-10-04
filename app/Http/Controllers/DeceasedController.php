@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\stdClass;
+
 use App\Models\User;
+use App\Models\Conflict;
 
 class DeceasedController extends Controller
 {
@@ -18,23 +21,82 @@ class DeceasedController extends Controller
         // The 'get_cart_count' function is in 'app\helper.php'
         $cart_count = get_cart_count($request)->cart_count;
 
-        $all_deceased = User::where([
-            ['deceased','=',1],
-            ['expiration_date','!=',null]
-          ])->get();
+        $all_parameters = [
+          ['deceased','=',1],
+          ['expiration_date','!=',null]
+        ];
 
-        $deceased_count = count($all_deceased);
+        $search_first_name = null;
+        if (isset($_GET['first_name'])) {
+          $all_parameters[] = ['first_name','LIKE','%'.$_GET['first_name'].'%'];
+          $search_first_name = $_GET['first_name'];
+        };
+
+        $search_last_name = null;
+        if (isset($_GET['last_name'])) {
+          $all_parameters[] = ['last_name','LIKE','%'.$_GET['last_name'].'%'];
+          $search_last_name = $_GET['last_name'];
+        };
+
+        $all_deceased = User::where($all_parameters)
+          ->orderBy('last_name','asc')
+          ->orderBy('first_name','asc')
+          ->get()
+          ->all();
+
+        $possible_conflicts = Conflict::where('member_participated',1)->orderBy('start_year','ASC')->get();
+
+        $search_conflict_id = null;
+        $new_all_deceased = $all_deceased;
+        if (isset($_GET['conflict_id'])) {
+          $search_conflict_id = intval($_GET['conflict_id']);
+          $new_all_deceased = [];
+
+          for ($i = 0; count($all_deceased) > $i; $i++) {
+            $all_deceased[$i]->all_conflicts = $all_deceased[$i]->all_user_conflicts()->get();
+            $part_of_conflict = false;
+            foreach ($all_deceased[$i]->all_conflicts as $check_conflict) {
+              if ($check_conflict->id == $search_conflict_id) {
+                $part_of_conflict = true;
+              };
+            };
+            if ($part_of_conflict == true) {
+              $new_all_deceased[] = $all_deceased[$i];
+            };
+          };
+        };
+
+        $deceased_count = count($new_all_deceased);
 
         return view('deceased',[
           'style' => 'deceased_style',
           'js' => '/js/my_custom/memorials/recipients.js',
           'content' => 'deceased_content',
-          'all_deceased_basics' => $all_deceased,
-          // 'all_conflicts' => $all_conflicts,
+          'all_deceased_basics' => $new_all_deceased,
           'deceased_count' => $deceased_count,
-          // 'recipient_data' => $recipient_data,
           'cart_count' => $cart_count,
-          // 'image_path' => $imagePath
+          'possible_conflicts' => $possible_conflicts,
+          'search_first' => $search_first_name,
+          'search_last' => $search_last_name,
+          'search_conflict' => $search_conflict_id
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        // The 'get_cart_count' function is in 'app\helper.php'
+        $cart_count = get_cart_count($request)->cart_count;
+
+        $request->validate([
+          'firstName'   => 'nullable|string',
+          'lastName'    => 'nullable|string',
+          'conflictId'  => 'nullable|integer'
+        ]);
+
+        return redirect()->route('deceased.all',[
+          'first_name' => $request['firstName'],
+          'last_name' => $request['lastName'],
+          'conflict_id' => $request['conflictId']
         ]);
     }
 

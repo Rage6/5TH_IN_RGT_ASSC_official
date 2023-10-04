@@ -168,7 +168,7 @@ p {
   grid-row-gap: 5px;
   grid-template-areas:
     "first first last last"
-    ". . conflict conflict"
+    "conflict conflict conflict conflict"
     "submit submit . .";
 }
 

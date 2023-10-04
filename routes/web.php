@@ -78,6 +78,7 @@ Route::prefix('memorials')->group(function() {
 
 Route::prefix('deceased-members')->group(function() {
   Route::get('',[App\Http\Controllers\DeceasedController::class,'index'])->name('deceased.all');
+  Route::post('search',[App\Http\Controllers\DeceasedController::class,'search'])->name('deceased.search');
   Route::get('{id}',[App\Http\Controllers\DeceasedController::class,'show'])->name('deceased.select');
 });
 

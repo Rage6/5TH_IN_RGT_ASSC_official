@@ -338,10 +338,13 @@ class HomeController extends Controller
         $all_jobs[] = $one_job;
       };
 
+      $all_conflicts = $bobcat->all_user_conflicts()->get();
+
       return view('profile',[
         'bobcat' => $bobcat,
         'all_links' => $all_links,
-        'all_jobs' => $all_jobs
+        'all_jobs' => $all_jobs,
+        'all_conflicts' => $all_conflicts
       ]);
     }
 }

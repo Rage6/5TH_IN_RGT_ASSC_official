@@ -52,6 +52,27 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
+                          Did any of our members participated in this war/conflict?
+                        </div>
+                        <div>
+                          <select name="memberParticipated">
+                            <option
+                              value="1"
+                              @if ($conflict->member_participated == 1) selected @endif
+                            >
+                              YES
+                            </option>
+                            <option
+                              value="0"
+                              @if ($conflict->member_participated == 0) selected @endif
+                            >
+                              NO
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
                           This is a list of the conflict that took place within '{{ $conflict->name }}'.
                         </div>
                         <div>

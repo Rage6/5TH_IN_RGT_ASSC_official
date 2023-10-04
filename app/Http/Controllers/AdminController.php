@@ -2566,7 +2566,8 @@ class AdminController extends Controller
         'name' => 'required|string',
         'startYear' => 'required|integer',
         'endYear' => 'nullable|integer',
-        'parentId' => 'nullable|integer'
+        'parentId' => 'nullable|integer',
+        'memberParticipated' => 'required|integer'
       ]);
 
       if ($request->parentId == 0) {
@@ -2645,6 +2646,7 @@ class AdminController extends Controller
       $conflict->start_year = $request->startYear;
       $conflict->end_year = $request->endYear;
       $conflict->parent_id = $request->parentId;
+      $conflict->member_participated = $request->memberParticipated;
 
       $conflict->save();
 
