@@ -81,30 +81,33 @@
                       @endif {{ $one_deceased_basic->first_name }} {{ $one_deceased_basic->last_name }}
                     </u>
                   </div>
-                  <!-- <pre>
-                    @php
-                      var_dump($one_deceased_basic->all_conflicts)
-                    @endphp
-                  </pre> -->
                   <div>
                     <div class="rowDetails">
                       Passed away: @if ($one_deceased_basic->month_of_death) {{ $one_deceased_basic->month_of_death }} @else __ @endif/@if ($one_deceased_basic->day_of_death) {{ $one_deceased_basic->day_of_death }} @else __ @endif/@if ($one_deceased_basic->year_of_death) {{ $one_deceased_basic->year_of_death }} @else ____ @endif
                     </div>
-                    <!-- <div class="rowLink">
-
-                    </div> -->
+                    <div class="rowLink">
+                      <a href="{{ route('deceased.select',['id' => $one_deceased_basic->id]) }}">
+                        LEARN MORE >>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
             @endforeach
           @else
-            <div>No recipients found</div>
+            <div>No members found</div>
           @endif
         </div>
-        @if ($deceased_count > 18)
-          {{ $all_deceased_basics->links('pagination::casualty-list') }}
-        @else
-          <div style="height:1px"></div>
+        @if ($how_many_pages > 1)
+          <div class="deceasedPaginator">
+            @for ($i = 1; $i <= $how_many_pages; $i++ )
+              <span>
+                <a href="{{ url('/deceased-members?page='.$i) }}" @if ($i == $current_page) style="text-decoration: underline" @endif>
+                  {{ $i }}
+                </a>
+              </span>
+            @endfor
+          </div>
         @endif
       </div>
       <div class="sidePad rightPad">

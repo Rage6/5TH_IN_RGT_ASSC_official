@@ -166,6 +166,13 @@
                         </label>
                         <input id="tombstone" type="file" class="form-control" name="tombstoneImg">
                       </div> -->
+                      <div class="basicInfoGrid">
+                        <div>
+                          Are there any additional comments about this person? They will only appear on their casualty, Medal of Honor (MoH), or deceased member pages. Examples include obituaries, tributes, and press articles. MoH citations do NOT apply here.
+                        </div>
+                        <textarea id="comments" name="comments">
+                        </textarea>
+                      </div>
                       @if ($can_edit_casualty)
                         <div class="basicInfoGrid">
                           <div>

@@ -1,7 +1,14 @@
 .leftSearchColumn {
+  border-bottom: 1px solid black;
   display: grid;
-  grid-template-areas: "search results";
   grid-template-columns: 20vw 80vw;
+  grid-template-areas: "searchCol searchList";
+  min-height: calc(88vh - 142px);
+}
+
+.selectedMain {
+  grid-template-columns: 100vw;
+  grid-template-areas: "selected";
 }
 
 /* .blueBand {
@@ -65,12 +72,6 @@
 
 .whiteBand {
   height: 132px;
-}
-
-.leftSearchColumn {
-  border-bottom: 1px solid black;
-  min-height: calc(88vh - 142px);
-  grid-template-areas: "searchCol searchList";
 }
 
 .splitLetters {

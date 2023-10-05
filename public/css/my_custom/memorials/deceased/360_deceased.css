@@ -334,19 +334,9 @@ p {
 .recipientBio {
   margin: 10px 0;
   padding: 15px 5%;
-  /* padding-bottom: 30px; */
   font-size: 1.3rem;
   background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
-}
-
-.recipientBioSummary {
-  padding: 15px 5%;
-  background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
-  /* min-height: 60vh; */
-}
-
-.recipientBioSummary div {
-  padding: 10px 0;
+  white-space: break-spaces;
 }
 
 .externalBox {
@@ -388,6 +378,17 @@ p {
   white-space: break-spaces;
 }
 
+/* SELECTED DECEASED MEMBER PAGE */
+
+.selectedContent {
+  grid-template-areas:
+    "selected";
+}
+
+.selectedMain {
+  grid-area: selected;
+}
+
 /* PAGINATION  */
 .customPagination {
   display: flex;
@@ -405,4 +406,22 @@ p {
 .customPagination li a {
   text-decoration: underline;
   color: black;
+}
+
+.deceasedPaginator {
+  margin-bottom: 15px;
+  padding: 0 5%;
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.deceasedPaginator span a {
+  color: black;
+}
+
+.deceasedPaginator span {
+  margin-right: 20px;
+  margin-bottom: 10px;
+  font-family: 'Special Elite';
 }

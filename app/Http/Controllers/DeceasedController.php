@@ -8,6 +8,7 @@ use App\Http\Controllers\stdClass;
 
 use App\Models\User;
 use App\Models\Conflict;
+use App\Models\Link;
 
 class DeceasedController extends Controller
 {
@@ -68,6 +69,23 @@ class DeceasedController extends Controller
 
         $deceased_count = count($new_all_deceased);
 
+        $names_per_page = 18;
+        if (!isset($_GET['page'])) {
+          $page_number = 1;
+        } else {
+          $page_number = intval($_GET['page']);
+        };
+        if ($deceased_count / $names_per_page > 1) {
+          $how_many_pages = floor($deceased_count / $names_per_page);
+          if (is_int($deceased_count / $names_per_page) == false) {
+            $how_many_pages++;
+          };
+          $first_index = $page_number * $names_per_page - $names_per_page;
+          $new_all_deceased = array_slice($new_all_deceased,$first_index,$names_per_page);
+        } else {
+          $how_many_pages = 1;
+        };
+
         return view('deceased',[
           'style' => 'deceased_style',
           'js' => '/js/my_custom/memorials/recipients.js',
@@ -78,7 +96,9 @@ class DeceasedController extends Controller
           'possible_conflicts' => $possible_conflicts,
           'search_first' => $search_first_name,
           'search_last' => $search_last_name,
-          'search_conflict' => $search_conflict_id
+          'search_conflict' => $search_conflict_id,
+          'how_many_pages' => $how_many_pages,
+          'current_page' => $page_number
         ]);
     }
 
@@ -129,7 +149,21 @@ class DeceasedController extends Controller
      */
     public function show(Request $request,$id)
     {
-        return view('selected_deceased');
+        // The 'get_cart_count' function is in 'app\helper.php'
+        $cart_count = get_cart_count($request)->cart_count;
+
+        $member = User::find($id);
+
+        $all_links = Link::where('user_id',$id)->get();
+
+        return view('selected_deceased',[
+          'style' => 'deceased_style',
+          'js' => '/js/my_custom/memorials/recipients.js',
+          'content' => 'deceased_selected',
+          'member' => $member,
+          'all_links' => $all_links,
+          'cart_count' => $cart_count
+        ]);
     }
 
     /**

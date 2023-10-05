@@ -103,6 +103,7 @@ class AdminController extends Controller
         'monthOfDeath'     => 'nullable|integer',
         'dayOfDeath'       => 'nullable|integer',
         'yearOfDeath'      => 'nullable|integer',
+        'comments'         => 'nullable|string',
         'isKiaMia'         => 'required|integer',
         'isRecipient'      => 'required|integer',
         'membershipStatus' => 'required|string',
@@ -135,6 +136,7 @@ class AdminController extends Controller
       $input['month_of_death'] = $request->monthOfDeath;
       $input['day_of_death'] = $request->dayOfDeath;
       $input['year_of_death'] = $request->yearOfDeath;
+      $input['comments'] = $request->comments;
       $input['rank'] = $request->rank;
       $input['kia_or_mia'] = $request->isKiaMia;
       $input['moh_recipient'] = $request->isRecipient;
@@ -401,6 +403,7 @@ class AdminController extends Controller
         'monthOfDeath'     => 'nullable|integer|min:1|max:12',
         'dayOfDeath'       => 'nullable|integer|min:1|max:31',
         'yearOfDeath'      => 'nullable|integer|min:1900|max:3000',
+        'comments'         => 'nullable|string',
         'isKiaMia'         => 'required|integer',
         'isRecipient'      => 'required|integer',
         // 'action'           => 'required',
@@ -424,6 +427,7 @@ class AdminController extends Controller
       $member->month_of_death = $request['monthOfDeath'];
       $member->day_of_death = $request['dayOfDeath'];
       $member->year_of_death = $request['yearOfDeath'];
+      $member->comments = $request['comments'];
       $member->mailing_address = $request['mailingAddress'];
       $member->kia_or_mia = $request['isKiaMia'];
       $member->moh_recipient = $request['isRecipient'];

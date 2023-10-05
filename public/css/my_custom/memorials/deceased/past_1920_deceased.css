@@ -31,12 +31,18 @@ p {
 }
 
 .leftSearchColumn {
-  margin-left: calc(50% - 683px);
-  margin-right: calc(50% - 683px);
-  display: grid;
-  grid-template-areas: "search results";
-  grid-template-columns: 20% 80%;
-  width: 1366px;
+  margin-left: 0;
+  margin-right: 0;
+  border-bottom: 1px solid black;
+  min-height: calc(88vh - 142px);
+  grid-template-areas: "leftPad searchCol searchList rightPad";
+  grid-template-columns: calc(50% - 683px) 273px 1093px calc(50% - 683px);
+  width: 100%;
+}
+
+.selectedMain {
+  grid-template-areas: "leftPad selected rightPad";
+  grid-template-columns: calc(50% - 683px) 1366px calc(50% - 683px);
 }
 
 .titleWrap {
@@ -122,7 +128,7 @@ p {
   height: 132px;
 }
 
-.leftSearchColumn {
+/* .leftSearchColumn {
   margin-left: 0;
   margin-right: 0;
   border-bottom: 1px solid black;
@@ -130,7 +136,7 @@ p {
   grid-template-areas: "leftPad searchCol searchList rightPad";
   grid-template-columns: calc(50% - 683px) 273px 1093px calc(50% - 683px);
   width: 100%;
-}
+} */
 
 .sidePad {
   display: block;
