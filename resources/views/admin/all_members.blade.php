@@ -17,6 +17,31 @@
                   <div>
                     <a href="{{ route('admin.index') }}"><< BACK</a>
                   </div>
+                  @if ($search_type)
+                    <div class="searchRow">
+                      <a href="{{ route('edit.member.list',[
+                        'search_type' => 'current'
+                      ]) }}">
+                        <span class="@if ($search_type == 'current') searchSelect @endif">
+                          CURRENT
+                        </span>
+                      </a>
+                      <a href="{{ route('edit.member.list',[
+                        'search_type' => 'deceased'
+                      ]) }}">
+                        <span class="@if ($search_type == 'deceased') searchSelect @endif">
+                          DECEASED
+                        </span>
+                      </a>
+                      <a href="{{ route('edit.member.list',[
+                        'search_type' => 'all'
+                      ]) }}">
+                        <span class="@if ($search_type == 'all') searchSelect @endif">
+                          ALL
+                        </span>
+                      </a>
+                    </div>
+                  @endif
                   <div>
                     <div style="width:100%">
                       @foreach ($all_members as $one_member)

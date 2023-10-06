@@ -168,7 +168,7 @@ Route::middleware('auth')->group(function() {
 
     Route::middleware(['permission:Edit A Member'])->group(function() {
       // See a list of members for editin
-      Route::get('edit-bobcat', [App\Http\Controllers\AdminController::class,'all_members'])->name('edit.member.list');
+      Route::get('edit-bobcat/{search_type?}', [App\Http\Controllers\AdminController::class,'all_members'])->name('edit.member.list');
       // Prepare to edit a single member's info
       Route::get('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_index'])->name('edit.member.index');
       // Edit a single member's info
@@ -260,7 +260,7 @@ Route::middleware('auth')->group(function() {
 
     Route::middleware(['permission:Assign Roles To Members'])->group(function() {
       // Lists all members IOT select a member and change their roles
-      Route::get('assign-roles', [App\Http\Controllers\AdminController::class,'all_members'])->name('admin.roles');
+      Route::get('assign-roles/{search_type?}', [App\Http\Controllers\AdminController::class,'all_members'])->name('admin.roles');
       // Show which roles that a certain member is assigned with
       Route::get('assign-roles/{id}', [App\Http\Controllers\AdminController::class,'member_roles'])->name('admin.assign');
       // Show which roles that a certain member is assigned with

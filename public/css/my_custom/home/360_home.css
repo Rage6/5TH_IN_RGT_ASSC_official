@@ -752,4 +752,24 @@
   background-color: green;
 }
 
+.searchRow {
+  margin: 10px 0 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchRow span {
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: white;
+  color: black;
+}
+
+.searchRow .searchSelect {
+  border: none;
+  color: white;
+  background-color: rgb(139,0,0);
+}
+
 /* END Administration page */

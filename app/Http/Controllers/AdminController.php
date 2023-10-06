@@ -768,9 +768,25 @@ class AdminController extends Controller
       return redirect()->route('delete.member.list');
     }
 
-    public function all_members() {
+    public function all_members($search_type = 'current') {
       // $all_users = User::all();
-      $all_users = User::where('expiration_date','!=',null)
+      if ($search_type == 'all') {
+        $where_conditions = [
+          ['expiration_date','!=',null]
+        ];
+      } elseif ($search_type == 'deceased') {
+        $where_conditions = [
+          ['deceased','=',1],
+          ['expiration_date','!=',null]
+        ];
+      } else {
+        $where_conditions = [
+          ['deceased','=',0],
+          ['expiration_date','!=',null]
+        ];
+      };
+
+      $all_users = User::where($where_conditions)
         ->orderBy('last_name','asc')
         ->orderBy('first_name','asc')
         ->orderBy('middle_name','asc')
@@ -806,7 +822,8 @@ class AdminController extends Controller
         'all_members' => $all_users,
         'can_assign' => $can_assign,
         'can_edit' => $can_edit,
-        'can_delete' => $can_delete
+        'can_delete' => $can_delete,
+        'search_type' => $search_type
       ]);
     }
 
