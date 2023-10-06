@@ -91,7 +91,7 @@
                           <div style="background-image: url('/{{ $image_path }}/veteran/{{ $recipient->veteran_img }}')" class="img">
                           </div>
                         @else
-                          <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">
+                          <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')" class="img">
                           </div>
                         @endif
                         <div></div>

@@ -127,7 +127,7 @@
                           <div style="background-image: url('/{{ $image_path }}/veteran/{{ $casualty->veteran_img }}')" class="img">
                           </div>
                         @else
-                          <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">
+                          <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')" class="img">
                           </div>
                         @endif
                         <!-- <input id="profile" type="file" class="form-control" name="currentImg"> -->
