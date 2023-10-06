@@ -61,18 +61,20 @@
                         <input name="mailingAddress" id="mailingAddress" value="{{ $user->mailing_address }}" />
                       </div>
                       <div class="imgGrid">
+                        <div>Current Photo</div>
+                        <div>Veteran Photo</div>
                         @if ($user->current_img)
-                          <div style="background-image: url({{ url('/images/current/'.$user->current_img) }})">
+                          <div style="background-image: url({{ url('/images/current/'.$user->current_img) }})" class="img">
                           </div>
                         @else
-                          <div style="background-image: url({{ url('/images/default_profile.jpeg') }})">
+                          <div style="background-image: url({{ url('/images/default_profile.jpeg') }})" class="img">
                           </div>
                         @endif
                         @if ($user->veteran_img)
-                          <div style="background-image: url({{ url('/images/veteran/'.$user->veteran_img) }})">
+                          <div style="background-image: url({{ url('/images/veteran/'.$user->veteran_img) }})" class="img">
                           </div>
                         @else
-                          <div style="background-image: url({{ url('/images/default_profile.jpeg') }})">
+                          <div style="background-image: url({{ url('/images/default_profile.jpeg') }})" class="img">
                           </div>
                         @endif
                         <input id="profile" type="file" class="form-control" name="currentImg">
@@ -96,7 +98,8 @@
                         <div>
                           @if ($user->current_img)
                             <a href="{{ route('delete.personal.image.index',[
-                              'img_type' => 'current'
+                              'img_type' => 'current',
+                              'next_route' => 'edit-profile'
                             ]) }}">
                               <span class="btn btn-danger">
                                 REMOVE
@@ -111,7 +114,8 @@
                         <div>
                           @if ($user->veteran_img)
                             <a href="{{ route('delete.personal.image.index',[
-                              'img_type' => 'veteran'
+                              'img_type' => 'veteran',
+                              'next_route' => 'edit-profile'
                             ]) }}">
                               <span class="btn btn-danger">
                                 REMOVE

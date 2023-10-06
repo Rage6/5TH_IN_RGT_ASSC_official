@@ -85,8 +85,10 @@
                       </div>
                       <div class="imgGrid">
                         <div></div>
+                        <div>Veteran Photo</div>
+                        <div></div>
                         @if ($recipient->veteran_img)
-                          <div style="background-image: url('/{{ $image_path }}/veteran/{{ $recipient->veteran_img }}')">
+                          <div style="background-image: url('/{{ $image_path }}/veteran/{{ $recipient->veteran_img }}')" class="img">
                           </div>
                         @else
                           <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">
@@ -100,7 +102,8 @@
                             <a href="{{ route('image.recipient.index',[
                               'id' => $recipient->id,
                               'img_type' => 'veteran',
-                              'edit_type' => 'recipient'
+                              'edit_type' => 'recipient',
+                              'next_route' => 'recipient-list'
                             ]) }}">
                               <span class="btn btn-danger">
                                 REMOVE

@@ -121,8 +121,10 @@
                           </div>
                         @endif -->
                         <div></div>
+                        <div>Veteran Photo</div>
+                        <div></div>
                         @if ($casualty->veteran_img)
-                          <div style="background-image: url('/{{ $image_path }}/veteran/{{ $casualty->veteran_img }}')">
+                          <div style="background-image: url('/{{ $image_path }}/veteran/{{ $casualty->veteran_img }}')" class="img">
                           </div>
                         @else
                           <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">

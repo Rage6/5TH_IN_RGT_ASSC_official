@@ -39,15 +39,17 @@
                         <input name="spouseName" value="{{ $member->spouse }}" id="spouseName"/>
                       </div>
                       <div class="imgGrid">
+                        <div>Current Photo</div>
+                        <div>Veteran Photo</div>
                         @if ($member->current_img)
-                          <div style="background-image: url('/{{ $image_path }}/current/{{ $member->current_img }}')">
+                          <div style="background-image: url('/{{ $image_path }}/current/{{ $member->current_img }}')" class="img">
                           </div>
                         @else
                           <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">
                           </div>
                         @endif
                         @if ($member->veteran_img)
-                          <div style="background-image: url('/{{ $image_path }}/veteran/{{ $member->veteran_img }}')">
+                          <div style="background-image: url('/{{ $image_path }}/veteran/{{ $member->veteran_img }}')" class="img">
                           </div>
                         @else
                           <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">
@@ -76,7 +78,8 @@
                             <a href="{{ route('image.member.index',[
                               'id' => $member->id,
                               'img_type' => 'current',
-                              'edit_type' => 'member'
+                              'edit_type' => 'member',
+                              'next_route' => 'member-list'
                             ]) }}">
                               <span class="btn btn-danger">
                                 REMOVE
@@ -93,7 +96,8 @@
                             <a href="{{ route('image.member.index',[
                               'id' => $member->id,
                               'img_type' => 'veteran',
-                              'edit_type' => 'member'
+                              'edit_type' => 'member',
+                              'next_route' => 'member-list'
                             ]) }}">
                               <span class="btn btn-danger">
                                 REMOVE

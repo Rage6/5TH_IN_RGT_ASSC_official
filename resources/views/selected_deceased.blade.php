@@ -53,12 +53,18 @@
                 {{ $member->last_name }}
               </div>
             </div>
-            @if ($member->current_img != null)
-              <div class="recipientImg" style="background-image:url('/images/current/{{ $member->current_img }}?t=@php echo(time()) @endphp)'),linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7))"></div>
-            @endif
-            @if ($member->veteran_img != null)
-              <div class="recipientImg" style="background-image:url('/images/veteran/{{ $member->veteran_img }}?t=@php echo(time()) @endphp)'),linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7))"></div>
-            @endif
+            <div class="recipientImg imgCard">
+              @if ($member->current_img != null && $member->veteran_img != null)
+                <div class="primaryImg" data-image="main" style="background-image:url('/images/current/{{ $member->current_img }}?t=@php echo(time()) @endphp)'),linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7))"></div>
+                <div class="secondaryImg" data-image="thumbnail" style="background-image:url('/images/veteran/{{ $member->veteran_img }}?t=@php echo(time()) @endphp)'),linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));"></div>
+              @elseif ($member->current_img != null)
+                <div class="recipientImg" style="background-image:url('/images/current/{{ $member->current_img }}?t=@php echo(time()) @endphp)'),linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7))"></div>
+              @elseif ($member->veteran_img != null)
+                <div class="recipientImg" style="background-image:url('/images/veteran/{{ $member->veteran_img }}?t=@php echo(time()) @endphp)'),linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7))"></div>
+              @else ($member->current_img == null && $member->veteran_img == null)
+                <div class="recipientImg" style="background-size: cover;background-image:url('/images/deceased/default_tombstone.png');filter:grayscale()"></div>
+              @endif
+            </div>
             <div class="actionDate">
               <div class="recipientBioTitle">
                 BASIC INFORMATION

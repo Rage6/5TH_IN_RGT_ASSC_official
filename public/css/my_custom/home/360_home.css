@@ -379,16 +379,14 @@
   margin-bottom: 10px;
   display: grid;
   grid-template-columns: 49% 49%;
-  grid-template-rows: 58% 20% 18%;
+  grid-template-rows: 25px 175px 50px 50px;
   column-gap: 2%;
 }
 
-.imgGrid div {
+.imgGrid .img {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  height: 20vh;
-  max-height: 200px;
 }
 
 .deleteImg {

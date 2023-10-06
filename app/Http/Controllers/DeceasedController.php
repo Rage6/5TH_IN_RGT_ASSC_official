@@ -69,6 +69,7 @@ class DeceasedController extends Controller
 
         $deceased_count = count($new_all_deceased);
 
+        // Pagination of the arrays (18 rows per page)
         $names_per_page = 18;
         if (!isset($_GET['page'])) {
           $page_number = 1;
@@ -88,7 +89,7 @@ class DeceasedController extends Controller
 
         return view('deceased',[
           'style' => 'deceased_style',
-          'js' => '/js/my_custom/memorials/recipients.js',
+          'js' => '/js/my_custom/memorials/deceased.js',
           'content' => 'deceased_content',
           'all_deceased_basics' => $new_all_deceased,
           'deceased_count' => $deceased_count,
@@ -158,7 +159,7 @@ class DeceasedController extends Controller
 
         return view('selected_deceased',[
           'style' => 'deceased_style',
-          'js' => '/js/my_custom/memorials/recipients.js',
+          'js' => '/js/my_custom/memorials/deceased.js',
           'content' => 'deceased_selected',
           'member' => $member,
           'all_links' => $all_links,
