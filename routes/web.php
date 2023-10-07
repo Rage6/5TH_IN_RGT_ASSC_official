@@ -170,7 +170,7 @@ Route::middleware('auth')->group(function() {
 
     Route::middleware(['permission:Edit A Member'])->group(function() {
       // See a list of members for editin
-      Route::get('edit-bobcat/{search_type?}', [App\Http\Controllers\AdminController::class,'all_members'])->name('edit.member.list');
+      Route::get('edit-bobcat-list/{search_type?}', [App\Http\Controllers\AdminController::class,'all_members'])->name('edit.member.list');
       // Prepare to edit a single member's info
       Route::get('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_index'])->name('edit.member.index');
       // Edit a single member's info
