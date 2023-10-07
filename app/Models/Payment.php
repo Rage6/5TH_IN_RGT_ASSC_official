@@ -11,6 +11,7 @@ class Payment extends Model
 
     protected $fillable = [
       'customer_email',
-      'total_cost'
+      'total_cost',
+      'user_id'
     ];
 }

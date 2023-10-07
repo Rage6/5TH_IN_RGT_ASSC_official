@@ -129,6 +129,8 @@ Route::middleware('auth')->group(function() {
     Route::get('profile/{id}', [App\Http\Controllers\HomeController::class,'bobcat_profile_index'])->name('bobcat.profile.index');
     // See the staff of the Bobcat organization
     Route::get('contact-us', [App\Http\Controllers\HomeController::class,'bobcat_staff_index'])->name('staff.index');
+    // See all online personal payments to the club in the past
+    Route::get('personal-payments', [App\Http\Controllers\HomeController::class,'bobcat_payment_index'])->name('payments.index');
     // Editing the user's profile
     Route::get('edit-profile', [App\Http\Controllers\HomeController::class,'edit_profile_index'])->name('profile.edit');
     Route::post('edit-profile-change', [App\Http\Controllers\HomeController::class,'edit_profile_change'])->name('profile.edit.change');

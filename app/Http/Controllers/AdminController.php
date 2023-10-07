@@ -2805,10 +2805,30 @@ class AdminController extends Controller
 
 
     public function payment_history_index() {
-      $all_payments = Payment::orderBy('created_at','desc')->paginate(20);
+      $all_payments = Payment::orderBy('created_at','desc')
+        ->paginate(20);
+        // ->map(function($payment) {
+        //   $payment->user_name = null;
+        //   return $payment;
+        // });
+
+      $all_members = User::where('expiration_date','!=',null)->get();
+
+      // foreach ($all_payments as $one_payment) {
+      //   if ($one_payment->user_id) {
+      //     foreach ($all_members as $one_member) {
+      //       if ($one_payment->user_id == $one_member->id) {
+      //         $one_payment->user_name = $one_member->first_name." ".$one_member->last_name;
+      //       };
+      //     };
+      //   } else {
+      //     $one_payment->user_name = null;
+      //   };
+      // };
 
       return view('admin.all_payments',[
-        'all_payments' => $all_payments
+        'all_payments' => $all_payments,
+        'all_members' => $all_members
       ]);
     }
 

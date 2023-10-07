@@ -772,4 +772,30 @@
   background-color: rgb(139,0,0);
 }
 
+.paymentRow {
+  display: grid;
+  grid-template-columns: 50% 49%;
+  grid-column-gap: 1%;
+  grid-row-gap: 5px;
+  grid-template-areas:
+    "name amount"
+    "email date";
+}
+
+.paymentName {
+  grid-area: name;
+}
+
+.paymentAmount {
+  grid-area: amount;
+}
+
+.paymentEmail {
+  grid-area: email;
+}
+
+.paymentDate {
+  grid-area: date;
+}
+
 /* END Administration page */

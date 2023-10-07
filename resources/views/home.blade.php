@@ -40,9 +40,11 @@
                           <div>BOBCAT STAFF</div>
                         </div>
                       </a>
-                      <!-- <div class="homeButton contentButton">
-                        <div>PAYMENT HISTORY</div>
-                      </div> -->
+                      <a href="{{ route('payments.index') }}">
+                        <div class="homeButton contentButton">
+                          <div>PAYMENT HISTORY</div>
+                        </div>
+                      </a>
                       <a href="{{ route('profile.edit') }}">
                         <div class="homeButton contentButton">
                           <div>CHANGE ACCOUNT</div>

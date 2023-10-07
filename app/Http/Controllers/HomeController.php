@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Link;
 use App\Models\Timespan;
+use App\Models\Payment;
 
 class HomeController extends Controller
 {
@@ -283,6 +284,20 @@ class HomeController extends Controller
 
       return view('staff',[
         'all_staff' => $all_roles
+      ]);
+    }
+
+    public function bobcat_payment_index() {
+      $user = Auth::user();
+      $name = $user->first_name." ".$user->last_name;
+
+      $all_payments = Payment::where('customer_email',$user->email)
+        ->orderBy('created_at','DESC')
+        ->paginate(20);
+
+      return view('personal_payments',[
+        'user_name' => $name,
+        'all_payments' => $all_payments
       ]);
     }
 

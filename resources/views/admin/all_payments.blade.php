@@ -22,7 +22,7 @@
                       <u>PAYMENT DIRECTORY</u>
                     </div>
                     <div style="width:100%">
-                      <div style="display:grid;grid-template-columns:40% 30% 30%;background-color:black; color:white">
+                      <!-- <div style="display:grid;grid-template-columns:40% 30% 30%;background-color:black; color:white">
                         <div>
                           Customer Email
                         </div>
@@ -32,19 +32,35 @@
                         <div>
                           Date (East Coast Time)
                         </div>
-                      </div>
+                      </div> -->
                       @php
                         $bkgd = 'rgba(0,0,0,0.1)';
                       @endphp
                       @foreach ($all_payments as $one_payment)
-                        <div style="display:grid;grid-template-columns:40% 30% 30%;background-color:{{ $bkgd }}">
-                          <div style="overflow-x:scroll">
+                        @php
+                          if ($one_payment->user_id != null) {
+                            foreach ($all_members as $one_member) {
+                              if ($one_payment->user_id == $one_member->id) {
+                                $user_name = $one_member->first_name." ".$one_member->last_name;
+                              };
+                            };
+                          } else {
+                            $user_name = null;
+                          };
+                        @endphp
+                        <div class="paymentRow" style="background-color:{{ $bkgd }}">
+                          <div class="paymentName">
+                            @if ($user_name)
+                              {{ $user_name }}
+                            @endif
+                          </div>
+                          <div class="paymentEmail">
                             {{ $one_payment->customer_email }}
                           </div>
-                          <div>
+                          <div class="paymentAmount">
                             ${{ $one_payment->total_cost }}
                           </div>
-                          <div>
+                          <div class="paymentDate">
                             {{ $one_payment->created_at }}
                           </div>
                         </div>

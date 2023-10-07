@@ -17,7 +17,15 @@ return new class extends Migration
             $table->id();
             $table->string("customer_email");
             $table->float("total_cost");
+            $table->bigInteger("user_id");
             $table->timestamps();
+
+            $table->index('user_id');
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 
