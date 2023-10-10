@@ -24,6 +24,8 @@ return new class extends Migration
             $table->boolean('deceased')->default(0);
             $table->string('mailing_address')->nullable();
             $table->timestamp('expiration_date')->nullable();
+            $table->boolean('honorary_member')->default(0);
+            $table->string('associated_by')->nullable();
             $table->string('rank')->nullable();
             $table->boolean('kia_or_mia')->default(0);
             $table->string('kia_location')->nullable();

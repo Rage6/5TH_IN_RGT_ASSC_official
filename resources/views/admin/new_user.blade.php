@@ -50,14 +50,6 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
-                          What is/was this person's highest rank?
-                        </div>
-                        <div>
-                          <input id="rank" name="rank">
-                        </div>
-                      </div>
-                      <div class="basicInfoGrid">
-                        <div>
                           What is their member status? If deceased and a member, select anything EXCEPT 'nonmember'.
                         </div>
                         <div>
@@ -85,6 +77,23 @@
                           </select>
                         </div>
                       </div>
+                      <div class="basicInfoGrid">
+                        <div>
+                          If they are an Associated Member, which other member are they associated by?
+                        </div>
+                        <div>
+                          <input name="associateMember" id="associateMember"/>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Is this person an Honorary Member?</div>
+                        <div>
+                          <select name="honoraryMember" id="honoraryMember">
+                            <option value="0">NO</option>
+                            <option value="1">YES</option>
+                          </select>
+                        </div>
+                      </div>
                       <div>
                         <div>
                           With which job & unit were they part of the regiment, and when?
@@ -107,6 +116,14 @@
                           <span data-tag="button">
                             + ADD TIMESPAN
                           </span>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
+                          What is/was this person's highest rank?
+                        </div>
+                        <div>
+                          <input id="rank" name="rank">
                         </div>
                       </div>
                       <div class="basicInfoGrid">

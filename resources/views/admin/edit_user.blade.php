@@ -193,6 +193,32 @@
                         </div>
                       </div>
                       <div class="basicInfoGrid">
+                        <div>If they are an Associated Member, which other member are they associated by?</div>
+                        <div>
+                          <input
+                            name="associateMember"
+                            id="associateMember"
+                            @if ($member->associated_by) value="{{ $member->associated_by }}" @endif />
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>Is this person an Honorary Member?</div>
+                        <div>
+                          <select name="honoraryMember" id="honoraryMember">
+                            <option
+                              @if ($member->honorary_member == 0) selected @endif
+                              value="0">
+                                NO
+                            </option>
+                            <option
+                              @if ($member->honorary_member == 1) selected @endif
+                              value="1">
+                                YES
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>
                           Which conflicts/wars did this person participate in?
                         </div>

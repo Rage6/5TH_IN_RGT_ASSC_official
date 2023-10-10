@@ -36,6 +36,8 @@ class User extends Authenticatable
         'deceased',
         'mailing_address',
         'expiration_date',
+        'associated_by',
+        'honorary_member',
         'rank',
         'kia_or_mia',
         'kia_location',

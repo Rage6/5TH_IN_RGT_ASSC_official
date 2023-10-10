@@ -96,7 +96,6 @@ class AdminController extends Controller
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file',
         // 'tombstoneImg'     => 'nullable|file',
-        // 'biography'        => 'nullable|string',
         'phoneNumber'      => 'nullable|string',
         'spouse'           => 'nullable|string',
         'isDeceased'       => 'required|integer',
@@ -107,10 +106,9 @@ class AdminController extends Controller
         'isKiaMia'         => 'required|integer',
         'isRecipient'      => 'required|integer',
         'membershipStatus' => 'required|string',
-        // 'mailingAddress'   => 'nullable|string',
+        'honoraryMember'   => 'required|integer',
+        'associateMember'  => 'nullable|string',
         'rank'             => 'nullable|string',
-        // 'kiaLocation'      => 'nullable|string',
-        // 'injuryType'       => 'nullable|string',
         'burialSite'       => 'nullable|string',
         'timespanIndexList' => 'nullable|string',
         'conflictTotal' => 'required|string'
@@ -134,6 +132,8 @@ class AdminController extends Controller
       $input['veteran_img'] = $request->veteranImg;
       $input['deceased'] = $request->isDeceased;
       $input['burial_site'] = $request->burialSite;
+      $input['honorary_member'] = $request->honoraryMember;
+      $input['associated_by'] = $request->associateMember;
       $input['month_of_death'] = $request->monthOfDeath;
       $input['day_of_death'] = $request->dayOfDeath;
       $input['year_of_death'] = $request->yearOfDeath;
@@ -401,6 +401,8 @@ class AdminController extends Controller
         'veteranImg'       => 'nullable|file',
         'rank'             => 'nullable|string',
         // 'biography'        => 'nullable|string',
+        'associateMember'  => 'nullable|string',
+        'honoraryMember'   => 'required|integer',
         'isDeceased'       => 'required|integer',
         'burialSite'       => 'nullable|string',
         'monthOfDeath'     => 'nullable|integer|min:1|max:12',
@@ -427,6 +429,8 @@ class AdminController extends Controller
       // $member->current_img = $request->currentImg;
       // $member->veteran_img = $request->veteranImg;
       // $member->biography = $request['biography'];
+      $member->honorary_member = $request['honoraryMember'];
+      $member->associated_by = $request['associateMember'];
       $member->deceased = $request['isDeceased'];
       $member->burial_site = $request['burialSite'];
       $member->month_of_death = $request['monthOfDeath'];
