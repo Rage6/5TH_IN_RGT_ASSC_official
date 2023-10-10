@@ -110,6 +110,14 @@
                           @endif
                         </div>
                       </div>
+                      <div class="basicInfoGrid">
+                        <div>
+                          What is/was this person's highest rank?
+                        </div>
+                        <div>
+                          <input id="rank" name="rank" @if ($member->rank) value="{{ $member->rank }}" @endif>
+                        </div>
+                      </div>
                       <div>
                         <div>
                           BOBCAT HISTORY
@@ -233,6 +241,14 @@
                             <div>Day</div>
                             <div>Year</div>
                           </div>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
+                          If deceased, where is this person buried?
+                        </div>
+                        <div>
+                          <input id="burialSite" name="burialSite" @if ($member->burial_site) value="{{ $member->burial_site }}" @endif>
                         </div>
                       </div>
                       <div class="basicInfoGrid">

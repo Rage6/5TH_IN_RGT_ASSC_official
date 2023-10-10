@@ -277,33 +277,35 @@ p {
 }
 
 .recipientNameAndImg {
-  display: grid;
-  grid-template-areas:
-    "recName"
-    "recImg"
-    "basicInfo";
-  /* background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)); */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  white-space: pre-wrap;
+  background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+}
+
+.basicInfo {
+  display: flex;
+  flex-direction: column;
+  white-space: normal;
 }
 
 .recipientName {
-  /* margin-left: 10%; */
-  /* margin-bottom: 15px; */
-  padding: 5px 10%;
+  /* padding: 5px 10%; */
   font-size: 2rem;
+  white-space: normal;
   background: linear-gradient(rgba(0,0,0,1),rgba(0,0,0,1));
-  grid-area: recName;
-  /* text-align: center; */
-  width: 80%;
+  /* grid-area: name; */
+  /* width: 80%; */
 }
 
 .recipientName div:first-of-type {
   font-size: 1.5rem;
-  text-align: left;
+  text-align: center;
 }
 
 .recipientName div:last-of-type {
-  padding-top: 10px;
-  text-align: center;
+
 }
 
 .rankWithMedal {
@@ -351,12 +353,8 @@ p {
 }
 
 .actionDate {
-  /* margin-left: 5%; */
-  /* margin-bottom: 20px; */
-  padding: 10px 5%;
-  grid-area: basicInfo;
+  white-space: normal;
   background-color: black;
-  /* width: 80%; */
 }
 
 .recipientBio {
@@ -365,6 +363,20 @@ p {
   font-size: 1.3rem;
   background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
   white-space: break-spaces;
+}
+
+.basicGrid {
+  display: grid;
+  grid-template-columns: 40% 55%;
+  grid-column-gap: 5%;
+}
+
+.basicKey {
+
+}
+
+.basicValue {
+
 }
 
 .externalBox {

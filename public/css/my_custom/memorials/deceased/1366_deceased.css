@@ -79,12 +79,37 @@
 }
 
 .recipientNameAndImg {
-  display: grid;
-  grid-template-columns: calc(50% - 5px) calc(50% - 5px);
-  grid-column-gap: 10px;
-  grid-template-areas:
-    "recName basicInfo"
-    "recImg basicInfo";
+  display: block;
+  background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+}
+
+.basicInfo {
+  float: left;
+  width: 50%;
+}
+
+.basicInfoNoComment {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.recipientName {
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.recipientNameNoComment {
+  width: 50%;
+}
+
+.actionDate {
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.actionDateNoComment {
+  width: 50%;
 }
 
 .linkList {

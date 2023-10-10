@@ -157,12 +157,15 @@ class DeceasedController extends Controller
 
         $all_links = Link::where('user_id',$id)->get();
 
+        $all_conflicts = $member->all_user_conflicts;
+
         return view('selected_deceased',[
           'style' => 'deceased_style',
           'js' => '/js/my_custom/memorials/deceased.js',
           'content' => 'deceased_selected',
           'member' => $member,
           'all_links' => $all_links,
+          'all_conflicts' => $all_conflicts,
           'cart_count' => $cart_count
         ]);
     }

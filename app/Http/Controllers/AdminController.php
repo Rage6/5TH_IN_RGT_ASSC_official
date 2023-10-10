@@ -111,7 +111,7 @@ class AdminController extends Controller
         'rank'             => 'nullable|string',
         // 'kiaLocation'      => 'nullable|string',
         // 'injuryType'       => 'nullable|string',
-        // 'burialSite'       => 'nullable|string',
+        'burialSite'       => 'nullable|string',
         'timespanIndexList' => 'nullable|string',
         'conflictTotal' => 'required|string'
       ]);
@@ -133,6 +133,7 @@ class AdminController extends Controller
       $input['current_img'] = $request->currentImg;
       $input['veteran_img'] = $request->veteranImg;
       $input['deceased'] = $request->isDeceased;
+      $input['burial_site'] = $request->burialSite;
       $input['month_of_death'] = $request->monthOfDeath;
       $input['day_of_death'] = $request->dayOfDeath;
       $input['year_of_death'] = $request->yearOfDeath;
@@ -398,8 +399,10 @@ class AdminController extends Controller
         'spouseName'       => 'nullable|string',
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file',
+        'rank'             => 'nullable|string',
         // 'biography'        => 'nullable|string',
         'isDeceased'       => 'required|integer',
+        'burialSite'       => 'nullable|string',
         'monthOfDeath'     => 'nullable|integer|min:1|max:12',
         'dayOfDeath'       => 'nullable|integer|min:1|max:31',
         'yearOfDeath'      => 'nullable|integer|min:1900|max:3000',
@@ -420,10 +423,12 @@ class AdminController extends Controller
       $member->email = $request['email'];
       $member->phone_number = $request['phoneNumber'];
       $member->spouse = $request['spouseName'];
+      $member->rank = $request['rank'];
       // $member->current_img = $request->currentImg;
       // $member->veteran_img = $request->veteranImg;
       // $member->biography = $request['biography'];
       $member->deceased = $request['isDeceased'];
+      $member->burial_site = $request['burialSite'];
       $member->month_of_death = $request['monthOfDeath'];
       $member->day_of_death = $request['dayOfDeath'];
       $member->year_of_death = $request['yearOfDeath'];

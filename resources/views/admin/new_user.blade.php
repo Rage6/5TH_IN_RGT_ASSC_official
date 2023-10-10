@@ -45,7 +45,7 @@
                         <input type="file" name="currentImg" id="current"/>
                       </div>
                       <div class="basicInfoGrid">
-                        <div>Service Photo</div>
+                        <div>Veteran Photo</div>
                         <input type="file" name="veteranImg" id="veteran"/>
                       </div>
                       <div class="basicInfoGrid">

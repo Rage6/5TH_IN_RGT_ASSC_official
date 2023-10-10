@@ -262,7 +262,7 @@ Route::middleware('auth')->group(function() {
 
     Route::middleware(['permission:Assign Roles To Members'])->group(function() {
       // Lists all members IOT select a member and change their roles
-      Route::get('assign-roles/{search_type?}', [App\Http\Controllers\AdminController::class,'all_members'])->name('admin.roles');
+      Route::get('assign-roles-list/{search_type?}', [App\Http\Controllers\AdminController::class,'all_members'])->name('admin.roles');
       // Show which roles that a certain member is assigned with
       Route::get('assign-roles/{id}', [App\Http\Controllers\AdminController::class,'member_roles'])->name('admin.assign');
       // Show which roles that a certain member is assigned with
