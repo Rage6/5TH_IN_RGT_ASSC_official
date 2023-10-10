@@ -94,6 +94,11 @@
                       </div>
                     </div>
                     <div class="homeContent">
+                      <a href="{{route('welcome')}}">
+                        <div class="returnButton contentButton">
+                          <div>RETURN TO HOMEPAGE</div>
+                        </div>
+                      </a>
                       <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <div class="logoutButton contentButton">
                           <div>LOG OUT</div>

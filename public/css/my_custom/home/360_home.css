@@ -24,6 +24,11 @@
   background-color: rgb(139,0,0);
 }
 
+.returnButton {
+  color: white;
+  background-color: rgb(0,100,0);
+}
+
 .logoutButton {
   color: black;
   background-color: lightgray;
