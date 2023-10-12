@@ -20,13 +20,18 @@
                       <div>{{ $item->name }}</div>
                     </div>
                     <div class="imgGrid">
+                      <div>ITEM PHOTO</div>
+                      <div></div>
                       @if ($item->photo)
-                        <div style="background-image: url('/images/items/{{ $item->photo }}')">
+                        <div style="background-image: url('/images/items/{{ $item->photo }}')" class="img">
                         </div>
                       @else
-                        <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">
+                        <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')" class="img">
                         </div>
                       @endif
+                      <div></div>
+                      <div></div>
+                      <div></div>
                       <div></div>
                     </div>
                     <form

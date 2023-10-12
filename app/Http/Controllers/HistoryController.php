@@ -28,6 +28,20 @@ class HistoryController extends Controller
 
     }
 
+    public function origin(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history_topic',[
+        'style' => 'history_style',
+        'js' => '/'.env('APP_URL_EXTENSION').'js/my_custom/history/history.js',
+        'content' => 'origin_and_traditions_content',
+        'cart_count' => $cart_count
+      ]);
+
+    }
+
     public function vietnam_preface()
     {
       // The 'get_cart_count' function is in 'app\helper.php'

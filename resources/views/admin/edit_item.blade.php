@@ -28,11 +28,13 @@
                       </div>
 
                       <div class="imgGrid">
+                        <div>ITEM PHOTO</div>
+                        <div></div>
                         @if ($item->photo)
-                          <div style="background-image: url('/images/items/{{ $item->photo }}')">
+                          <div style="background-image: url('/images/items/{{ $item->photo }}')" class="img">
                           </div>
                         @else
-                          <div style="background-image: url('{{ url('/images/default_landscape.png') }}')">
+                          <div style="background-image: url('{{ url('/images/default_landscape.png') }}')" class="img">
                           </div>
                         @endif
                         <div></div>

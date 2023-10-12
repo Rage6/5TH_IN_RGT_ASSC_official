@@ -94,32 +94,7 @@
                           </a>
                         </div>
                       </div>
-                      <!-- <div class="imgGrid">
-                        @if ($casualty->veteran_img)
-                          <div style="background-image: url('{{ url($casualty->veteran_img) }}')">
-                          </div>
-                        @else
-                          <div style="background-image: url('{{ url('storage/images/default_profile.jpeg') }}')">
-                          </div>
-                        @endif
-                        <input id="veteran" type="file" class="form-control" name="veteranImg">
-                        <div>
-                          <button
-                            class="btn btn-danger"
-                            name="action"
-                            value="veteran">
-                            REMOVE
-                          </button>
-                        </div>
-                      </div> -->
                       <div class="imgGrid">
-                        <!-- @if ($casualty->current_img)
-                          <div style="background-image: url('/{{ $image_path }}/current/{{ $casualty->current_img }}')">
-                          </div>
-                        @else
-                          <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')">
-                          </div>
-                        @endif -->
                         <div></div>
                         <div>Veteran Photo</div>
                         <div></div>
@@ -130,25 +105,8 @@
                           <div style="background-image: url('{{ url('/images/default_profile.jpeg') }}')" class="img">
                           </div>
                         @endif
-                        <!-- <input id="profile" type="file" class="form-control" name="currentImg"> -->
                         <div></div>
                         <input id="veteran" type="file" class="form-control" name="veteranImg">
-                        <!-- <div>
-                          @if ($casualty->current_img)
-                            <a href="{{ route('image.person.index',[
-                              'id' => $casualty->id,
-                              'img_type' => 'current'
-                            ]) }}">
-                              <span class="btn btn-danger">
-                                REMOVE
-                              </span>
-                            </a>
-                          @else
-                            <div>
-                              <a>No image found</a>
-                            </div>
-                          @endif
-                        </div> -->
                         <div></div>
                         <div>
                           @if ($casualty->veteran_img)

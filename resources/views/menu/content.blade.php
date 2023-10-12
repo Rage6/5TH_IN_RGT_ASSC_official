@@ -55,9 +55,9 @@
         HISTORY
       </div>
       <div class="mainMenuSubBox" data-box-num="2">
-        <!-- <a href="/history/origin"> -->
+        <a href="{{ route('origin.index') }}">
           <div class="mainMenuSubBttn">+ Origin & Traditions</div>
-        <!-- </a> -->
+        </a>
         <a href="{{ url('/history/timeline') }}">
           <div class="mainMenuSubBttn">+ History Timeline</div>
         </a>

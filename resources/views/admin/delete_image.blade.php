@@ -52,10 +52,18 @@
                         NO IMAGE FOUND
                       </div>
                     @endif
+                    @if (request()->get('next_route') != null)
                     <form method="POST" action="{{ route($delete_method,[
                       'id' => $member->id,
-                      'img_type' => $img_type
+                      'img_type' => $img_type,
+                      'next_route' => request()->get('next_route')
                     ]) }}">
+                    @else
+                    <form method="POST" action="{{ route($delete_method,[
+                      'id' => $member->id,
+                      'img_type' => $img_type,
+                    ]) }}">
+                    @endif
                       @csrf
                       <button type="submit" class="btn btn-danger">
                         DELETE THIS IMAGE

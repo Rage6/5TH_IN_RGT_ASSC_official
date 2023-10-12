@@ -40,6 +40,7 @@ Route::prefix('newsletter')->group(function() {
 });
 
 Route::prefix('history')->group(function() {
+  Route::get('origin-and-tradition',[App\Http\Controllers\HistoryController::class,'origin'])->name('origin.index');
   Route::get('timeline',[App\Http\Controllers\HistoryController::class,'index'])->name('history.timeline');
   Route::prefix('topic')->group(function() {
     Route::prefix('vietnam-history')->group(function() {

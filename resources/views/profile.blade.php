@@ -73,6 +73,23 @@
                           @endfor
                         </div>
                       @endif
+                      @if ($bobcat->associated_by || $bobcat->honorary_member == 1)
+                        <div class="card-subtitle memberInfoTitle">
+                          Membership Connection
+                        </div>
+                        <div class="card-text memberInfoContent">
+                          @if ($bobcat->associated_by)
+                            <div>
+                              <span>&#8226;</span> {{ $bobcat->first_name }} {{ $bobcat->last_name }} is an Associated Member by connection with {{ $bobcat->associated_by }}.
+                            </div>
+                          @endif
+                          @if ($bobcat->honorary_member == 1)
+                            <div>
+                              <span>&#8226;</span> {{ $bobcat->first_name }} {{ $bobcat->last_name }} is an Honorary Member.
+                            </div>
+                          @endif
+                        </div>
+                      @endif
                       @if (count($all_conflicts) > 0)
                         <div class="card-subtitle memberInfoTitle">
                           Veteran of...
