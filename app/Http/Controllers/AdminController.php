@@ -972,6 +972,9 @@ class AdminController extends Controller
         'city'             => 'nullable|string',
         'state'            => 'nullable|string',
         'burialSite'       => 'nullable|string',
+        'monthOfDeath'     => 'nullable|integer|min:1|max:12',
+        'dayOfDeath'       => 'nullable|integer|min:1|max:31',
+        'yearOfDeath'      => 'nullable|integer|min:1800|max:3000',
         'comments'         => 'nullable|string',
         'membershipStatus' => 'required|string',
         'mohStatus'        => 'required|integer',
@@ -1078,6 +1081,9 @@ class AdminController extends Controller
       $casualty->city = $request['city'];
       $casualty->state = $request['state'];
       $casualty->burial_site = $request['burialSite'];
+      $casualty->month_of_death = $request['monthOfDeath'];
+      $casualty->day_of_death = $request['dayOfDeath'];
+      $casualty->year_of_death = $request['yearOfDeath'];
       $casualty->comments = $request['comments'];
       $casualty->expiration_date = $membershipStatus;
       $casualty->casualty_conflict_id = $request['conflictId'];
@@ -1478,6 +1484,10 @@ class AdminController extends Controller
         // 'action'           => 'required|string',
         'isKiaMia'         => 'required|integer',
         'membershipStatus' => 'nullable|string',
+        'burialSite'       => 'nullable|string',
+        'monthOfDeath'     => 'nullable|integer|min:1|max:12',
+        'dayOfDeath'       => 'nullable|integer|min:1|max:31',
+        'yearOfDeath'      => 'nullable|integer|min:1800|max:3000',
       ]);
 
       $recipient = User::find($id);
@@ -1492,6 +1502,11 @@ class AdminController extends Controller
         $recipient->citation = $request->citation;
         $recipient->moh_location = $request->mohLocation;
         $recipient->kia_or_mia = $request->isKiaMia;
+        $recipient->burial_site = $request->burialSite;
+        $recipient->month_of_death = $request->monthOfDeath;
+        $recipient->day_of_death = $request->dayOfDeath;
+        $recipient->year_of_death = $request->yearOfDeath;
+
 
         // // Checks to see if old parent conflict still has MOH recipients. If it doesn't, then it changes the 'bobcat_recipients' in the old parent conflict to 'false'.
         // $init_recipient_conflict_id = Conflict::find($recipient->moh_conflict_id)->id;

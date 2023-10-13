@@ -355,11 +355,28 @@ class HomeController extends Controller
 
       $all_conflicts = $bobcat->all_user_conflicts()->get();
 
+      $current_user = Auth::user();
+      $is_free_trial = false;
+      if ($current_user) {
+        $roles = User::find($current_user->id)->all_user_roles;
+        foreach ($roles as $one_role) {
+          if ($one_role->slug == "trial-member") {
+            $is_free_trial = true;
+          };
+        };
+      };
+
+      $user_expiration = $current_user->expiration_date;
+      $time_now = date("Y-m-d h:m:s",time());
+      $test = $time_now > $user_expiration;
+
       return view('profile',[
         'bobcat' => $bobcat,
         'all_links' => $all_links,
         'all_jobs' => $all_jobs,
-        'all_conflicts' => $all_conflicts
+        'all_conflicts' => $all_conflicts,
+        'trial_member' => $is_free_trial,
+        'test' => $test
       ]);
     }
 }

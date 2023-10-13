@@ -73,6 +73,7 @@
                           @endfor
                         </div>
                       @endif
+                      {{ $test }}
                       @if ($bobcat->associated_by || $bobcat->honorary_member == 1)
                         <div class="card-subtitle memberInfoTitle">
                           Membership Connection
@@ -114,20 +115,22 @@
                           @endfor
                         </div>
                       @endif
-                      @if ($bobcat->email_visible == 1 || $bobcat->phone_visible == 1)
-                        <div class="card-subtitle memberInfoTitle">
-                          Contact Information
-                        </div>
-                        <div class="card-text memberInfoContent memberInfoContact">
-                          @if ($bobcat->email_visible == 1)
-                            <div>Email Address</div>
-                            <div>{{ $bobcat->email }}</div>
-                          @endif
-                          @if ($bobcat->phone_visible == 1)
-                            <div>Phone Number</div>
-                            <div>{{ $bobcat->phone_number }}</div>
-                          @endif
-                        </div>
+                      @if ($trial_member == false)
+                        @if ($bobcat->email_visible == 1 || $bobcat->phone_visible == 1)
+                          <div class="card-subtitle memberInfoTitle">
+                            Contact Information
+                          </div>
+                          <div class="card-text memberInfoContent memberInfoContact">
+                            @if ($bobcat->email_visible == 1)
+                              <div>Email Address</div>
+                              <div>{{ $bobcat->email }}</div>
+                            @endif
+                            @if ($bobcat->phone_visible == 1)
+                              <div>Phone Number</div>
+                              <div>{{ $bobcat->phone_number }}</div>
+                            @endif
+                          </div>
+                        @endif
                       @endif
                       <!-- <div class="card-subtitle memberInfoTitle">
                         Conflicts

@@ -42,7 +42,16 @@ class ItemController extends Controller
       };
 
       $current_user = Auth::user();
+      $is_free_trial = false;
       if ($current_user) {
+        $roles = User::find($current_user->id)->all_user_roles;
+        foreach ($roles as $one_role) {
+          if ($one_role->slug == "trial-member") {
+            $is_free_trial = true;
+          };
+        };
+      };
+      if ($current_user && !$is_free_trial) {
         $is_member = true;
       } else {
         $is_member = false;

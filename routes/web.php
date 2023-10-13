@@ -119,7 +119,7 @@ Route::get('images/events/subevents/{filename}', function($filename){
         return response()->file($storagePath);
 });
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->middleware('expiration')->group(function() {
 
   Route::prefix('/home')->group(function() {
     // Enter the homepage

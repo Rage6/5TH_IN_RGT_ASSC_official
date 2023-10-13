@@ -68,6 +68,21 @@
                         <input name="burialSite" id="burialSite" value="{{ $casualty->burial_site }}" />
                       </div>
                       <div class="basicInfoGrid">
+                        <div>
+                          Date of Death
+                        </div>
+                        <div>
+                          <div class="basicDateInfo">
+                            <input name="monthOfDeath" type="number" @if ($casualty->month_of_death) value="{{ $casualty->month_of_death }}" @endif min="1" max="12" placeholder="MM">
+                            <input name="dayOfDeath" type="number" @if ($casualty->day_of_death) value="{{ $casualty->day_of_death }}" @endif min="1" max="31" placeholder="DD">
+                            <input name="yearOfDeath" type="number" @if ($casualty->year_of_death) value="{{ $casualty->year_of_death }}" @endif min="1900" max="3000" placeholder="YYYY">
+                            <div>Month</div>
+                            <div>Day</div>
+                            <div>Year</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
                         <div>External Links</div>
                         <div>
                           @foreach ($all_links as $one_link)

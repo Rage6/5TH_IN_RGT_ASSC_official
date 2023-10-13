@@ -119,6 +119,17 @@ a {
   color: #d3d3d3;
 }
 
+.rightSideBttns {
+  display: flex;
+}
+
+.rightSideBttns a {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .mainMenuBttn {
   padding: 8px 5%;
   color: white;
@@ -133,6 +144,7 @@ a {
 }
 
 .mainMenuTopSquare {
+  margin-left: 30px;
   padding: 1.5vh 1vh 0 1vh;
   width: 7vh;
   height: 6.5vh;

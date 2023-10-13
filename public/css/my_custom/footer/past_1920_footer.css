@@ -1,6 +1,14 @@
 .footer {
-  padding: 30px 0;
-  flex-direction: row;
-  justify-content: space-around;
+  padding: 30px 50px;
+  /* flex-direction: row; */
+  justify-content: space-between;
   min-height: 12vh;
+}
+
+.footerBttns {
+  flex-direction: row;
+}
+
+.socialBttnList {
+  padding: 0 50px;
 }

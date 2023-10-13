@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         // Custom middleware below
         'role' => \App\Http\Middleware\UserRole::class,
         'permission' => \App\Http\Middleware\UserPermission::class,
-        'access' => \App\Http\Middleware\AdminAccess::class
+        'access' => \App\Http\Middleware\AdminAccess::class,
+        'expiration' => \App\Http\Middleware\Expiration::class,
     ];
 }
