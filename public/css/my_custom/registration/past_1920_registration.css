@@ -49,7 +49,17 @@ body {
 }
 
 .regForm {
-  grid-template-columns: 47% auto 47%;
+  /* grid-template-columns: 47% auto 47%; */
+}
+
+.regGrid {
+  display: grid;
+}
+
+.regTotal a div {
+  margin-left: calc(50% - 125px);
+  text-align: center;
+  width: 250px;
 }
 
 .regRow {

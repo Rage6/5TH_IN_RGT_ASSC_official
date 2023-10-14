@@ -25,6 +25,26 @@
   font-family: 'Vollkorn SC', sans-serif;
 }
 
+.message {
+  margin-left: calc(50% - 155px);
+  margin-bottom: 30px;
+  border-radius: 15px;
+  padding: 5px;
+  font-size: 1.3rem;
+  font-family: 'Bellefair', serif;
+  text-align: center;
+  background-color: rgba(255,255,255,0.8);
+  width: 300px;
+}
+
+.message div:first-child {
+  text-decoration: underline;
+}
+
+.message div:last-child {
+  font-size: 1.2rem;
+}
+
 .itemDirections {
   margin: 20px 5%;
   display: flex;

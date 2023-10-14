@@ -65,6 +65,16 @@
       <div class="mainTitle">
         {{ $title }}
       </div>
+      @if (session('submit_message'))
+        <div class="message">
+          @php
+            $message = explode('>>>',session('submit_message'));
+          @endphp
+          @for ($i = 0; $i < count($message); $i++)
+            <div>{{ $message[$i] }}</div>
+          @endfor
+        </div>
+      @endif
       <div>
         <form method="POST" action="{{ route('items.add') }}">
           @csrf

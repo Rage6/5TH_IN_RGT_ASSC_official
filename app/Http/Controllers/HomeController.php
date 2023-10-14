@@ -60,12 +60,21 @@ class HomeController extends Controller
         };
       };
 
+      $user_expiration = strtotime($current_user->expiration_date);
+      $time_now = time();
+      if ($current_user->expiration_date == "1970-01-01 00:00:00") {
+        $time_left = null;
+      } else {
+        $time_left = $user_expiration - $time_now;
+      };
+
       return view('home',[
         'current_user' => $current_user,
         'user_roles' => $user_roles,
         'users_permissions' => $unique_users_permissions,
         // 'users_permissions' => $users_permissions,
-        'is_admin' => $is_admin
+        'is_admin' => $is_admin,
+        'time_left' => $time_left
       ]);
     }
 
@@ -366,17 +375,12 @@ class HomeController extends Controller
         };
       };
 
-      $user_expiration = $current_user->expiration_date;
-      $time_now = date("Y-m-d h:m:s",time());
-      $test = $time_now > $user_expiration;
-
       return view('profile',[
         'bobcat' => $bobcat,
         'all_links' => $all_links,
         'all_jobs' => $all_jobs,
         'all_conflicts' => $all_conflicts,
-        'trial_member' => $is_free_trial,
-        'test' => $test
+        'trial_member' => $is_free_trial
       ]);
     }
 }

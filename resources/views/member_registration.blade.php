@@ -22,11 +22,7 @@
       console.log(currentDisplay);
       let currentWidth = window.outerWidth;
       if (currentDisplay == 'none') {
-        if (currentWidth < 1366) {
-          document.getElementById("regForm").style.display = "block";
-        } else {
-          document.getElementById("regForm").style.display = "grid";
-        };
+        document.getElementById("regForm").style.display = "block";
       } else {
         document.getElementById("regForm").style.display = "none";
       };
@@ -52,83 +48,89 @@
         </div>
       </div>
       <div class="regForm" id="regForm" style="display:none">
-        <div>
-          <div class="regFormTitle">
-            ONLINE
-          </div>
-          <a href="{{ url('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options') }}">
-            <div>
-              Already registered? Skip to Part 2
-            </div>
-          </a>
-          <!-- <form method="POST" action="https://www.paypal.com/cgi-bin/webscr" target="_blank"> -->
+        <div class="regTotal">
           <form method="POST" action="{{ route('registration.post') }}">
             @csrf
-            <div class="regText">
-              <input name="first_name" type="text" placeholder="First Name" required/>
-            </div>
-            <div class="regText">
-              <input name="last_name" type="text" placeholder="Last Name" required/>
-            </div>
-            <div class="regText">
-              <input name="spouse_name" type="text" placeholder="Spouse Name"/>
-            </div>
-            <div class="regText">
-              <input name="address_line_1" type="text" placeholder="Street Address"/>
-            </div>
-            <div class="regText">
-              <input name="address_line_2" type="text" placeholder="APT, Room #, etc."/>
-            </div>
-            <div class="regText">
-              <input name="city" type="text" placeholder="City"/>
-            </div>
-            <div class="regText">
-              <input name="state" type="text" placeholder="State"/>
-            </div>
-            <div class="regText">
-              <input name="zip_code" type="text" placeholder="Zip Code"/>
-            </div>
-            <div class="regText">
-              <input name="country" type="text" placeholder="Country (if not US)"/>
-            </div>
-            <div class="regText">
-              <input name="phone_number" type="text" placeholder="Phone Number"/>
-            </div>
-            <div class="regText">
-              <input name="email" type="email" placeholder="Email" />
-            </div>
-            <div class="regInputTitle">I participated in:</div>
-            <div class="regCheckbox">
-              @foreach ($modern_conflicts as $one_conflict)
-                <div>
-                  <input name="conflict_{{ $one_conflict->id }}" type="checkbox" value="{{ $one_conflict->name }}"/>
-                  <label>{{ $one_conflict->name }}</label>
+            <div class="regGrid">
+              <div>
+                <div class="regText">
+                  <input name="first_name" type="text" placeholder="First Name" required/>
                 </div>
-              @endforeach
-            </div>
-            <!-- <div class="regInputTitle">Payment Options:</div>
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <select name="hosted_button_id">
-              <option value="QYJNBQCD33ER2">Active Duty</option>
-              <option value="UKGMW55X5UPQC">One Year</option>
-              <option value="GT2SWY352RVF6">Two Year</option>
-              <option value="BPK67K5YQFH6Y">Five Year</option>
-              <option value="52FBJ8VLNVYLJ">Life member (49 or younger)</option>
-              <option value="AX6VL9PNWMFKY">Life member (50 to 64)</option>
-              <option value="9VQFT3CHBUD2L">Life member (65 or older)</option>
-            </select> -->
-            <div class="regText">
-              <textarea name="unit_details" placeholder="List the unit(s), job(s), and start/end time(s) in the Regiment. (Example: 'Driver, JUN 2006 - AUG 2007')"></textarea>
-            </div>
-            <div class="regText">
-              <textarea maxlength="255" name="comments" placeholder="Include any necessarry questions or comments about your registration form"></textarea>
+                <div class="regText">
+                  <input name="last_name" type="text" placeholder="Last Name" required/>
+                </div>
+                <div class="regText">
+                  <input name="spouse_name" type="text" placeholder="Spouse Name"/>
+                </div>
+                <div class="regText">
+                  <input name="address_line_1" type="text" placeholder="Street Address"/>
+                </div>
+                <div class="regText">
+                  <input name="address_line_2" type="text" placeholder="APT, Room #, etc."/>
+                </div>
+                <div class="regText">
+                  <input name="city" type="text" placeholder="City"/>
+                </div>
+                <div class="regText">
+                  <input name="state" type="text" placeholder="State"/>
+                </div>
+                <div class="regText">
+                  <input name="zip_code" type="text" placeholder="Zip Code"/>
+                </div>
+                <div class="regText">
+                  <input name="country" type="text" placeholder="Country (if not US)"/>
+                </div>
+                <div class="regText">
+                  <input name="phone_number" type="text" placeholder="Phone Number"/>
+                </div>
+                <div class="regText">
+                  <input name="email" type="email" placeholder="Email" />
+                </div>
+                <div class="regText">
+                  <textarea name="unit_details" placeholder="List the unit(s), job(s), and start/end time(s) in the Regiment. (Example: 'Driver, JUN 2006 - AUG 2007')"></textarea>
+                </div>
+              </div>
+              <div>
+                <div class="regInputTitle">I participated in:</div>
+                <div class="regCheckbox">
+                  @foreach ($modern_conflicts as $one_conflict)
+                    <div>
+                      <input name="conflict_{{ $one_conflict->id }}" type="checkbox" value="{{ $one_conflict->name }}"/>
+                      <label>{{ $one_conflict->name }}</label>
+                    </div>
+                  @endforeach
+                </div>
+                <!-- <div class="regInputTitle">Payment Options:</div>
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <select name="hosted_button_id">
+                  <option value="QYJNBQCD33ER2">Active Duty</option>
+                  <option value="UKGMW55X5UPQC">One Year</option>
+                  <option value="GT2SWY352RVF6">Two Year</option>
+                  <option value="BPK67K5YQFH6Y">Five Year</option>
+                  <option value="52FBJ8VLNVYLJ">Life member (49 or younger)</option>
+                  <option value="AX6VL9PNWMFKY">Life member (50 to 64)</option>
+                  <option value="9VQFT3CHBUD2L">Life member (65 or older)</option>
+                </select> -->
+                <div class="regText">
+                  <textarea maxlength="255" name="comments" placeholder="Include any necessarry questions or comments about your registration form"></textarea>
+                </div>
+                <div class="trialEl">
+                  <u>30-Day Free Trial</u>: If you want to try out our membership options first, request our free trial option in the above comment box. This will allow you to see all of our newsletters, see fellow Bobcat profiles, and set up a profile of your own.</br>
+                  NOTE: Only paid members can make "Members Only" purchases.
+                </div>
+              </div>
             </div>
             <div class="submitBttn">
               <input type="submit" name="post" value="SUBMIT"/>
             </div>
           </form>
+          <a href="{{ url('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options') }}">
+            <div>
+              If you are renewing your existing membership, click here.
+            </div>
+          </a>
         </div>
-        <div class="theOr">
+        <!-- <div class="theOr">
           - OR -
         </div>
         <div>
@@ -143,7 +145,7 @@
               Perkasie, PA 18944</br>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="regRow">
         <div class="regSection" style="background:rgba(139,0,0,0.8)">

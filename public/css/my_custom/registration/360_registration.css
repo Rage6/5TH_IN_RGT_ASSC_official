@@ -69,23 +69,37 @@
 }
 
 .regForm {
-  /* margin-left: 10%; */
-  margin-bottom: 30px;
-  /* border-radius: 10px; */
-  padding-bottom: 25px;
+  display: none;
+}
+
+.regTotal {
+  /* margin-bottom: 30px; */
+  padding: 20px 2%;
   color: white;
   font-family: 'Vollkorn SC', sans-serif;
-  display: none;
   background-color: rgba(0,100,0,0.6);
-  /* width: 80%; */
+}
+
+.regTotal a div {
+  margin-left: 10%;
+  text-decoration: underline;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  width: 80%;
+}
+
+.regGrid {
+  grid-template-columns: 49% 49%;
+  grid-column-gap: 2%;
 }
 
 .regText {
-  padding: 10px 5% 0 5%;
+  padding-top: 10px;
 }
 
 .regInputTitle {
-  margin: 30px 0 0 5%;
+  /* margin: 30px 0 0 5%; */
   font-size: 1.1rem;
 }
 
@@ -107,6 +121,17 @@
   width: 90%;
 }
 
+.trialEl {
+  border-top: 10px solid rgba(139,0,0,1);
+  border-bottom: 10px solid rgba(139,0,0,1);
+  border-left: 10px solid white;
+  border-right: 10px solid white;
+  padding: 10px;
+  font-size: 1.2rem;
+  background-color: rgb(0,100,0);
+  width: calc(100% - 40px)
+}
+
 .regCheckbox {
   margin: 10px 7% 0 5%;
   border-radius: 5px;
@@ -126,17 +151,12 @@
   text-decoration: underline;
 }
 
-.theOr {
+/* .theOr {
   font-size: 1.2rem;
   text-align: center;
-}
+} */
 
-.regForm a {
-  text-decoration: underline;
-  color: white;
-}
-
-.mailingInfo {
+/* .mailingInfo {
   padding: 0 5%;
   font-size: 1.2rem;
 }
@@ -147,7 +167,7 @@
   padding: 15px 0;
   text-align: center;
   background-color: rgba(139,0,0,1);
-}
+} */
 
 .submitBttn {
   padding: 30px 5%;

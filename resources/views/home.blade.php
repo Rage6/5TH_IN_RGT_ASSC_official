@@ -67,7 +67,7 @@
                           @if ($current_user->expiration_date == '1970-01-01 00:00:00')
                             LIFETIME
                           @elseif ($current_user->expiration_date != null)
-                            <div>
+                            <div @if ($time_left <= 604800) style="color:red" @endif>
                               Expires on {{ substr($current_user->expiration_date,0,10) }}
                             </div>
                             <div>

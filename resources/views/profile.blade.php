@@ -73,7 +73,6 @@
                           @endfor
                         </div>
                       @endif
-                      {{ $test }}
                       @if ($bobcat->associated_by || $bobcat->honorary_member == 1)
                         <div class="card-subtitle memberInfoTitle">
                           Membership Connection
@@ -146,7 +145,7 @@
 
                         </ul>
                       </div> -->
-                      @if (count($all_links) > 0)
+                      @if (count($all_links) > 0 && $trial_member == false)
                         <div class="card-subtitle memberInfoTitle">
                           Personal Links
                         </div>

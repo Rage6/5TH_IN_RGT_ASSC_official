@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 // use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 use App\Mail\RegistrationEmail;
 
 use App\Models\Applicant;
 use App\Models\Item;
+use App\Models\Conflict;
 
 use Illuminate\Support\Facades\App;
 
@@ -33,9 +33,8 @@ class RegistrationController extends Controller
       $cart_count = get_cart_count($request)->cart_count;
 
       $currentYear = date("Y");
-      $modern_conflicts = DB::table('conflicts')
-        ->select('id','name')
-        ->where('end_year','>',$currentYear - 100)
+      $modern_conflicts = Conflict::
+        where('end_year','>',$currentYear - 100)
         ->orWhere('end_year','=',null)
         ->orderBy('start_year','asc')
         ->get();
@@ -79,9 +78,8 @@ class RegistrationController extends Controller
       ]);
 
       $currentYear = date("Y");
-      $modern_conflicts = DB::table('conflicts')
-        ->select('id','name')
-        ->where('end_year','>',$currentYear - 100)
+      $modern_conflicts = Conflict::
+        where('end_year','>',$currentYear - 100)
         ->orWhere('end_year','=',null)
         ->orderBy('start_year','asc')
         ->get();
@@ -141,7 +139,7 @@ class RegistrationController extends Controller
       $applicant['type'] = 'membership';
       Applicant::create($applicant);
 
-      return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options');
+      return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options')->with('submit_message','Member Registration Submitted>>>You will be notified when your membership is approved');
     }
 
     /**
