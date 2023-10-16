@@ -37,6 +37,10 @@ body {
   height: 88vh;
 }
 
+.reunionIntro {
+  background-size: 100% 100%, 414px 414px;
+}
+
 .regIntroDefault {
   height: 88vh;
 }

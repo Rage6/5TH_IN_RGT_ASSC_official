@@ -6,6 +6,10 @@
   width: 60%;
 }
 
+.reunionIntro {
+  background-size: 100% 100%, 414px 414px;
+}
+
 .regBttn {
   margin: 0vh 0 0 38%;
   border-radius: 25px;

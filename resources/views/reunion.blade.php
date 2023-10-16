@@ -65,14 +65,7 @@
   <div class="main">
     <div class="content">
       @if ($reunion_main->primary_image)
-      <div style="background:
-        linear-gradient(
-          rgba(255,255,255,0.5),
-          rgba(255,255,255,0.5)),
-        url('/images/events/{{ $reunion_main->primary_image }}');
-        background-repeat: no-repeat, no-repeat, repeat;
-        background-size: auto 100%, cover, auto;
-        background-position: left, center, left;" class="regIntro">
+      <div class="reunionIntro regIntro">
       @else
       <div class="regIntroDefault">
       @endif

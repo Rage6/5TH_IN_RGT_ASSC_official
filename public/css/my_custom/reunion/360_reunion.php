@@ -65,6 +65,16 @@
       transparent);
 }
 
+.reunionIntro {
+  background: linear-gradient(
+          rgba(255,255,255,0.5),
+          rgba(255,255,255,0.5)),
+          url('/images/events/collage-test.png');
+  background-repeat: no-repeat, repeat;
+  background-size: 100% 100%, 360px 360px;
+  background-position: left, center;
+}
+
 .regIntro {
   text-align: center;
   height: 90vh;
