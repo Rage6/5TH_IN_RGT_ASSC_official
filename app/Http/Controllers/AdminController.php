@@ -276,8 +276,17 @@ class AdminController extends Controller
 
             if ($child_already_selected == false) {
               User::find($new_user->id)->all_user_conflicts()->attach($conflict->id);
+              if ($conflict->member_participated == 0) {
+                $conflict->member_participated = 1;
+                $conflict->save();
+              };
               if ($parent_already_selected == false && $conflict->parent_id != null) {
                 User::find($new_user->id)->all_user_conflicts()->attach($conflict->parent_id);
+                $parent_conflict = Conflict::find($conflict->parent_id);
+                if ($parent_conflict->member_participated == 0) {
+                  $parent_conflict->member_participated = 1;
+                  $parent_conflict->save();
+                };
               };
             };
           };
@@ -481,6 +490,11 @@ class AdminController extends Controller
       $past_conflicts = $member->all_user_conflicts;
       foreach ($past_conflicts as $one_conflict) {
         $member->all_user_conflicts()->detach($one_conflict->id);
+        $users_left = count($one_conflict->all_conflict_users);
+        if ($users_left <= 1) {
+          $one_conflict->member_participated = 0;
+          $one_conflict->save();
+        };
       };
       $conflict_total = intval($request->conflictTotal);
       if ($conflict_total > 0) {
@@ -515,6 +529,14 @@ class AdminController extends Controller
                 User::find($member->id)->all_user_conflicts()->attach($conflict->parent_id);
               };
             };
+
+            $conflict->member_participated = 1;
+            $conflict->save();
+            if ($conflict->parent_id != null) {
+              $parent_conflict = Conflict::find($conflict->parent_id);
+              $parent_conflict->member_participated = 1;
+              $parent_conflict->save();
+            };
           };
         };
       };
@@ -543,20 +565,47 @@ class AdminController extends Controller
         $member->all_user_roles()->attach($role_id);
       };
 
+      $member_conflict = $member->all_user_conflicts;
+      foreach ($member_conflict as $one_conflict) {
+        if ($one_conflict->member_participated == 0) {
+          $one_conflict->member_participated = 1;
+          $one_conflict->save();
+        };
+      };
+
       return redirect()->route('edit.member.index',['id' => $id]);
     }
 
     public function edit_member_deadline_nonmember($id) {
       $member = User::find($id);
-      $member->expiration_date = null;
-      $member->save();
 
       $past_roles = $member->all_user_roles;
       foreach ($past_roles as $one_role) {
         $member->all_user_roles()->detach($one_role->id);
       };
 
-      return redirect()->route('edit.member.index',['id' => $id]);
+      $member_conflict = $member->all_user_conflicts;
+      foreach ($member_conflict as $one_conflict) {
+        $check_conflict = Conflict::find($one_conflict->id);
+        $user_count = count($check_conflict->all_conflict_users);
+        if ($user_count <= 1) {
+          $check_conflict->member_participated = 0;
+          $check_conflict->save();
+        };
+        if ($check_conflict->parent_id) {
+          $parent_check_conflict = Conflict::find($one_conflict->parent_id);
+          $parent_count = count($parent_check_conflict->all_conflict_users);
+          if ($parent_count <= 1) {
+            $parent_check_conflict->member_participated = 0;
+            $parent_check_conflict->save();
+          };
+        };
+      };
+
+      $member->expiration_date = null;
+      $member->save();
+
+      return redirect()->route('edit.member.list',['id' => $id]);
     }
 
     public function edit_member_deadline_manual(Request $request,$id) {
@@ -577,6 +626,14 @@ class AdminController extends Controller
       $already_member = $member->check_for_role('Bobcat Member');
       if ($already_member == false) {
         $member->all_user_roles()->attach($role_id);
+      };
+
+      $member_conflict = $member->all_user_conflicts;
+      foreach ($member_conflict as $one_conflict) {
+        if ($member->deceased == 1 && $one_conflict->member_participated == 0) {
+          $one_conflict->member_participated = 1;
+          $one_conflict->save();
+        };
       };
 
       return redirect()->route('edit.member.index',['id' => $id]);
@@ -2612,7 +2669,7 @@ class AdminController extends Controller
         'startYear' => 'required|integer',
         'endYear' => 'nullable|integer',
         'parentId' => 'nullable|integer',
-        'memberParticipated' => 'required|integer'
+        // 'memberParticipated' => 'required|integer'
       ]);
 
       if ($request->parentId == 0) {
@@ -2691,7 +2748,7 @@ class AdminController extends Controller
       $conflict->start_year = $request->startYear;
       $conflict->end_year = $request->endYear;
       $conflict->parent_id = $request->parentId;
-      $conflict->member_participated = $request->memberParticipated;
+      // $conflict->member_participated = $request->memberParticipated;
 
       $conflict->save();
 

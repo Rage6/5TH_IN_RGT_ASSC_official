@@ -50,7 +50,7 @@
                           </div>
                         @endif
                       </div>
-                      <div class="basicInfoGrid">
+                      <!-- <div class="basicInfoGrid">
                         <div>
                           Did any of our members participated in this war/conflict?
                         </div>
@@ -70,7 +70,7 @@
                             </option>
                           </select>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="basicInfoGrid">
                         <div>
                           This is a list of the conflict that took place within '{{ $conflict->name }}'.

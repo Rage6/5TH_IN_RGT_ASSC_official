@@ -15,4 +15,10 @@ class Conflict extends Model
       'end_year',
       'parent_id'
     ];
+
+    public function all_conflict_users() {
+      return $this->belongsToMany('App\Models\User')
+        ->where('deceased',1)
+        ->whereNotNull('expiration_date');
+    }
 }
