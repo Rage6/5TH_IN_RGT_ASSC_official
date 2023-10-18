@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 
 use App\Models\Bulletin;
+use App\Models\Role;
 
 class NewsletterController extends Controller
 {
@@ -36,6 +37,13 @@ class NewsletterController extends Controller
       $most_recent = Bulletin::orderBy('year','desc')->orderBy('season_order','desc')->first();
       $oldest_bulletin = Bulletin::orderBy('year','asc')->orderBy('season_order','asc')->first();
 
+      $all_editors = Role::where('slug','=','newsletter-editor')->first()->all_role_users;
+      $editors = [];
+
+      foreach ($all_editors as $one_user) {
+        $editors[] = $one_user;
+      };
+
       return view('newsletter',[
         'style' => 'newsletter_style',
         'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
@@ -44,7 +52,8 @@ class NewsletterController extends Controller
         'all_bulletins' => $all_bulletins,
         'most_recent' => $most_recent,
         'oldest_bulletin' => $oldest_bulletin,
-        'member_status' => $member_status
+        'member_status' => $member_status,
+        'editors' => $editors
       ]);
     }
 

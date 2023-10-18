@@ -144,32 +144,30 @@
             </ul>
           </div>
         </div>
-        <!-- <div class="section" style="background:rgba(0,100,0,0.8)">
-          <div class="sectionTitle">
-            See A Sample Edition
-          </div>
-          <div>
-            The Bobcat Bulletin's editions, both past and current, are exclusively for Bobcat members. However, anyone can see a full example of one by clicking here.
-          </div>
-        </div> -->
         <div class="section contactEl" id="contactEl">
           <div class="sectionTitle">
             Contact The Editor
           </div>
           <div class="contactIntro">
-            Do you want to contribute to our bulletin? Feel free to send items for publication to:
+            Do you want to contribute to our bulletin? Feel free to send questions or items for publication to @if (count($editors) > 1) any of the following email addresses @else the following email address @endif.
           </div>
           <div class="contactList">
-            <div class="contactEntry">
-              <u>Mail</u></br>
-              Fred Deverse</br>
-              138 Glenrise Road</br>
-              Swanton, MD 21561
-            </div>
-            <div class="contactEntry">
-              <u>Email</u></br>
-              fpd@Bobcat.ws
-            </div>
+            @if (count($editors) > 0)
+              @php $no_editor = true; @endphp
+              @foreach ($editors as $one_editor)
+                @if (!$one_editor->deceased)
+                  <div class="contactEntry">
+                    <u>{{ $one_editor->first_name }} {{ $one_editor->last_name }}</u>: {{ $one_editor->email }}
+                  </div>
+                  @php $no_editor = false; @endphp
+                @endif
+              @endforeach
+              @if ($no_editor == true)
+                <i>No editor at this time</i>
+              @endif
+            @else
+              <i>No editor at this time</i>
+            @endif
           </div>
         </div>
       </div>

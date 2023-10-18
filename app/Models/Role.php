@@ -16,7 +16,7 @@ class Role extends Model
     }
 
     public function all_role_users() {
-      return $this->belongsToMany('App\Models\User');
+      return $this->belongsToMany('App\Models\User')->orderBy('last_name','asc');
     }
 
     public function all_role_permissions() {

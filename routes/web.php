@@ -331,5 +331,10 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
     Route::middleware(['permission:See Reunion Applicants'])->group(function() {
       Route::get('reunion-applicant-list',[App\Http\Controllers\AdminController::class,'reunion_list_index'])->name('reunion.list');
     });
+
+    Route::middleware(['permission:Add A Bulletin'])->group(function() {
+      Route::get('add-bulletin',[App\Http\Controllers\AdminController::class,'add_bulletin_index'])->name('add.bulletin.index');
+      Route::get('add-bulletin-complete',[App\Http\Controllers\AdminController::class,'add_bulletin_post'])->name('add.bulletin.post');
+    });
   });
 });
