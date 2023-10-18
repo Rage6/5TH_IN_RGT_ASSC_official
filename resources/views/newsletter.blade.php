@@ -26,9 +26,19 @@
         <div class="mainTitle">
           The Bobcat Bulletin
         </div>
-        <div class="initBttn">
-          <a href="{{ url('/newsletters/'.$most_recent->year.'/'.$most_recent->filename) }}" target="_blank">Current Edition</a>
-        </div>
+        @if ($member_status == "member")
+          <div class="initBttn">
+            <a href="{{ url('/newsletters/'.$most_recent->year.'/'.$most_recent->filename) }}" target="_blank">
+              Current Edition
+            </a>
+          </div>
+        @else
+          <div class="initBttn">
+            <a href="{{ url('/newsletters/'.$oldest_bulletin->year.'/'.$oldest_bulletin->filename) }}" target="_blank">
+              Example Bulletin
+            </a>
+          </div>
+        @endif
         <div class="initBttn" id="pastBttn" onclick="scrollDown('pastEl')">
           Past Editions
         </div>
@@ -77,13 +87,42 @@
             </div>
           </div>
           <div class="scrollEl">
-            @foreach ($all_bulletins as $one_bulletin)
-              <a href="{{ url('/newsletters/'.$one_bulletin->year.'/'.$one_bulletin->filename) }}" target="_blank">
-                <div class="onePastEl" data-year="{{ $one_bulletin->year }}">
-                  {{ $one_bulletin->year }}, {{ $one_bulletin->season }}
+            <div>
+              @if ($member_status == "member")
+                @foreach ($all_bulletins as $one_bulletin)
+                  <a href="{{ url('/newsletters/'.$one_bulletin->year.'/'.$one_bulletin->filename) }}" target="_blank">
+                    <div class="onePastEl" data-year="{{ $one_bulletin->year }}">
+                      {{ $one_bulletin->year }}, {{ $one_bulletin->season }}
+                    </div>
+                  </a>
+                @endforeach
+              @else
+                @foreach ($all_bulletins as $one_bulletin)
+                  <div class="onePastEl noLinkRow" data-year="{{ $one_bulletin->year }}">
+                    {{ $one_bulletin->year }}, {{ $one_bulletin->season }}
+                  </div>
+                @endforeach
+              @endif
+            </div>
+            @if ($member_status == "expired member")
+              <div class="noBulletins">
+                <div>
+                  Your membership has expired. To renew your membership, please <u><a href="{{ route('items.all',['purpose'=>'registration.index','title'=>'Member%20Registration%20Fee%20Options']) }}">go here</a></u>.
                 </div>
-              </a>
-            @endforeach
+                <div>
+                  After that, a member of the Bobcat staff will confirm your payment and reactivate your account.
+                </div>
+              </div>
+            @elseif ($member_status == "not a member")
+              <div class="noBulletins">
+                <div>
+                  Once logged in, a member can review all of our current and past digital bulletins.
+                </div>
+                <div>
+                  Already a member? <u><a href="{{ route('login') }}">Login here</a></u>
+                </div>
+              </div>
+            @endif
           </div>
         </div>
         <div class="section aboutEl" id="aboutEl">

@@ -22,17 +22,29 @@ class NewsletterController extends Controller
       // The 'get_cart_count' function is in 'app\helper.php'
       $cart_count = get_cart_count($request)->cart_count;
 
-      $this_user = Auth::user();
+      $user = Auth::user();
+
+      if ($user == null) {
+        $member_status = "not a member";
+      } elseif ($user->expiration_date < date('Y-m-d h:m:s') && $user->expiration_date != '1970-01-01 00:00:00') {
+        $member_status = "expired member";
+      } else {
+        $member_status = "member";
+      };
+
       $all_bulletins = Bulletin::orderBy('year','desc')->orderBy('season_order','desc')->get();
       $most_recent = Bulletin::orderBy('year','desc')->orderBy('season_order','desc')->first();
+      $oldest_bulletin = Bulletin::orderBy('year','asc')->orderBy('season_order','asc')->first();
+
       return view('newsletter',[
         'style' => 'newsletter_style',
         'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
         'content' => 'newsletter_content',
-        'this_user' => $this_user,
         'cart_count' => $cart_count,
         'all_bulletins' => $all_bulletins,
-        'most_recent' => $most_recent
+        'most_recent' => $most_recent,
+        'oldest_bulletin' => $oldest_bulletin,
+        'member_status' => $member_status
       ]);
     }
 

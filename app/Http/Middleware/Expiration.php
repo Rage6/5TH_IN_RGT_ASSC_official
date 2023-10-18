@@ -21,7 +21,7 @@ class Expiration
       $user_expiration = $current_user->expiration_date;
       $time_now = date("Y-m-d h:m:s",time());
       if ($time_now > $user_expiration && $user_expiration != "1970-01-01 00:00:00") {
-        abort(403, "Your membership has expired. Renew it at the Membership page.");
+        abort(403, "Your membership has expired. Paying a membership fee will allow the Bobcat staff to reactivate your account.");
       };
       return $next($request);
     }
