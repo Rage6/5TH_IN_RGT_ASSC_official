@@ -86,7 +86,7 @@
               </button>
             </div>
           </div>
-          <div class="scrollEl">
+          <div class="scrollEl @if ($member_status != 'member') noScroll @endif">
             <div>
               @if ($member_status == "member")
                 @foreach ($all_bulletins as $one_bulletin)
