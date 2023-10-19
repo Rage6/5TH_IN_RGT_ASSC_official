@@ -10,7 +10,7 @@ class Bulletin extends Model
     use HasFactory;
 
     protected $fillable = [
-      'year',
+      'post_year',
       'season_order',
       'season',
       'filename'

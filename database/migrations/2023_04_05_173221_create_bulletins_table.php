@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('bulletins', function (Blueprint $table) {
             $table->id();
-            $table->integer('year');
+            $table->integer('post_year');
             $table->string('season');
             $table->integer('season_order');
             $table->string('filename');

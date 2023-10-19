@@ -119,6 +119,12 @@ Route::get('images/events/subevents/{filename}', function($filename){
         return response()->file($storagePath);
 });
 
+// Retrieves a 'bulletin' pdf file from the 'storage' directory
+Route::get('bulletins/{filename}', function($filename){
+     $storagePath = storage_path('app/public/bulletins/' . $filename);
+        return response()->file($storagePath);
+});
+
 Route::middleware('auth')->middleware('expiration')->group(function() {
 
   Route::prefix('/home')->group(function() {
@@ -334,7 +340,25 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
 
     Route::middleware(['permission:Add A Bulletin'])->group(function() {
       Route::get('add-bulletin',[App\Http\Controllers\AdminController::class,'add_bulletin_index'])->name('add.bulletin.index');
-      Route::get('add-bulletin-complete',[App\Http\Controllers\AdminController::class,'add_bulletin_post'])->name('add.bulletin.post');
+      Route::post('add-bulletin-complete',[App\Http\Controllers\AdminController::class,'add_bulletin_post'])->name('add.bulletin.post');
+    });
+
+    Route::middleware(['permission:Edit A Bulletin'])->group(function() {
+      // See a list of bulletins for editin
+      Route::get('edit-bulletin-list', [App\Http\Controllers\AdminController::class,'all_bulletins'])->name('edit.bulletin.list');
+      // Prepare to edit a single bulletin's info
+      Route::get('edit-bulletin/{id}',[App\Http\Controllers\AdminController::class,'edit_bulletin_index'])->name('edit.bulletin.index');
+      // Edit a single bulletin's info
+      Route::post('edit-bulletin/{id}/post',[App\Http\Controllers\AdminController::class,'edit_bulletin_post'])->name('edit.bulletin.post');
+    });
+
+    Route::middleware(['permission:Delete A Bulletin'])->group(function() {
+      // See a list of bulletins for editin
+      Route::get('delete-bulletin-list', [App\Http\Controllers\AdminController::class,'all_bulletins'])->name('delete.bulletin.list');
+      // Prepare to delete a single bulletin
+      Route::get('delete-bulletin/{id}',[App\Http\Controllers\AdminController::class,'delete_bulletin_index'])->name('delete.bulletin.index');
+      // Delete a single bulletin
+      Route::post('delete-bulletin-complete/{id}',[App\Http\Controllers\AdminController::class,'delete_bulletin_post'])->name('delete.bulletin.post');
     });
   });
 });

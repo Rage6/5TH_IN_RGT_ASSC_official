@@ -33,9 +33,9 @@ class NewsletterController extends Controller
         $member_status = "member";
       };
 
-      $all_bulletins = Bulletin::orderBy('year','desc')->orderBy('season_order','desc')->get();
-      $most_recent = Bulletin::orderBy('year','desc')->orderBy('season_order','desc')->first();
-      $oldest_bulletin = Bulletin::orderBy('year','asc')->orderBy('season_order','asc')->first();
+      $all_bulletins = Bulletin::orderBy('post_year','desc')->orderBy('season_order','desc')->get();
+      $most_recent = Bulletin::orderBy('post_year','desc')->orderBy('season_order','desc')->first();
+      $oldest_bulletin = Bulletin::orderBy('post_year','asc')->orderBy('season_order','asc')->first();
 
       $all_editors = Role::where('slug','=','newsletter-editor')->first()->all_role_users;
       $editors = [];

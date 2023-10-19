@@ -15,6 +15,7 @@ use App\Models\Applicant;
 use App\Models\Conflict;
 use App\Models\Link;
 use App\Models\Timespan;
+use App\Models\Bulletin;
 
 use App\Http\Controllers\stdClass;
 use Illuminate\Support\Facades\Hash;
@@ -2911,6 +2912,129 @@ class AdminController extends Controller
         'all_payments' => $all_payments,
         'all_members' => $all_members
       ]);
+    }
+
+    public function add_bulletin_index()
+    {
+      return view('admin.new_bulletin');
+    }
+
+    public function add_bulletin_post(Request $request) {
+      $request->validate([
+        'bulletinYear'     => 'required|integer|min:1970',
+        'bulletinSeason'   => 'required|integer|min:1|max:4',
+        'bulletinFile'     => 'required|mimes:pdf'
+      ]);
+
+      $input['post_year'] = $request->bulletinYear;
+      $input['season_order'] = $request->bulletinSeason;
+
+      if ($input['season_order'] == 1) {
+        $input['season'] = "Winter";
+      } elseif ($input['season_order'] == 2) {
+        $input['season'] = "Spring";
+      } elseif ($input['season_order'] == 3) {
+        $input['season'] = "Summer";
+      } else {
+        $input['season'] = "Fall";
+      };
+
+      $input['filename'] = request('bulletinFile')->store("public/bulletins");
+      $filename = request('bulletinFile')->hashName();
+      $input['filename'] = $filename;
+
+      Bulletin::create($input);
+
+      return redirect()->route('admin.index');
+    }
+
+    public function all_bulletins() {
+
+      $all_bulletins = Bulletin::orderBy('post_year','asc')
+        ->orderBy('season_order','asc')
+        ->paginate(20);
+
+      $current_user = Auth::user();
+      $user_roles = User::find($current_user->id)->all_user_roles;
+      $role_model = new Role();
+      $users_permissions = $role_model->users_permissions($current_user->id);
+
+      $can_edit = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Edit A Bulletin") {
+          $can_edit = true;
+        };
+      };
+
+      $can_delete = false;
+      for ($num = 0; $num < count($users_permissions); $num++) {
+        if ($users_permissions[$num][0] == "Delete A Bulletin") {
+          $can_delete = true;
+        };
+      };
+
+      return view('admin.all_bulletins',[
+        'all_bulletins' => $all_bulletins,
+        'can_edit' => $can_edit,
+        'can_delete' => $can_delete
+      ]);
+    }
+
+    public function edit_bulletin_index($id)
+    {
+      $bulletin = Bulletin::find($id);
+
+      return view('admin.edit_bulletin',[
+        'bulletin' => $bulletin
+      ]);
+    }
+
+    public function edit_bulletin_post(Request $request,$id) {
+
+      $input = Bulletin::find($id);
+
+      $request->validate([
+        'bulletinYear'     => 'required|integer|min:1970',
+        'bulletinSeason'   => 'required|integer|min:1|max:4'
+      ]);
+
+      $input['post_year'] = $request->bulletinYear;
+      $input['season_order'] = $request->bulletinSeason;
+
+      if ($input['season_order'] == 1) {
+        $input['season'] = "Winter";
+      } elseif ($input['season_order'] == 2) {
+        $input['season'] = "Spring";
+      } elseif ($input['season_order'] == 3) {
+        $input['season'] = "Summer";
+      } else {
+        $input['season'] = "Fall";
+      };
+
+      $input->save();
+
+      return redirect()->route('edit.bulletin.list');
+    }
+
+    public function delete_bulletin_index($id)
+    {
+      $bulletin = Bulletin::find($id);
+
+      return view('admin.delete_bulletin',[
+        'bulletin' => $bulletin
+      ]);
+    }
+
+    public function delete_bulletin_post($id)
+    {
+      $bulletin = Bulletin::find($id);
+
+      $storagePath = 'public/bulletins';
+
+      Storage::delete($storagePath."/".$bulletin->filename);
+      $bulletin->delete();
+
+      return redirect()->route('delete.bulletin.list',['id' => $id]);
     }
 
     public function membership_list_index() {

@@ -88,20 +88,26 @@
           </div>
           <div class="scrollEl @if ($member_status != 'member') noScroll @endif">
             <div>
-              @if ($member_status == "member")
-                @foreach ($all_bulletins as $one_bulletin)
-                  <a href="{{ url('/newsletters/'.$one_bulletin->year.'/'.$one_bulletin->filename) }}" target="_blank">
-                    <div class="onePastEl" data-year="{{ $one_bulletin->year }}">
+              @if (count($all_bulletins) > 0)
+                @if ($member_status == "member")
+                  @foreach ($all_bulletins as $one_bulletin)
+                    <a href="{{ url('/bulletins/'.$one_bulletin->filename) }}" target="_blank">
+                      <div class="onePastEl" data-year="{{ $one_bulletin->year }}">
+                        {{ $one_bulletin->post_year }}, {{ $one_bulletin->season }}
+                      </div>
+                    </a>
+                  @endforeach
+                @else
+                  @foreach ($all_bulletins as $one_bulletin)
+                    <div class="onePastEl noLinkRow" data-year="{{ $one_bulletin->year }}">
                       {{ $one_bulletin->year }}, {{ $one_bulletin->season }}
                     </div>
-                  </a>
-                @endforeach
+                  @endforeach
+                @endif
               @else
-                @foreach ($all_bulletins as $one_bulletin)
-                  <div class="onePastEl noLinkRow" data-year="{{ $one_bulletin->year }}">
-                    {{ $one_bulletin->year }}, {{ $one_bulletin->season }}
-                  </div>
-                @endforeach
+                <div style="margin: 10px 5%">
+                  There are no bulletins at this time.
+                </div>
               @endif
             </div>
             @if ($member_status == "expired member")

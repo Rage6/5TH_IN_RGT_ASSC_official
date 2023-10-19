@@ -29,7 +29,7 @@
 }
 
 .initIntro {
-  background-image: url('/newsletters/homepage.jpeg');
+  background-image: url('/images/newsletters/homepage.jpeg');
   background-size: cover;
   background-position: center;
   height: 90vh;
