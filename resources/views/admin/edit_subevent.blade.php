@@ -28,11 +28,13 @@
                       </div>
 
                       <div class="imgGrid">
+                        <div></div>
+                        <div></div>
                         @if ($subevent->primary_image)
-                          <div style="background-image: url('/images/events/subevents/{{ $subevent->primary_image }}')">
+                          <div class="img" style="background-image: url('/images/events/subevents/{{ $subevent->primary_image }}')">
                           </div>
                         @else
-                          <div style="background-image: url('{{ url('/images/default_landscape.png') }}')">
+                          <div class="img" style="background-image: url('{{ url('/images/default_landscape.png') }}')">
                           </div>
                         @endif
                         <div></div>

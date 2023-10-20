@@ -62,7 +62,7 @@
           </div>
         </div>
         @if ($casualty_data->veteran_img != null)
-          <div class="casualtyImg" style="background-image: url('/{{ $img_path }}/{{ $casualty_data->veteran_img }}?t=@php echo(time()) @endphp')"></div>
+          <div class="casualtyImg" style="background-image: url('/{{ $img_path }}/{{ $casualty_data->veteran_img }}')"></div>
         @else
           <div class="casualtyImg" style="background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/04/65/24/73/d-day-tours-of-normandy.jpg')"></div>
         @endif

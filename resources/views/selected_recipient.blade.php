@@ -33,11 +33,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="backBttn">
-      <a href="{{ route('recipients.all') }}">
-        << BACK
-      </a>
-    </div> -->
     <div class="dailyAndSearchBox">
       <div class="backBttn">
         <a href="{{ route('recipients.all') }}">
@@ -64,7 +59,7 @@
             </div>
           </div>
           @if ($recipient_data->veteran_img != null)
-            <div class="recipientImg" style="background-image:url('/images/veteran/{{ $recipient_data->veteran_img }}?t=@php echo(time()) @endphp)'),linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7))"></div>
+            <div class="recipientImg" style="background-image:url('/images/veteran/{{ $recipient_data->veteran_img }}'),linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7))"></div>
           @else
             <div class="recipientImg" style="background-image:url('/images/recipients/Medal_of_Honor_default.jpg'),linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7))"></div>
           @endif
@@ -113,58 +108,6 @@
           </div>
         </div>
         <div class="recipientBio recipientBioSummary">
-          <!-- <div class="recipientNameAndImg">
-            <div class="recipientName">
-              @if ($recipient_data->rank)
-                <div class="rankWithMedal">
-                  {{ $recipient_data->rank }}
-                </div>
-              @endif
-              <div>
-                {{ $recipient_data->first_name }}
-                @if ($recipient_data->middle_name != null)
-                  {{ substr($recipient_data->middle_name,0,1) }}.
-                @endif
-                {{ $recipient_data->last_name }}
-              </div>
-            </div>
-            @if ($recipient_data->veteran_img != null)
-              <div class="recipientImg" style="background-image:url('/{{ $img_path }}/{{ $recipient_data->veteran_img }}?t=@php echo(time()) @endphp)')"></div>
-            @else
-              <div class="recipientImg" style="background-image:url('/images/recipients/Medal_of_Honor_default.jpg')"></div>
-            @endif
-            <div class="actionDate">
-              <div class="recipientBioTitle">
-                BASIC INFORMATION
-              </div>
-              <div>
-                <div class="basicKey">Full Name</div>
-                <div class="basicValue">{{ $recipient_data->first_name }} {{ $recipient_data->middle_name }} {{ $recipient_data->last_name }}</div>
-                @if ($recipient_data->month_of_moh_action && $recipient_data->day_of_moh_action && $recipient_data->year_of_moh_action)
-                  <div class="basicKey">
-                    Event Date
-                  </div>
-                  <div class="basicValue">
-                    {{ $recipient_data->month_of_moh_action }}/{{ $recipient_data->day_of_moh_action }}/{{ $recipient_data->year_of_moh_action }}
-                  </div>
-                @endif
-                @if ($recipient_data->rank)
-                  <div class="basicKey">Highest Rank</div>
-                  <div class="basicValue">{{ $recipient_data->rank }}</div>
-                @endif
-                @if ($recipient_data->awarded_posthumously)
-                  <div class="basicKey">Awarded Posthumously</div>
-                  <div class="basicValue">
-                    @if ($recipient_data->awarded_posthumously == 1)
-                      YES
-                    @else
-                      NO
-                    @endif
-                  </div>
-                @endif
-              </div>
-            </div>
-          </div> -->
           <div class="recipientBioTitle">
             OFFICIAL CITATION
           </div>
@@ -172,14 +115,12 @@
             "{{ $recipient_data->citation }}"
           </div>
           @if ($recipient_data->comments != null)
-          <!-- <div class="recipientBio recipientDetails"> -->
-          <div class="recipientBioTitle">
-            ADDITIONAL INFORMATION
-          </div>
-          <div class="recipientBioContent">
-            {{ $recipient_data->comments }}
-          </div>
-          <!-- </div> -->
+            <div class="recipientBioTitle">
+              ADDITIONAL INFORMATION
+            </div>
+            <div class="recipientBioContent">
+              {{ $recipient_data->comments }}
+            </div>
           @endif
         </div>
         @if (count($all_links) > 0)
