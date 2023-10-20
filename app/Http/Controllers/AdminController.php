@@ -163,11 +163,11 @@ class AdminController extends Controller
       //   Artisan::call('storage:link');
       // };
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $storagePath = 'public/images';
+      // } else {
         $storagePath = 'public/images';
-      } else {
-        $storagePath = 'public/images';
-      };
+      // };
 
       // Add member's current photo
       if (request('currentImg')) {
@@ -370,11 +370,11 @@ class AdminController extends Controller
       //   Artisan::call('storage:link');
       // };
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
         $imagePath = 'images';
-      } else {
-        $imagePath = 'public/images';
-      };
+      // } else {
+      //   $imagePath = 'public/images';
+      // };
 
       return view('admin.edit_user',[
         'id'     => $id,
@@ -455,11 +455,11 @@ class AdminController extends Controller
         $member->deceased = 1;
       };
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      //   $storagePath = 'public/images';
+      // } else {
         $storagePath = 'public/images';
-      } else {
-        $storagePath = 'public/images';
-      };
+      // };
 
       /*
       // if (!file_exists('../public/storage')) {
@@ -725,11 +725,11 @@ class AdminController extends Controller
     public function image_member_index($id,$img_type,$edit_type) {
       $member = User::find($id);
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
         $imagePath = 'images';
-      } else {
-        $imagePath = 'public/images';
-      };
+      // } else {
+      //   $imagePath = 'public/images';
+      // };
 
       $return_route = 'edit.'.$edit_type.'.index';
       $delete_method = 'image.member.delete';
@@ -986,11 +986,11 @@ class AdminController extends Controller
 
       $all_conflicts = Conflict::orderBy('start_year')->get();
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
         $imagePath = 'images';
-      } else {
-        $imagePath = 'public/images';
-      };
+      // } else {
+      //   $imagePath = 'public/images';
+      // };
 
       return view('admin.edit_casualty',[
         'id'     => $id,
@@ -1208,11 +1208,11 @@ class AdminController extends Controller
     public function image_casualty_index($id,$img_type,$edit_type) {
       $member = User::find($id);
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
         $imagePath = 'images';
-      } else {
-        $imagePath = 'public/images';
-      };
+      // } else {
+      //   $imagePath = 'public/images';
+      // };
 
       $return_route = 'edit.'.$edit_type.'.index';
       $delete_method = 'image.casualty.delete';
@@ -1508,11 +1508,11 @@ class AdminController extends Controller
 
       $all_conflicts = Conflict::orderBy('start_year','asc')->get();
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
         $imagePath = 'images';
-      } else {
-        $imagePath = 'public/images';
-      };
+      // } else {
+      //   $imagePath = 'public/images';
+      // };
 
       return view('admin.edit_recipient',[
         'id'     => $id,
@@ -1747,11 +1747,11 @@ class AdminController extends Controller
     public function image_recipient_index($id,$img_type,$edit_type) {
       $member = User::find($id);
 
-      if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
+      // if (explode(":",$_SERVER['HTTP_HOST'])[0] == 'localhost') {
         $imagePath = 'images';
-      } else {
-        $imagePath = 'public/images';
-      };
+      // } else {
+      //   $imagePath = 'public/images';
+      // };
 
       $return_route = 'edit.'.$edit_type.'.index';
       $delete_method = 'image.recipient.delete';
