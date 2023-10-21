@@ -30,3 +30,11 @@
 .socialBttnList a {
   margin-right: 30px;
 }
+
+.classicBttn {
+  border:1px solid white;
+  border-radius:15px;
+  padding: 5px;
+  color: white;
+  text-align: center;
+}
