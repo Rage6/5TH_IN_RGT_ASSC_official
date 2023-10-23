@@ -89,12 +89,12 @@
         PHOTO ALBUM
       </div>
       <div class="mainMenuSubBox" data-box-num="4">
-        <a href="http://www.bobcat.ws/coppermine/index.php?cat=10001&page=1" target="_blank">
+        <a href="http://classic.bobcat.ws/coppermine/index.php?cat=10001&page=1" target="_blank">
           <div class="mainMenuSubBttn">
             + Album 1
           </div>
         </a>
-        <a href="http://www.bobcat.ws/coppermine2/index.php?cat=10001" target="_blank">
+        <a href="http://classic.bobcat.ws/coppermine2/index.php?cat=10001" target="_blank">
           <div class="mainMenuSubBttn">
             + Album 2
           </div>
