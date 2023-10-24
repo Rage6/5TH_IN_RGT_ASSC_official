@@ -28,13 +28,13 @@
         </div>
         @if ($member_status == "member")
           <div class="initBttn">
-            <a href="{{ url('/newsletters/'.$most_recent->year.'/'.$most_recent->filename) }}" target="_blank">
+            <a href="{{ url('/bulletins/'.$most_recent->filename) }}" target="_blank">
               Current Edition
             </a>
           </div>
         @else
           <div class="initBttn">
-            <a href="{{ url('/newsletters/'.$oldest_bulletin->year.'/'.$oldest_bulletin->filename) }}" target="_blank">
+            <a href="{{ url('/bulletins/'.$oldest_bulletin->filename) }}" target="_blank">
               Example Bulletin
             </a>
           </div>
