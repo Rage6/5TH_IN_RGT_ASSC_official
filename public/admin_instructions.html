@@ -109,6 +109,9 @@
           /button-start/ ** Content goes here ** /button-end/
             * This creates a white button with black text, although it actually uses 'span' tags instead of 'button' tags. This button is often surrounded by a hyperlink (see above).
 
+          /location/
+            * The 'Location' input is below the 'Content' input in the 'subevent' add/edit tools. This input can use the above pseudo-tags (ex. /br/), and /location/ can be added within a pseudo-element like /div-*/. The /location/ tag stands alone, so it does not require -start or -end suffixes.
+
       - Second, type out your code completely on another text document
       so that you can review it before entering it to the 'content'
       box. The example below is the final result of a subevent about
@@ -120,6 +123,7 @@
         /u-start/                      <--- Underline 'Rooms' starts
           Rooms
         /u-end/                        <--- Underline 'Rooms' ends
+        /location/                     <--- The location element is entered
         /unorder-start/                <--- Unordered list starts
           /row-start/                  <--- First line begins
             Kings 2 Room Suite: $109

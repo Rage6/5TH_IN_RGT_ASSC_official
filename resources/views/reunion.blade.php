@@ -334,13 +334,10 @@
                 for ($i = 0; $i < count($swapCharacters); $i++) {
                   $html_location = str_replace($swapCharacters[$i][0],$swapCharacters[$i][1],$html_location);
                 };
+                if ($html_location) {
+                  $swapCharacters[] = ["/location/",$html_location];
+                };
               @endphp
-              @if ($html_location)
-                <div>
-                  <u>Location:</u>
-                  {!! $html_location !!}
-                </div>
-              @endif
             @endif
             @if ($one_subcontent->description)
               @php

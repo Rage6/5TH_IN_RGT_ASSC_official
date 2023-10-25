@@ -100,7 +100,7 @@
                 @else
                   @foreach ($all_bulletins as $one_bulletin)
                     <div class="onePastEl noLinkRow" data-year="{{ $one_bulletin->year }}">
-                      {{ $one_bulletin->year }}, {{ $one_bulletin->season }}
+                      {{ $one_bulletin->post_year }}, {{ $one_bulletin->season }}
                     </div>
                   @endforeach
                 @endif
