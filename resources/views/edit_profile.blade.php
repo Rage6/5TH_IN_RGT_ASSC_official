@@ -129,8 +129,8 @@
                         </div>
                       </div>
                       <div class="form-group historyBox">
-                        <label for="biography">Personal History</label>
-                        <textarea class="form-control" id="biography" name="biography" maxlength="255" placeholder="Provide a brief summary of yourself and your time in the 5th">{{ $user->biography }}</textarea>
+                        <label for="biography">Biography</label>
+                        <textarea class="form-control" id="biography" name="biography" maxlength="1000" placeholder="Provide a brief summary of yourself and your time in the 5th">{{ $user->biography }}</textarea>
                       </div>
                       <div class="form-group">
                         <label for="links">Personal Links</label>

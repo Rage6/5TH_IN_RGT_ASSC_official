@@ -31,13 +31,7 @@
                       <div class="card-subtitle memberInfoTitle">
                         Biography
                       </div>
-                      <div class="card-text memberInfoContent">
-                        @if ($bobcat->biography)
-                          {{ $bobcat->biography }}
-                        @else
-                          <i>{{ __('No biography at this time') }}</i>
-                        @endif
-                      </div>
+                      <div class="card-text memberInfoContent" style="white-space:break-spaces">@if ($bobcat->biography){{ $bobcat->biography }} @else<i>{{ __('No biography at this time') }}</i> @endif</div>
                       @if (count($all_jobs) > 0)
                         <div class="card-subtitle memberInfoTitle">
                           Bobcat History

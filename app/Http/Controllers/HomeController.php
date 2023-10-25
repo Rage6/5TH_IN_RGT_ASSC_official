@@ -98,7 +98,7 @@ class HomeController extends Controller
         'phoneNumber'      => 'nullable|string',
         'phone_visible'    => 'required|integer',
         'spouseName'       => 'nullable|string',
-        'biography'        => 'nullable|string',
+        'biography'        => 'nullable|string|max:1000',
         'mailingAddress'   => 'nullable|string',
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file'
