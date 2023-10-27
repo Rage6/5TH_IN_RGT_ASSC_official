@@ -362,3 +362,23 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
     });
   });
 });
+
+Route::get('no-page-found',[App\Http\Controllers\WelcomeController::class,'error'])->name('error');
+
+Route::fallback(function () {
+  $init_url = $_SERVER['REQUEST_URI'];
+  $new_url = 'https://classic.bobcat.ws'.$init_url;
+
+  $header_array = explode(" ",get_headers($new_url)[0]);
+  $has_path = true;
+  for ($i = 0; count($header_array) > $i; $i++) {
+    if ($header_array[$i] == "404") {
+      $has_path = false;
+    };
+  };
+  if ($has_path == true) {
+    return redirect($new_url);
+  } else {
+    return redirect()->route('error');
+  };
+});

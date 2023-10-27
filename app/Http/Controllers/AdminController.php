@@ -3053,6 +3053,8 @@ class AdminController extends Controller
       ]);
     }
 
+    // IMPORTANT! To activate the 'qra' or 'heroku' connections, go to 'config/database.php'
+
     // public function update_conflict_id() {
     //   $query = DB::connection('heroku')->select('select * from casualties');
     //
@@ -3095,6 +3097,23 @@ class AdminController extends Controller
     //           ':deceased' => 1
     //         ]
     //       );
+    //   };
+    //
+    //   return view('welcome');
+    // }
+
+    // public function update_link_url() {
+    //   $query = DB::connection('heroku')->select('select * from other_urls where casualty_id IS NOT NULL');
+    //
+    //   foreach ($query as $one_row) {
+    //
+    //     $init_url = str_replace('http://www.bobcat.ws','https://classic.bobcat.ws',$one_row->url);
+    //     $url = str_replace('htm#','html#',$init_url);
+    //     DB::connection('qra')
+    //       ->update('update links set url = :url where id = :id',[
+    //         ':url' => $url,
+    //         ':id' => $one_row->id
+    //       ]);
     //   };
     //
     //   return view('welcome');

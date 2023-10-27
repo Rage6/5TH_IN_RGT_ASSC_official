@@ -527,3 +527,22 @@
   background-size: cover;
   background-position: center;
 }
+
+.errorTitle {
+  margin-top: 30vh;
+  padding: 5vh 0;
+  font-size: 2rem;
+  font-family: 'Special Elite', cursive;
+  text-align: center;
+}
+
+.errorTitle div {
+  margin-bottom: 20px;
+}
+
+.errorTitle div a {
+  color: black;
+  text-decoration-line: underline;
+  text-decoration-color: black;
+  cursor: pointer;
+}

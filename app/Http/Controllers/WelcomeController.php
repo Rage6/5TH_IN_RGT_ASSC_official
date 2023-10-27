@@ -34,6 +34,20 @@ class WelcomeController extends Controller
 
     }
 
+    public function error(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('error',[
+        'cart_count' => $cart_count,
+        'style' => 'error_style',
+        'js' => config('app.url_ext').'/js/my_custom/welcome/welcome.js',
+        'content' => 'error_content'
+      ]);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
