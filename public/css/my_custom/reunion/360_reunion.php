@@ -32,15 +32,20 @@
   text-align: center;
   font-size: 2.5rem;
   font-family: 'Vollkorn SC', sans-serif;
+  height: 15vh;
 }
 
 .dateAndLocation {
   --backgroundImage: calc(90vh * 0.256);
   margin-left: var(--backgroundImage);
-  width: calc(100vw - var(--backgroundImage));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   color: white;
   font-size: 1.5rem;
   text-align: center;
+  height: 7vh;
+  width: calc(100vw - var(--backgroundImage));
 }
 
 .reunionDate {
@@ -104,10 +109,15 @@
   width: 100%;
 }
 
-.regBttnIntro {
+.regBttnOverall {
   margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.regBttnIntro {
   margin-bottom: 0px;
-  padding: 20px 0;
   font-size: 1.1rem;
   font-family: 'Special Elite', cursive;
   color: black;
@@ -125,7 +135,7 @@
   margin-left: calc(var(--backgroundImage) + 1vw);
   width: calc(96vw - var(--backgroundImage));
   border-radius: 10px;
-  padding: 10px 1vw;
+  padding: 2vh 1vw;
   text-align: center;
   color: white;
   font-family: 'Special Elite', cursive;

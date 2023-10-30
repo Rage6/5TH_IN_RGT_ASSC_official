@@ -13,11 +13,12 @@
 
 .mainTitle {
   margin-left: 35%;
-  margin-bottom: 8vh;
-  padding-top: 14vh;
+  margin-bottom: 2vh;
+  padding-top: 0vh;
   display: block;
   font-size: 5.5rem;
   width: 60%;
+  height: 30vh;
 }
 
 .regIntro {
@@ -69,10 +70,14 @@
   margin-left: var(--backgroundImage);
   font-size: 2.7rem;
   width: calc(100vw - var(--backgroundImage));
+  height: 12vh;
+}
+
+.regBttnOverall {
+  margin-top: 0;
 }
 
 .regBttnIntro {
-  margin-top: 6vh;
   font-size: 2.1rem;
 }
 

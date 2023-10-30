@@ -71,7 +71,8 @@
       @endif
         <div class="regIntroCover">
           <div class="mainTitle">
-            <span>{{ $reunion_main->title }}</span>
+            <div>Bobcat</div>
+            <div>Reunion</div>
           </div>
           @php
             $months = [
@@ -81,7 +82,9 @@
           <!-- <div class="reunionDate dateAndLocation"> -->
           @if ($reunion_main->first_day && $reunion_main->last_day)
             <div class="reunionDate dateAndLocation">
-              {{ $months[intval(substr($reunion_main->first_day,-5,2)) - 1] }} {{ substr($reunion_main->first_day,-2,2) }} - {{ substr($reunion_main->last_day,-2,2) }}, {{ substr($reunion_main->first_day,0,4) }}
+              <span>
+                {{ $months[intval(substr($reunion_main->first_day,-5,2)) - 1] }} {{ substr($reunion_main->first_day,-2,2) }} - {{ substr($reunion_main->last_day,-2,2) }}, {{ substr($reunion_main->first_day,0,4) }}
+              </span>
             </div>
           @else
             <div class="reunionDate dateAndLocation" style="color:rgba(0,0,0,0)">
@@ -98,7 +101,7 @@
               No location available
             </div>
           @endif
-          <div>
+          <div class="regBttnOverall">
             <div class="dateAndLocation regBttnIntro">
               Want To Attend?
             </div>
