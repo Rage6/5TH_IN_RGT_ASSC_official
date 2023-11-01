@@ -41,6 +41,15 @@
     <link href="{{ asset('css/my_custom/home/1366_home.css') }}" rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 1366px)" type="text/css">
     <link href="{{ asset('css/my_custom/home/1920_home.css') }}" rel="stylesheet" media="screen and (min-width: 1367px)" type="text/css">
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K2MS5EG7YX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K2MS5EG7YX');
+</script>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">

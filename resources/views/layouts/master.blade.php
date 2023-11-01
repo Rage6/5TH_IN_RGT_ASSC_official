@@ -23,6 +23,15 @@
     @include('menu.script')
     <script src=<?php echo($js) ?>></script>
   </head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2MS5EG7YX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-K2MS5EG7YX');
+  </script>
   <body>
 
     @include('menu.content')
