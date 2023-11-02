@@ -154,10 +154,10 @@ class RecipientController extends Controller
        //   $imagePath = 'public/images/veteran';
        // };
 
-       return view('recipients',[
-         'style' => 'recipients_style',
+       return view('recipients.recipients',[
          'js' => '/js/my_custom/memorials/recipients.js',
          'content' => 'recipients_content',
+         'page_title' => "Medal of Honor",
          'all_recipient_basics' => $all_recipients,
          'all_conflicts' => $all_conflicts,
          'recipient_count' => $recipient_count,
@@ -207,6 +207,7 @@ class RecipientController extends Controller
        $cart_count = get_cart_count($request)->cart_count;
 
        $recipient = User::find($id);
+       $name = $recipient->first_name." ".$recipient->last_name;
        $conflict = Conflict::where('id',$recipient->moh_conflict_id)->first();
        $all_links = Link::where('is_moh_link',1)
           ->where('user_id',$recipient->id)
@@ -218,10 +219,10 @@ class RecipientController extends Controller
        //   $imagePath = 'public/images/veteran';
        // };
 
-       return view('selected_recipient',[
-         'style' => 'recipients_style',
+       return view('recipients.selected_recipient',[
          'js' => '/js/my_custom/memorials/memorials.js',
          'content' => 'recipients_selected',
+         'page_title' => $name,
          'cart_count' => $cart_count,
          'recipient_data' => $recipient,
          'img_path' => $imagePath,

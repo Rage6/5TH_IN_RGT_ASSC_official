@@ -44,10 +44,10 @@ class NewsletterController extends Controller
         $editors[] = $one_user;
       };
 
-      return view('newsletter',[
-        'style' => 'newsletter_style',
+      return view('newsletter.newsletter',[
         'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
         'content' => 'newsletter_content',
+        'page_title' => "Newsletters",
         'cart_count' => $cart_count,
         'all_bulletins' => $all_bulletins,
         'most_recent' => $most_recent,

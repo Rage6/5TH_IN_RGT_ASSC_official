@@ -7,13 +7,13 @@
     <!-- <meta property="og:description" content=""> -->
     <!-- <meta property="og:description" content=""> -->
 
-    <title>5th Infantry Regiment Association</title>
+    <title>@if (isset($page_title)) {{$page_title}} | @endif 5th Infantry Regiment Association</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Arvo&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Bellefair&family=Bellota+Text&family=Black+Ops+One&family=Charm&family=Cinzel&family=IM+Fell+English+SC&family=Italianno&family=Nanum+Myeongjo&family=News+Cycle&family=Prompt&family=Special+Elite&family=Spectral+SC&family=Staatliches&family=Stardos+Stencil&family=Thasadith&family=Vollkorn+SC&display=swap" rel="stylesheet">
     @include('menu.style')
-    @yield($style)
+
     @include('footer.style')
 
     <link rel="icon" href="/{{ config('app.url_ext') }}images/welcome/5INF_crest-min.png">
@@ -25,13 +25,13 @@
   </head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2MS5EG7YX"></script>
-  <script>
+  <!-- <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'G-K2MS5EG7YX');
-  </script>
+  </script> -->
   <body>
 
     @include('menu.content')

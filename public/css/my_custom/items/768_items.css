@@ -15,3 +15,16 @@
 .gridItem {
   width: 48%;
 }
+
+/* FOR CART */
+
+.mainTitle {
+  margin-left: 20%;
+  font-size: 3.5rem;
+  width: 60%;
+}
+
+.cartFilled {
+  display: grid;
+  grid-template-columns: 70% 30%;
+}

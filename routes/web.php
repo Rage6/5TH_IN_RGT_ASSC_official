@@ -43,6 +43,7 @@ Route::prefix('history')->group(function() {
   Route::get('origin-and-tradition',[App\Http\Controllers\HistoryController::class,'origin'])->name('origin.index');
   Route::get('timeline',[App\Http\Controllers\HistoryController::class,'index'])->name('history.timeline');
   Route::prefix('topic')->group(function() {
+    Route::get('vietnam-after-action-reports',[App\Http\Controllers\HistoryTopicController::class,'after_action_reports'])->name('vietnam.aar');
     Route::prefix('vietnam-history')->group(function() {
       Route::get('preface',[App\Http\Controllers\HistoryTopicController::class,'vietnam_preface'])->name('vietnam.preface');
       Route::get('1966',[App\Http\Controllers\HistoryTopicController::class,'vietnam_1966'])->name('vietnam.1966');
@@ -51,13 +52,14 @@ Route::prefix('history')->group(function() {
       Route::get('1969',[App\Http\Controllers\HistoryTopicController::class,'vietnam_1969'])->name('vietnam.1969');
       Route::get('1970',[App\Http\Controllers\HistoryTopicController::class,'vietnam_1970'])->name('vietnam.1970');
       Route::get('1971',[App\Http\Controllers\HistoryTopicController::class,'vietnam_1971'])->name('vietnam.1971');
-      Route::get('glossary','HistoryTopicController@vietnam_glossary');
-      Route::get('maps','AlbumController@vietnam_maps');
+      Route::get('glossary',[App\Http\Controllers\HistoryTopicController::class,'vietnam_glossary'])->name('vietnam.glossary');
+      Route::get('maps',[App\Http\Controllers\HistoryTopicController::class,'vietnam_map'])->name('vietnam.map');
     });
     Route::get('ben-cui-battle',[App\Http\Controllers\HistoryTopicController::class,'ben_cui_battle'])->name('bencui.main');
     Route::get('ben-cui-forum',[App\Http\Controllers\HistoryTopicController::class,'ben_cui_forum'])->name('bencui.forum');
     Route::get('michelin-rubber-plant-battle',[App\Http\Controllers\HistoryTopicController::class,'michelin_rubber_plant_battle'])->name('michelin.battle');
     Route::get('the-rifle-and-the-myth',[App\Http\Controllers\HistoryTopicController::class,'the_rifle_and_the_myth'])->name('rifle.myth');
+    Route::get('presidential-citation',[App\Http\Controllers\HistoryTopicController::class,'presidential_citation'])->name('bencui.presidential');
   });
 });
 

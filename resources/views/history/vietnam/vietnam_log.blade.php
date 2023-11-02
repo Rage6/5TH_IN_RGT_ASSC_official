@@ -23,47 +23,49 @@
   <div class="mainBody">
     <div class="timelineBox">
       <div class="timelineBar timelineBar_12">
-        <a href="{{ url('/history/vietnam-history/preface') }}">
+        <a href="{{ route('vietnam.preface') }}">
           <div>
             <div>Preface</div>
           </div>
         </a>
-        <a href="{{ url('/history/vietnam-history/1966') }}">
+        <a href="{{ route('vietnam.1966') }}">
           <div>
             <div>1966</div>
           </div>
         </a>
-        <a href="{{ url('/history/vietnam-history/1967') }}">
+        <a href="{{ route('vietnam.1967') }}">
           <div>
             <div>1967</div>
           </div>
         </a>
-        <a href="{{ url('/history/vietnam-history/1968') }}">
+        <a href="{{ route('vietnam.1968') }}">
           <div>
             <div>1968</div>
           </div>
         </a>
-        <a href="{{ url('/history/vietnam-history/1969') }}">
+        <a href="{{ route('vietnam.1969') }}">
           <div>
             <div>1969</div>
           </div>
         </a>
-        <a href="{{ url('/history/vietnam-history/1970') }}">
+        <a href="{{ route('vietnam.1970') }}">
           <div>
             <div>1970</div>
           </div>
         </a>
-        <a href="{{ url('/history/vietnam-history/1971') }}">
+        <a href="{{ route('vietnam.1971') }}">
           <div>
-            <div>1970</div>
+            <div>1971</div>
           </div>
         </a>
         <div>
           <div>Maps</div>
         </div>
-        <div>
-          <div>Glossary</div>
-        </div>
+        <a href="{{ route('vietnam.glossary') }}">
+          <div>
+            <div>Glossary</div>
+          </div>
+        </a>
       </div>
     </div>
     <!-- <div>

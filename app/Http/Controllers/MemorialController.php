@@ -142,10 +142,10 @@ class MemorialController extends Controller
          $imagePath = 'public/images/veteran';
        };
 
-       return view('casualties',[
-         'style' => 'casualties_style',
+       return view('casualties.casualties',[
          'js' => '/js/my_custom/memorials/memorials.js',
          'content' => 'casualties_content',
+         'page_title' => "Casualties",
          'all_casualty_basics' => $all_casualties,
          'all_conflicts' => $all_conflicts,
          'casualty_count' => $casualty_count,
@@ -198,6 +198,7 @@ class MemorialController extends Controller
        $cart_count = get_cart_count($request)->cart_count;
 
        $casualty = User::find($id);
+       $name = $casualty->first_name." ".$casualty->last_name;
        $conflict = Conflict::where('id',$casualty->casualty_conflict_id)->first();
        $all_links = Link::where('is_casualty_link',1)
           ->where('user_id',$casualty->id)
@@ -209,10 +210,10 @@ class MemorialController extends Controller
          $imagePath = 'public/images/veteran';
        };
 
-       return view('selected',[
-         'style' => 'casualties_style',
+       return view('casualties.selected',[
          'js' => '/js/my_custom/memorials/memorials.js',
          'content' => 'casualties_selected',
+         'page_title' => $name,
          'cart_count' => $cart_count,
          'casualty_data' => $casualty,
          'img_path' => $imagePath,

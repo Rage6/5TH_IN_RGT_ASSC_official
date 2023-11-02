@@ -74,7 +74,8 @@ class HomeController extends Controller
         'users_permissions' => $unique_users_permissions,
         // 'users_permissions' => $users_permissions,
         'is_admin' => $is_admin,
-        'time_left' => $time_left
+        'time_left' => $time_left,
+        'page_title' => "Dashboard"
       ]);
     }
 
@@ -83,7 +84,8 @@ class HomeController extends Controller
       $all_links = Link::where('user_id',$user->id)->where('is_member_link',1)->get();
       return view('edit_profile',[
         'user' => $user,
-        'all_links' => $all_links
+        'all_links' => $all_links,
+        'page_title' => "Profile"
       ]);
     }
 
@@ -141,7 +143,9 @@ class HomeController extends Controller
     }
 
     public function profile_link_new() {
-      return view('profile_link');
+      return view('profile_link',[
+        'page_title' => "Links"
+      ]);
     }
 
     public function profile_link_new_post(Request $request) {
@@ -172,13 +176,15 @@ class HomeController extends Controller
 
       if ($this_link->user_id == $user->id) {
         return view('profile_link',[
-          'link' => $this_link
+          'link' => $this_link,
+          'page_title' => "Links"
         ]);
       } else {
         $all_links = Link::where('user_id',$user->id)->get();
         return view('edit_profile',[
           'user' => $user,
-          'all_links' => $all_links
+          'all_links' => $all_links,
+          'page_title' => "Profile"
         ]);
       };
     }
@@ -202,7 +208,9 @@ class HomeController extends Controller
 
         return redirect()->route('profile.edit');
       } else {
-        return view('edit_profile');
+        return view('edit_profile',[
+          'page_title' => "Dashboard"
+        ]);
       };
     }
 
@@ -216,7 +224,9 @@ class HomeController extends Controller
         Link::where('id',$link_id)->delete();
         return redirect()->route('profile.edit');
       } else {
-        return view('edit_profile');
+        return view('edit_profile',[
+          'page_title' => "Profile"
+        ]);
       };
     }
 
@@ -238,7 +248,8 @@ class HomeController extends Controller
         'img_type' => $img_type,
         'image_path' => $imagePath,
         'return_name' => $return_route,
-        'delete_method' => $delete_method
+        'delete_method' => $delete_method,
+        'page_title' => "Images"
       ]);
     }
 
@@ -262,7 +273,9 @@ class HomeController extends Controller
     }
 
     public function edit_password_index($message = null) {
-      return view('edit_password');
+      return view('edit_password',[
+        'page_title' => "Passwords"
+      ]);
     }
 
     public function edit_password_change(Request $request) {
@@ -292,7 +305,8 @@ class HomeController extends Controller
       };
 
       return view('staff',[
-        'all_staff' => $all_roles
+        'all_staff' => $all_roles,
+        'page_title' => "Staff"
       ]);
     }
 
@@ -306,7 +320,8 @@ class HomeController extends Controller
 
       return view('personal_payments',[
         'user_name' => $name,
-        'all_payments' => $all_payments
+        'all_payments' => $all_payments,
+        'page_title' => "Payments"
       ]);
     }
 
@@ -324,7 +339,8 @@ class HomeController extends Controller
       ->orderBy('first_name','ASC')
       ->paginate(20);
       return view('all_bobcats',[
-        'all_bobcats' => $all_bobcats
+        'all_bobcats' => $all_bobcats,
+        'page_title' => "Find A Bobcats"
       ]);
     }
 
@@ -380,7 +396,8 @@ class HomeController extends Controller
         'all_links' => $all_links,
         'all_jobs' => $all_jobs,
         'all_conflicts' => $all_conflicts,
-        'trial_member' => $is_free_trial
+        'trial_member' => $is_free_trial,
+        'page_title' => "Profile"
       ]);
     }
 }

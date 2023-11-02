@@ -23,7 +23,7 @@ class WelcomeController extends Controller
       $casualty_count = User::where('kia_or_mia','=',1)->count();
       $moh_count = User::where('moh_recipient','=',1)->count();
 
-      return view('welcome',[
+      return view('welcome.welcome',[
         'cart_count' => $cart_count,
         'style' => 'welcome_style',
         'js' => config('app.url_ext').'/js/my_custom/welcome/welcome.js',
@@ -39,7 +39,7 @@ class WelcomeController extends Controller
       // The 'get_cart_count' function is in 'app\helper.php'
       $cart_count = get_cart_count($request)->cart_count;
 
-      return view('error',[
+      return view('welcome.error',[
         'cart_count' => $cart_count,
         'style' => 'error_style',
         'js' => config('app.url_ext').'/js/my_custom/welcome/welcome.js',

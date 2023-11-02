@@ -20,10 +20,10 @@ class DonationController extends Controller
 
       $this_user = Auth::user();
 
-      return view('donation_intro',[
-        'style' => 'donation_style',
+      return view('donations.donation_intro',[
         'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
         'content' => 'donation_content',
+        'page_title' => "Donations",
         'this_user' => $this_user,
         'cart_count' => $cart_count
       ]);

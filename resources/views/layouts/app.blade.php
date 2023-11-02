@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', '5th Infantry Regiment Association') }}</title>
+    <title>@if (isset($page_title)) {{$page_title}} | @endif {{ config('app.name', '5th Infantry Regiment Association') }}</title>
 
     <!-- Scripts -->
     <!-- New jQuery -->
@@ -43,13 +43,13 @@
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2MS5EG7YX"></script>
-<script>
+<!-- <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'G-K2MS5EG7YX');
-</script>
+</script> -->
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">

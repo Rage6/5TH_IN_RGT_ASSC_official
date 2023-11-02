@@ -47,10 +47,10 @@ class RegistrationController extends Controller
         ->get();
 
       $this_user = Auth::user();
-      return view('member_registration',[
-        'style' => 'registration_style',
+      return view('membership.member_registration',[
         'js' => config('app.url_ext').'/js/my_custom/registration/registration.js',
         'content' => 'registration_content',
+        'page_title' => "Membership",
         'this_user' => $this_user,
         'cart_count' => $cart_count,
         'modern_conflicts' => $modern_conflicts,

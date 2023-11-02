@@ -87,10 +87,10 @@ class DeceasedController extends Controller
           $how_many_pages = 1;
         };
 
-        return view('deceased',[
-          'style' => 'deceased_style',
+        return view('deceased.deceased',[
           'js' => '/js/my_custom/memorials/deceased.js',
           'content' => 'deceased_content',
+          'page_title' => "Deceased",
           'all_deceased_basics' => $new_all_deceased,
           'deceased_count' => $deceased_count,
           'cart_count' => $cart_count,
@@ -154,15 +154,16 @@ class DeceasedController extends Controller
         $cart_count = get_cart_count($request)->cart_count;
 
         $member = User::find($id);
+        $name = $member->first_name." ".$member->last_name;
 
         $all_links = Link::where('user_id',$id)->get();
 
         $all_conflicts = $member->all_user_conflicts;
 
-        return view('selected_deceased',[
-          'style' => 'deceased_style',
+        return view('deceased.selected_deceased',[
           'js' => '/js/my_custom/memorials/deceased.js',
           'content' => 'deceased_selected',
+          'page_title' => $name,
           'member' => $member,
           'all_links' => $all_links,
           'all_conflicts' => $all_conflicts,

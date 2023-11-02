@@ -97,11 +97,11 @@ class ItemController extends Controller
           };
         };
       };
-      return view('all_items',[
+      return view('items.all_items',[
         'all_items' => $all_items,
-        'style' => 'items_style',
         'js' => '/'.config('app.url_ext').'js/my_custom/items/items.js',
         'content' => 'all_items_content',
+        'page_title' => "Merchandise",
         'purpose' => $purpose,
         'title' => $title,
         'cart_count' => $cart_count,
@@ -292,13 +292,13 @@ class ItemController extends Controller
       } else {
         $text_cart = "expired";
       };
-      return view('cart',[
+      return view('items.cart',[
         'cart' => $cart,
         'intent' => $intent,
         'cart_count' => $cart_count,
-        'style' => 'reunion_style',
         'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
         'content' => 'cart_content',
+        'page_title' => "Cart",
         'text_cart' => $text_cart,
         'count' => $count,
         'purpose' => $purpose,

@@ -174,3 +174,108 @@
   grid-area: member;
   text-align: center;
 }
+
+/* FOR CART */
+
+.emptyCart {
+  margin-bottom: 10px;
+}
+
+.emptyCart button {
+  color: white;
+  background-color: rgb(139,0,0);
+}
+
+.cartList {
+  margin: 0 3% 10px 3%;
+  padding: 10px 2%;
+  background-color: white;
+}
+
+.cartFilled {
+  margin-bottom: 30px;
+  font-family: 'Bellefair', serif;
+}
+
+.cardInput {
+  margin-bottom: 10px;
+  width: calc(100% - 10px);
+}
+
+.expireAndCvc {
+  display: flex;
+  justify-content: space-between;
+}
+
+.expireAndCvc input {
+  min-width: 40px;
+}
+
+.payBttn {
+  margin-top: 40px;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
+  font-size: 1.3rem;
+  background-color: rgb(139,0,0);
+  cursor: pointer;
+}
+
+.cartItem {
+  margin: 0 0 10px 0;
+  border: 1px dashed black;
+  padding: 3px 3px 10px 3px;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: repeat(2, auto) 40px;
+  grid-template-areas:
+    "name name"
+    "quantity cost"
+    "change change";
+  /* width: 96%; */
+}
+
+.cartItem .quantity {
+  grid-area: quantity;
+}
+
+.cartItem .cost {
+  grid-area: cost;
+}
+
+.cartItem .name {
+  grid-area: name;
+  color: white;
+  text-align: center;
+  background-color: green;
+}
+
+.cartItem .cost, .cartItem .quantity {
+  text-align: center;
+}
+
+.cartItem .change {
+  padding-top: 20px;
+  padding-right: 5%;
+  grid-area: change;
+  text-align: right;
+}
+
+.cartItem .change a span {
+  border-radius: 15px;
+  padding: 7px;
+  color: white;
+  background-color: rgb(139,0,0);
+}
+
+.cartItem:last-of-type {
+  margin-bottom: 0;
+}
+
+.creditCardForm {
+  margin: 0 3% 10px 3%;
+  padding: 10px 2%;
+  color: white;
+  background-color: green;
+}

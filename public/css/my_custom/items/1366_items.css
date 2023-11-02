@@ -20,3 +20,10 @@
 .gridItem {
   width: 30%;
 }
+
+/* FOR CART */
+
+.cartFilled {
+  display: grid;
+  grid-template-columns: 70% 30%;
+}

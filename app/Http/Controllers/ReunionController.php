@@ -43,10 +43,10 @@ class ReunionController extends Controller
       $all_boolean_options = $reunion->form_options;
       $all_boolean_list = explode(';',$all_boolean_options);
 
-      return view('reunion',[
-        'style' => 'reunion_style',
+      return view('reunion.reunion',[
         'js' => config('app.url_ext').'/js/my_custom/reunion/reunion.js',
         'content' => 'reunion_content',
+        'page_title' => "Reunion",
         'this_user' => $this_user,
         'cart_count' => $cart_count,
         'reunion_main' => $reunion,

@@ -1,25 +1,8 @@
 @extends('layouts.master')
 
-@section('history_style')
-  <!-- History Styles -->
-  <!-- Default CSS files; 0px -> 360px-->
-  <link rel="stylesheet" type="text/css" href="/{{ config('app.url_ext') }}css/my_custom/history/360_history.css">
-  <!-- 361px -> 375px-->
-  <link rel="stylesheet" media="screen and (min-width: 361px) and (max-width: 375px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/375_history.css">
-  <!-- 376px -> 414px-->
-  <link rel="stylesheet" media="screen and (min-width: 375px) and (max-width: 414px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/414_history.css">
-  <!-- 415px -> 768px-->
-  <link rel="stylesheet" media="screen and (min-width: 415px) and (max-width: 768px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/768_history.css">
-  <!-- 769px -> 1366px-->
-  <link rel="stylesheet" media="screen and (min-width: 769px) and (max-width: 1366px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/1366_history.css">
-  <!-- 1367px -> 1920px-->
-  <link rel="stylesheet" media="screen and (min-width: 1367px) and (max-width: 1920px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/1920_history.css">
-  <!-- 1921px and Greater -->
-  <link rel="stylesheet" media="screen and (min-width: 1921px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/history/past_1920_history.css">
-  @include ('footer.style')
-@stop
+@include('history.style')
 
-@section('history_content')
+@section('timeline_content')
   <div class="mainBody">
     <div class="timelineBox">
       <div class="timelineBar timelineBar_12">
@@ -419,7 +402,7 @@
             <div class="linkTitle learnMore">LEARN MORE</div>
             <ul class="linkContent">
               <!-- <a href="http://bobcat.ws/after-action-reports.html"> -->
-              <a href="{{ url('/history/topic/after-action-reports') }}">
+              <a href="{{ route('vietnam.aar') }}">
                 <li>After Action Reports (AAR)</li>
               </a>
               <li>"In The Vietnam War 1966 - 1971" by Larry Hadzim</li>
@@ -448,7 +431,7 @@
                 <a href="{{ url('/history/vietnam-history/maps') }}">
                   <div>+ Maps</div>
                 </a>
-                <a href="{{ url('/history/vietnam-history/glossary') }}">
+                <a href="{{ route('vietnam.glossary') }}">
                   <div>+ Glossary</div>
                 </a>
               </div>

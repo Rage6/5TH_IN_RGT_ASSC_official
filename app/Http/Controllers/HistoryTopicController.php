@@ -22,11 +22,12 @@ class HistoryTopicController extends Controller
        // The 'get_cart_count' function is in 'app\helper.php'
        $cart_count = get_cart_count($request)->cart_count;
 
-       return view('vietnam_log',[
+       return view('history.vietnam.vietnam_log',[
          'year_casualties' => [],
          'style' => 'history_style',
          'js' => '/js/my_custom/history/history.js',
          'content' => 'vietnam_preface_content',
+         'page_title' => "Preface",
          'cart_count' => $cart_count
        ]);
     }
@@ -38,11 +39,12 @@ class HistoryTopicController extends Controller
 
        $year_casualties = User::where('year_of_death',1966)->get();
 
-       return view('vietnam_log',[
+       return view('history.vietnam.vietnam_log',[
          'year_casualties' => $year_casualties,
          'style' => 'history_style',
          'js' => '/js/my_custom/history/history.js',
          'content' => 'vietnam_1966_content',
+         'page_title' => "1966",
          'cart_count' => $cart_count
        ]);
     }
@@ -54,11 +56,12 @@ class HistoryTopicController extends Controller
 
       $year_casualties = User::where('year_of_death',1967)->orderBy('month_of_death','asc')->orderBy('last_name','asc')->get();
 
-      return view('vietnam_log',[
+      return view('history.vietnam.vietnam_log',[
         'year_casualties' => $year_casualties,
         'style' => 'history_style',
         'js' => '/js/my_custom/history/history.js',
         'content' => 'vietnam_1967_content',
+        'page_title' => "1967",
         'cart_count' => $cart_count
       ]);
     }
@@ -70,11 +73,12 @@ class HistoryTopicController extends Controller
 
       $year_casualties = User::where('year_of_death',1968)->orderBy('month_of_death','asc')->orderBy('last_name','asc')->get();
 
-      return view('vietnam_log',[
+      return view('history.vietnam.vietnam_log',[
         'year_casualties' => $year_casualties,
         'style' => 'history_style',
         'js' => '/js/my_custom/history/history.js',
         'content' => 'vietnam_1968_content',
+        'page_title' => "1968",
         'cart_count' => $cart_count
       ]);
     }
@@ -86,11 +90,12 @@ class HistoryTopicController extends Controller
 
       $year_casualties = User::where('year_of_death',1969)->orderBy('month_of_death','asc')->orderBy('last_name','asc')->get();
 
-      return view('vietnam_log',[
+      return view('history.vietnam.vietnam_log',[
         'year_casualties' => $year_casualties,
         'style' => 'history_style',
         'js' => '/js/my_custom/history/history.js',
         'content' => 'vietnam_1969_content',
+        'page_title' => "1969",
         'cart_count' => $cart_count
       ]);
     }
@@ -102,11 +107,12 @@ class HistoryTopicController extends Controller
 
       $year_casualties = User::where('year_of_death',1970)->orderBy('month_of_death','asc')->orderBy('last_name','asc')->get();
 
-      return view('vietnam_log',[
+      return view('history.vietnam.vietnam_log',[
         'year_casualties' => $year_casualties,
         'style' => 'history_style',
         'js' => '/js/my_custom/history/history.js',
         'content' => 'vietnam_1970_content',
+        'page_title' => "1970",
         'cart_count' => $cart_count
       ]);
     }
@@ -118,11 +124,12 @@ class HistoryTopicController extends Controller
 
       $year_casualties = User::where('year_of_death',1971)->orderBy('month_of_death','asc')->orderBy('last_name','asc')->get();
 
-      return view('vietnam_log',[
+      return view('history.vietnam.vietnam_log',[
         'year_casualties' => $year_casualties,
         'style' => 'history_style',
         'js' => '/js/my_custom/history/history.js',
         'content' => 'vietnam_1971_content',
+        'page_title' => "1971",
         'cart_count' => $cart_count
       ]);
     }
@@ -142,38 +149,30 @@ class HistoryTopicController extends Controller
         };
       };
 
-      return view('history_topic_with_lists',[
+      return view('history.vietnam.ben_cui_battle',[
+        // 'style' => 'history_style',
         'style' => 'history_style',
         'js' => '/js/my_custom/history/history.js',
         'content' => 'ben_cui_battle_content',
+        'page_title' => "Battle of Ben Cui",
         'all_casualties' => $ben_cui_casualties,
         'cart_count' => $cart_count,
         'moh_id' => $moh_id
       ]);
     }
 
-    public function presidential_citation()
+    public function presidential_citation(Request $request)
     {
-      if (Auth::user()) {
-         $unread_count = DB::table('messages')
-           ->where([
-             ['messages.received_id',Auth::user()->id],
-             ['messages.is_read','==',0]
-           ])
-           ->count();
-         return view('history_topic',[
-           'unread_count' => $unread_count,
-           'style' => 'history_style',
-           'js' => '/js/my_custom/history/history.js',
-           'content' => 'presidential_citation_content'
-         ]);
-      } else {
-        return view('history_topic',[
-          'style' => 'history_style',
-          'js' => '/js/my_custom/history/history.js',
-          'content' => 'presidential_citation_content'
-        ]);
-      }
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.vietnam.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'presidential_citation_content',
+        'page_title' => "Presidential Citation",
+        'cart_count' => $cart_count
+      ]);
     }
 
     public function michelin_rubber_plant_battle(Request $request)
@@ -181,10 +180,11 @@ class HistoryTopicController extends Controller
       // The 'get_cart_count' function is in 'app\helper.php'
       $cart_count = get_cart_count($request)->cart_count;
 
-      return view('history_topic',[
+      return view('history.vietnam.history_topic',[
         'style' => 'history_style',
         'js' => '/js/my_custom/history/history.js',
         'content' => 'michelin_rubber_plant_battle_content',
+        'page_title' => "Rubber Plant Battle",
         'cart_count' => $cart_count,
       ]);
     }
@@ -194,10 +194,11 @@ class HistoryTopicController extends Controller
       // The 'get_cart_count' function is in 'app\helper.php'
       $cart_count = get_cart_count($request)->cart_count;
 
-      return view('history_topic',[
+      return view('history.vietnam.history_topic',[
         'style' => 'history_style',
         'js' => '/js/my_custom/history/history.js',
         'content' => 'the_rifle_and_the_myth_content',
+        'page_title' => "The Rifle And The Myth",
         'cart_count' => $cart_count
       ]);
     }
@@ -207,41 +208,35 @@ class HistoryTopicController extends Controller
       // The 'get_cart_count' function is in 'app\helper.php'
       $cart_count = get_cart_count($request)->cart_count;
 
-      return view('history_topic',[
+      return view('history.vietnam.history_topic',[
         'style' => 'history_style',
         'js' => '/js/my_custom/history/history.js',
         'content' => 'ben_cui_forum_content',
+        'page_title' => "Ben Cui Forum",
         'cart_count' => $cart_count
       ]);
     }
 
-    public function vietnam_glossary()
+    public function vietnam_glossary(Request $request)
     {
-      if (Auth::user()) {
-         $unread_count = DB::table('messages')
-           ->where([
-             ['messages.received_id',Auth::user()->id],
-             ['messages.is_read','==',0]
-           ])
-           ->count();
-        return view('history_topic',[
-          'unread_count' => $unread_count,
-          'style' => 'history_style',
-          'js' => '/js/my_custom/history/history.js',
-          'content' => 'vietnam_glossary'
-        ]);
-      } else {
-        return view('history_topic',[
-          'style' => 'history_style',
-          'js' => '/js/my_custom/history/history.js',
-          'content' => 'vietnam_glossary'
-        ]);
-      }
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.vietnam.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'vietnam_glossary',
+        'page_title' => "Glossary",
+        'cart_count' => $cart_count
+      ]);
     }
 
-    public function after_action_reports()
+    public function after_action_reports(Request $request)
     {
-      $all_casualties = DB::table('casualties')
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      $all_casualties = DB::table('users')
         ->select('id','rank','first_name','last_name')
         ->where([
           ['day_of_death','>','21'],
@@ -326,28 +321,14 @@ class HistoryTopicController extends Controller
           ['year_of_death','=','1966']
         ])
         ->get();
-      if (Auth::user()) {
-        $unread_count = DB::table('messages')
-          ->where([
-            ['messages.received_id',Auth::user()->id],
-            ['messages.is_read','==',0]
-          ])
-          ->count();
-       return view('history_topic_with_lists',[
-         'unread_count' => $unread_count,
-         'style' => 'history_style',
-         'js' => '/js/my_custom/history/history.js',
-         'content' => 'after_action_reports_content',
-         'all_casualties' => $all_casualties
-       ]);
-      } else {
-       return view('history_topic_with_lists',[
-         'style' => 'history_style',
-         'js' => '/js/my_custom/history/history.js',
-         'content' => 'after_action_reports_content',
-         'all_casualties' => $all_casualties
-       ]);
-      };
+      return view('history.vietnam.vietnam_aar',[
+       'style' => 'history_style',
+       'js' => '/js/my_custom/history/history.js',
+       'content' => 'after_action_reports_content',
+       'page_title' => "After Action Reports",
+       'all_casualties' => $all_casualties,
+       'cart_count' => $cart_count
+      ]);
     }
 
     /**
