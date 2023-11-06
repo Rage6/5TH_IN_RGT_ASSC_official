@@ -161,7 +161,7 @@
                           <div class="basicDateInfo">
                             <input name="monthOfDeath" type="number" min="1" max="12" placeholder="MM">
                             <input name="dayOfDeath" type="number" min="1" max="31" placeholder="DD">
-                            <input name="yearOfDeath" type="number" min="1900" max="3000" placeholder="YYYY">
+                            <input name="yearOfDeath" type="number" min="1808" max="3000" placeholder="YYYY">
 
                             <div>Month</div>
                             <div>Day</div>
