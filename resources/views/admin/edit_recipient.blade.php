@@ -153,7 +153,7 @@
                           <div class="basicDateInfo">
                             <input name="monthOfDeath" type="number" @if ($recipient->month_of_death) value="{{ $recipient->month_of_death }}" @endif min="1" max="12" placeholder="MM">
                             <input name="dayOfDeath" type="number" @if ($recipient->day_of_death) value="{{ $recipient->day_of_death }}" @endif min="1" max="31" placeholder="DD">
-                            <input name="yearOfDeath" type="number" @if ($recipient->year_of_death) value="{{ $recipient->year_of_death }}" @endif min="1900" max="3000" placeholder="YYYY">
+                            <input name="yearOfDeath" type="number" @if ($recipient->year_of_death) value="{{ $recipient->year_of_death }}" @endif min="1808" max="3000" placeholder="YYYY">
                             <div>Month</div>
                             <div>Day</div>
                             <div>Year</div>

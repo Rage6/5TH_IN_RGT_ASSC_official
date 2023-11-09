@@ -87,6 +87,10 @@
   grid-auto-rows: 35vh;
 }
 
+.regSectionCoating {
+  height: 35vh;
+}
+
 .boxContent {
   margin: 0 15%;
   grid-template-columns: repeat(2,47%);

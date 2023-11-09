@@ -35,7 +35,15 @@
   <body>
 
     @include('menu.content')
-
+    <pre style="display:none">
+      @php
+        $data = memory_get_usage();
+        $peak = memory_get_peak_usage();
+        $how_much_left = ($peak - $data) / 1000;
+      @endphp
+      <!-- gc_collect_cycles() is an option -->
+      Empty memory remaining: {{ $how_much_left }} kB
+    </pre>
     @yield($content)
 
   </body>

@@ -51,6 +51,14 @@
   gtag('config', 'G-K2MS5EG7YX');
 </script> -->
 <body>
+    <pre style="display:none">
+      @php
+        $data = memory_get_usage();
+        $peak = memory_get_peak_usage();
+        $how_much_left = ($peak - $data) / 1000;
+      @endphp
+      Empty memory remaining: {{ $how_much_left }} kB
+    </pre>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
