@@ -457,40 +457,79 @@ class ItemController extends Controller
       $purchase_list[] = "Transaction Fee: $".round($transaction_fee,2);
       $purchase_list[] = "FINAL TOTAL: $".round($final_total,2);
 
+      $users = User::where([
+        ['expiration_date','!=',null],
+        ['deceased','=',0]
+      ])->get();
+
+      $invoice_email = [];
+
       if ($request->get_email_list == "registration.index") {
-        if (App::environment() == 'local') {
-          $email_list_test = 'MEMBERSHIP_EMAIL_TEST';
-        } else {
-          $email_list_official = 'MEMBERSHIP_EMAIL_OFFICIAL';
+        // if (App::environment() == 'local') {
+        //   $email_list_test = 'MEMBERSHIP_EMAIL_TEST';
+        // } else {
+        //   $email_list_official = 'MEMBERSHIP_EMAIL_OFFICIAL';
+        // };
+        foreach ($users as $one_user) {
+          $is_manager = User::find($one_user->id)->check_for_role("Member Data Manager");
+          $is_treasurer = User::find($one_user->id)->check_for_role("Treasurer");
+          $is_all_permissions = User::find($one_user->id)->check_for_role("All Permissions Staff Member");
+          if ($is_manager == true || $is_treasurer == true ||$is_all_permissions == true) {
+            $invoice_email[] = $one_user->email;
+          };
         };
       } elseif ($request->get_email_list == "reunion.index") {
-        if (App::environment() == 'local') {
-          $email_list_test = 'REUNION_EMAIL_TEST';
-        } else {
-          $email_list_official = 'REUNION_EMAIL_OFFICIAL';
-        };
-      } elseif ($request->get_email_list == "donation.index") {
-        if (App::environment() == 'local') {
-          $email_list_test = 'DONATION_EMAIL_TEST';
-        } else {
-          $email_list_official = 'DONATION_EMAIL_OFFICIAL';
+        // if (App::environment() == 'local') {
+        //   $email_list_test = 'REUNION_EMAIL_TEST';
+        // } else {
+        //   $email_list_official = 'REUNION_EMAIL_OFFICIAL';
+        // };
+        foreach ($users as $one_user) {
+          $is_coordinator = User::find($one_user->id)->check_for_role("Event Coordinator");
+          $is_treasurer = User::find($one_user->id)->check_for_role("Treasurer");
+          $is_all_permissions = User::find($one_user->id)->check_for_role("All Permissions Staff Member");
+          if ($is_coordinator == true || $is_treasurer == true ||$is_all_permissions == true) {
+            $invoice_email[] = $one_user->email;
+          };
         };
       } elseif ($request->get_email_list == "merchandise.index") {
-        if (App::environment() == 'local') {
-          $email_list_test = 'MERCHANDISE_EMAIL_TEST';
-        } else {
-          $email_list_official = 'MERCHANDISE_EMAIL_OFFICIAL';
+        // if (App::environment() == 'local') {
+        //   $email_list_test = 'MERCHANDISE_EMAIL_TEST';
+        // } else {
+        //   $email_list_official = 'MERCHANDISE_EMAIL_OFFICIAL';
+        // };
+        foreach ($users as $one_user) {
+          $is_quartermaster = User::find($one_user->id)->check_for_role("Quartermaster");
+          $is_treasurer = User::find($one_user->id)->check_for_role("Treasurer");
+          $is_all_permissions = User::find($one_user->id)->check_for_role("All Permissions Staff Member");
+          if ($is_quartermaster == true || $is_treasurer == true ||$is_all_permissions == true) {
+            $invoice_email[] = $one_user->email;
+          };
+        };
+      } elseif ($request->get_email_list == "donation.index") {
+        // if (App::environment() == 'local') {
+        //   $email_list_test = 'DONATION_EMAIL_TEST';
+        // } else {
+        //   $email_list_official = 'DONATION_EMAIL_OFFICIAL';
+        // };
+        foreach ($users as $one_user) {
+          $is_treasurer = User::find($one_user->id)->check_for_role("Treasurer");
+          $is_all_permissions = User::find($one_user->id)->check_for_role("All Permissions Staff Member");
+          if ($is_treasurer == true || $is_all_permissions == true) {
+            $invoice_email[] = $one_user->email;
+          };
         };
       };
 
-      if (App::environment() == 'local') {
-        $invoice_email_test = explode(',',env($email_list_test));
-        $invoice_email_test[] = $this_user->email;
-        Mail::to($invoice_email_test)->send(new InvoiceEmail($purchase_list, $request->email_title));
-      } else {
-        $invoice_email_official = explode(',',env($email_list_official));
-        Mail::to($invoice_email_official)->send(new InvoiceEmail($purchase_list, $request->email_title));
-      };
+      // if (App::environment() == 'local') {
+      //   $invoice_email_test = explode(',',env($email_list_test));
+      //   $invoice_email_test[] = $this_user->email;
+      //   Mail::to($invoice_email_test)->send(new InvoiceEmail($purchase_list, $request->email_title));
+      // } else {
+      //   $invoice_email_official = explode(',',env($email_list_official));
+      //   Mail::to($invoice_email_official)->send(new InvoiceEmail($purchase_list, $request->email_title));
+      // };
+      Mail::to($invoice_email)->send(new InvoiceEmail($purchase_list, $request->email_title));
 
       $all_payments = Payment::where([
         ['total_cost',round($overall_total,2)],

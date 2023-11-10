@@ -15,6 +15,7 @@ use App\Mail\ReunionEmail;
 use App\Models\Event;
 use App\Models\Subevent;
 use App\Models\Applicant;
+use App\Models\User;
 
 use Illuminate\Support\Facades\App;
 
@@ -118,16 +119,22 @@ class ReunionController extends Controller
       $new_applicant['comments'] = $request->comments;
       Applicant::create($new_applicant);
 
-      // Sends email
-      if (App::environment() == 'local') {
-        $reunion_email_test = explode(',',env('REUNION_EMAIL_TEST'));
-        Mail::to($reunion_email_test)->send(new ReunionEmail($new_submission));
-      } else {
-        $reunion_email_official = explode(',',env('REUNION_EMAIL_OFFICIAL'));
-        Mail::to($reunion_email_official)->send(new ReunionEmail($new_submission));
+      $users = User::where([
+        ['expiration_date','!=',null],
+        ['deceased','=',0]
+      ])->get();
+
+      $application_email = [];
+      foreach ($users as $one_user) {
+        $is_manager = User::find($one_user->id)->check_for_role("Event Coordinator");
+        $is_all_permissions = User::find($one_user->id)->check_for_role("All Permissions Staff Member");
+        if ($is_manager == true || $is_all_permissions == true) {
+          $application_email[] = $one_user->email;
+        };
       };
-      // return redirect('http://bobcat.ws/dulles-virginia-reunion-shopping-cart.html');
-      // return redirect('/reunion?payment');
+
+      Mail::to($application_email)->send(new ReunionEmail($new_submission));
+      
       return redirect('items?purpose=reunion.index&title=Reunion%20Fee%20and%20Options');
     }
 
