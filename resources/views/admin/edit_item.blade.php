@@ -78,7 +78,7 @@
                         <input name="itemColors" value="{{ $item->colors }}" maxlength="255" id="itemColors" />
                       </div>
                       <div class="basicInfoGrid">
-                        <div>Clothing Patches (if applicable)</div>
+                        <div>Clothing Patches (<i>ex. 'NoPatch, PatchOne:5.50, PatchTwo:9.25</i>)</div>
                         <input name="itemPatches" value="{{ $item->patches }}" maxlength="255" id="itemPatches" />
                       </div>
                       <div class="basicInfoGrid">

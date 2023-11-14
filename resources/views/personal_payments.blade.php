@@ -35,13 +35,27 @@
                       @endphp
                       @if (count($all_payments) > 0)
                         @foreach ($all_payments as $one_payment)
-                          <div style="display:grid;grid-template-columns:40% 30% 30%;background-color:{{ $bkgd }}">
-                            <div>
-                              ${{ $one_payment->total_cost }}
+                          <div style="background-color:{{ $bkgd }}">
+                            <div style="display:grid;grid-template-columns:45% 55%">
+                              <div>
+                                ${{ $one_payment->total_cost }}
+                              </div>
+                              <div>
+                                {{ $one_payment->created_at }}
+                              </div>
                             </div>
-                            <div>
-                              {{ $one_payment->created_at }}
-                            </div>
+                            @if ($one_payment->details)
+                              <div>
+                                @php
+                                  $list = explode(">>>",$one_payment->details);
+                                @endphp
+                                <ul>
+                                  @foreach ($list as $row)
+                                    <li>{{ $row }}</li>
+                                  @endforeach
+                                </ul>
+                              </div>
+                            @endif
                           </div>
                           @php
                             if ($bkgd == 'rgba(0,0,0,0.1)') {

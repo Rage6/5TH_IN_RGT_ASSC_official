@@ -194,7 +194,7 @@ class ItemController extends Controller
           if (count($patch_pricing) > 1) {
             $cart_content[$i][2] += floatval($patch_pricing[1]);
           };
-          if ($patch_pricing[0] != "") {
+          if ($patch_pricing[0] != "" && $patch_pricing[0] != "None") {
             $item_name_details = $item_name_details." with ".$patch_pricing[0];
           };
 
@@ -355,12 +355,15 @@ class ItemController extends Controller
 
       if (Auth::user()) {
         $this_user = Auth::user();
+        $this_user->email = $request->payment_email;
         $this_user->mailing_address = $request->mailing_address;
+        $customer_id = $this_user->id;
       } else {
         // $this_user = User::find($request->session()->get('guest')->id);
         $this_user = User::where('password',$request->cookie('guest'))->first();
         $this_user->email = $request->payment_email;
         $this_user->mailing_address = $request->mailing_address;
+        $customer_id = null;
       };
       // $paymentMethod = $request->payment_method;
       //
@@ -406,6 +409,7 @@ class ItemController extends Controller
         "Mailing Address: ".$this_user->mailing_address
       ];
       $overall_total = 0;
+      $purchase_email_details = "";
       foreach ($all_array as $one_array) {
         if (intval($one_array[3]) > 0) {
           $one_id = intval($one_array[0]);
@@ -437,7 +441,7 @@ class ItemController extends Controller
           $size_name = explode(":",$one_array[6])[0];
           $color_name = explode(":",$one_array[7])[0];
           $patch_name = explode(":",$one_array[8])[0];
-          if ($patch_name !== null && $patch_name != "") {
+          if ($patch_name !== null && $patch_name != "" && $patch_name != "None") {
             $one_item->name = $one_item->name." with ".$patch_name." patches";
           };
           if ($color_name !== null && $color_name != "") {
@@ -446,7 +450,13 @@ class ItemController extends Controller
           if ($size_name !== null && $size_name != "") {
             $one_item->name = $one_item->name.", Size: ".$size_name;
           };
-          $purchase_list[] = $one_item->name.": $".$one_price." x ".$one_quantity." = $".$one_sum_price;
+          $item_string = $one_item->name.": $".$one_price." x ".$one_quantity." = $".$one_sum_price;
+          $purchase_list[] = $item_string;
+          if ($purchase_email_details != "") {
+            $purchase_email_details = $purchase_email_details.">>>".$item_string;
+          } else {
+            $purchase_email_details = $item_string;
+          };
           $overall_total += $one_sum_price;
         };
       };
@@ -529,6 +539,10 @@ class ItemController extends Controller
       //   $invoice_email_official = explode(',',env($email_list_official));
       //   Mail::to($invoice_email_official)->send(new InvoiceEmail($purchase_list, $request->email_title));
       // };
+
+      // Email to customer
+      Mail::to($this_user->email)->send(new InvoiceEmail($purchase_list, $request->email_title));
+      // Email to Bobcat Staff
       Mail::to($invoice_email)->send(new InvoiceEmail($purchase_list, $request->email_title));
 
       $all_payments = Payment::where([
@@ -537,7 +551,7 @@ class ItemController extends Controller
       ]);
       $has_duplicate = false;
       foreach ($all_payments as $one_payment) {
-        if ($this_user->created_at >= $one_payment->created_at && $this_user->created <= $one_payment->timestamp + 5) {
+        if ($this_user->created_at >= $one_payment->created_at && $this_user->created_at <= $one_payment->timestamp + 5) {
           $has_duplicate = true;
         };
       };
@@ -555,7 +569,9 @@ class ItemController extends Controller
 
         Payment::create([
           'customer_email' => $this_user->email,
-          'total_cost' => round($overall_total,2)
+          'total_cost' => round($overall_total,2),
+          'details' => $purchase_email_details,
+          'user_id' => $customer_id
         ]);
       };
 

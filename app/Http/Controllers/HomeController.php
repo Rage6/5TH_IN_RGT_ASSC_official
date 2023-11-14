@@ -314,7 +314,11 @@ class HomeController extends Controller
       $user = Auth::user();
       $name = $user->first_name." ".$user->last_name;
 
-      $all_payments = Payment::where('customer_email',$user->email)
+      $all_payments = Payment::where('user_id',$user->id)
+        ->orWhere([
+          ['user_id',null],
+          ['customer_email',$user->email]
+        ])
         ->orderBy('created_at','DESC')
         ->paginate(20);
 

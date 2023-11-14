@@ -47,7 +47,7 @@
                         <input name="itemColors" maxlength="255" id="itemColor" />
                       </div>
                       <div class="basicInfoGrid">
-                        <div>Clothing Patches (already attached)</div>
+                        <div>Optional Patches (<i>ex. 'NoPatch, PatchOne:5.50, PatchTwo:9.25</i>)</div>
                         <input name="itemPatches" maxlength="255" id="itemPatch" />
                       </div>
                       <div class="basicInfoGrid">
