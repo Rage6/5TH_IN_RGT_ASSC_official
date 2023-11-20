@@ -49,10 +49,10 @@
     </div>
     <div>
       <div>PHOTO ALBUM</div>
-      <a href="http://www.bobcat.ws/coppermine/index.php?cat=10001&page=1" target="_blank">
+      <a href="https://classic.bobcat.ws/coppermine/index.php?cat=10001&page=1" target="_blank">
         <div class="pageLink">Album 1</div>
       </a>
-      <a href="http://www.bobcat.ws/coppermine2/index.php?cat=10001" target="_blank">
+      <a href="https://classic.bobcat.ws/coppermine2/index.php?cat=10001" target="_blank">
         <div class="pageLink">Album 2</div>
       </a>
     </div>
