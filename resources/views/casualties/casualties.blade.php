@@ -209,4 +209,17 @@
   </div>
   @include ('footer.content')
 </div>
+@php
+  $unset_these = [
+    $all_casualty_basics,
+    $all_conflicts,
+    $casualty_count,
+    $already_selected,
+    $cas_links,
+    $casualty_data,
+    $image_path
+  ];
+
+  check_memory_limit($unset_these);
+@endphp
 @stop

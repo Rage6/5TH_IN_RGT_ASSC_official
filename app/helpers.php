@@ -36,3 +36,27 @@ function get_cart_count($request) {
   $cart_values->test_a = $test_a;
   return $cart_values;
 };
+
+function check_memory_limit($unset_list) {
+  for ($i = 0; count($unset_list) < $i; $i++) {
+    $this_variable = $unset_list[$i];
+    unset($this_variable);
+  };
+
+  // This measures how much free memory left is left (in kilobytes)
+  $data = memory_get_usage();
+  $peak = memory_get_peak_usage();
+  $how_much_left = ($peak - $data) / 1000;
+
+  // If there is less than the minimum free memory limit (in kilobytes), then it initiates the 'garbage collector'
+  $minimum_free_memory = 30;
+  if ($how_much_left < $minimum_free_memory) {
+    unset($data);
+    unset($peak);
+    unset($how_much_left);
+    unset($minimum_free_memory);
+    gc_collect_cycles();
+  };
+
+  return true;
+}

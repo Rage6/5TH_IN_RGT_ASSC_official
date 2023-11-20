@@ -860,7 +860,7 @@ class AdminController extends Controller
         ->paginate(20);
 
       $current_user = Auth::user();
-      $user_roles = User::find($current_user->id)->all_user_roles;
+      // $user_roles = User::find($current_user->id)->all_user_roles;
       $role_model = new Role();
       $users_permissions = $role_model->users_permissions($current_user->id);
 
@@ -885,6 +885,11 @@ class AdminController extends Controller
         };
       };
 
+      // This unsets data that is not needed by 'view'
+      unset($current_user);
+      unset($users_permissions);
+      unset($role_model);
+
       return view('admin.all_members',[
         'all_members' => $all_users,
         'can_assign' => $can_assign,
@@ -907,7 +912,7 @@ class AdminController extends Controller
         ->paginate(20);
 
       $current_user = Auth::user();
-      $user_roles = User::find($current_user->id)->all_user_roles;
+      // $user_roles = User::find($current_user->id)->all_user_roles;
       $role_model = new Role();
       $users_permissions = $role_model->users_permissions($current_user->id);
 
@@ -938,6 +943,11 @@ class AdminController extends Controller
           $can_delete_person = true;
         };
       };
+
+      // This unsets data that is not needed by 'view'
+      unset($current_user);
+      unset($user_roles);
+      unset($users_permissions);
 
       return view('admin.all_nonmembers',[
         'all_nonmembers' => $all_users,
@@ -1442,7 +1452,7 @@ class AdminController extends Controller
         ->paginate(20);
 
       $current_user = Auth::user();
-      $user_roles = User::find($current_user->id)->all_user_roles;
+      // $user_roles = User::find($current_user->id)->all_user_roles;
       $role_model = new Role();
       $users_permissions = $role_model->users_permissions($current_user->id);
 
@@ -1459,6 +1469,11 @@ class AdminController extends Controller
           $can_delete = true;
         };
       };
+
+      // This unsets data that is not needed by 'view'
+      unset($current_user);
+      unset($users_permissions);
+      unset($role_model);
 
       return view('admin.all_casualties',[
         'all_casualties' => $all_casualties,
@@ -1719,7 +1734,7 @@ class AdminController extends Controller
         ->paginate(20);
 
       $current_user = Auth::user();
-      $user_roles = User::find($current_user->id)->all_user_roles;
+      // $user_roles = User::find($current_user->id)->all_user_roles;
       $role_model = new Role();
       $users_permissions = $role_model->users_permissions($current_user->id);
 
@@ -1736,6 +1751,11 @@ class AdminController extends Controller
           $can_delete = true;
         };
       };
+
+      // This unsets data that is not needed by 'view'
+      unset($current_user);
+      unset($users_permissions);
+      unset($role_model);
 
       return view('admin.all_recipients',[
         'all_recipients' => $all_recipients,
@@ -1893,7 +1913,7 @@ class AdminController extends Controller
       $all_events = Event::orderBy('first_day','asc')->paginate(20);
 
       $current_user = Auth::user();
-      $user_roles = User::find($current_user->id)->all_user_roles;
+      // $user_roles = User::find($current_user->id)->all_user_roles;
       $role_model = new Role();
       $users_permissions = $role_model->users_permissions($current_user->id);
 
@@ -1910,6 +1930,11 @@ class AdminController extends Controller
           $can_delete = true;
         };
       };
+
+      // This unsets data that is not needed by 'view'
+      unset($current_user);
+      unset($users_permissions);
+      unset($role_model);
 
       return view('admin.all_events',[
         'all_events' => $all_events,
@@ -2412,7 +2437,7 @@ class AdminController extends Controller
       $all_items = Item::orderBy('name','asc')->paginate(20);
 
       $current_user = Auth::user();
-      $user_roles = User::find($current_user->id)->all_user_roles;
+      // $user_roles = User::find($current_user->id)->all_user_roles;
       $role_model = new Role();
       $users_permissions = $role_model->users_permissions($current_user->id);
 
@@ -2429,6 +2454,11 @@ class AdminController extends Controller
           $can_delete = true;
         };
       };
+
+      // This unsets data that is not needed by 'view'
+      unset($current_user);
+      unset($users_permissions);
+      unset($role_model);
 
       return view('admin.all_items',[
         'all_items' => $all_items,
@@ -2955,7 +2985,7 @@ class AdminController extends Controller
         ->paginate(20);
 
       $current_user = Auth::user();
-      $user_roles = User::find($current_user->id)->all_user_roles;
+      // $user_roles = User::find($current_user->id)->all_user_roles;
       $role_model = new Role();
       $users_permissions = $role_model->users_permissions($current_user->id);
 
@@ -2972,6 +3002,11 @@ class AdminController extends Controller
           $can_delete = true;
         };
       };
+
+      // This unsets data that is not needed by 'view'
+      unset($current_user);
+      unset($users_permissions);
+      unset($role_model);
 
       return view('admin.all_bulletins',[
         'all_bulletins' => $all_bulletins,

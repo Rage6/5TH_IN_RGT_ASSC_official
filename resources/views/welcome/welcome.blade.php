@@ -92,4 +92,12 @@
     </div> -->
     @include ('footer.content')
   </div>
+  @php
+    $unset_these = [
+      $casualty_count,
+      $moh_count
+    ];
+
+    check_memory_limit($unset_these);
+  @endphp
 @stop
