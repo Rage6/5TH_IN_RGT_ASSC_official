@@ -20,7 +20,7 @@
       </div>
       <div class="regForm" id="regForm" style="display:none">
         <div class="regTotal">
-          <form method="POST" action="{{ route('registration.post') }}">
+          <form method="POST" id="memberForm" action="{{ route('registration.post') }}">
             @csrf
             <div class="regGrid">
               <div>
@@ -92,7 +92,13 @@
               </div>
             </div>
             <div class="submitBttn">
-              <input type="submit" name="post" value="SUBMIT"/>
+              <!-- <input type="submit" name="post" value="SUBMIT"/> -->
+              <button
+                data-sitekey="6LfiwBcpAAAAAKC5TcLJjg9Fmg06wHJ_bn4Yr0W3"
+                data-callback='onSubmit'
+                data-action='submit'>
+                  SUBMIT
+              </button>
             </div>
           </form>
           <a href="{{ url('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options') }}">
@@ -307,4 +313,9 @@
     <!-- </div> -->
     @include ('footer.content')
   </div>
+  <script>
+    function onSubmit(token) {
+      document.getElementById("memberForm").submit();
+    }
+  </script>
 @stop
