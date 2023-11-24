@@ -228,4 +228,14 @@
         </div>
     </div>
 </div>
+@php
+  $unset_these = [
+    $all_reg_options,
+    $all_conflicts,
+    $conflict_number,
+    $can_edit_casualty,
+    $can_edit_recipient
+  ];
+  check_memory_limit($unset_these);
+@endphp
 @endsection

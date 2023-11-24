@@ -31,8 +31,6 @@ class MemorialController extends Controller
          $first_name = str_replace("%20"," ",$first_input['firstName']);
          $first_raw = ' and first_name like "%'.$first_name.'%"';
          $raw_sql .= $first_raw;
-         // $first_name = '%'.$first_name.'%';
-         // $all_conditions[] = ['first_name','LIKE','%'.$first_name.'%'];
        };
 
        if ($request->lastName) {
@@ -141,6 +139,9 @@ class MemorialController extends Controller
        } else {
          $imagePath = 'public/images/veteran';
        };
+
+       unset($raw_sql);
+       unset($find_selected);
 
        return view('casualties.casualties',[
          'js' => '/js/my_custom/memorials/memorials.js',

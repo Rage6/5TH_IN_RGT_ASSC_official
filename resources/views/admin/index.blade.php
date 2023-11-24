@@ -39,4 +39,10 @@
         </div>
     </div>
 </div>
+@php
+  $unset_these = [
+    $all_permission_data
+  ];
+  check_memory_limit($unset_these);
+@endphp
 @endsection

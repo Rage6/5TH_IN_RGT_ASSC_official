@@ -393,4 +393,18 @@
         </div>
     </div>
 </div>
+@php
+  $unset_these = [
+    $member,
+    $image_path,
+    $all_timespans,
+    $status,
+    $conflict_number,
+    $all_conflicts,
+    $input_name,
+    $can_edit_recipient,
+    $can_edit_casualty
+  ];
+  check_memory_limit($unset_these);
+@endphp
 @endsection

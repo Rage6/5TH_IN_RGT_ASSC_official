@@ -59,6 +59,9 @@ class AdminController extends Controller
         };
       };
 
+      unset($role_model);
+      unset($users_permissions);
+
       return view('admin.index',[
         'current_user' => $current_user,
         'user_roles' => $user_roles,
@@ -72,6 +75,9 @@ class AdminController extends Controller
       $all_reg_options = Item::where('purpose','registration.index')->get();
       $oldest_date = intval(date("Y")) - 100;
       $all_conflicts = Conflict::where('end_year','>',$oldest_date)->orderBy('end_year','ASC')->get();
+
+      unset($oldest_date);
+
       return view('admin.new_user',[
         'can_edit_casualty' => $can_edit_casualty,
         'can_edit_recipient' => $can_edit_recipient,
@@ -303,21 +309,41 @@ class AdminController extends Controller
       $can_edit_casualty = Auth::user()->check_for_permission("Edit Casualty Records");
       $can_edit_recipient = Auth::user()->check_for_permission("Edit MOH Recipient Records");
 
+      unset($input);
+      unset($role_id);
+      unset($conflict_total);
+      unset($timestamp);
+      unset($start_date);
+      unset($all_reg_options);
+      unset($item_status);
+      unset($storagePath);
+      unset($random_password);
+      unset($all_characters);
+      unset($character_count);
+
       if ($request->isKiaMia == 1 && $can_edit_casualty && $request->isRecipient == 1 && $can_edit_recipient) {
+        unset($can_edit_casualty);
+        unset($can_edit_recipient);
         return redirect()->route('edit.casualty.index',[
           'id' => $new_user->id,
           'next_route' => 'edit-recipient'
         ]);
       } elseif ($request->isKiaMia == 1 && $can_edit_casualty) {
+        unset($can_edit_casualty);
+        unset($can_edit_recipient);
         return redirect()->route('edit.casualty.index',[
           'id' => $new_user->id,
           'next_route' => 'casualty-list'
         ]);
       } elseif ($request->isRecipient == 1 && $can_edit_recipient) {
+        unset($can_edit_casualty);
+        unset($can_edit_recipient);
         return redirect()->route('edit.recipient.index',[
           'id' => $new_user->id
         ]);
       } else {
+        unset($can_edit_casualty);
+        unset($can_edit_recipient);
         return redirect()->route('admin.index');
       };
     }
