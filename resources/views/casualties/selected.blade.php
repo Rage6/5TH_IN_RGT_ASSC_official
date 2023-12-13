@@ -79,7 +79,9 @@
           @if ($casualty_data->burial_site != null)
             is buried at {{ $casualty_data->burial_site }}
           @endif
-          .
+          @if ($casualty_data->state != null || $casualty_data->burial_site != null)
+            .
+          @endif
         </div>
         @if (count($all_links) > 0)
           <div class="externalBox">

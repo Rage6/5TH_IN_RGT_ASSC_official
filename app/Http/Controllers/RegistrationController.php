@@ -33,9 +33,9 @@ class RegistrationController extends Controller
       // The 'get_cart_count' function is in 'app\helper.php'
       $cart_count = get_cart_count($request)->cart_count;
 
-      $currentYear = date("Y");
+      $current_year = date("Y");
       $modern_conflicts = Conflict::
-        where('end_year','>',$currentYear - 100)
+        where('end_year','>',$current_year - 100)
         ->orWhere('end_year','=',null)
         ->orderBy('start_year','asc')
         ->get();
@@ -78,9 +78,9 @@ class RegistrationController extends Controller
         'comments' => 'string|nullable|max:255',
       ]);
 
-      $currentYear = date("Y");
+      $current_year = date("Y");
       $modern_conflicts = Conflict::
-        where('end_year','>',$currentYear - 100)
+        where('end_year','>',$current_year - 100)
         ->orWhere('end_year','=',null)
         ->orderBy('start_year','asc')
         ->get();

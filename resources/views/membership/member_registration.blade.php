@@ -25,10 +25,10 @@
             <div class="regGrid">
               <div>
                 <div class="regText">
-                  <input name="first_name" type="text" placeholder="First Name" required/>
+                  <input name="first_name" type="text" placeholder="First Name (required)" required/>
                 </div>
                 <div class="regText">
-                  <input name="last_name" type="text" placeholder="Last Name" required/>
+                  <input name="last_name" type="text" placeholder="Last Name (required)" required/>
                 </div>
                 <div class="regText">
                   <input name="spouse_name" type="text" placeholder="Spouse Name"/>
@@ -55,7 +55,7 @@
                   <input name="phone_number" type="text" placeholder="Phone Number"/>
                 </div>
                 <div class="regText">
-                  <input name="email" type="email" placeholder="Email" />
+                  <input name="email" type="email" placeholder="Email (required)" required />
                 </div>
                 <div class="regText">
                   <textarea name="unit_details" placeholder="List the unit(s), job(s), and start/end time(s) in the Regiment. (Example: 'Driver, JUN 2006 - AUG 2007')"></textarea>

@@ -42,13 +42,13 @@
     <link href="{{ asset('css/my_custom/home/1920_home.css') }}" rel="stylesheet" media="screen and (min-width: 1367px)" type="text/css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-K2MS5EG7YX"></script>
-    <script>
+    <!-- <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'G-K2MS5EG7YX');
-    </script>
+    </script> -->
     <!-- Google ReCaptcha -->
     <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
