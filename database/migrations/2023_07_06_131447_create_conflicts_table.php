@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('conflicts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->int('start_year');
-            $table->int('end_year');
+            $table->integer('start_year');
+            $table->integer('end_year');
             $table->boolean('bobcat_casualties')->default(0);
             $table->boolean('bobcat_recipients')->default(0);
             $table->boolean('member_participated')->default(0);
