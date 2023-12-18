@@ -2986,13 +2986,13 @@ class AdminController extends Controller
       $input['season_order'] = $request->bulletinSeason;
 
       if ($input['season_order'] == 1) {
-        $input['season'] = "Winter";
-      } elseif ($input['season_order'] == 2) {
         $input['season'] = "Spring";
-      } elseif ($input['season_order'] == 3) {
+      } elseif ($input['season_order'] == 2) {
         $input['season'] = "Summer";
-      } else {
+      } elseif ($input['season_order'] == 3) {
         $input['season'] = "Fall";
+      } else {
+        $input['season'] = "Winter";
       };
 
       $input['filename'] = request('bulletinFile')->store("public/bulletins");
@@ -3063,13 +3063,13 @@ class AdminController extends Controller
       $input['season_order'] = $request->bulletinSeason;
 
       if ($input['season_order'] == 1) {
-        $input['season'] = "Winter";
-      } elseif ($input['season_order'] == 2) {
         $input['season'] = "Spring";
-      } elseif ($input['season_order'] == 3) {
+      } elseif ($input['season_order'] == 2) {
         $input['season'] = "Summer";
-      } else {
+      } elseif ($input['season_order'] == 3) {
         $input['season'] = "Fall";
+      } else {
+        $input['season'] = "Winter";
       };
 
       $input->save();

@@ -26,10 +26,10 @@
                       <div class="basicInfoGrid">
                         <div>Quarter of the Year</div>
                         <select name="bulletinSeason">
-                          <option value="1">Winter</option>
-                          <option value="2">Spring</option>
-                          <option value="3">Summer</option>
-                          <option value="4">Fall</option>
+                          <option value="1">Spring</option>
+                          <option value="2">Summer</option>
+                          <option value="3">Fall</option>
+                          <option value="4">Winter</option>
                         </select>
                       </div>
                       <div class="basicInfoGrid">

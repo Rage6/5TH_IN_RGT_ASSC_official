@@ -27,13 +27,13 @@
                         <div>Quarter of the Year</div>
                         <div>
                           @if ($bulletin->season_order == 1)
-                            Winter
-                          @elseif ($bulletin->season_order == 2)
                             Spring
-                          @elseif ($bulletin->season_order == 3)
+                          @elseif ($bulletin->season_order == 2)
                             Summer
-                          @elseif ($bulletin->season_order == 4)
+                          @elseif ($bulletin->season_order == 3)
                             Fall
+                          @elseif ($bulletin->season_order == 4)
+                            Winter
                           @endif
                         </div>
                       </div>

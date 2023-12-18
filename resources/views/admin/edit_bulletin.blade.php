@@ -27,16 +27,16 @@
                         <div>Quarter of the Year</div>
                         <select name="bulletinSeason">
                           <option @if ($bulletin->season_order == 1) selected @endif value="1">
-                            Winter
-                          </option>
-                          <option @if ($bulletin->season_order == 2) selected @endif value="2">
                             Spring
                           </option>
-                          <option @if ($bulletin->season_order == 3) selected @endif value="3">
+                          <option @if ($bulletin->season_order == 2) selected @endif value="2">
                             Summer
                           </option>
-                          <option @if ($bulletin->season_order == 4) selected @endif value="4">
+                          <option @if ($bulletin->season_order == 3) selected @endif value="3">
                             Fall
+                          </option>
+                          <option @if ($bulletin->season_order == 4) selected @endif value="4">
+                            Winter
                           </option>
                         </select>
                       </div>
