@@ -227,12 +227,12 @@
   border: 1px dashed black;
   padding: 3px 3px 10px 3px;
   display: grid;
-  grid-template-columns: repeat(2, 50%);
-  grid-template-rows: repeat(2, auto) 40px;
+  grid-template-columns: 33% 34% 33%;
+  /* grid-template-rows: repeat(2, auto) 40px; */
   grid-template-areas:
-    "name name"
-    "quantity cost"
-    "change change";
+    "name name name"
+    "cost quantity subtotal"
+    "change change change";
   /* width: 96%; */
 }
 
@@ -242,6 +242,10 @@
 
 .cartItem .cost {
   grid-area: cost;
+}
+
+.cartItem .subtotal {
+  grid-area: subtotal;
 }
 
 .cartItem .name {

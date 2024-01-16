@@ -14,6 +14,7 @@ use App\Mail\InvoiceEmail;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Payment;
+use App\Models\Cart;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
@@ -29,16 +30,28 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
+
+      $current_cart = Cart::where('id',Cookie::get('cartid'))->first();
       // The 'get_cart_count' function is in 'app\helper.php'
-      $cart_count = get_cart_count($request)->cart_count;
-      $cart_content = get_cart_count($request)->cart_content;
-      $test_a = get_cart_count($request)->test_a;
+      // $cart_count = get_cart_count($request)->cart_count;
+      if ($current_cart) {
+        $cart_count = $current_cart->count_of_selected;
+      } else {
+        $cart_count = 0;
+      };
+      // $test_a = get_cart_count($request)->test_a;
+
       if (isset($_GET['purpose']) && isset($_GET['title'])) {
         $purpose = $_GET['purpose'];
         $title = str_replace("%20"," ",$_GET['title']);
       } else {
         $purpose = null;
         $title = null;
+      };
+      if ($purpose == "donation.index") {
+        $all_items = Item::where('is_donation',1)->get();
+      } else {
+        $all_items = Item::where('purpose',$purpose)->get();
       };
 
       $current_user = Auth::user();
@@ -57,46 +70,41 @@ class ItemController extends Controller
         $is_member = false;
       };
 
-      // $all_items = Item::all();
-      // $current_cart = $request->session()->get('cart');
-      // $current_guest = $request->session()->get('guest');
-      if ($purpose == "donation.index") {
-        $all_items = Item::where('is_donation',1)->get();
-      } else {
-        $all_items = Item::where('purpose',$purpose)->get();
-      };
-      if ($cart_content) {
-        foreach ($all_items as $one_item) {
-          $one_item->count = 0;
-          // Gets the current quantity selected
-          for ($i = 0; count($cart_content) > $i; $i++) {
-            if (intval($cart_content[$i][0]) == $one_item->id) {
-              $one_item->count = $cart_content[$i][3];
-              if ($one_item->count == null) {
-                $one_item->count = 0;
-              };
+      $selected_array = [];
+      $total_item_count = 0;
+      if ($current_cart) {
+        // $current_cart = Cart::where('id',Cookie::get('cartid'))->first();
+        $current_cart_string = $current_cart->selected_items;
+        $split_string = explode("&",$current_cart_string); // splits the string to into individual items
+        for ($a = 0; $a < count($split_string); $a++) {
+          $new_item = (object) array('id' => null);
+          $item_traits= explode("%",$split_string[$a]); // splits the item into its characteristics (ex. "key#value)
+          for ($b = 0; $b < count($item_traits); $b++) {
+            $item_character = explode("#",$item_traits[$b]); // splits the characteristic into its key and value
+            if ($item_character[0] == "id") {
+              $new_item->id = intval($item_character[1]);
+            };
+            if ($item_character[0] == "price") {
+              $new_item->price = floatval($item_character[1]);
+            };
+            if ($item_character[0] == "count") {
+              $new_item->count = intval($item_character[1]);
+              $total_item_count += $new_item->count;
+            };
+            if ($item_character[0] == "size") {
+              $new_item->size = strval($item_character[1]);
+            };
+            if ($item_character[0] == "color") {
+              $new_item->color = strval($item_character[1]);
+            };
+            if ($item_character[0] == "patches") {
+              $new_item->patches = strval($item_character[1]);
             };
           };
-          // Gets the current size selected
-          for ($i = 0; count($cart_content) > $i; $i++) {
-            if (intval($cart_content[$i][0]) == $one_item->id) {
-              $one_item->size = $cart_content[$i][6];
-            };
-          };
-          // Gets the current color selected
-          for ($i = 0; count($cart_content) > $i; $i++) {
-            if (intval($cart_content[$i][0]) == $one_item->id) {
-              $one_item->selected_color = $cart_content[$i][7];
-            };
-          };
-          // Gets the current patch(es) selected
-          for ($i = 0; count($cart_content) > $i; $i++) {
-            if (intval($cart_content[$i][0]) == $one_item->id) {
-              $one_item->selected_patch = $cart_content[$i][8];
-            };
-          };
+          $selected_array[] = $new_item;
         };
       };
+
       return view('items.all_items',[
         'all_items' => $all_items,
         'js' => '/'.config('app.url_ext').'js/my_custom/items/items.js',
@@ -105,118 +113,107 @@ class ItemController extends Controller
         'purpose' => $purpose,
         'title' => $title,
         'cart_count' => $cart_count,
-        'cookie_test' => $test_a,
-        'is_member' => $is_member
+        // 'cookie_test' => $test_a,
+        'is_member' => $is_member,
+        'selected_array' => $selected_array,
+        'total_item_count' => $total_item_count
       ]);
     }
 
     public function add(Request $request)
     {
-      $init_cart = [];
       $count = $request->count;
       $purpose = $request->purpose;
       $title = str_replace("%20"," ",$request->title);
+      $db_item_row = '';
+      $db_item_count = 0;
       for ($i = 0; $i < $count; $i++) {
-        if ($request['item_return_'.$i] == $purpose) {
-          $request['item_shop_'.$i] = $request->title;
-        };
-        if (!$request['item_shop_'.$i]) {
-          $request['item_shop_'.$i] = null;
-        };
-        if (!$request['item_size_'.$i]) {
-          $request['item_size_'.$i] = "";
-        };
-        if (!$request['item_color_'.$i]) {
-          $request['item_color_'.$i] = "";
-        };
-        if (!$request['item_patch_'.$i]) {
-          $request['item_patch_'.$i] = "";
-        };
-        $a = [
-          $request['item_id_'.$i],
-          $request['item_name_'.$i],
-          $request['item_price_'.$i],
-          $request['item_count_'.$i],
-          $request['item_return_'.$i],
-          $request['item_shop_'.$i],
-          $request['item_size_'.$i],
-          $request['item_color_'.$i],
-          $request['item_patch_'.$i]
-        ];
-        $init_cart[] = $a;
-      };
-      // $cart = $request->session()->put('cart',$init_cart);
-
-      $cart_string = null;
-      for ($a = 0; $a < count($init_cart); $a++) {
-        if ($a > 0) {
-          $cart_string = $cart_string."&".$init_cart[$a][0]."#".$init_cart[$a][1]."#".$init_cart[$a][2]."#".$init_cart[$a][3]."#".$init_cart[$a][4]."#".$init_cart[$a][5]."#".$init_cart[$a][6]."#".$init_cart[$a][7]."#".$init_cart[$a][8];
-        } else {
-          $cart_string = $init_cart[$a][0]."#".$init_cart[$a][1]."#".$init_cart[$a][2]."#".$init_cart[$a][3]."#".$init_cart[$a][4]."#".$init_cart[$a][5]."#".$init_cart[$a][6]."#".$init_cart[$a][7]."#".$init_cart[$a][8];
+        if ($request['item_count_'.$i] > 0 && $request['item_price_'.$i] > 0) {
+          if ($db_item_count == 0) {
+            $db_item_row = "id#".$request['item_id_'.$i];
+          } else {
+            $db_item_row = $db_item_row."&id#".$request['item_id_'.$i];
+          };
+          $db_item_row = $db_item_row."%count#".$request['item_count_'.$i];
+          $db_item_row = $db_item_row."%price#".$request['item_price_'.$i];
+          if ($request['item_size_'.$i]) {
+            $db_item_row .= "%size#".$request['item_size_'.$i];
+          };
+          if ($request['item_color_'.$i]) {
+            $db_item_row .= "%color#".$request['item_color_'.$i];
+          };
+          if ($request['item_patch_'.$i]) {
+            $db_item_row .= "%patches#".$request['item_patch_'.$i];
+          };
+          $db_item_count += $request['item_count_'.$i];
         };
       };
-      $one_day = 60 * 24;
-      Cookie::queue(Cookie::make('cart',$cart_string,$one_day));
+      
+      $db_cart = Cart::where('id',Cookie::get('cartid'))->first();
+      $expires_in_minutes = 30;
+      $user_id = null;
+      if (Auth::user()) {
+        $user_id = auth()->user()->id;
+      };
+      if (!$db_cart) {
+        $new_cart = Cart::create([
+          'selected_items' => $db_item_row,
+          'count_of_selected' => $db_item_count,
+          'expires_on' => time() + (60 * $expires_in_minutes), // 60 seconds * minutes to expiraion
+          'user_id' => $user_id
+        ]);
+        Cookie::queue(Cookie::make('cartid',$new_cart->id,$expires_in_minutes));
+      } else {
+        $current_cart = Cart::where('id',$db_cart->id)->first();
+        $current_cart->selected_items = $db_item_row;
+        $current_cart->count_of_selected = $db_item_count;
+        $current_cart->expires_on = time() + (60 * $expires_in_minutes); // 60 seconds * minutes to expiraion
+        $current_cart->user_id = $user_id;
+        $current_cart->save();
+      };
 
       return redirect('/items/cart?purpose='.$purpose.'&title='.$title);
     }
 
     public function cart(Request $request)
     {
-      $cart_count = 0;
+      $current_cart = Cart::where('id',Cookie::get('cartid'))->first();
+      if (isset($current_cart->id)) {
+        $current_cart_id = $current_cart->id;
+      } else {
+        $current_cart_id = null;
+      };
+      if ($current_cart) {
+        $cart_count = $current_cart->count_of_selected;
+        $current_cart_string = $current_cart->selected_items;
+      } else {
+        $cart_count = 0;
+        $current_cart_string = null;
+      };
+      // if ($current_cart) {
+      //   $current_cart_string = $current_cart->selected_items;
+      // } else {
+      //   $current_cart_string = null;
+      // };
+      // $cart_count = 0;
 
       // $cart_content = $request->session()->get('cart');
-      $cookie_string = $request->cookie('cart');
-      $test_a = explode("&",$cookie_string);
-      for ($b = 0; $b < count($test_a); $b++) {
-        $test_a[$b] = explode("#",$test_a[$b]);
-      };
-      for ($c = 0; $c < count($test_a); $c++) {
-        for ($d = 0; $d < count($test_a[$c]); $d++) {
-          if (is_numeric($test_a[$c][$d])) {
-            $test_a[$c][$d] = floatval($test_a[$c][$d]);
-          };
-        };
-      };
-      $cart_content = $test_a;
+      // $cookie_string = $request->cookie('cart');
+      // $test_a = explode("&",$cookie_string);
+      // for ($b = 0; $b < count($test_a); $b++) {
+      //   $test_a[$b] = explode("#",$test_a[$b]);
+      // };
+      // for ($c = 0; $c < count($test_a); $c++) {
+      //   for ($d = 0; $d < count($test_a[$c]); $d++) {
+      //     if (is_numeric($test_a[$c][$d])) {
+      //       $test_a[$c][$d] = floatval($test_a[$c][$d]);
+      //     };
+      //   };
+      // };
+      // $cart_content = $test_a;
+      $selected_array = [];
+      $total_item_count = 0;
 
-      if ($cart_content) {
-        for ($i = 0; $i < count($cart_content); $i++) {
-          if (floatval($cart_content[$i][2]) > 0) {
-            $cart_count += intval($cart_content[$i][3]);
-          } else {
-            $cart_content[$i][2] = 0;
-          };
-
-          $item_name_details = "";
-
-          $patch_pricing = explode(":",$cart_content[$i][8]);
-          if (count($patch_pricing) > 1) {
-            $cart_content[$i][2] += floatval($patch_pricing[1]);
-          };
-          if ($patch_pricing[0] != "" && $patch_pricing[0] != "None") {
-            $item_name_details = $item_name_details." with ".$patch_pricing[0];
-          };
-
-          $size_pricing = explode(":",$cart_content[$i][6]);
-          if (count($size_pricing) > 1) {
-            $cart_content[$i][2] += floatval($size_pricing[1]);
-          };
-          if ($size_pricing[0] != "") {
-            $item_name_details = $item_name_details.", ".$size_pricing[0];
-          };
-
-          $color_pricing = explode(":",$cart_content[$i][7]);
-          if (count($color_pricing) > 1) {
-            $cart_content[$i][2] += floatval($color_pricing[1]);
-          };
-          if ($color_pricing[0] != "") {
-            $item_name_details = $item_name_details.", ".$color_pricing[0];
-          };
-
-          $cart_content[$i][1] = $cart_content[$i][1].$item_name_details;
-        };
-      };
       if (isset($_GET['purpose']) && isset($_GET['title'])) {
         $purpose = $_GET['purpose'];
         $title = str_replace("%20"," ",$_GET['title']);
@@ -224,6 +221,89 @@ class ItemController extends Controller
         $purpose = null;
         $title = null;
       };
+
+      if ($current_cart) {
+      // if ($cart_content) {
+        // for ($i = 0; $i < count($cart_content); $i++) {
+        //   if (floatval($cart_content[$i][2]) > 0) {
+        //     $cart_count += intval($cart_content[$i][3]);
+        //   } else {
+        //     $cart_content[$i][2] = 0;
+        //   };
+
+        //   $item_name_details = "";
+
+        //   $patch_pricing = explode(":",$cart_content[$i][8]);
+        //   if (count($patch_pricing) > 1) {
+        //     $cart_content[$i][2] += floatval($patch_pricing[1]);
+        //   };
+        //   if ($patch_pricing[0] != "" && $patch_pricing[0] != "None") {
+        //     $item_name_details = $item_name_details." with ".$patch_pricing[0];
+        //   };
+
+        //   $size_pricing = explode(":",$cart_content[$i][6]);
+        //   if (count($size_pricing) > 1) {
+        //     $cart_content[$i][2] += floatval($size_pricing[1]);
+        //   };
+        //   if ($size_pricing[0] != "") {
+        //     $item_name_details = $item_name_details.", ".$size_pricing[0];
+        //   };
+
+        //   $color_pricing = explode(":",$cart_content[$i][7]);
+        //   if (count($color_pricing) > 1) {
+        //     $cart_content[$i][2] += floatval($color_pricing[1]);
+        //   };
+        //   if ($color_pricing[0] != "") {
+        //     $item_name_details = $item_name_details.", ".$color_pricing[0];
+        //   };
+
+        //   $cart_content[$i][1] = $cart_content[$i][1].$item_name_details;
+        // };
+        $current_cart_string = $current_cart->selected_items;
+        $split_string = explode("&",$current_cart_string); // splits the string to into individual items
+        for ($a = 0; $a < count($split_string); $a++) {
+          $new_item = (object) array('id' => null);
+          $item_traits= explode("%",$split_string[$a]); // splits the item into its characteristics (ex. "key#value)
+          for ($b = 0; $b < count($item_traits); $b++) {
+            $item_character = explode("#",$item_traits[$b]); // splits the characteristic into its key and value
+            if ($item_character[0] == "id") {
+              $new_item->id = intval($item_character[1]);
+              $basic_info = Item::where('id',$new_item->id)->first();
+              $new_item->name = $basic_info->name;
+              $new_item->purpose = $purpose;
+              $new_item->title = $title;
+            };
+            if ($item_character[0] == "price") {
+              $new_item->price = floatval($item_character[1]);
+            };
+            if ($item_character[0] == "count") {
+              $new_item->count = intval($item_character[1]);
+              $total_item_count += $new_item->count;
+            };
+            if ($item_character[0] == "size") {
+              $new_item->size = strval($item_character[1]);
+              if (isset(explode(":",$new_item->size)[1])) {
+                $new_item->price += floatval(explode(":",$new_item->size)[1]);
+              };
+            };
+            if ($item_character[0] == "color") {
+              $new_item->color = strval($item_character[1]);
+              if (isset(explode(":",$new_item->color)[1])) {
+                $new_item->price += floatval(explode(":",$new_item->color)[1]);
+              };
+            };
+            if ($item_character[0] == "patches") {
+              $new_item->patches = strval($item_character[1]);
+              if (isset(explode(":",$new_item->patches)[1])) {
+                $new_item->price += floatval(explode(":",$new_item->patches)[1]);
+              };
+              // $selected_patch = strval($item_character[1]);
+            };
+          };
+          $selected_array[] = $new_item;
+        };
+      };
+
       if (Auth::user()) {
         $this_user = auth()->user();
         // $intent = auth()->user()->createSetupIntent();
@@ -252,55 +332,51 @@ class ItemController extends Controller
         // $intent = $this_user->createSetupIntent();
       };
       $intent = $this_user->createSetupIntent();
-      /*if (Auth::user()) {
-        $this_user = Auth::user();
-      // } elseif ($request->session()->get('guest')) {
-      } elseif ($request->cookie('guest')) {
-        // $this_user = User::find($request->session()->get('guest')->id);
-        $this_user = User::where('password',$request->cookie('guest'))->first()->id;
-      };*/
-      // $cart = $request->session()->get('cart');
-      $cart = $cart_content;
-      $text_cart = "";
-      $count = 0;
-      if ($cart) {
-        for ($i = 0; $i < count($cart); $i++) {
-          if ($i != 0) {
-            $text_cart = $text_cart."&";
-          };
-          if ($cart[$i][2] == 0) {
-            $cart[$i][3] = 0;
-          };
-          $text_cart =
-          $text_cart
-          .strval($i)."[]=".strval($cart[$i][0])."&" // id
-          .strval($i)."[]=".strval($cart[$i][1])."&" // name
-          .strval($i)."[]=".strval($cart[$i][2])."&" // price
-          .strval($i)."[]=".strval($cart[$i][3])."&" // quantity
-          .strval($i)."[]=".strval($cart[$i][4])."&" // return route
-          .strval($i)."[]=".strval($cart[$i][5])."&" // return page title
-          .strval($i)."[]=".strval($cart[$i][6])."&" // clothing size
-          .strval($i)."[]=".strval($cart[$i][7])."&" // clothing color
-          .strval($i)."[]=".strval($cart[$i][8]);    // clothing patches
-          // if ($cart[$i][6]) {
-          //   $text_cart.strval($i)."[]=".strval($cart[$i][6]); // clothing size
-          // };
-          if (intval($cart[$i][3]) > 0) {
-            $count++;
-          };
-        };
-      } else {
-        $text_cart = "expired";
-      };
+      
+      // $cart = $cart_content;
+      // $text_cart = "";
+      // $count = 0;
+      // if ($cart) {
+      //   for ($i = 0; $i < count($cart); $i++) {
+      //     if ($i != 0) {
+      //       $text_cart = $text_cart."&";
+      //     };
+      //     if ($cart[$i][2] == 0) {
+      //       $cart[$i][3] = 0;
+      //     };
+      //     $text_cart =
+      //     $text_cart
+      //     .strval($i)."[]=".strval($cart[$i][0])."&" // id
+      //     .strval($i)."[]=".strval($cart[$i][1])."&" // name
+      //     .strval($i)."[]=".strval($cart[$i][2])."&" // price
+      //     .strval($i)."[]=".strval($cart[$i][3])."&" // quantity
+      //     .strval($i)."[]=".strval($cart[$i][4])."&" // return route
+      //     .strval($i)."[]=".strval($cart[$i][5])."&" // return page title
+      //     .strval($i)."[]=".strval($cart[$i][6])."&" // clothing size
+      //     .strval($i)."[]=".strval($cart[$i][7])."&" // clothing color
+      //     .strval($i)."[]=".strval($cart[$i][8]);    // clothing patches
+      //     // if ($cart[$i][6]) {
+      //     //   $text_cart.strval($i)."[]=".strval($cart[$i][6]); // clothing size
+      //     // };
+      //     if (intval($cart[$i][3]) > 0) {
+      //       $count++;
+      //     };
+      //   };
+      // } else {
+      //   $text_cart = "expired";
+      // };
       return view('items.cart',[
-        'cart' => $cart,
+        // 'cart' => $cart,
+        'cart' => $selected_array,
+        'cart_id' => $current_cart_id,
         'intent' => $intent,
         'cart_count' => $cart_count,
         'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
         'content' => 'cart_content',
         'page_title' => "Cart",
-        'text_cart' => $text_cart,
-        'count' => $count,
+        // 'text_cart' => $text_cart,
+        'text_cart' => $current_cart_string,
+        'count' => $cart_count,
         'purpose' => $purpose,
         'title' => $title
       ]);
@@ -317,41 +393,81 @@ class ItemController extends Controller
         'email_title'      => 'required|string',
         'get_email_list'   => 'required|string'
       ]);
-      $cart_count = 0;
+
+      $current_cart = Cart::where('id',intval(Cookie::get('cartid')))->first();
+      $cart_count = $current_cart->count_of_selected;
+
+      if ($current_cart) {
+        $current_cart_string = $current_cart->selected_items;
+        $split_string = explode("&",$current_cart_string); // splits the string to into individual items
+        for ($a = 0; $a < count($split_string); $a++) {
+          $new_item = (object) array('id' => null);
+          $item_traits= explode("%",$split_string[$a]); // splits the item into its characteristics (ex. "key#value)
+          for ($b = 0; $b < count($item_traits); $b++) {
+            $item_character = explode("#",$item_traits[$b]); // splits the characteristic into its key and value
+            if ($item_character[0] == "id") {
+              $new_item->id = intval($item_character[1]);
+              $basic_info = Item::where('id',$new_item->id)->first();
+              $new_item->name = $basic_info->name;
+              // $new_item->purpose = $purpose;
+              // $new_item->title = $title;
+            };
+            if ($item_character[0] == "price") {
+              $new_item->price = floatval($item_character[1]);
+            };
+            if ($item_character[0] == "count") {
+              $new_item->count = intval($item_character[1]);
+            };
+            if ($item_character[0] == "size") {
+              $new_item->size = strval($item_character[1]);
+            };
+            if ($item_character[0] == "color") {
+              $new_item->color = strval($item_character[1]);
+            };
+            if ($item_character[0] == "patches") {
+              $new_item->patches = strval($item_character[1]);
+              // $selected_patch = strval($item_character[1]);
+            };
+          };
+          $selected_array[] = $new_item;
+        };
+      };
+
+      // $cart_count = 0;
       // $cart_content = $request->session()->get('cart');
 
-      $cookie_string = $request->cookie('cart');
-      $test_a = explode("&",$cookie_string);
-      for ($b = 0; $b < count($test_a); $b++) {
-        $test_a[$b] = explode("#",$test_a[$b]);
-      };
-      for ($c = 0; $c < count($test_a); $c++) {
-        for ($d = 0; $d < count($test_a[$c]); $d++) {
-          if (is_numeric($test_a[$c][$d])) {
-            $test_a[$c][$d] = floatval($test_a[$c][$d]);
-          };
-        };
-      };
-      $cart_content = $test_a;
+      // $cookie_string = $request->cookie('cart');
+      // $test_a = explode("&",$cookie_string);
+      // for ($b = 0; $b < count($test_a); $b++) {
+      //   $test_a[$b] = explode("#",$test_a[$b]);
+      // };
+      // for ($c = 0; $c < count($test_a); $c++) {
+      //   for ($d = 0; $d < count($test_a[$c]); $d++) {
+      //     if (is_numeric($test_a[$c][$d])) {
+      //       $test_a[$c][$d] = floatval($test_a[$c][$d]);
+      //     };
+      //   };
+      // };
+      // $cart_content = $test_a;
 
-      if ($cart_content) {
-        for ($i = 0; $i < count($cart_content); $i++) {
-          if (floatval($cart_content[$i][2]) > 0) {
-            $cart_count += intval($cart_content[$i][3]);
-          } else {
-            $cart_content[$i][2] = "0";
-          };
-        };
-      };
-      // $plan = Item::find($request->plan);
+      // if ($cart_content) {
+      //   for ($i = 0; $i < count($cart_content); $i++) {
+      //     if (floatval($cart_content[$i][2]) > 0) {
+      //       $cart_count += intval($cart_content[$i][3]);
+      //     } else {
+      //       $cart_content[$i][2] = "0";
+      //     };
+      //   };
+      // };
+      // // $plan = Item::find($request->plan);
 
-      // $plan_A = Item::find(6);
-      // $plan_B = Item::find(7);
-      // $array_A = [6,$plan_A];
-      // $array_B = [7,$plan_B];
-      // $all_array = [$array_A, $array_B];
+      // // $plan_A = Item::find(6);
+      // // $plan_B = Item::find(7);
+      // // $array_A = [6,$plan_A];
+      // // $array_B = [7,$plan_B];
+      // // $all_array = [$array_A, $array_B];
 
-      parse_str($request->text_cart,$all_array);
+      // parse_str($request->text_cart,$all_array);
 
       if (Auth::user()) {
         $this_user = Auth::user();
@@ -370,96 +486,136 @@ class ItemController extends Controller
       // $this_user->createOrGetStripeCustomer();
       // // $this_user->updateDefaultPaymentMethod($paymentMethod);
       // $this_user->addPaymentMethod($paymentMethod);
-      $total_cost = 0;
-      foreach ($all_array as $one_array) {
-        if (intval($one_array[3]) > 0) {
-          $one_id = intval($one_array[0]);
-          $one_quantity = intval($one_array[3]);
-          $one_item = Item::find($one_id);
-          $one_price = $one_item->price;
-          if ($one_item->adjustable_price == 1) {
-            $one_price = floatval($one_array[2]);
-          };
-          if ($one_array[6] != "" || $one_array[6] != null) {
-            $size_price = explode(":",$one_array[6]);
-            if (count($size_price) > 1) {
-              $one_price += floatval($size_price[1]);
-            };
-          };
-          if ($one_array[7] != "" || $one_array[7] != null) {
-            $color_price = explode(":",$one_array[7]);
-            if (count($color_price) > 1) {
-              $one_price += floatval($color_price[1]);
-            };
-          };
-          if ($one_array[8] != "" || $one_array[8] != null) {
-            $patch_price = explode(":",$one_array[8]);
-            if (count($patch_price) > 1) {
-              $one_price += floatval($patch_price[1]);
-            };
-          };
-          $one_total = $one_quantity * $one_price * 100;
-          $total_cost += $one_total;
-        };
-      };
-
+      $overall_total = 0;
+      $purchase_email_details = "";
       $purchase_list = [
         "Card Holder Name: ".$request->card_holder_name,
         "Email Address: ".$this_user->email,
         "Mailing Address: ".$this_user->mailing_address
       ];
-      $overall_total = 0;
-      $purchase_email_details = "";
-      foreach ($all_array as $one_array) {
-        if (intval($one_array[3]) > 0) {
-          $one_id = intval($one_array[0]);
-          $one_quantity = intval($one_array[3]);
-          $one_item = Item::find($one_id);
-          $one_price = $one_item->price;
-          if ($one_item->adjustable_price == 1) {
-            $one_price = floatval($one_array[2]);
+      // foreach ($all_array as $one_array) {
+      //   if (intval($one_array[3]) > 0) {
+      //     $one_id = intval($one_array[0]);
+      //     $one_quantity = intval($one_array[3]);
+      //     $one_item = Item::find($one_id);
+      //     $one_price = $one_item->price;
+      //     if ($one_item->adjustable_price == 1) {
+      //       $one_price = floatval($one_array[2]);
+      //     };
+      //     if ($one_array[6] != "" || $one_array[6] != null) {
+      //       $size_price = explode(":",$one_array[6]);
+      //       if (count($size_price) > 1) {
+      //         $one_price += floatval($size_price[1]);
+      //       };
+      //     };
+      //     if ($one_array[7] != "" || $one_array[7] != null) {
+      //       $color_price = explode(":",$one_array[7]);
+      //       if (count($color_price) > 1) {
+      //         $one_price += floatval($color_price[1]);
+      //       };
+      //     };
+      //     if ($one_array[8] != "" || $one_array[8] != null) {
+      //       $patch_price = explode(":",$one_array[8]);
+      //       if (count($patch_price) > 1) {
+      //         $one_price += floatval($patch_price[1]);
+      //       };
+      //     };
+      //     $one_total = $one_quantity * $one_price * 100;
+      //     $total_cost += $one_total;
+      //   };
+      // };
+      for ($c = 0; $c < count($selected_array); $c++) {
+        $item_string = $selected_array[$c]->name;
+        $one_price = $selected_array[$c]->price;
+        $one_quantity = $selected_array[$c]->count;
+        if (isset($selected_array[$c]->patches)) {
+          $patch_price = explode(":",$selected_array[$c]->patches);
+          $item_string .= " with ".$patch_price[0]." patches";
+          if (count($patch_price) > 1) {
+            $one_price += floatval($patch_price[1]);
           };
-          if ($one_array[6] != "" || $one_array[6] != null) {
-            $size_price = explode(":",$one_array[6]);
-            if (count($size_price) > 1) {
-              $one_price += floatval($size_price[1]);
-            };
-          };
-          if ($one_array[7] != "" || $one_array[7] != null) {
-            $color_price = explode(":",$one_array[7]);
-            if (count($color_price) > 1) {
-              $one_price += floatval($color_price[1]);
-            };
-          };
-          if ($one_array[8] != "" || $one_array[8] != null) {
-            $patch_price = explode(":",$one_array[8]);
-            if (count($patch_price) > 1) {
-              $one_price += floatval($patch_price[1]);
-            };
-          };
-          $one_sum_price = $one_quantity * $one_price;
-          $size_name = explode(":",$one_array[6])[0];
-          $color_name = explode(":",$one_array[7])[0];
-          $patch_name = explode(":",$one_array[8])[0];
-          if ($patch_name !== null && $patch_name != "" && $patch_name != "None") {
-            $one_item->name = $one_item->name." with ".$patch_name." patches";
-          };
-          if ($color_name !== null && $color_name != "") {
-            $one_item->name = $one_item->name.", Color:".$color_name;
-          };
-          if ($size_name !== null && $size_name != "") {
-            $one_item->name = $one_item->name.", Size: ".$size_name;
-          };
-          $item_string = $one_item->name.": $".$one_price." x ".$one_quantity." = $".$one_sum_price;
-          $purchase_list[] = $item_string;
-          if ($purchase_email_details != "") {
-            $purchase_email_details = $purchase_email_details.">>>".$item_string;
-          } else {
-            $purchase_email_details = $item_string;
-          };
-          $overall_total += $one_sum_price;
         };
+        if (isset($selected_array[$c]->size)) {
+          $size_price = explode(":",$selected_array[$c]->size);
+          $item_string .= ", Size:".$size_price[0];
+          if (count($size_price) > 1) {
+            $one_price += floatval($size_price[1]);
+          };
+        };
+        if (isset($selected_array[$c]->color)) {
+          $color_price = explode(":",$selected_array[$c]->color);
+          $item_string .= ", Color:".$color_price[0];
+          if (count($color_price) > 1) {
+            $one_price += floatval($color_price[1]);
+          };
+        };
+        $one_total = $one_quantity * $one_price;
+        $item_string = $item_string.": $".$one_price." x ".$one_quantity." = $".$one_total;
+        if ($purchase_email_details != "") {
+          $purchase_email_details = $purchase_email_details.">>>".$item_string;
+        } else {
+          $purchase_email_details = $item_string;
+        };
+        $overall_total+=$one_total;
       };
+
+      // $purchase_list = [
+      //   "Card Holder Name: ".$request->card_holder_name,
+      //   "Email Address: ".$this_user->email,
+      //   "Mailing Address: ".$this_user->mailing_address
+      // ];
+      // $overall_total = 0;
+      // $purchase_email_details = "";
+      // foreach ($all_array as $one_array) {
+      //   if (intval($one_array[3]) > 0) {
+      //     $one_id = intval($one_array[0]);
+      //     $one_quantity = intval($one_array[3]);
+      //     $one_item = Item::find($one_id);
+      //     $one_price = $one_item->price;
+      //     if ($one_item->adjustable_price == 1) {
+      //       $one_price = floatval($one_array[2]);
+      //     };
+      //     if ($one_array[6] != "" || $one_array[6] != null) {
+      //       $size_price = explode(":",$one_array[6]);
+      //       if (count($size_price) > 1) {
+      //         $one_price += floatval($size_price[1]);
+      //       };
+      //     };
+      //     if ($one_array[7] != "" || $one_array[7] != null) {
+      //       $color_price = explode(":",$one_array[7]);
+      //       if (count($color_price) > 1) {
+      //         $one_price += floatval($color_price[1]);
+      //       };
+      //     };
+      //     if ($one_array[8] != "" || $one_array[8] != null) {
+      //       $patch_price = explode(":",$one_array[8]);
+      //       if (count($patch_price) > 1) {
+      //         $one_price += floatval($patch_price[1]);
+      //       };
+      //     };
+      //     $one_sum_price = $one_quantity * $one_price;
+      //     $size_name = explode(":",$one_array[6])[0];
+      //     $color_name = explode(":",$one_array[7])[0];
+      //     $patch_name = explode(":",$one_array[8])[0];
+      //     if ($patch_name !== null && $patch_name != "" && $patch_name != "None") {
+      //       $one_item->name = $one_item->name." with ".$patch_name." patches";
+      //     };
+      //     if ($color_name !== null && $color_name != "") {
+      //       $one_item->name = $one_item->name.", Color:".$color_name;
+      //     };
+      //     if ($size_name !== null && $size_name != "") {
+      //       $one_item->name = $one_item->name.", Size: ".$size_name;
+      //     };
+      //     $item_string = $one_item->name.": $".$one_price." x ".$one_quantity." = $".$one_sum_price;
+      //     $purchase_list[] = $item_string;
+      //     if ($purchase_email_details != "") {
+      //       $purchase_email_details = $purchase_email_details.">>>".$item_string;
+      //     } else {
+      //       $purchase_email_details = $item_string;
+      //     };
+      //     $overall_total += $one_sum_price;
+      //   };
+      // };
       $transaction_fee = $overall_total * 0.029 + 0.3;
       $final_total = $overall_total - $transaction_fee;
       $purchase_list[] = "-------------------";
@@ -583,7 +739,9 @@ class ItemController extends Controller
       // $request->session()->forget('cart');
       // $request->session()->forget('guest');
 
-      Cookie::queue(Cookie::forget('cart'));
+      // Cookie::queue(Cookie::forget('cart'));
+      Cookie::queue(Cookie::forget('cartid'));
+      Cart::destroy($current_cart->id);
       Cookie::queue(Cookie::forget('guest'));
 
       return redirect ('/');
@@ -601,8 +759,12 @@ class ItemController extends Controller
       // $request->session()->forget('cart');
       // $request->session()->forget('guest');
 
-      Cookie::queue(Cookie::forget('cart'));
+      // Cookie::queue(Cookie::forget('cart'));
       Cookie::queue(Cookie::forget('guest'));
+
+      $cart_id = intval(Cookie::get('cartid'));
+      Cart::destroy($cart_id);
+      Cookie::queue(Cookie::forget('cartid'));
 
       return redirect ('/');
     }

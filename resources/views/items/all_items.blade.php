@@ -35,23 +35,33 @@
               @endif
               <input type="submit" value="CHECKOUT"/>
             </div>
-            <!-- <pre>
-              @php
-                var_dump($all_items);
-              @endphp
-            </pre> -->
             <div class="itemList">
               @foreach($all_items as $item)
-                @if (($item->members_only == 1 && $is_member == true) || $item->members_only == 0)
-                  <!-- This gets the current price and amount -->
-                  @php
-                    for ($i = 0; $i < count($cookie_test); $i++) {
-                      if ($cookie_test[$i][0] == $item->id) {
-                        $price = $cookie_test[$i][2];
-                        $amount = $cookie_test[$i][3];
+
+                <!-- This gets the current price and amount -->
+                @php
+                  if (count($selected_array) > 0) {
+                    for ($j = 0; $j < count($selected_array); $j++) {
+                      if ($selected_array[$j]->id == $item->id) {
+                        $item->count = $selected_array[$j]->count;
+                        if ($selected_array[$j]->price) {
+                          $item->price = $selected_array[$j]->price;
+                        };
+                        if (isset($selected_array[$j]->size)) {
+                          $item->size = $selected_array[$j]->size;
+                        };
+                        if (isset($selected_array[$j]->color)) {
+                          $item->color = $selected_array[$j]->color;
+                        };
+                        if (isset($selected_array[$j]->patches)) {
+                          $item->selected_patch = $selected_array[$j]->patches;
+                        };
                       };
                     };
-                  @endphp
+                  };
+                @endphp
+                
+                @if (($item->members_only == 1 && $is_member == true) || $item->members_only == 0)
                   <div class="gridItem">
                     <div>
                       <input type="hidden" name="item_id_{{ $count }}" value="{{ $item->id }}">
@@ -64,7 +74,7 @@
                       <div class="gridPhoto" style="background-image:url('/images/items/{{ $item->photo }}')">
                       </div>
                     @else
-                      <div class="gridPhoto gridNoPhoto" style="background-image:url('/images/welcome/bobcat_logo_black_2-min.png')">
+                      <div class="gridPhoto gridNoPhoto" style="background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url('/images/welcome/bobcat_logo_black_2-min.png')">
                         <div>NO PHOTO AVAILABLE</div>
                       </div>
                     @endif
@@ -74,8 +84,8 @@
                     <div class="gridPrice">
                       <div>Price (USD)</div>
                       @if ($item->is_donation && $item->adjustable_price)
-                        @if (isset($price))
-                          <input type="number" name="item_price_{{ $count }}" min="0" max="9999.99" step="0.01" value="{{ $price }}">
+                        @if ($item->price)
+                          <input type="number" name="item_price_{{ $count }}" min="0" max="9999.99" step="0.01" value="{{ $item->price }}">
                         @else
                           <input type="number" name="item_price_{{ $count }}" min="0" max="9999.99" step="0.01" value="0">
                         @endif
@@ -124,16 +134,16 @@
                           @endphp
                           <div>
                             <select name="item_size_{{ $count }}">
-                              @for ($i = 0; $i < count($all_sizes); $i++)
+                              @for ($b = 0; $b < count($all_sizes); $b++)
                                 @php
-                                  if ($all_sizes[$i] == $item->size) {
+                                  if ($all_sizes[$b] == $item->size) {
                                     $selected = true;
                                   } else {
                                     $selected = false;
                                   };
                                 @endphp
-                                <option value="{{$all_sizes[$i]}}" @if ($selected) selected @endif>
-                                  {{ $all_sizes[$i] }}
+                                <option value="{{$all_sizes[$b]}}" @if ($selected) selected @endif>
+                                  {{ $all_sizes[$b] }}
                                 </option>
                               @endfor
                             </select>
@@ -147,22 +157,22 @@
                             $all_colors = [];
                             $colors_string = str_replace(" ","",$item->colors);
                             $colors_split = explode(",",$colors_string);
-                            for ($a = 0; $a < count($colors_split); $a++) {
-                              $all_colors[] = $colors_split[$a];
+                            for ($c = 0; $c < count($colors_split); $c++) {
+                              $all_colors[] = $colors_split[$c];
                             };
                           @endphp
                           <div>
                             <select name="item_color_{{ $count }}">
-                              @for ($i = 0; $i < count($all_colors); $i++)
+                              @for ($d = 0; $d < count($all_colors); $d++)
                                 @php
-                                  if ($all_colors[$i] == $item->selected_color) {
+                                  if ($all_colors[$d] == str_replace(" ","",$item->color)) {
                                     $selected = true;
                                   } else {
                                     $selected = false;
                                   };
                                 @endphp
-                                <option value="{{$all_colors[$i]}}" @if ($selected) selected @endif>
-                                  {{ $all_colors[$i] }}
+                                <option value="{{$all_colors[$d]}}" @if ($selected) selected @endif>
+                                  {{ $all_colors[$d] }}
                                 </option>
                               @endfor
                             </select>
@@ -174,25 +184,24 @@
                           <div>Patches</div>
                           @php
                             $all_patches = [];
-
-                            $patches_split = explode(",",$item->patches);
-
-                            for ($a = 0; $a < count($patches_split); $a++) {
-                              $all_patches[] = $patches_split[$a];
+                            $patches_string = str_replace(" ","",$item->patches);
+                            $patches_split = explode(",",$patches_string);
+                            for ($e = 0; $e < count($patches_split); $e++) {
+                              $all_patches[] = $patches_split[$e];
                             };
                           @endphp
                           <div>
                             <select name="item_patch_{{ $count }}">
-                              @for ($i = 0; $i < count($all_patches); $i++)
+                              @for ($f = 0; $f < count($all_patches); $f++)
                                 @php
-                                  if ($all_patches[$i] == $item->selected_patch) {
+                                  if ($all_patches[$f] == $item->selected_patch) {
                                     $selected = true;
                                   } else {
                                     $selected = false;
                                   };
                                 @endphp
-                                <option value="{{$all_patches[$i]}}" @if ($selected) selected @endif>
-                                  {{ $all_patches[$i] }}
+                                <option value="{{$all_patches[$f]}}" @if ($selected) selected @endif>
+                                  {{ $all_patches[$f] }}
                                 </option>
                               @endfor
                             </select>
@@ -206,14 +215,6 @@
                   </div>
                   @php $count++ @endphp
                 @else
-                  @php
-                    for ($i = 0; $i < count($cookie_test); $i++) {
-                      if ($cookie_test[$i][0] == $item->id) {
-                        $price = $cookie_test[$i][2];
-                        $amount = $cookie_test[$i][3];
-                      };
-                    };
-                  @endphp
                   <div class="gridItem">
                     <div class="gridName">
                       <div>{{ $item->name }}</div>
@@ -222,7 +223,7 @@
                       <div class="gridPhoto" style="background-image:url('/images/items/{{ $item->photo }}')">
                       </div>
                     @else
-                      <div class="gridPhoto gridNoPhoto" style="background-image:url('/images/welcome/bobcat_logo_black_2-min.png')">
+                      <div class="gridPhoto gridNoPhoto" style="background-image:linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)),url('/images/welcome/bobcat_logo_black_2-min.png')">
                         <div>NO AVAILABLE PHOTO</div>
                       </div>
                     @endif

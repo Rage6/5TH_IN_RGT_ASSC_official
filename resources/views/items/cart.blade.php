@@ -12,7 +12,7 @@
         @if ($count > 0)
           <div class="cartFilled">
             <div>
-              <form class="emptyCart" method="GET" action="{{ route('items.clear') }}">
+              <form class="emptyCart" method="GET" action="{{ route('items.clear',['id' => $cart_id]) }}">
                 <button>
                   EMPTY YOUR CART
                 </button>
@@ -20,49 +20,87 @@
               @php
                 $total_cost = 0;
               @endphp
-              @foreach($cart as $item)
+              @for ($a = 0; $a < count($cart); $a++)
                 @php
-                  $item_cost = $item[3] * $item[2];
+                  $item = $cart[$a];
+                  if (isset($item->size)) {
+                    $size = ", Size: ".explode(":",$item->size)[0];
+                  } else {
+                    $size = '';
+                  };
+                  if (isset($item->color)) {
+                    $color = ", Color: ".explode(":",$item->color)[0];
+                  } else {
+                    $color = '';
+                  };
+                  if (isset($item->patches)) {
+                    $patches = " with ".explode(":",$item->patches)[0]." patch";
+                  } else {
+                    $patches = '';
+                  };
+                  $item = $cart[$a];
+                  $item->name = $item->name.$patches.$color.$size;
+                  $item_cost = $item->price * $item->count;
                   $total_cost += $item_cost;
                 @endphp
-                @if ($item[3] > 0)
+                @if ($item->count > 0)
                     <!-- <pre>
                       @php
-                        var_dump($item);
+                        if (isset($item->patches)) {
+                          var_dump($item);
+                        };
                       @endphp
                     </pre> -->
                     <div class="cartItem">
-                      <div class="quantity">
-                        <div class="cartItemName">Quantity</div>
-                        <div class="cartItemValue">{{ $item[3] }}</div>
+                      <div class="name">
+                        <!-- <div class="cartItemName">Product Name</div> -->
+                        <div class="cartItemValue">{{ $item->name }}</div>
                       </div>
                       <div class="cost">
-                        <div class="cartItemName">Cost</div>
+                        <div class="cartItemName">Price</div>
                         @php
-                          $string_cost = explode('.',strval($item[2]));
+                          $string_price = explode('.',strval($item->price));
                         @endphp
-                        @if (count($string_cost) > 1)
-                          @if (strlen($string_cost[1]) == 2)
+                        @if (count($string_price) > 1)
+                          @if (strlen($string_price[1]) == 2)
                             <div class="cartItemValue">
-                              ${{ strval($item[2]) }}
+                              ${{ strval($item->price) }}
                             </div>
                           @else
                             <div class="cartItemValue">
-                              ${{ strval($item[2]).'0' }}
+                              ${{ strval($item->price).'0' }}
                             </div>
                           @endif
                         @else
                           <div class="cartItemValue">
-                            ${{ strval($item[2]).'.00' }}
+                            ${{ strval($item->price).'.00' }}
                           </div>
                         @endif
                       </div>
-                      <div class="name">
-                        <!-- <div class="cartItemName">Product Name</div> -->
-                        <div class="cartItemValue">{{ $item[1] }}</div>
+                      <div class="quantity">
+                        <div class="cartItemName">Quantity</div>
+                        <div class="cartItemValue">{{ $item->count }}</div>
+                      </div>
+                      <div class="subtotal">
+                        <div class="cartItemName">Subtotal</div>
+                        <div class="cartItemValue">
+                          @php
+                            $string_cost = explode('.',strval($item_cost));
+                          @endphp
+                          @if (count($string_cost) > 1)
+                            @if (strlen($string_cost[1]) == 2)
+                              ${{ strval($item_cost) }}
+                            @else
+                              ${{ strval($item_cost).'0' }}
+                            @endif
+                          @else
+                            ${{ strval($item_cost).'.00' }}
+                          @endif
+                          <!-- ${{ $item_cost }} -->
+                        </div>
                       </div>
                       <div class="change">
-                        <a href="/items?purpose={{ $item[4] }}&title={{ $item[5] }}">
+                        <a href="/items?purpose={{ $item->purpose }}&title={{ $item->title }}">
                           <span>
                             CHANGE
                           </span>
@@ -70,7 +108,7 @@
                       </div>
                     </div>
                 @endif
-              @endforeach
+              @endfor
               <div>
                 @php
                   $string_total = explode('.',strval($total_cost));
