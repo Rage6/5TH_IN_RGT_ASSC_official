@@ -34,6 +34,13 @@ class WelcomeController extends Controller
 
     }
 
+    public function maintenance() {
+      return view('welcome.maintenance',[
+        'style' => 'welcome_style',
+        'js' => config('app.url_ext').'/js/my_custom/welcome/welcome.js',
+      ]);
+    }
+
     public function error(Request $request)
     {
       // The 'get_cart_count' function is in 'app\helper.php'
