@@ -1,0 +1,70 @@
+body {
+  background: linear-gradient(to right,
+    rgba(139,0,0,0.7),
+    rgba(139,0,0,0.7) 50%,
+    rgba(0,100,0,0.6) 50%,
+    rgba(0,100,0,0.6) 100%);
+  height: 1px;
+}
+
+.main {
+  margin-left: 50%;
+  padding-top: 12vh;
+  position: absolute;
+  left: -960px;
+  width: 1920px;
+}
+
+.mainTitle {
+  margin: 0;
+  font-size: 3.5rem;
+}
+
+.regIntro {
+  background-size: 100% 100%, 414px 414px;
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+.applyNow {
+  background-image:
+    linear-gradient(
+      rgba(0,100,0,0.7),
+      rgba(0,100,0,0.7)),
+    url('/images/scholarship/signing-form.jpeg');
+}
+
+.regRow {
+  display: grid;
+  grid-template-columns: 33% auto 33%;
+}
+
+.regSection {
+  padding: 20px 2%;
+}
+
+.scholarshipTitle {
+  grid-template-rows: 100%;
+  grid-template-columns: 50% 50%;
+  height: 88vh;
+}
+
+.genName {
+  font-size: 2.8rem;
+}
+
+.scholarImg {
+  grid-template-rows: 33% 33% 34%;
+  grid-template-areas:
+    "scholarship scholarshipFiller"
+    "generalFiller general" 
+    "apply apply";
+}
+
+.aroundButtons {
+  font-size: 2rem;
+}
+
+.applyNow {
+  font-size: 2.6rem;
+}

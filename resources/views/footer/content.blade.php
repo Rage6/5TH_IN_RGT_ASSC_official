@@ -19,6 +19,9 @@
       <a href="{{ url('items?purpose=merchandise.index&title=Bobcat%20Merchandise') }}">
         <div class="pageLink">Merchandise</div>
       </a>
+      <a href="{{ route('scholarship.index') }}">
+        <div class="pageLink">Scholarship</div>
+      </a>
       <a href="{{ route('donation.index') }}">
         <div class="pageLink">Donations</div>
       </a>

@@ -1,5 +1,5 @@
 <div class="menuBody">
-  <div class="mainMenuTopBttn">
+  <div class="mainMenuTopBttn" id="menuBar">
     <a class="mainMenuLink" href="{{ url('/') }}">
       <img src="/{{ config('app.url_ext') }}images/welcome/5INF_crest-min.png"/>
     </a>
@@ -43,6 +43,9 @@
         </a>
         <a href="{{ url('/newsletter') }}">
           <div class="mainMenuSubBttn">+ Newsletters</div>
+        </a>
+        <a href="{{ route('scholarship.index') }}">
+          <div class="mainMenuSubBttn">+ Scholarship</div>
         </a>
         <a href="{{ url('items?purpose=merchandise.index&title=Bobcat%20Merchandise') }}">
           <div class="mainMenuSubBttn">+ Merchandise</div>

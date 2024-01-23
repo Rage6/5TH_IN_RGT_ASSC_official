@@ -35,6 +35,11 @@
                           <div>MERCHANDISE</div>
                         </div>
                       </a>
+                      <a href="{{ route('scholarship.index') }}">
+                        <div class="homeButton contentButton">
+                          <div>SCHOLARSHIP</div>
+                        </div>
+                      </a>
                       <a href="{{ route('staff.index') }}">
                         <div class="homeButton contentButton">
                           <div>BOBCAT STAFF</div>

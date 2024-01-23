@@ -232,13 +232,13 @@
                 <a href="{{ url('/history/album/ww2') }}">
                   <li>Photo Album</li>
                 </a>
-                <a href="http://bobcat.ws/ww2history.htm">
+                <a href="https://classic.bobcat.ws/ww2history.html">
                   <li>History of Company C</li>
                 </a>
-                <a href="http://bobcat.ws/recollections-by-ponder.html">
+                <a href="https://classic.bobcat.ws/recollections-by-ponder.html">
                   <li>Recollections by Lew Ponder</li>
                 </a>
-                <a href="http://bobcat.ws/5th-infantry-chorus.html">
+                <a href="https://classic.bobcat.ws/5th-infantry-chorus.html">
                   <li>5th Infantry Soldier Chorus</li>
                 </a>
                 <a href="http://bobcat.ws/The%20Soldier%20Chorus.PDF">
@@ -315,13 +315,13 @@
                 <a href="{{ url('/history/album/korea') }}">
                   <li>Photo Album</li>
                 </a>
-                <a href="http://bobcat.ws/stuffelbeam.htm">
+                <a href="https://classic.bobcat.ws/stuffelbeam.html">
                   <li>Myron Stuffelbeam - 50th Year Recognition</li>
                 </a>
-                <a href="http://bobcat.ws/Co%20A%20Dist.%20Unit%20Cit.%20Korea.pdf">
+                <a href="https://classic.bobcat.ws/Co%20A%20Dist.%20Unit%20Cit.%20Korea.pdf">
                   <li>Distinguished Unit Citation</li>
                 </a>
-                <a href="http://bobcat.ws/million-dollar-hill.html">
+                <a href="https://classic.bobcat.ws/million-dollar-hill.html">
                   <li>"Million Dollar Hill"</li>
                 </a>
               </ul>

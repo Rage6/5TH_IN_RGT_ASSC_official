@@ -18,11 +18,15 @@ class Expiration
     public function handle(Request $request, Closure $next)
     {
       $current_user = Auth::user();
-      $user_expiration = $current_user->expiration_date;
-      $time_now = date("Y-m-d h:m:s",time());
-      if ($time_now > $user_expiration && $user_expiration != "1970-01-01 00:00:00") {
-        abort(403, "Your membership has expired. Paying a membership fee will allow the Bobcat staff to reactivate your account.");
+      if ($current_user) {
+        $user_expiration = $current_user->expiration_date;
+        $time_now = date("Y-m-d h:m:s",time());
+        if ($time_now > $user_expiration && $user_expiration != "1970-01-01 00:00:00") {
+          abort(403, "According to records, your membership fee has expired. Please contact the Bobcat staff to learn how you can reactivate your account.");
+        };
+        return $next($request);
+      } else {
+        return redirect('login');
       };
-      return $next($request);
     }
 }
