@@ -33,13 +33,11 @@ class ItemController extends Controller
 
       $current_cart = Cart::where('id',Cookie::get('cartid'))->first();
       // The 'get_cart_count' function is in 'app\helper.php'
-      // $cart_count = get_cart_count($request)->cart_count;
       if ($current_cart) {
         $cart_count = $current_cart->count_of_selected;
       } else {
         $cart_count = 0;
       };
-      // $test_a = get_cart_count($request)->test_a;
 
       if (isset($_GET['purpose']) && isset($_GET['title'])) {
         $purpose = $_GET['purpose'];
@@ -73,7 +71,6 @@ class ItemController extends Controller
       $selected_array = [];
       $total_item_count = 0;
       if ($current_cart) {
-        // $current_cart = Cart::where('id',Cookie::get('cartid'))->first();
         $current_cart_string = $current_cart->selected_items;
         $split_string = explode("&",$current_cart_string); // splits the string to into individual items
         for ($a = 0; $a < count($split_string); $a++) {
@@ -113,7 +110,6 @@ class ItemController extends Controller
         'purpose' => $purpose,
         'title' => $title,
         'cart_count' => $cart_count,
-        // 'cookie_test' => $test_a,
         'is_member' => $is_member,
         'selected_array' => $selected_array,
         'total_item_count' => $total_item_count
@@ -190,27 +186,6 @@ class ItemController extends Controller
         $cart_count = 0;
         $current_cart_string = null;
       };
-      // if ($current_cart) {
-      //   $current_cart_string = $current_cart->selected_items;
-      // } else {
-      //   $current_cart_string = null;
-      // };
-      // $cart_count = 0;
-
-      // $cart_content = $request->session()->get('cart');
-      // $cookie_string = $request->cookie('cart');
-      // $test_a = explode("&",$cookie_string);
-      // for ($b = 0; $b < count($test_a); $b++) {
-      //   $test_a[$b] = explode("#",$test_a[$b]);
-      // };
-      // for ($c = 0; $c < count($test_a); $c++) {
-      //   for ($d = 0; $d < count($test_a[$c]); $d++) {
-      //     if (is_numeric($test_a[$c][$d])) {
-      //       $test_a[$c][$d] = floatval($test_a[$c][$d]);
-      //     };
-      //   };
-      // };
-      // $cart_content = $test_a;
       $selected_array = [];
       $total_item_count = 0;
 
@@ -223,42 +198,6 @@ class ItemController extends Controller
       };
 
       if ($current_cart) {
-      // if ($cart_content) {
-        // for ($i = 0; $i < count($cart_content); $i++) {
-        //   if (floatval($cart_content[$i][2]) > 0) {
-        //     $cart_count += intval($cart_content[$i][3]);
-        //   } else {
-        //     $cart_content[$i][2] = 0;
-        //   };
-
-        //   $item_name_details = "";
-
-        //   $patch_pricing = explode(":",$cart_content[$i][8]);
-        //   if (count($patch_pricing) > 1) {
-        //     $cart_content[$i][2] += floatval($patch_pricing[1]);
-        //   };
-        //   if ($patch_pricing[0] != "" && $patch_pricing[0] != "None") {
-        //     $item_name_details = $item_name_details." with ".$patch_pricing[0];
-        //   };
-
-        //   $size_pricing = explode(":",$cart_content[$i][6]);
-        //   if (count($size_pricing) > 1) {
-        //     $cart_content[$i][2] += floatval($size_pricing[1]);
-        //   };
-        //   if ($size_pricing[0] != "") {
-        //     $item_name_details = $item_name_details.", ".$size_pricing[0];
-        //   };
-
-        //   $color_pricing = explode(":",$cart_content[$i][7]);
-        //   if (count($color_pricing) > 1) {
-        //     $cart_content[$i][2] += floatval($color_pricing[1]);
-        //   };
-        //   if ($color_pricing[0] != "") {
-        //     $item_name_details = $item_name_details.", ".$color_pricing[0];
-        //   };
-
-        //   $cart_content[$i][1] = $cart_content[$i][1].$item_name_details;
-        // };
         $current_cart_string = $current_cart->selected_items;
         $split_string = explode("&",$current_cart_string); // splits the string to into individual items
         for ($a = 0; $a < count($split_string); $a++) {
@@ -297,7 +236,6 @@ class ItemController extends Controller
               if (isset(explode(":",$new_item->patches)[1])) {
                 $new_item->price += floatval(explode(":",$new_item->patches)[1]);
               };
-              // $selected_patch = strval($item_character[1]);
             };
           };
           $selected_array[] = $new_item;
@@ -306,12 +244,8 @@ class ItemController extends Controller
 
       if (Auth::user()) {
         $this_user = auth()->user();
-        // $intent = auth()->user()->createSetupIntent();
-      // } elseif ($request->session()->get('guest')) {
       } elseif ($request->cookie('guest')) {
-        // $this_user = $request->session()->get('guest');
         $this_user = User::where('password',$request->cookie('guest'))->first();
-        // $intent = $this_user->createSetupIntent();
       } else {
         $all_characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $random_password = '';
@@ -325,48 +259,13 @@ class ItemController extends Controller
         $guest_user->email = "guest@email.com";
         $guest_user->password = "guest_".$random_password;
         $guest_user->save();
-        // $guest = $request->session()->put('guest',$this_user);
         $one_day = 60 * 24;
         $this_user = User::where('password',$guest_user->password)->first();
         Cookie::queue(Cookie::make('guest',$this_user->password,$one_day));
-        // $intent = $this_user->createSetupIntent();
       };
       $intent = $this_user->createSetupIntent();
       
-      // $cart = $cart_content;
-      // $text_cart = "";
-      // $count = 0;
-      // if ($cart) {
-      //   for ($i = 0; $i < count($cart); $i++) {
-      //     if ($i != 0) {
-      //       $text_cart = $text_cart."&";
-      //     };
-      //     if ($cart[$i][2] == 0) {
-      //       $cart[$i][3] = 0;
-      //     };
-      //     $text_cart =
-      //     $text_cart
-      //     .strval($i)."[]=".strval($cart[$i][0])."&" // id
-      //     .strval($i)."[]=".strval($cart[$i][1])."&" // name
-      //     .strval($i)."[]=".strval($cart[$i][2])."&" // price
-      //     .strval($i)."[]=".strval($cart[$i][3])."&" // quantity
-      //     .strval($i)."[]=".strval($cart[$i][4])."&" // return route
-      //     .strval($i)."[]=".strval($cart[$i][5])."&" // return page title
-      //     .strval($i)."[]=".strval($cart[$i][6])."&" // clothing size
-      //     .strval($i)."[]=".strval($cart[$i][7])."&" // clothing color
-      //     .strval($i)."[]=".strval($cart[$i][8]);    // clothing patches
-      //     // if ($cart[$i][6]) {
-      //     //   $text_cart.strval($i)."[]=".strval($cart[$i][6]); // clothing size
-      //     // };
-      //     if (intval($cart[$i][3]) > 0) {
-      //       $count++;
-      //     };
-      //   };
-      // } else {
-      //   $text_cart = "expired";
-      // };
       return view('items.cart',[
-        // 'cart' => $cart,
         'cart' => $selected_array,
         'cart_id' => $current_cart_id,
         'intent' => $intent,
@@ -374,7 +273,6 @@ class ItemController extends Controller
         'js' => '/'.config('app.url_ext').'js/my_custom/reunion/reunion.js',
         'content' => 'cart_content',
         'page_title' => "Cart",
-        // 'text_cart' => $text_cart,
         'text_cart' => $current_cart_string,
         'count' => $cart_count,
         'purpose' => $purpose,
@@ -387,7 +285,6 @@ class ItemController extends Controller
       $request->validate([
         'payment_email'    => 'required|string',
         'mailing_address'  => 'nullable|string',
-        // 'payment_method'   => 'required',
         'text_cart'        => 'required|string',
         'card_holder_name' => 'required|string',
         'email_title'      => 'required|string',
@@ -409,8 +306,6 @@ class ItemController extends Controller
               $new_item->id = intval($item_character[1]);
               $basic_info = Item::where('id',$new_item->id)->first();
               $new_item->name = $basic_info->name;
-              // $new_item->purpose = $purpose;
-              // $new_item->title = $title;
             };
             if ($item_character[0] == "price") {
               $new_item->price = floatval($item_character[1]);
@@ -426,48 +321,11 @@ class ItemController extends Controller
             };
             if ($item_character[0] == "patches") {
               $new_item->patches = strval($item_character[1]);
-              // $selected_patch = strval($item_character[1]);
             };
           };
           $selected_array[] = $new_item;
         };
       };
-
-      // $cart_count = 0;
-      // $cart_content = $request->session()->get('cart');
-
-      // $cookie_string = $request->cookie('cart');
-      // $test_a = explode("&",$cookie_string);
-      // for ($b = 0; $b < count($test_a); $b++) {
-      //   $test_a[$b] = explode("#",$test_a[$b]);
-      // };
-      // for ($c = 0; $c < count($test_a); $c++) {
-      //   for ($d = 0; $d < count($test_a[$c]); $d++) {
-      //     if (is_numeric($test_a[$c][$d])) {
-      //       $test_a[$c][$d] = floatval($test_a[$c][$d]);
-      //     };
-      //   };
-      // };
-      // $cart_content = $test_a;
-
-      // if ($cart_content) {
-      //   for ($i = 0; $i < count($cart_content); $i++) {
-      //     if (floatval($cart_content[$i][2]) > 0) {
-      //       $cart_count += intval($cart_content[$i][3]);
-      //     } else {
-      //       $cart_content[$i][2] = "0";
-      //     };
-      //   };
-      // };
-      // // $plan = Item::find($request->plan);
-
-      // // $plan_A = Item::find(6);
-      // // $plan_B = Item::find(7);
-      // // $array_A = [6,$plan_A];
-      // // $array_B = [7,$plan_B];
-      // // $all_array = [$array_A, $array_B];
-
-      // parse_str($request->text_cart,$all_array);
 
       if (Auth::user()) {
         $this_user = Auth::user();
@@ -475,55 +333,14 @@ class ItemController extends Controller
         $this_user->mailing_address = $request->mailing_address;
         $customer_id = $this_user->id;
       } else {
-        // $this_user = User::find($request->session()->get('guest')->id);
         $this_user = User::where('password',$request->cookie('guest'))->first();
         $this_user->email = $request->payment_email;
         $this_user->mailing_address = $request->mailing_address;
         $customer_id = null;
       };
-      // $paymentMethod = $request->payment_method;
-      //
-      // $this_user->createOrGetStripeCustomer();
-      // // $this_user->updateDefaultPaymentMethod($paymentMethod);
-      // $this_user->addPaymentMethod($paymentMethod);
+      
       $overall_total = 0;
       $purchase_email_details = "";
-      $purchase_list = [
-        "Card Holder Name: ".$request->card_holder_name,
-        "Email Address: ".$this_user->email,
-        "Mailing Address: ".$this_user->mailing_address
-      ];
-      // foreach ($all_array as $one_array) {
-      //   if (intval($one_array[3]) > 0) {
-      //     $one_id = intval($one_array[0]);
-      //     $one_quantity = intval($one_array[3]);
-      //     $one_item = Item::find($one_id);
-      //     $one_price = $one_item->price;
-      //     if ($one_item->adjustable_price == 1) {
-      //       $one_price = floatval($one_array[2]);
-      //     };
-      //     if ($one_array[6] != "" || $one_array[6] != null) {
-      //       $size_price = explode(":",$one_array[6]);
-      //       if (count($size_price) > 1) {
-      //         $one_price += floatval($size_price[1]);
-      //       };
-      //     };
-      //     if ($one_array[7] != "" || $one_array[7] != null) {
-      //       $color_price = explode(":",$one_array[7]);
-      //       if (count($color_price) > 1) {
-      //         $one_price += floatval($color_price[1]);
-      //       };
-      //     };
-      //     if ($one_array[8] != "" || $one_array[8] != null) {
-      //       $patch_price = explode(":",$one_array[8]);
-      //       if (count($patch_price) > 1) {
-      //         $one_price += floatval($patch_price[1]);
-      //       };
-      //     };
-      //     $one_total = $one_quantity * $one_price * 100;
-      //     $total_cost += $one_total;
-      //   };
-      // };
       for ($c = 0; $c < count($selected_array); $c++) {
         $item_string = $selected_array[$c]->name;
         $one_price = $selected_array[$c]->price;
@@ -559,69 +376,13 @@ class ItemController extends Controller
         $overall_total+=$one_total;
       };
 
-      // $purchase_list = [
-      //   "Card Holder Name: ".$request->card_holder_name,
-      //   "Email Address: ".$this_user->email,
-      //   "Mailing Address: ".$this_user->mailing_address
-      // ];
-      // $overall_total = 0;
-      // $purchase_email_details = "";
-      // foreach ($all_array as $one_array) {
-      //   if (intval($one_array[3]) > 0) {
-      //     $one_id = intval($one_array[0]);
-      //     $one_quantity = intval($one_array[3]);
-      //     $one_item = Item::find($one_id);
-      //     $one_price = $one_item->price;
-      //     if ($one_item->adjustable_price == 1) {
-      //       $one_price = floatval($one_array[2]);
-      //     };
-      //     if ($one_array[6] != "" || $one_array[6] != null) {
-      //       $size_price = explode(":",$one_array[6]);
-      //       if (count($size_price) > 1) {
-      //         $one_price += floatval($size_price[1]);
-      //       };
-      //     };
-      //     if ($one_array[7] != "" || $one_array[7] != null) {
-      //       $color_price = explode(":",$one_array[7]);
-      //       if (count($color_price) > 1) {
-      //         $one_price += floatval($color_price[1]);
-      //       };
-      //     };
-      //     if ($one_array[8] != "" || $one_array[8] != null) {
-      //       $patch_price = explode(":",$one_array[8]);
-      //       if (count($patch_price) > 1) {
-      //         $one_price += floatval($patch_price[1]);
-      //       };
-      //     };
-      //     $one_sum_price = $one_quantity * $one_price;
-      //     $size_name = explode(":",$one_array[6])[0];
-      //     $color_name = explode(":",$one_array[7])[0];
-      //     $patch_name = explode(":",$one_array[8])[0];
-      //     if ($patch_name !== null && $patch_name != "" && $patch_name != "None") {
-      //       $one_item->name = $one_item->name." with ".$patch_name." patches";
-      //     };
-      //     if ($color_name !== null && $color_name != "") {
-      //       $one_item->name = $one_item->name.", Color:".$color_name;
-      //     };
-      //     if ($size_name !== null && $size_name != "") {
-      //       $one_item->name = $one_item->name.", Size: ".$size_name;
-      //     };
-      //     $item_string = $one_item->name.": $".$one_price." x ".$one_quantity." = $".$one_sum_price;
-      //     $purchase_list[] = $item_string;
-      //     if ($purchase_email_details != "") {
-      //       $purchase_email_details = $purchase_email_details.">>>".$item_string;
-      //     } else {
-      //       $purchase_email_details = $item_string;
-      //     };
-      //     $overall_total += $one_sum_price;
-      //   };
-      // };
       $transaction_fee = $overall_total * 0.029 + 0.3;
       $final_total = $overall_total - $transaction_fee;
+      $purchase_list[] = $purchase_email_details;
       $purchase_list[] = "-------------------";
-      $purchase_list[] = "Total: $".round($overall_total,2);
-      $purchase_list[] = "Transaction Fee: $".round($transaction_fee,2);
-      $purchase_list[] = "FINAL TOTAL: $".round($final_total,2);
+      $purchase_list[] = "Customer Pays...          $".round($overall_total,2);
+      $purchase_list[] = "Transaction Fee Costs...  $".round($transaction_fee,2);
+      $purchase_list[] = "Bobcats Recieves...       $".round($final_total,2);
 
       $users = User::where([
         ['expiration_date','!=',null],
@@ -631,11 +392,6 @@ class ItemController extends Controller
       $invoice_email = [];
 
       if ($request->get_email_list == "registration.index") {
-        // if (App::environment() == 'local') {
-        //   $email_list_test = 'MEMBERSHIP_EMAIL_TEST';
-        // } else {
-        //   $email_list_official = 'MEMBERSHIP_EMAIL_OFFICIAL';
-        // };
         foreach ($users as $one_user) {
           $is_manager = User::find($one_user->id)->check_for_role("Member Data Manager");
           $is_treasurer = User::find($one_user->id)->check_for_role("Treasurer");
@@ -645,11 +401,6 @@ class ItemController extends Controller
           };
         };
       } elseif ($request->get_email_list == "reunion.index") {
-        // if (App::environment() == 'local') {
-        //   $email_list_test = 'REUNION_EMAIL_TEST';
-        // } else {
-        //   $email_list_official = 'REUNION_EMAIL_OFFICIAL';
-        // };
         foreach ($users as $one_user) {
           $is_coordinator = User::find($one_user->id)->check_for_role("Event Coordinator");
           $is_treasurer = User::find($one_user->id)->check_for_role("Treasurer");
@@ -659,11 +410,6 @@ class ItemController extends Controller
           };
         };
       } elseif ($request->get_email_list == "merchandise.index") {
-        // if (App::environment() == 'local') {
-        //   $email_list_test = 'MERCHANDISE_EMAIL_TEST';
-        // } else {
-        //   $email_list_official = 'MERCHANDISE_EMAIL_OFFICIAL';
-        // };
         foreach ($users as $one_user) {
           $is_quartermaster = User::find($one_user->id)->check_for_role("Quartermaster");
           $is_treasurer = User::find($one_user->id)->check_for_role("Treasurer");
@@ -673,11 +419,6 @@ class ItemController extends Controller
           };
         };
       } elseif ($request->get_email_list == "donation.index") {
-        // if (App::environment() == 'local') {
-        //   $email_list_test = 'DONATION_EMAIL_TEST';
-        // } else {
-        //   $email_list_official = 'DONATION_EMAIL_OFFICIAL';
-        // };
         foreach ($users as $one_user) {
           $is_treasurer = User::find($one_user->id)->check_for_role("Treasurer");
           $is_all_permissions = User::find($one_user->id)->check_for_role("All Permissions Staff Member");
@@ -686,15 +427,6 @@ class ItemController extends Controller
           };
         };
       };
-
-      // if (App::environment() == 'local') {
-      //   $invoice_email_test = explode(',',env($email_list_test));
-      //   $invoice_email_test[] = $this_user->email;
-      //   Mail::to($invoice_email_test)->send(new InvoiceEmail($purchase_list, $request->email_title));
-      // } else {
-      //   $invoice_email_official = explode(',',env($email_list_official));
-      //   Mail::to($invoice_email_official)->send(new InvoiceEmail($purchase_list, $request->email_title));
-      // };
 
       // Email to customer
       Mail::to($this_user->email)->send(new InvoiceEmail($purchase_list, $request->email_title));
@@ -714,7 +446,6 @@ class ItemController extends Controller
 
       if (!$has_duplicate) {
 
-        // $this_user->charge($total_cost, $request->payment_method);
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
                 "amount" => $overall_total*100,
@@ -736,10 +467,6 @@ class ItemController extends Controller
         $guest_user->delete();
       };
 
-      // $request->session()->forget('cart');
-      // $request->session()->forget('guest');
-
-      // Cookie::queue(Cookie::forget('cart'));
       Cookie::queue(Cookie::forget('cartid'));
       Cart::destroy($current_cart->id);
       Cookie::queue(Cookie::forget('guest'));
