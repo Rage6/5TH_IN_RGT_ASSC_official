@@ -5,8 +5,7 @@
 @section('scholarship_content')
   <div class="main">
     <div class="content">
-      <div class="regIntro">
-        <!-- <div class="mainTitle"> -->
+      <!-- <div class="regIntro"> -->
         <div class="scholarshipTitle">
           <div class="genName">
             <div>
@@ -43,7 +42,7 @@
               </a>
             </div>
             <div class="aroundButtons generalInfo">
-              <a @if ($general) href="{{ route('casualties.select',[ 'id' => $general->id ]) }}" @endif>
+              <a @if ($general) href="{{ route('deceased.select',[ 'id' => $general->id ]) }}" @endif>
                 <span class="buttons">
                   THE GENERAL
                 </span>
@@ -53,11 +52,11 @@
               <!-- For the scholarship's detail background image -->
             </div>
             <div class="filler generalFiller">
-              <!-- For the application background image -->
+              <!-- For the General link's background image -->
             </div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
       <div class="regRow" id="belowLearnMore">
         <div class="regSection">
           <div class="regSubtitle">
@@ -82,13 +81,8 @@
               <li>
                 Children of a deceased member who was Killed In Action (KIA) or later died from their combat injury.
               </li>
-              <li>
-                Affiliate Members of the 5th Infantry Regiment Association are <u>NOT</u> eligible.
-              </li>
-              <li>
-                Honorary Members of the 5th Infantry Regiment Association are <u>NOT</u> eligible.
-              </li>
             </ol>
+            Affiliate Members and Honorary Members of the 5th Infantry Regiment Association are <u>NOT</u> eligible.
           </div>
         </div>
         <div class="regSection">

@@ -20,7 +20,8 @@
   font-family: 'Vollkorn SC', sans-serif;
   display: grid;
   grid-template-rows: 87% 13%;
-  height: 90vh;
+  /* height: 90vh; */
+  height: calc(100% - 10vh);
 }
 
 .genName {
