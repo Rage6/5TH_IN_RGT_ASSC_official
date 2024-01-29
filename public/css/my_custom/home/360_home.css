@@ -53,6 +53,43 @@
 
 /* START BOBCAT LIST */
 
+.bobcatSearchBox {
+  margin-bottom: 50px;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 48% 48%;
+  grid-template-areas: 
+    "description description"
+    "input input"
+    "submit reset";
+  gap: 4%;
+}
+
+.bobcatSearchBox div {
+  grid-area: description;
+  text-align: center;
+}
+
+.bobcatSearchBox input {
+  grid-area: input;
+
+}
+
+.bobcatSearchBox a {
+  grid-area: reset;
+  display: flex;
+  justify-content: center;
+}
+
+.bobcatSearchBox a span {
+  color: black;
+  text-decoration: underline;
+}
+
+.bobcatSearchBox button {
+  grid-area: submit;
+}
+
 .listRow {
   margin-bottom: 20px;
   border-radius: 10px;

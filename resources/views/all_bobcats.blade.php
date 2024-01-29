@@ -12,28 +12,39 @@
                   <a href="{{ route('home') }}">
                     << {{ __('BACK') }}
                   </a>
-                  <div>
+                  <div class="bobcatList">
+                    <form method="POST" action="{{ route('bobcat.list.search') }}">
+                      @csrf
+                      <div class="bobcatSearchBox">
+                        <div>Search by first or last name</div>
+                        <input type="text" name="bobcatName"/>
+                        <button type="submit" name="searchBttn">FIND</button>
+                        <a href="{{ route('bobcat.list.index') }}"><span>RESET</span>
+                      </div>
+                    </form>
                     <div>
-                      @foreach ($all_bobcats as $one_bobcat)
-                        <a class="rowLink" href="{{ route('bobcat.profile.index',['id' => $one_bobcat->id]) }}">
-                          <div class="listRow">
-                            @if ($one_bobcat->current_img)
-                              <div class="rowImg" style="background-image: url('/images/current/{{ $one_bobcat->current_img }}')"></div>
-                            @elseif ($one_bobcat->veteran_img)
-                              <div class="rowImg" style="background-image: url('/images/veteran/{{ $one_bobcat->current_img }}')"></div>
-                            @else
-                              <div class="rowImg"></div>
-                            @endif
-                            <div class="rowName">
-                              <div>
-                                {{ $one_bobcat->last_name }}, {{ $one_bobcat->first_name }} @if ($one_bobcat->middle_name) {{ substr($one_bobcat->middle_name,0,1) }}. @endif
+                      <div>
+                        @foreach ($all_bobcats as $one_bobcat)
+                          <a class="rowLink" href="{{ route('bobcat.profile.index',['id' => $one_bobcat->id]) }}">
+                            <div class="listRow">
+                              @if ($one_bobcat->current_img)
+                                <div class="rowImg" style="background-image: url('/images/current/{{ $one_bobcat->current_img }}')"></div>
+                              @elseif ($one_bobcat->veteran_img)
+                                <div class="rowImg" style="background-image: url('/images/veteran/{{ $one_bobcat->current_img }}')"></div>
+                              @else
+                                <div class="rowImg"></div>
+                              @endif
+                              <div class="rowName">
+                                <div>
+                                  {{ $one_bobcat->last_name }}, {{ $one_bobcat->first_name }} @if ($one_bobcat->middle_name) {{ substr($one_bobcat->middle_name,0,1) }}. @endif
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </a>
-                      @endforeach
+                          </a>
+                        @endforeach
+                      </div>
+                      {{ $all_bobcats->links('pagination::default') }}
                     </div>
-                    {{ $all_bobcats->links('pagination::default') }}
                   </div>
                 </div>
             </div>

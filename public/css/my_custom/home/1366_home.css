@@ -1,3 +1,13 @@
+.bobcatList {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  gap: 2%;
+}
+
+.bobcatSearchBox {
+  
+}
+
 .memberStats {
   margin-top: 50px;
   border-radius: 5px;

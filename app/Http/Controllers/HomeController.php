@@ -329,23 +329,61 @@ class HomeController extends Controller
       ]);
     }
 
-    public function bobcat_list_index() {
+    public function bobcat_list_index(?string $name = null) {
 
-      $all_bobcats = User::where([
-        ['deceased',"=",0],
-        ['expiration_date',">",date('Y-m-d h:m:s')]
-      ])
-      ->orWhere([
-        ['deceased',"=",0],
-        ['expiration_date',"=",'1970-01-01 00:00:00']
-      ])
-      ->orderBy('last_name','ASC')
-      ->orderBy('first_name','ASC')
-      ->paginate(20);
-      return view('all_bobcats',[
-        'all_bobcats' => $all_bobcats,
-        'page_title' => "Find A Bobcats"
+      if ($name != null) {
+        $all_bobcats = User::where([
+          ['deceased',"=",0],
+          ['expiration_date',">",date('Y-m-d h:m:s')],
+          ['first_name','LIKE',$name.'%']
+        ])
+        ->orWhere([
+          ['deceased',"=",0],
+          ['expiration_date',">",date('Y-m-d h:m:s')],
+          ['first_name','LIKE',$name.'%']
+        ])
+        ->orWhere([
+          ['deceased',"=",0],
+          ['expiration_date',"=",'1970-01-01 00:00:00'],
+          ['first_name','LIKE',$name.'%']
+        ])
+        ->orWhere([
+          ['deceased',"=",0],
+          ['expiration_date',"=",'1970-01-01 00:00:00'],
+          ['last_name','LIKE',$name.'%']
+        ])
+        ->orderBy('last_name','ASC')
+        ->orderBy('first_name','ASC')
+        ->paginate(20);
+        return view('all_bobcats',[
+          'all_bobcats' => $all_bobcats,
+          'page_title' => "Find A Bobcats"
+        ]);
+      } else {
+        $all_bobcats = User::where([
+          ['deceased',"=",0],
+          ['expiration_date',">",date('Y-m-d h:m:s')]
+        ])
+        ->orWhere([
+          ['deceased',"=",0],
+          ['expiration_date',"=",'1970-01-01 00:00:00']
+        ])
+        ->orderBy('last_name','ASC')
+        ->orderBy('first_name','ASC')
+        ->paginate(20);
+        return view('all_bobcats',[
+          'all_bobcats' => $all_bobcats,
+          'page_title' => "Find A Bobcats"
+        ]);
+      };
+    }
+
+    public function bobcat_list_search(Request $request) {
+      $request->validate([
+        'bobcatName' => 'string|nullable|max:100'
       ]);
+
+      return redirect()->route('bobcat.list.index',['name' => $request->bobcatName]);
     }
 
     public function bobcat_profile_index($id) {

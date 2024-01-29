@@ -138,7 +138,9 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
     // Enter the homepage
     Route::get('', [App\Http\Controllers\HomeController::class,'index'])->name('home');
     // See all Bobcats
-    Route::get('list-of-bobcats', [App\Http\Controllers\HomeController::class,'bobcat_list_index'])->name('bobcat.list.index');
+    Route::get('list-of-bobcats/{name?}', [App\Http\Controllers\HomeController::class,'bobcat_list_index'])->name('bobcat.list.index');
+    // See one Bobcat's profiles
+    Route::post('search-of-bobcats', [App\Http\Controllers\HomeController::class,'bobcat_list_search'])->name('bobcat.list.search');
     // See one Bobcat's profiles
     Route::get('profile/{id}', [App\Http\Controllers\HomeController::class,'bobcat_profile_index'])->name('bobcat.profile.index');
     // See the staff of the Bobcat organization
