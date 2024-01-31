@@ -19,7 +19,9 @@
                         <div>Search by first or last name</div>
                         <input type="text" name="bobcatName"/>
                         <button type="submit" name="searchBttn">FIND</button>
-                        <a href="{{ route('bobcat.list.index') }}"><span>RESET</span>
+                        <a href="{{ route('bobcat.list.index') }}">
+                          <span>RESET</span>
+                        </a>
                       </div>
                     </form>
                     <div>

@@ -192,7 +192,8 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
 
     Route::middleware(['permission:Edit A Member'])->group(function() {
       // See a list of members for editin
-      Route::get('edit-bobcat-list/{search_type?}', [App\Http\Controllers\AdminController::class,'all_members'])->name('edit.member.list');
+      Route::get('edit-bobcat-list/{search_type?}/{name?}', [App\Http\Controllers\AdminController::class,'all_members'])->name('edit.member.list');
+      Route::post('edit-bobcat-list/{search_type?}/search', [App\Http\Controllers\AdminController::class,'all_members_search'])->name('edit.member.search');
       // Prepare to edit a single member's info
       Route::get('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_index'])->name('edit.member.index');
       // Edit a single member's info
@@ -230,7 +231,8 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
     });
 
     Route::middleware(['permission:Edit Casualty Records'])->group(function() {
-      Route::get('edit-casualties', [App\Http\Controllers\AdminController::class,'all_casualties'])->name('edit.casualty.list');
+      Route::get('edit-casualties/{name?}', [App\Http\Controllers\AdminController::class,'all_casualties'])->name('edit.casualty.list');
+      Route::post('edit-casualties/search', [App\Http\Controllers\AdminController::class,'casualties_list_search'])->name('edit.casualty.search');
       Route::get('edit-casualty/{id}/{next_route}',[App\Http\Controllers\AdminController::class,'edit_casualty_index'])->name('edit.casualty.index');
       Route::post('edit-casualty/{id}/post/{next_route}',[App\Http\Controllers\AdminController::class,'edit_casualty_post'])->name('edit.casualty.post');
       Route::post('edit-casualty/{id}/disable',[App\Http\Controllers\AdminController::class,'edit_casualty_disable'])->name('edit.casualty.disable');

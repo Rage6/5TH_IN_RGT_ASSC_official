@@ -861,7 +861,7 @@ class AdminController extends Controller
       return redirect()->route('delete.member.list');
     }
 
-    public function all_members($search_type = 'current') {
+    public function all_members($search_type = 'current',$name = null) {
       // $all_users = User::all();
       if ($search_type == 'all') {
         $where_conditions = [
@@ -879,11 +879,24 @@ class AdminController extends Controller
         ];
       };
 
-      $all_users = User::where($where_conditions)
-        ->orderBy('last_name','asc')
-        ->orderBy('first_name','asc')
-        ->orderBy('middle_name','asc')
-        ->paginate(20);
+      if ($name != null) {
+        $first_name_conditions = $where_conditions;
+        $first_name_conditions[] = ['first_name','LIKE',$name.'%'];
+        $last_name_conditions = $where_conditions;
+        $last_name_conditions[] = ['last_name','LIKE',$name.'%'];
+        $all_users = User::where($first_name_conditions)
+          ->orWhere($last_name_conditions)
+          ->orderBy('last_name','asc')
+          ->orderBy('first_name','asc')
+          ->orderBy('middle_name','asc')
+          ->paginate(20);
+      } else {
+        $all_users = User::where($where_conditions)
+          ->orderBy('last_name','asc')
+          ->orderBy('first_name','asc')
+          ->orderBy('middle_name','asc')
+          ->paginate(20);
+      };
 
       $current_user = Auth::user();
       // $user_roles = User::find($current_user->id)->all_user_roles;
@@ -921,8 +934,17 @@ class AdminController extends Controller
         'can_assign' => $can_assign,
         'can_edit' => $can_edit,
         'can_delete' => $can_delete,
-        'search_type' => $search_type
+        'search_type' => $search_type,
+        'name' => $name
       ]);
+    }
+
+    public function all_members_search(Request $request,$search_type) {
+      $request->validate([
+        'memberName' => 'string|nullable|max:100'
+      ]);
+
+      return redirect()->route('edit.member.list',['search_type' => $search_type,'name' => $request->memberName]);
     }
 
     public function all_nonmembers() {
@@ -1470,12 +1492,27 @@ class AdminController extends Controller
       ]);
     }
 
-    public function all_casualties() {
-      $all_casualties = User::where('kia_or_mia','1')
-        ->orderBy('last_name','asc')
-        ->orderBy('first_name','asc')
+    public function all_casualties(?string $name = null) {
+      if ($name != null) {
+        $all_casualties = User::where([
+          ['kia_or_mia',"=",1],
+          ['first_name','LIKE',$name.'%']
+        ])
+        ->orWhere([
+          ['kia_or_mia',"=",1],
+          ['last_name','LIKE',$name.'%']
+        ])
+        ->orderBy('last_name','ASC')
+        ->orderBy('first_name','ASC')
         ->orderBy('middle_name','asc')
         ->paginate(20);
+      } else {
+        $all_casualties = User::where('kia_or_mia','1')
+        ->orderBy('last_name','ASC')
+        ->orderBy('first_name','ASC')
+        ->orderBy('middle_name','asc')
+        ->paginate(20);
+      };
 
       $current_user = Auth::user();
       // $user_roles = User::find($current_user->id)->all_user_roles;
@@ -1504,8 +1541,17 @@ class AdminController extends Controller
       return view('admin.all_casualties',[
         'all_casualties' => $all_casualties,
         'can_edit' => $can_edit,
-        'can_delete' => $can_delete
+        'can_delete' => $can_delete,
+        'name' => $name
       ]);
+    }
+
+    public function casualties_list_search(Request $request) {
+      $request->validate([
+        'casualtyName' => 'string|nullable|max:100'
+      ]);
+
+      return redirect()->route('edit.casualty.list',['name' => $request->casualtyName]);
     }
 
     public function edit_recipient_index($id) {

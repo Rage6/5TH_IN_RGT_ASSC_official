@@ -90,6 +90,16 @@
   grid-area: submit;
 }
 
+.adminSearchBox {
+  padding: 15px 3%;
+  color: white;
+  background-color: grey;
+}
+
+.adminSearchBox a span {
+  color: white;
+}
+
 .listRow {
   margin-bottom: 20px;
   border-radius: 10px;
@@ -263,10 +273,6 @@
 .staffTitle span {
   font-size: 1.1rem;
   color: rgb(139,0,0);
-}
-
-.staffMemberList {
-
 }
 
 .staffMember {
@@ -545,11 +551,6 @@
   width: 100%;
 }
 
-.allMembersCard {
-  /* height: 300px;
-  overflow-y: scroll; */
-}
-
 .oneMemberCard {
   margin-bottom: 10px;
 }
@@ -675,11 +676,6 @@
   padding: 1.25rem;
   display: flex;
   justify-content: space-between;
-}
-
-.allRecipientCard {
-  /* height: 300px;
-  overflow-y: scroll; */
 }
 
 .oneRecipient {
