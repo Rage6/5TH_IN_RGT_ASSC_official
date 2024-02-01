@@ -329,15 +329,13 @@ class ItemController extends Controller
 
       if (Auth::user()) {
         $this_user = Auth::user();
-        $this_user->email = $request->payment_email;
-        $this_user->mailing_address = $request->mailing_address;
         $customer_id = $this_user->id;
       } else {
         $this_user = User::where('password',$request->cookie('guest'))->first();
-        $this_user->email = $request->payment_email;
-        $this_user->mailing_address = $request->mailing_address;
         $customer_id = null;
       };
+      $this_user->email = $request->payment_email;
+      $this_user->mailing_address = $request->mailing_address;
       
       $overall_total = 0;
       $purchase_email_details = "";
@@ -347,9 +345,11 @@ class ItemController extends Controller
         $one_quantity = $selected_array[$c]->count;
         if (isset($selected_array[$c]->patches)) {
           $patch_price = explode(":",$selected_array[$c]->patches);
-          $item_string .= " with ".$patch_price[0]." patches";
-          if (count($patch_price) > 1) {
-            $one_price += floatval($patch_price[1]);
+          if ($patch_price[0] != "None" && $patch_price[0] != "none") {
+            $item_string .= " with ".$patch_price[0]." patches";
+            if (count($patch_price) > 1) {
+              $one_price += floatval($patch_price[1]);
+            };
           };
         };
         if (isset($selected_array[$c]->size)) {
@@ -378,11 +378,16 @@ class ItemController extends Controller
 
       $transaction_fee = $overall_total * 0.029 + 0.3;
       $final_total = $overall_total - $transaction_fee;
-      $purchase_list[] = $purchase_email_details;
-      $purchase_list[] = "-------------------";
-      $purchase_list[] = "Customer Pays...          $".round($overall_total,2);
-      $purchase_list[] = "Transaction Fee Costs...  $".round($transaction_fee,2);
-      $purchase_list[] = "Bobcats Recieves...       $".round($final_total,2);
+      
+      $customer_info[] = "Credit Card Holder:         ".$request->card_holder_name;
+      $customer_info[] = "Mailing Address (optional): ".$this_user->mailing_address;
+      $customer_info[] = "Email Address:              ".$this_user->email;
+
+      $purchase_list = explode(">>>",$purchase_email_details);
+
+      $email_totals[] = "Customer Pays...          $".round($overall_total,2);
+      $email_totals[] = "Transaction Fee Costs...  $".round($transaction_fee,2);
+      $email_totals[] = "Bobcats Recieves...       $".round($final_total,2);
 
       $users = User::where([
         ['expiration_date','!=',null],
@@ -429,9 +434,9 @@ class ItemController extends Controller
       };
 
       // Email to customer
-      Mail::to($this_user->email)->send(new InvoiceEmail($purchase_list, $request->email_title));
+      Mail::to($this_user->email)->send(new InvoiceEmail($customer_info,$purchase_list,$email_totals,$request->email_title));
       // Email to Bobcat Staff
-      Mail::to($invoice_email)->send(new InvoiceEmail($purchase_list, $request->email_title));
+      Mail::to($invoice_email)->send(new InvoiceEmail($customer_info,$purchase_list,$email_totals,$request->email_title));
 
       $all_payments = Payment::where([
         ['total_cost',round($overall_total,2)],

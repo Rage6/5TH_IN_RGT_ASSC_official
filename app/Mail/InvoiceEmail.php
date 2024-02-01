@@ -12,8 +12,9 @@ class InvoiceEmail extends Mailable
     use Queueable, SerializesModels;
 
     // public $data;
-    // public $new_content;
+    public $customer_data;
     public $new_invoice;
+    public $total_costs;
     public $email_title;
 
     /**
@@ -21,13 +22,12 @@ class InvoiceEmail extends Mailable
      *
      * @return void
      */
-    // public function __construct($data)
-    // public function __construct($new_content)
-    public function __construct($new_invoice, $email_title)
+    public function __construct($customer_data, $new_invoice, $total_costs, $email_title)
     {
         // $this->data = $data;
-        // $this->email_content = $new_content;
+        $this->customer = $customer_data;
         $this->invoice = $new_invoice;
+        $this->totals = $total_costs;
         $this->subject = $email_title;
     }
 
@@ -45,6 +45,6 @@ class InvoiceEmail extends Mailable
       // return $this->from($this->new_email)
       return $this->view('emails.invoice')
                   ->subject($this->subject)
-                  ->with([ 'content' => $this->invoice ]);
+                  ->with([ 'customer' => $this->customer, 'content' => $this->invoice, 'totals' => $this->totals ]);
     }
 }

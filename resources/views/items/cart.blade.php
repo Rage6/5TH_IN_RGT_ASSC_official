@@ -34,7 +34,12 @@
                     $color = '';
                   };
                   if (isset($item->patches)) {
-                    $patches = " with ".explode(":",$item->patches)[0]." patch";
+                    $patch_name = explode(":",$item->patches)[0];
+                    if ($patch_name != "None" && $patch_name != "None") {
+                      $patches = " with ".$patch_name." patch";
+                    } else {
+                      $patches = '';
+                    };
                   } else {
                     $patches = '';
                   };
