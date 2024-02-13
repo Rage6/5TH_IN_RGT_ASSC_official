@@ -433,23 +433,23 @@ class ItemController extends Controller
         };
       };
 
-      // Email to customer
-      Mail::to($this_user->email)->send(new InvoiceEmail($customer_info,$purchase_list,$email_totals,$request->email_title));
-      // Email to Bobcat Staff
-      Mail::to($invoice_email)->send(new InvoiceEmail($customer_info,$purchase_list,$email_totals,$request->email_title));
-
       $all_payments = Payment::where([
         ['total_cost',round($overall_total,2)],
         ['customer_email',$this_user->email]
       ]);
+
       $has_duplicate = false;
       foreach ($all_payments as $one_payment) {
-        if ($this_user->created_at >= $one_payment->created_at && $this_user->created_at <= $one_payment->timestamp + 5) {
+        if ($current_cart->id == $one_payment->cart_id) {
           $has_duplicate = true;
         };
       };
 
       if (!$has_duplicate) {
+        // Email to customer
+        Mail::to($this_user->email)->send(new InvoiceEmail($customer_info,$purchase_list,$email_totals,$request->email_title));
+        // Email to Bobcat Staff
+        Mail::to($invoice_email)->send(new InvoiceEmail($customer_info,$purchase_list,$email_totals,$request->email_title));
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
@@ -463,7 +463,8 @@ class ItemController extends Controller
           'customer_email' => $this_user->email,
           'total_cost' => round($overall_total,2),
           'details' => $purchase_email_details,
-          'user_id' => $customer_id
+          'user_id' => $customer_id,
+          'cart_id' => $current_cart->id
         ]);
       };
 

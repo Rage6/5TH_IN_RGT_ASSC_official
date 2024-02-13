@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("customer_email");
             $table->float("total_cost");
+            $table->bigInteger("cart_id");
             $table->bigInteger("user_id");
             $table->timestamps();
 
