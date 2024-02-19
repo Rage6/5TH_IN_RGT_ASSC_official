@@ -244,9 +244,10 @@ class ItemController extends Controller
 
       if (Auth::user()) {
         $this_user = auth()->user();
-      } elseif ($request->cookie('guest')) {
-        $this_user = User::where('password',$request->cookie('guest'))->first();
       } else {
+        $this_user = User::where('password',$request->cookie('guest'))->first();
+      }; 
+      if ($this_user == null) {
         $all_characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $random_password = '';
         for ($i = 0; $i < 20; $i++) {

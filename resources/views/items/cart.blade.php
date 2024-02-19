@@ -182,6 +182,7 @@
                        </div>
                     </div> --}}
                     <button class="payBttn" type="submit">Pay Now</button>
+                    <div class="payDisable payRemove">Pay Now</div>
                  </form>
               </div>
             </div>
@@ -267,6 +268,8 @@
   <script type="text/javascript">
     $(function() {
       var $form = $(".require-validation");
+      var $payBttn = $(".payBttn");
+      var $payDisable = $(".payDisable");
       $('form.require-validation').bind('submit', function(e) {
         var $form = $(".require-validation"),
         inputSelector = ['input[type=email]', 'input[type=password]', 'input[type=text]', 'input[type=file]', 'textarea'].join(', '),
@@ -302,6 +305,8 @@
                   .find('.alert')
                   .text(response.error.message);
           } else {
+              $payBttn.addClass('payRemove');
+              $payDisable.removeClass('payRemove');
               /* token contains id, last4, and card type */
               var token = response['id'];
               $form.find('input[type=text]').empty();
