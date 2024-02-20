@@ -47,11 +47,13 @@
                       </div>
                       {{ $all_bobcats->links('pagination::default') }}
                     </div>
-                    <div>
-                      Want to download the entire roster?
-                      </br>
-                      <a href="{{ route('bobcat.list.export') }}">Click here</a>
-                    </div>
+                    @if ($is_free_trial == false)
+                      <div>
+                        Want to download the entire roster?
+                        </br>
+                        <a href="{{ route('bobcat.list.export') }}">Click here</a>
+                      </div>
+                    @endif
                   </div>
                 </div>
             </div>

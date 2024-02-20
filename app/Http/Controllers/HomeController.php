@@ -335,6 +335,8 @@ class HomeController extends Controller
 
     public function bobcat_list_index(?string $name = null) {
 
+      $current_user = Auth::user();
+
       if ($name != null) {
         $all_bobcats = User::where([
           ['deceased',"=",0],
@@ -359,9 +361,21 @@ class HomeController extends Controller
         ->orderBy('last_name','ASC')
         ->orderBy('first_name','ASC')
         ->paginate(20);
+
+        $is_free_trial = false;
+        if ($current_user) {
+          $roles = User::find($current_user->id)->all_user_roles;
+          foreach ($roles as $one_role) {
+            if ($one_role->slug == "trial-member") {
+              $is_free_trial = true;
+            };
+          };
+        };
+
         return view('all_bobcats',[
           'all_bobcats' => $all_bobcats,
-          'page_title' => "Find A Bobcats"
+          'page_title' => "Find A Bobcats",
+          'is_free_trial' => $is_free_trial
         ]);
       } else {
         $all_bobcats = User::where([
@@ -375,9 +389,21 @@ class HomeController extends Controller
         ->orderBy('last_name','ASC')
         ->orderBy('first_name','ASC')
         ->paginate(20);
+
+        $is_free_trial = false;
+        if ($current_user) {
+          $roles = User::find($current_user->id)->all_user_roles;
+          foreach ($roles as $one_role) {
+            if ($one_role->slug == "trial-member") {
+              $is_free_trial = true;
+            };
+          };
+        };
+
         return view('all_bobcats',[
           'all_bobcats' => $all_bobcats,
-          'page_title' => "Find A Bobcats"
+          'page_title' => "Find A Bobcats",
+          'is_free_trial' => $is_free_trial
         ]);
       };
     }
