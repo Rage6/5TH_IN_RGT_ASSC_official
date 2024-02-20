@@ -436,8 +436,13 @@ class AdminController extends Controller
         $request['isRecipient'] = $member->moh_recipient;
       };
 
+      $current_email = $member->email;
       if ($request->email != null) {
-        $setting = 'required|string|unique:users';
+        if ($request->email == $current_email) {
+          $setting = 'required|string';
+        } else {
+          $setting = 'required|string|unique:users';
+        };
       } else {
         $setting = 'nullable|string';
       };
@@ -468,9 +473,9 @@ class AdminController extends Controller
         'conflictTotal'    => 'required|string'
       ]);
 
-      if ($request->fails()) {
-        return redirect(route('edit.member.index'))->withError($request);
-      };
+      // if ($request->fails()) {
+      //   return redirect(route('edit.member.index'))->withError($request);
+      // };
 
       // $old_current_filename = $member->current_img;
       // $old_veteran_filename = $member->veteran_img;

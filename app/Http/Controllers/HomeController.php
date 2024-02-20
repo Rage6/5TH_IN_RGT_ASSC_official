@@ -91,11 +91,19 @@ class HomeController extends Controller
 
     public function edit_profile_change(Request $request) {
 
+      $current_user = Auth::user();
+
+      if ($current_user->email == $request->email) {
+        $email_setting = 'required|string';
+      } else {
+        $email_setting = 'required|string|unique:users';
+      };
+
       $request->validate([
         'firstName'        => 'required|string',
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
-        'email'            => 'required|string|unique:users',
+        'email'            => $email_setting,
         'email_visible'    => 'required|integer',
         'phoneNumber'      => 'nullable|string',
         'phone_visible'    => 'required|integer',
@@ -105,10 +113,6 @@ class HomeController extends Controller
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file'
       ]);
-
-      if ($request->fails()) {
-        return redirect(route('profile.edit'))->withError($request);
-      };
 
       $user = Auth::user();
       $user['first_name'] = $request->firstName;
