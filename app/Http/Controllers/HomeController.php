@@ -340,7 +340,7 @@ class HomeController extends Controller
         ->orWhere([
           ['deceased',"=",0],
           ['expiration_date',">",date('Y-m-d h:m:s')],
-          ['first_name','LIKE',$name.'%']
+          ['last_name','LIKE',$name.'%']
         ])
         ->orWhere([
           ['deceased',"=",0],
@@ -384,6 +384,66 @@ class HomeController extends Controller
       ]);
 
       return redirect()->route('bobcat.list.index',['name' => $request->bobcatName]);
+    }
+
+    public function bobcat_list_export() {
+      // The following code for exporting SQL data as an Excel spreadsheet is here: https://www.codexworld.com/export-data-to-excel-in-php/
+      // Filter the excel data 
+      // function filterData(&$str) { 
+      //   $str = preg_replace("/\t/", "\\t", $str); 
+      //   $str = preg_replace("/\r?\n/", "\\n", $str); 
+      //   if (strstr($str, '"')) {
+      //     $str = '"' . str_replace('"', '""', $str) . '"'; 
+      //   };
+      // };
+      // Excel file name for download 
+      $fileName = "bobcat-data_" . date('Y-m-d') . ".xls";
+      // Column names 
+      $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'MAILING ADDRESS', 'PHONE NUMBER', 'SPOUSE', 'EMAIL');
+      // Display column names as first row 
+      $excelData = implode("\t", array_values($fields)) . "\n";
+      // Fetch records from database 
+      $current_timestamp = time();
+      $bobcat_list = User::where([
+          ['expiration_date','1970-01-01 00:00:00'],
+          ['year_of_death',null]
+        ])
+        ->orWhere([
+          ['expiration_date','>',$current_timestamp],
+          ['year_of_death',null]
+        ])
+        ->orderBy('last_name','ASC')
+        ->orderBy('first_name','ASC')
+        ->get();
+      if (count($bobcat_list) > 0){ 
+        // Output each row of the data 
+        foreach ($bobcat_list as $one_bobcat) { 
+          $lineData = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $one_bobcat->mailing_address, $one_bobcat->phone_number, $one_bobcat->spouse, $one_bobcat->email);
+
+          // array_walk($lineData, 'filterData'); 
+          for ($index = 0; count($lineData) > $index; $index++) {
+            $str = $lineData[$index];
+            $str = preg_replace("/\t/", "\\t", $str); 
+            $str = preg_replace("/\r?\n/", "\\n", $str); 
+            if (strstr($str, '"')) {
+              $str = '"' . str_replace('"', '""', $str) . '"'; 
+            };
+          };
+
+          $excelData .= implode("\t", array_values($lineData)) . "\n"; 
+        };
+      } else { 
+        $excelData .= 'No records found...'. "\n"; 
+      };
+      // Headers for download 
+      header("Content-Type: application/vnd.ms-excel"); 
+      header("Content-Disposition: attachment; filename=\"$fileName\"");
+      // Render excel data 
+      echo $excelData;
+      exit;
+
+      return redirect(route('home'));
+
     }
 
     public function bobcat_profile_index($id) {
