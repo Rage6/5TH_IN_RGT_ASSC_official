@@ -95,11 +95,17 @@ class AdminController extends Controller
         $request['isRecipient'] = 0;
       };
 
+      if ($request->email != null) {
+        $setting = 'required|string|unique:users';
+      } else {
+        $setting = 'nullable|string';
+      };
+
       $request->validate([
         'firstName'        => 'required|string',
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
-        'email'            => 'nullable|string',
+        'email'            => $setting,
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file',
         // 'tombstoneImg'     => 'nullable|file',
@@ -121,13 +127,17 @@ class AdminController extends Controller
         'conflictTotal' => 'required|string'
       ]);
 
+      if ($request->fails()) {
+        return redirect(route('new.member.index'))->withError($request);
+      };
+
       if ($request->isKiaMia == 1 || $request->isKiaMia == "1") {
         $request->isDeceased = 1;
       };
 
       if ($request->monthOfDeath || $request->dayOfDeath || $request->yearOfDeath) {
         $request->isDeceased = 1;
-      }
+      };
 
       $input['first_name'] = $request->firstName;
       $input['middle_name'] = $request->middleName;
@@ -426,11 +436,17 @@ class AdminController extends Controller
         $request['isRecipient'] = $member->moh_recipient;
       };
 
+      if ($request->email != null) {
+        $setting = 'required|string|unique:users';
+      } else {
+        $setting = 'nullable|string';
+      };
+
       $request->validate([
         'firstName'        => 'required|string',
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
-        'email'            => 'nullable|string',
+        'email'            => $setting,
         'phoneNumber'      => 'nullable|string',
         'spouseName'       => 'nullable|string',
         'currentImg'       => 'nullable|file',
@@ -451,6 +467,10 @@ class AdminController extends Controller
         'mailingAddress'   => 'nullable|string',
         'conflictTotal'    => 'required|string'
       ]);
+
+      if ($request->fails()) {
+        return redirect(route('edit.member.index'))->withError($request);
+      };
 
       // $old_current_filename = $member->current_img;
       // $old_veteran_filename = $member->veteran_img;

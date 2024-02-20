@@ -14,6 +14,13 @@
                     </a>
                     <form method="POST" action="{{ route('profile.edit.change') }}" enctype="multipart/form-data">
                       @csrf
+                      @if ($errors)
+                        @foreach ($errors->all() as $one_error)
+                          <div style="color:red">
+                            <div>- {{ $one_error }}</div>
+                          </div>
+                        @endforeach
+                      @endif
                       <div class="basicInfoGrid">
                         <div>First Name</div>
                         <input name="firstName" id="firstName" value="{{ $user->first_name }}" placeholder="required" required />

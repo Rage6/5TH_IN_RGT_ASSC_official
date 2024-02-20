@@ -95,7 +95,7 @@ class HomeController extends Controller
         'firstName'        => 'required|string',
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
-        'email'            => 'nullable|string',
+        'email'            => 'required|string|unique:users',
         'email_visible'    => 'required|integer',
         'phoneNumber'      => 'nullable|string',
         'phone_visible'    => 'required|integer',
@@ -105,6 +105,10 @@ class HomeController extends Controller
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file'
       ]);
+
+      if ($request->fails()) {
+        return redirect(route('profile.edit'))->withError($request);
+      };
 
       $user = Auth::user();
       $user['first_name'] = $request->firstName;
@@ -418,6 +422,12 @@ class HomeController extends Controller
       if (count($bobcat_list) > 0){ 
         // Output each row of the data 
         foreach ($bobcat_list as $one_bobcat) { 
+          if ($one_bobcat->email != null && $one_bobcat->email_visible == 0) {
+            $one_bobcat->email = "*** private ***";
+          };
+          if ($one_bobcat->phone_number != null && $one_bobcat->phone_visible == 0) {
+            $one_bobcat->phone_number = "*** private ***";
+          };
           $lineData = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $one_bobcat->mailing_address, $one_bobcat->phone_number, $one_bobcat->spouse, $one_bobcat->email);
 
           // array_walk($lineData, 'filterData'); 
