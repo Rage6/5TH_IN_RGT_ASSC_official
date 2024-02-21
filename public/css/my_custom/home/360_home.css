@@ -127,6 +127,18 @@
   width: 40px
 }
 
+.rosterBttns {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+}
+
+.rosterBttns div {
+  border: 1px dashed black;
+  padding: 5px;
+}
+
 /* END BOBCAT LIST */
 
 .primaryImg {

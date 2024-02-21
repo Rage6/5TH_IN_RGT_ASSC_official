@@ -12,6 +12,13 @@
                   <a href="{{ route('home') }}">
                     << {{ __('BACK') }}
                   </a>
+                  @if ($is_free_trial == false)
+                    <div class="rosterBttns">
+                      <div>
+                        For the full roster, either <a href="{{ route('bobcat.list.export') }}">download</a> or follow this <a target="_blank" href="https://docs.google.com/spreadsheets/d/1KBH6aN6CCdDAK4FiP88dfpPILIQ1v22WyH9ea6u47Ns/edit?usp=sharing">link</a>.
+                      </div>
+                    </div>
+                  @endif
                   <div class="bobcatList">
                     <form method="POST" action="{{ route('bobcat.list.search') }}">
                       @csrf
@@ -47,13 +54,6 @@
                       </div>
                       {{ $all_bobcats->links('pagination::default') }}
                     </div>
-                    @if ($is_free_trial == false)
-                      <div>
-                        Want to download the entire roster?
-                        </br>
-                        <a href="{{ route('bobcat.list.export') }}">Click here</a>
-                      </div>
-                    @endif
                   </div>
                 </div>
             </div>
