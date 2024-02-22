@@ -421,21 +421,69 @@ class HomeController extends Controller
     }
 
     public function bobcat_list_export() {
-      // The following code for exporting SQL data as an Excel spreadsheet is here: https://www.codexworld.com/export-data-to-excel-in-php/
-      // Filter the excel data 
-      // function filterData(&$str) { 
-      //   $str = preg_replace("/\t/", "\\t", $str); 
-      //   $str = preg_replace("/\r?\n/", "\\n", $str); 
-      //   if (strstr($str, '"')) {
-      //     $str = '"' . str_replace('"', '""', $str) . '"'; 
+      // // The following code for exporting SQL data as an Excel spreadsheet is a modified version of this example: https://www.codexworld.com/export-data-to-excel-in-php/
+      // // Excel file name for download 
+      // $fileName = "bobcat-data_" . date('Y-m-d') . ".xls";
+      // // Column names 
+      // $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'MAILING ADDRESS', 'PHONE NUMBER', 'SPOUSE', 'EMAIL');
+      // // Display column names as first row 
+      // $excelData = implode("\t", array_values($fields)) . "\n";
+      // // Fetch records from database 
+      // $current_timestamp = time();
+      // $bobcat_list = User::where([
+      //     ['expiration_date','1970-01-01 00:00:00'],
+      //     ['year_of_death',null]
+      //   ])
+      //   ->orWhere([
+      //     ['expiration_date','>',$current_timestamp],
+      //     ['year_of_death',null]
+      //   ])
+      //   ->orderBy('last_name','ASC')
+      //   ->orderBy('first_name','ASC')
+      //   ->get();
+      // if (count($bobcat_list) > 0){ 
+      //   // Output each row of the data 
+      //   foreach ($bobcat_list as $one_bobcat) { 
+      //     if ($one_bobcat->email != null && $one_bobcat->email_visible == 0) {
+      //       $one_bobcat->email = "*** private ***";
+      //     };
+      //     if ($one_bobcat->phone_number != null && $one_bobcat->phone_visible == 0) {
+      //       $one_bobcat->phone_number = "*** private ***";
+      //     };
+      //     $lineData = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $one_bobcat->mailing_address, $one_bobcat->phone_number, $one_bobcat->spouse, $one_bobcat->email);
+
+      //     for ($index = 0; count($lineData) > $index; $index++) {
+      //       $str = $lineData[$index];
+      //       $str = preg_replace("/\t/", "\\t", $str); 
+      //       $str = preg_replace("/\r?\n/", "\\n", $str); 
+      //       if (strstr($str, '"')) {
+      //         $str = '"' . str_replace('"', '""', $str) . '"'; 
+      //       };
+      //     };
+
+      //     $excelData .= implode("\t", array_values($lineData)) . "\n"; 
       //   };
+      // } else { 
+      //   $excelData .= 'No records found...'. "\n"; 
       // };
+      // // Headers for download 
+      // header("Content-Type: application/vnd.ms-excel"); 
+      // header("Content-Disposition: attachment; filename=\"$fileName\"");
+      // // Render excel data 
+      // echo $excelData;
+      // exit;
+
+      // The following code for exporting SQL data as an Excel spreadsheet is a modified version of this example: https://www.codexworld.com/export-data-to-excel-in-php/
       // Excel file name for download 
-      $fileName = "bobcat-data_" . date('Y-m-d') . ".xls";
+      $fileName = "Bobcat_roster_" . date('Y-m-d') . ".html";
       // Column names 
       $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'MAILING ADDRESS', 'PHONE NUMBER', 'SPOUSE', 'EMAIL');
       // Display column names as first row 
-      $excelData = implode("\t", array_values($fields)) . "\n";
+      $name_row = "<tr style='background-color:lightgrey'>";
+      for ($i = 0; $i < count($fields); $i++) {
+        $name_row .= "<th style='border:black solid 1px;border-collapse:collapse;padding: 2px 5px'>".$fields[$i]."</th>";
+      };
+      $name_row .= "</tr>";
       // Fetch records from database 
       $current_timestamp = time();
       $bobcat_list = User::where([
@@ -449,37 +497,48 @@ class HomeController extends Controller
         ->orderBy('last_name','ASC')
         ->orderBy('first_name','ASC')
         ->get();
+      $all_user_rows = "";
       if (count($bobcat_list) > 0){ 
         // Output each row of the data 
-        foreach ($bobcat_list as $one_bobcat) { 
+        foreach ($bobcat_list as $one_bobcat) {
+          $this_row = "<tr>";
+          // Changes '@' to '(a)' in order to prevent 'email protection' errors 
+          if ($one_bobcat->email) {
+            $one_bobcat->email = str_replace("@","(a)",$one_bobcat->email);
+          };
+          // Hides email if the member doesn't want their email address with other members
           if ($one_bobcat->email != null && $one_bobcat->email_visible == 0) {
             $one_bobcat->email = "*** private ***";
           };
+          // Hides email if the member doesn't want their email address with other members
           if ($one_bobcat->phone_number != null && $one_bobcat->phone_visible == 0) {
             $one_bobcat->phone_number = "*** private ***";
           };
-          $lineData = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $one_bobcat->mailing_address, $one_bobcat->phone_number, $one_bobcat->spouse, $one_bobcat->email);
-
-          // array_walk($lineData, 'filterData'); 
-          for ($index = 0; count($lineData) > $index; $index++) {
-            $str = $lineData[$index];
-            $str = preg_replace("/\t/", "\\t", $str); 
-            $str = preg_replace("/\r?\n/", "\\n", $str); 
-            if (strstr($str, '"')) {
-              $str = '"' . str_replace('"', '""', $str) . '"'; 
-            };
+          $this_array = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $one_bobcat->mailing_address, $one_bobcat->phone_number, $one_bobcat->spouse, $one_bobcat->email);
+          for ($a = 0; $a < count($this_array); $a++) {
+            $this_row .= "<td style='border:black solid 1px;border-collapse:collapse;padding: 2px 5px'>".$this_array[$a]."</td>";
           };
-
-          $excelData .= implode("\t", array_values($lineData)) . "\n"; 
+          $this_row .= "</tr>";
+          $all_user_rows .= $this_row;
         };
-      } else { 
-        $excelData .= 'No records found...'. "\n"; 
       };
+
+      $all_bobcats = "
+        <html>
+          <div style='margin-bottom: 20px; display:flex; justify-content: right'>
+            <div style='border: 1px solid black;padding: 5px'>
+              NOTE: (a) means @ in the emails
+            </div>
+          </div>
+          <table style='border:black solid 1px;border-collapse:collapse'>
+            ".$name_row.$all_user_rows."
+          </table>";
+
       // Headers for download 
-      header("Content-Type: application/vnd.ms-excel"); 
+      header("Content-Type: text/html"); 
       header("Content-Disposition: attachment; filename=\"$fileName\"");
       // Render excel data 
-      echo $excelData;
+      echo $all_bobcats;
       exit;
 
       return redirect(route('home'));
