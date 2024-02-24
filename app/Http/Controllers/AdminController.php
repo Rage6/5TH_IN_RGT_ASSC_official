@@ -106,6 +106,8 @@ class AdminController extends Controller
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
         'email'            => $setting,
+        'email_visible'    => 0,
+        'phone_visible'    => 0,
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file',
         // 'tombstoneImg'     => 'nullable|file',
