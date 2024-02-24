@@ -127,10 +127,6 @@ class AdminController extends Controller
         'conflictTotal' => 'required|string'
       ]);
 
-      if ($request->fails()) {
-        return redirect(route('new.member.index'))->withError($request);
-      };
-
       if ($request->isKiaMia == 1 || $request->isKiaMia == "1") {
         $request->isDeceased = 1;
       };
@@ -472,10 +468,6 @@ class AdminController extends Controller
         'mailingAddress'   => 'nullable|string',
         'conflictTotal'    => 'required|string'
       ]);
-
-      // if ($request->fails()) {
-      //   return redirect(route('edit.member.index'))->withError($request);
-      // };
 
       // $old_current_filename = $member->current_img;
       // $old_veteran_filename = $member->veteran_img;
