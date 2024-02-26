@@ -106,8 +106,6 @@ class AdminController extends Controller
         'middleName'       => 'nullable|string',
         'lastName'         => 'required|string',
         'email'            => $setting,
-        'email_visible'    => 0,
-        'phone_visible'    => 0,
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file',
         // 'tombstoneImg'     => 'nullable|file',
@@ -141,7 +139,9 @@ class AdminController extends Controller
       $input['middle_name'] = $request->middleName;
       $input['last_name'] = $request->lastName;
       $input['email'] = $request->email;
+      $input['email_visible'] = 1;
       $input['phone_number'] = $request->phoneNumber;
+      $input['phone_visible'] = 1;
       $input['spouse'] = $request->spouseName;
       $input['current_img'] = $request->currentImg;
       $input['veteran_img'] = $request->veteranImg;
