@@ -986,6 +986,120 @@ class AdminController extends Controller
       return redirect()->route('edit.member.list',['search_type' => $search_type,'name' => $request->memberName]);
     }
 
+    public function all_members_export() {
+      // The following code for exporting SQL data as an Excel spreadsheet is a modified version of this example: https://www.codexworld.com/export-data-to-excel-in-php/
+      // Excel file name for download 
+      $fileName = "bobcat-data_" . date('Y-m-d') . ".xls";
+      // Column names 
+      $fields = array('MEMBER STATUS','LAST NAME', 'FIRST NAME', 'MI', 'STREET ADDRESS', 'CITY', 'STATE', 'ZIP CODE', 'PHONE NUMBER', 'SPOUSE', 'EMAIL');
+      // Display column names as first row 
+      $excelData = implode("\t", array_values($fields)) . "\n";
+      // Fetch records from database 
+      $current_timestamp = time();
+      $bobcat_list = User::whereNotNull('expiration_date')
+        ->orderBy('last_name','ASC')
+        ->orderBy('first_name','ASC')
+        ->get();
+      if (count($bobcat_list) > 0){ 
+        // Output each row of the data 
+        foreach ($bobcat_list as $one_bobcat) { 
+
+          $current_date = date("Y-m-d H:i:s");
+          if ($one_bobcat->expiration_date) {
+            if ($one_bobcat->expiration_date == '1970-01-01 00:00:00' || $one_bobcat->expiration_date > $current_date) {
+              $status = "OK";
+            } else {
+              $status = "** OVERDUE";
+            };
+            if ($one_bobcat->deceased == 1) {
+              $status = "DECEASED";
+            };
+          } else {
+            $status = "UNKNOWN";
+          };
+
+          $lineData = array($status, $one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $one_bobcat->street_address_1." ".$one_bobcat->street_address_2, $one_bobcat->mailing_city, $one_bobcat->mailing_state, $one_bobcat->zip_code, $one_bobcat->phone_number, $one_bobcat->spouse, $one_bobcat->email);
+
+          for ($index = 0; count($lineData) > $index; $index++) {
+            $str = $lineData[$index];
+            $str = preg_replace("/\t/", "\\t", $str); 
+            $str = preg_replace("/\r?\n/", "\\n", $str); 
+            if (strstr($str, '"')) {
+              $str = '"' . str_replace('"', '""', $str) . '"'; 
+            };
+          };
+
+          $excelData .= implode("\t", array_values($lineData)) . "\n"; 
+        };
+      } else { 
+        $excelData .= 'No records found...'. "\n"; 
+      };
+      // Headers for download 
+      header("Content-Type: application/vnd.ms-excel"); 
+      header("Content-Disposition: attachment; filename=\"$fileName\"");
+      // Render excel data 
+      echo $excelData;
+      exit;
+
+      // // The following code for exporting SQL data as an Excel spreadsheet is a modified version of this example: https://www.codexworld.com/export-data-to-excel-in-php/
+      // // Excel file name for download 
+      // $fileName = "Bobcat_roster_" . date('Y-m-d') . ".html";
+      // // Column names 
+      // $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'STREET ADDRESS', 'CITY', 'STATE', 'ZIP CODE', 'PHONE NUMBER', 'SPOUSE', 'EMAIL');
+      // // Display column names as first row 
+      // $name_row = "<tr style='background-color:lightgrey'>";
+      // for ($i = 0; $i < count($fields); $i++) {
+      //   $name_row .= "<th style='border:black solid 1px;border-collapse:collapse;padding: 2px 5px'>".$fields[$i]."</th>";
+      // };
+      // $name_row .= "</tr>";
+      // // Fetch records from database 
+      // $current_timestamp = time();
+      // $bobcat_list = User::where([
+      //     ['expiration_date','!=',null]
+      //   ])
+      //   ->orderBy('last_name','ASC')
+      //   ->orderBy('first_name','ASC')
+      //   ->get();
+      // $all_user_rows = "";
+      // if (count($bobcat_list) > 0){ 
+      //   // Output each row of the data 
+      //   foreach ($bobcat_list as $one_bobcat) {
+      //     $this_row = "<tr>";
+      //     // // Changes '@' to '(a)' in order to prevent 'email protection' errors 
+      //     // if ($one_bobcat->email) {
+      //     //   $one_bobcat->email = str_replace("@","(a)",$one_bobcat->email);
+      //     // };
+      //     $this_array = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $one_bobcat->street_address_1." ".$one_bobcat->street_address_2, $one_bobcat->mailing_city, $one_bobcat->mailing_state, $one_bobcat->zip_code, $one_bobcat->phone_number, $one_bobcat->spouse, $one_bobcat->email);
+      //     for ($a = 0; $a < count($this_array); $a++) {
+      //       $this_row .= "<td style='border:black solid 1px;border-collapse:collapse;padding: 2px 5px'>".$this_array[$a]."</td>";
+      //     };
+      //     $this_row .= "</tr>";
+      //     $all_user_rows .= $this_row;
+      //   };
+      // };
+
+      // $all_bobcats = "
+      //   <html>
+      //     <div style='margin-bottom: 20px; display:flex; justify-content: right'>
+      //       <div style='border: 1px solid black;padding: 5px'>
+      //         NOTE: (a) means @ in the emails
+      //       </div>
+      //     </div>
+      //     <table style='border:black solid 1px;border-collapse:collapse'>
+      //       ".$name_row.$all_user_rows."
+      //     </table>";
+
+      // // Headers for download 
+      // header("Content-Type: text/html"); 
+      // header("Content-Disposition: attachment; filename=\"$fileName\"");
+      // // Render excel data 
+      // echo $all_bobcats;
+      // exit;
+
+      return redirect()->route('admin.index');
+
+    }
+
     public function all_nonmembers() {
       // $all_users = User::all();
       $all_users = User::where([

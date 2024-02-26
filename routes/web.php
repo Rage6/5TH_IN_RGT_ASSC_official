@@ -196,6 +196,7 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
       // See a list of members for editin
       Route::get('edit-bobcat-list/{search_type?}/{name?}', [App\Http\Controllers\AdminController::class,'all_members'])->name('edit.member.list');
       Route::post('edit-bobcat-list/{search_type?}/search', [App\Http\Controllers\AdminController::class,'all_members_search'])->name('edit.member.search');
+      Route::get('edit-bobcat-list-export', [App\Http\Controllers\AdminController::class,'all_members_export'])->name('edit.member.export');
       // Prepare to edit a single member's info
       Route::get('edit-bobcat/{id}',[App\Http\Controllers\AdminController::class,'edit_member_index'])->name('edit.member.index');
       // Edit a single member's info

@@ -99,6 +99,11 @@
                       </div>
                       {{ $all_members->links('pagination::default') }}
                     </div>
+                    <div class="rosterBttns">
+                      <div>
+                        <a href="{{ route('edit.member.export') }}">Download</a> full roster as Excel spreadsheet.
+                      </div>
+                    </div>
                   </div>
                 </div>
             </div>
