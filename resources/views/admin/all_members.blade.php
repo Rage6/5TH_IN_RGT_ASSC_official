@@ -57,7 +57,20 @@
                       @endif
                       <div style="width:100%">
                         @foreach ($all_members as $one_member)
-                          <div style="margin-bottom:10px;display:grid;grid-template-columns:50% 50%">
+                          @php
+                            if ($one_member->expiration_date != null && $one_member->deceased == 1) {
+                              $background_color = "color:white;background-color:rgba(0,0,0,0.7);";
+                            } elseif ($one_member->expiration_date < date("Y-m-d h:i:s") && $one_member->expiration_date != "1970-01-01 00:00:00") {
+                              $background_color = "background-color:rgba(255,0,0,0.3);";
+                            } else { 
+                              $background_color = "";
+                            };
+                          @endphp
+                          <div style="
+                            margin-bottom:10px;
+                            display:grid;
+                            grid-template-columns:50% 50%;
+                            {{ $background_color }}">
                             <div>
                               {{ $one_member->last_name }} @if ($one_member->suffix_name) {{ $one_member->suffix_name }} @endif , {{ $one_member->first_name }} @if ($one_member->middle_name) {{ substr($one_member->middle_name,0,1) }}. @endif
                             </div>

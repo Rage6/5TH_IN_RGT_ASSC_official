@@ -161,12 +161,99 @@
                         <div>
                           Mailing Address
                         </div>
-                        <input
-                          id="mailingAddress"
-                          name="mailingAddress"
-                          @if ($member->mailing_address)
-                            value="{{ $member->mailing_address }}"
-                          @endif>
+                        <div>
+                          <input
+                            name="streetAddressOne"
+                            placeholder="Street Address"
+                            @if ($member->street_address_1)
+                              value="{{ $member->street_address_1 }}"
+                            @endif/></br>
+                          <input
+                            name="streetAddressTwo"
+                            placeholder="Street Address 2"
+                            @if ($member->street_address_2)
+                              value="{{ $member->street_address_2 }}"
+                            @endif/></br>
+                          <input
+                            name="mailingCity"
+                            placeholder="City"
+                            @if ($member->mailing_city)
+                              value="{{ $member->mailing_city }}"
+                            @endif/></br>
+                          <select style="width:100%" name="mailingState">
+                            <option style="color:grey" value @if ($member->mailing_state == null) selected @endif >State, territory, etc.</option>
+                            <option value="AL" @if ($member->mailing_state == "AL") selected @endif >AL - Alabama</option>
+                            <option value="AK" @if ($member->mailing_state == "AK") selected @endif >AK - Alaska</option>
+                            <option value="AS" @if ($member->mailing_state == "AS") selected @endif >AS - American Samoa</option>
+                            <option value="AZ" @if ($member->mailing_state == "AZ") selected @endif >AZ - Arizona</option>
+                            <option value="AR" @if ($member->mailing_state == "AR") selected @endif >AR - Arkansas</option>
+                            <option value="CA" @if ($member->mailing_state == "CA") selected @endif >CA - California</option>
+                            <option value="CO" @if ($member->mailing_state == "CO") selected @endif >CO - Colorado</option>
+                            <option value="CT" @if ($member->mailing_state == "CT") selected @endif >CT - Connecticut</option>
+                            <option value="DE" @if ($member->mailing_state == "DE") selected @endif >DE - Delaware</option>
+                            <option value="DC" @if ($member->mailing_state == "DC") selected @endif >DC - District of Columbia</option>
+                            <option value="FL" @if ($member->mailing_state == "FL") selected @endif >FL - Florida</option>
+                            <option value="GA" @if ($member->mailing_state == "GA") selected @endif >GA - Georgia</option>
+                            <option value="GU" @if ($member->mailing_state == "GU") selected @endif >GU - Guam</option>
+                            <option value="HI" @if ($member->mailing_state == "HI") selected @endif >HI - Hawaii</option>
+                            <option value="ID" @if ($member->mailing_state == "ID") selected @endif >ID - Idaho</option>
+                            <option value="IL" @if ($member->mailing_state == "IL") selected @endif >IL - Illinois</option>
+                            <option value="IN" @if ($member->mailing_state == "IN") selected @endif >IN - Indiana</option>
+                            <option value="IA" @if ($member->mailing_state == "IA") selected @endif >IA - Iowa</option>
+                            <option value="KS" @if ($member->mailing_state == "KS") selected @endif >KS - Kansas</option>
+                            <option value="KY" @if ($member->mailing_state == "KY") selected @endif >KY - Kentucky</option>
+                            <option value="LA" @if ($member->mailing_state == "LA") selected @endif >LA - Louisiana</option>
+                            <option value="ME" @if ($member->mailing_state == "ME") selected @endif >ME - Maine</option>
+                            <option value="MD" @if ($member->mailing_state == "MD") selected @endif >MD - Maryland</option>
+                            <option value="MA" @if ($member->mailing_state == "MA") selected @endif >MA - Massachusetts</option>
+                            <option value="MI" @if ($member->mailing_state == "MI") selected @endif >MI - Michigan</option>
+                            <option value="MN" @if ($member->mailing_state == "MN") selected @endif >MN - Minnesota</option>
+                            <option value="MS" @if ($member->mailing_state == "MS") selected @endif >MS - Mississippi</option>
+                            <option value="MO" @if ($member->mailing_state == "MO") selected @endif >MO - Missouri</option>
+                            <option value="MT" @if ($member->mailing_state == "MT") selected @endif >MT - Montana</option>
+                            <option value="NE" @if ($member->mailing_state == "NE") selected @endif >NE - Nebraska</option>
+                            <option value="NV" @if ($member->mailing_state == "NV") selected @endif >NV - Nevada</option>
+                            <option value="NH" @if ($member->mailing_state == "NH") selected @endif >NH - New Hampshire</option>
+                            <option value="NJ" @if ($member->mailing_state == "NJ") selected @endif >NJ - New Jersey</option>
+                            <option value="NM" @if ($member->mailing_state == "NM") selected @endif >NM - New Mexico</option>
+                            <option value="NY" @if ($member->mailing_state == "NY") selected @endif >NY - New York</option>
+                            <option value="NC" @if ($member->mailing_state == "NC") selected @endif >NC - North Carolina</option>
+                            <option value="ND" @if ($member->mailing_state == "ND") selected @endif >ND - North Dakota</option>
+                            <option value="MP" @if ($member->mailing_state == "MP") selected @endif >MP - Northern Mariana Islands</option>
+                            <option value="OH" @if ($member->mailing_state == "OH") selected @endif >OH - Ohio</option>
+                            <option value="OK" @if ($member->mailing_state == "OK") selected @endif >OK - Oklahoma</option>
+                            <option value="OR" @if ($member->mailing_state == "OR") selected @endif >OR - Oregon</option>
+                            <option value="PA" @if ($member->mailing_state == "PA") selected @endif >PA - Pennsylvania</option>
+                            <option value="PR" @if ($member->mailing_state == "PR") selected @endif >PR - Puerto Rico</option>
+                            <option value="RI" @if ($member->mailing_state == "RI") selected @endif >RI - Rhode Island</option>
+                            <option value="SC" @if ($member->mailing_state == "SC") selected @endif >SC - South Carolina</option>
+                            <option value="SD" @if ($member->mailing_state == "SD") selected @endif >SD - South Dakota</option>
+                            <option value="TN" @if ($member->mailing_state == "TN") selected @endif >TN - Tennessee</option>
+                            <option value="TX" @if ($member->mailing_state == "TX") selected @endif >TX - Texas</option>
+                            <option value="UM" @if ($member->mailing_state == "UM") selected @endif >UM - United States Minor Outlying Islands</option>
+                            <option value="UT" @if ($member->mailing_state == "UT") selected @endif >UT - Utah</option>
+                            <option value="VT" @if ($member->mailing_state == "VT") selected @endif >VT - Vermont</option>
+                            <option value="VI" @if ($member->mailing_state == "VI") selected @endif >VI - Virgin Islands</option>
+                            <option value="VA" @if ($member->mailing_state == "VA") selected @endif >VA - Virginia</option>
+                            <option value="WA" @if ($member->mailing_state == "WA") selected @endif >WA - Washington</option>
+                            <option value="WV" @if ($member->mailing_state == "WV") selected @endif >WV - West Virginia</option>
+                            <option value="WI" @if ($member->mailing_state == "WI") selected @endif >WI - Wisconsin</option>
+                            <option value="WY" @if ($member->mailing_state == "WY") selected @endif >WY - Wyoming</option>
+                            <option value="AA" @if ($member->mailing_state == "AA") selected @endif >AA - Armed Forces Americas</option>
+                            <option value="AE" @if ($member->mailing_state == "AE") selected @endif >AE - Armed Forces Africa</option>
+                            <option value="AE" @if ($member->mailing_state == "AE") selected @endif >AE - Armed Forces Canada</option>
+                            <option value="AE" @if ($member->mailing_state == "AE") selected @endif >AE - Armed Forces Europe</option>
+                            <option value="AE" @if ($member->mailing_state == "AE") selected @endif >AE - Armed Forces Middle East</option>
+                            <option value="AP" @if ($member->mailing_state == "AP") selected @endif >AP - Armed Forces Pacific</option>
+                          </select>
+                          </br>
+                          <input
+                            name="zipCode"
+                            placeholder="Zip Code"
+                            @if ($member->zip_code)
+                              value="{{ $member->zip_code }}"
+                            @endif/></br>
+                        </div>
                       </div>
                       <div class="basicInfoGrid">
                         <div>

@@ -12,7 +12,6 @@
     <div>City: {{ $content->city }}</div>
     <div>State: {{ $content->state }}</div>
     <div>Zip Code: {{ $content->zip_code }}</div>
-    <div>Country: {{ $content->country }}</div>
     <div>Phone #: {{ $content->phone_number }}</div>
     <div>Conflict(s): {{ $content->conflicts }}</div>
     <div>Jobs, Units, Times: {{ $content->unit_details }}</div>

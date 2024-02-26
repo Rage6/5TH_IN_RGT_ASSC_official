@@ -109,7 +109,12 @@ class HomeController extends Controller
         'phone_visible'    => 'required|integer',
         'spouseName'       => 'nullable|string',
         'biography'        => 'nullable|string|max:1000',
-        'mailingAddress'   => 'nullable|string',
+        // 'mailingAddress'   => 'nullable|string',
+        'streetAddressOne' => 'required|string',
+        'streetAddressTwo' => 'nullable|string',
+        'mailingCity'      => 'required|string',
+        'mailingState'     => 'required|string',
+        'zipCode'          => 'required|string',
         'currentImg'       => 'nullable|file',
         'veteranImg'       => 'nullable|file'
       ]);
@@ -124,7 +129,12 @@ class HomeController extends Controller
       $user['phone_visible'] =$request->phone_visible;
       $user['spouse'] = $request->spouseName;
       $user['biography'] = $request->biography;
-      $user['mailing_address'] = $request->mailingAddress;
+      // $user['mailing_address'] = $request->mailingAddress;
+      $user['street_address_1'] = $request->streetAddressOne;
+      $user['street_address_2'] = $request->streetAddressTwo;
+      $user['mailing_city'] = $request->mailingCity;
+      $user['mailing_state'] = $request->mailingState;
+      $user['zip_code'] = $request->zipCode;
 
       if (request('currentImg')) {
         $old_current_filename = $user->current_img;

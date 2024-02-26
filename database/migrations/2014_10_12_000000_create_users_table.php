@@ -22,7 +22,12 @@ return new class extends Migration
             $table->string('veteran_img')->nullable();
             $table->string('tombstone_img')->nullable();
             $table->boolean('deceased')->default(0);
-            $table->string('mailing_address')->nullable();
+            // $table->string('mailing_address')->nullable();
+            $table->string('street_address_1')->nullable();
+            $table->string('street_address_2')->nullable();
+            $table->string('mailing_city')->nullable();
+            $table->string('mailing_state')->nullable();
+            $table->string('zip_code')->nullable();
             $table->timestamp('expiration_date')->nullable();
             $table->boolean('honorary_member')->default(0);
             $table->string('associated_by')->nullable();

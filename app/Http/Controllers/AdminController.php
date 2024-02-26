@@ -110,6 +110,11 @@ class AdminController extends Controller
         'veteranImg'       => 'nullable|file',
         // 'tombstoneImg'     => 'nullable|file',
         'phoneNumber'      => 'nullable|string',
+        'streetAddressOne' => 'nullable|string',
+        'streetAddressTwo' => 'nullable|string',
+        'mailingCity'      => 'nullable|string',
+        'mailningState'    => 'nullable|string',
+        'zipCode'          => 'nullable|string',
         'spouse'           => 'nullable|string',
         'isDeceased'       => 'required|integer',
         'monthOfDeath'     => 'nullable|integer|min:1|max:12',
@@ -142,6 +147,11 @@ class AdminController extends Controller
       $input['email_visible'] = 1;
       $input['phone_number'] = $request->phoneNumber;
       $input['phone_visible'] = 1;
+      $input['street_address_1'] = $request->streetAddressOne;
+      $input['street_address_2'] = $request->streetAddressTwo;
+      $input['mailing_city'] = $request->mailingCity;
+      $input['mailing_state'] = $request->mailingState;
+      $input['zip_code'] = $request->zipCode;
       $input['spouse'] = $request->spouseName;
       $input['current_img'] = $request->currentImg;
       $input['veteran_img'] = $request->veteranImg;
@@ -467,7 +477,12 @@ class AdminController extends Controller
         'isKiaMia'         => 'required|integer',
         'isRecipient'      => 'required|integer',
         // 'action'           => 'required',
-        'mailingAddress'   => 'nullable|string',
+        // 'mailingAddress'   => 'nullable|string',
+        'streetAddressOne' => 'nullable|string',
+        'streetAddressTwo' => 'nullable|string',
+        'mailingCity'      => 'nullable|string',
+        'mailningState'    => 'nullable|string',
+        'zipCode'          => 'nullable|string',
         'conflictTotal'    => 'required|string'
       ]);
 
@@ -492,7 +507,12 @@ class AdminController extends Controller
       $member->day_of_death = $request['dayOfDeath'];
       $member->year_of_death = $request['yearOfDeath'];
       $member->comments = $request['comments'];
-      $member->mailing_address = $request['mailingAddress'];
+      // $member->mailing_address = $request['mailingAddress'];
+      $member->street_address_1 = $request['streetAddressOne'];
+      $member->street_address_2 = $request['streetAddressTwo'];
+      $member->mailing_city = $request['mailingCity'];
+      $member->mailing_state = $request['mailingState'];
+      $member->zip_code = $request['zipCode'];
       $member->kia_or_mia = $request['isKiaMia'];
       $member->moh_recipient = $request['isRecipient'];
 
