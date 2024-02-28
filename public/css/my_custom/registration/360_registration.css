@@ -80,6 +80,15 @@
   background-color: rgba(0,100,0,0.6);
 }
 
+.regRenew {
+  margin-bottom: 40px
+}
+
+.regRenew a {
+  color: white;
+  text-decoration: underline;
+}
+
 .regTotal a div {
   margin-left: 10%;
   text-decoration: underline;
@@ -121,7 +130,14 @@
   width: 90%;
 }
 
+select.regFormState {
+  margin: 0;
+  font-size: 1.1rem;
+  width: 95%;
+}
+
 .trialEl {
+  margin-top: 20px;
   border-top: 10px solid rgba(139,0,0,1);
   border-bottom: 10px solid rgba(139,0,0,1);
   border-left: 10px solid white;
@@ -130,6 +146,9 @@
   font-size: 1.2rem;
   background-color: rgb(0,100,0);
   width: calc(100% - 40px)
+}
+.trialEl div {
+  margin-top: 20px;
 }
 
 .regCheckbox {
@@ -175,7 +194,8 @@
   justify-content: center;
 }
 
-.submitBttn input[type="submit"] {
+/* .submitBttn input[type="submit"] { */
+.submitBttn button {
   border-radius: 10px;
   padding: 10px 5%;
   color: white;

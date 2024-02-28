@@ -47,9 +47,9 @@ class ItemController extends Controller
         $title = null;
       };
       if ($purpose == "donation.index") {
-        $all_items = Item::where('is_donation',1)->get();
+        $all_items = Item::where('is_donation',1)->orderBy('name','ASC')->get();
       } else {
-        $all_items = Item::where('purpose',$purpose)->get();
+        $all_items = Item::where('purpose',$purpose)->orderBy('name','ASC')->get();
       };
 
       $current_user = Auth::user();

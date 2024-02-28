@@ -20,6 +20,9 @@
       </div>
       <div class="regForm" id="regForm" style="display:none">
         <div class="regTotal">
+          <div class="regRenew">
+            Just Paying Your Membership Fee?</br> <a href="{{ url('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options') }}">Click here</a>
+          </div>
           <form method="POST" id="memberForm" action="{{ route('registration.post') }}">
             @csrf
             <div class="regGrid">
@@ -44,7 +47,7 @@
                 </div>
                 <div class="regText">
                   <!-- <input name="state" type="text" placeholder="State"/> -->
-                  <select name="state" required>
+                  <select class="regFormState" name="state" required>
                     <option value>State, territory, or military post</option>
                     <option value="AL">AL - Alabama</option>
                     <option value="AK">AK - Alaska</option>
@@ -134,23 +137,13 @@
                     </div>
                   @endforeach
                 </div>
-                <!-- <div class="regInputTitle">Payment Options:</div>
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <select name="hosted_button_id">
-                  <option value="QYJNBQCD33ER2">Active Duty</option>
-                  <option value="UKGMW55X5UPQC">One Year</option>
-                  <option value="GT2SWY352RVF6">Two Year</option>
-                  <option value="BPK67K5YQFH6Y">Five Year</option>
-                  <option value="52FBJ8VLNVYLJ">Life member (49 or younger)</option>
-                  <option value="AX6VL9PNWMFKY">Life member (50 to 64)</option>
-                  <option value="9VQFT3CHBUD2L">Life member (65 or older)</option>
-                </select> -->
                 <div class="regText">
                   <textarea maxlength="255" name="comments" placeholder="Include any necessarry questions or comments about your registration form"></textarea>
                 </div>
                 <div class="trialEl">
-                  <u>30-Day Free Trial</u>: If you want to try out our membership options first, request our free trial option in the above comment box. This will allow you to see all of our newsletters, see fellow Bobcat profiles, and set up a profile of your own.</br>
-                  NOTE: Only paid members can make "Members Only" purchases.
+                  <u>30-Day Free Trial</u>
+                  <div>Want to try out our membership options? Request our free trial in the Comment box above.</div>
+                  <div>Note: Free Trial members <u>cannot</u> make "Members Only" purchases.</div>
                 </div>
               </div>
             </div>
@@ -164,11 +157,11 @@
               </button>
             </div>
           </form>
-          <a href="{{ url('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options') }}">
+          <!-- <a href="{{ url('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options') }}">
             <div>
-              If you are renewing your existing membership, click here.
+              Renewing your membership? Click here.
             </div>
-          </a>
+          </a> -->
         </div>
         <!-- <div class="theOr">
           - OR -

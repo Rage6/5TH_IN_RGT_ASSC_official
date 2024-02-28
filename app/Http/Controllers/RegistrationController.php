@@ -35,8 +35,14 @@ class RegistrationController extends Controller
 
       $current_year = date("Y");
       $modern_conflicts = Conflict::
-        where('end_year','>',$current_year - 100)
-        ->orWhere('end_year','=',null)
+        where([
+          ['end_year','>',$current_year - 100],
+          ['name','!=','Training Exercises']
+        ])
+        ->orWhere([
+          ['end_year','=',null],
+          ['name','!=','Training Exercises']
+        ])
         ->orderBy('start_year','asc')
         ->get();
 
@@ -45,6 +51,7 @@ class RegistrationController extends Controller
             ['purpose','registration.index'],
             ['is_donation','=',0]
           ])
+        ->orderBy('name','ASC')
         ->get();
 
       $this_user = Auth::user();
