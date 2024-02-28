@@ -115,13 +115,13 @@
 .regText input {
   font-size: 1.1rem;
   overflow-x: scroll;
-  width: 95%;
+  width: 100%;
 }
 
 .regText textarea {
   font-size: 1.1rem;
   height: 200px;
-  width: 95%;
+  width: 100%;
 }
 
 .regForm select {
@@ -133,7 +133,11 @@
 select.regFormState {
   margin: 0;
   font-size: 1.1rem;
-  width: 95%;
+  width: 100%;
+}
+
+select.regFormState:first-child::after {
+  content: " *";
 }
 
 .trialEl {
@@ -152,7 +156,7 @@ select.regFormState {
 }
 
 .regCheckbox {
-  margin: 10px 7% 0 5%;
+  margin-top: 10px;
   border-radius: 5px;
   padding: 5px 2%;
   color: white;
