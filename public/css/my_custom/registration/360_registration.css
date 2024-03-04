@@ -207,6 +207,21 @@ select.regFormState:first-child::after {
   background-color: rgba(139,0,0,1);
 }
 
+.disabledSubmitBttn {
+  display: none;
+  border-radius: 10px;
+  padding: 10px 5%;
+  color: white;
+  font-size: 1.5rem;
+  /* background-color: rgba(139,0,0,1); */
+  background-image: 
+    url('/images/items/loading-gif-2.gif'),
+    linear-gradient(rgb(255, 175, 175),rgb(255, 175, 175));
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .regSection {
   padding: 20px 5%;
   color: white;

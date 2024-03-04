@@ -229,10 +229,15 @@
   border-radius: 10px;
   padding: 5px;
   display: inline-block;
-  color: white;
+  color: rgb(255, 214, 214);
   font-size: 1.3rem;
   font-family: 'Geneva';
-  background-color: rgb(255, 214, 214);
+  background-image: 
+    url('/images/items/loading-gif-2.gif'),
+    linear-gradient(rgb(255, 214, 214),rgb(255, 214, 214));
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .payRemove {

@@ -152,9 +152,13 @@
               <button
                 data-sitekey="6LfiwBcpAAAAAKC5TcLJjg9Fmg06wHJ_bn4Yr0W3"
                 data-callback='onSubmit'
-                data-action='submit'>
+                data-action='submit'
+                onclick="showsProcessing()">
                   SUBMIT
               </button>
+              <div class="disabledSubmitBttn">
+                SUBMIT
+              </div>
             </div>
           </form>
           <!-- <a href="{{ url('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options') }}">

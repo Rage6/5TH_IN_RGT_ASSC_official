@@ -24,5 +24,31 @@
       document.getElementById("regForm").style.display = "none";
     };
   };
+
+  function showsProcessing() {
+    let listOfRequired = [
+      'first_name',
+      'last_name',
+      'address_line_1',
+      'city',
+      'state',
+      'zip_code',
+      'email'
+    ];
+    let validPost = true;
+    for (let i = 0; i < listOfRequired.length; i++) {
+      let input = document.getElementsByName(listOfRequired[i]);
+      if (input[0]['value'] == null || input[0]['value'] == "") {
+        console.log(listOfRequired[i]);
+        validPost = false;
+      };
+    };
+    if (validPost == true) {
+      let submitBttn = document.querySelector(".submitBttn button");
+      submitBttn.style.display = "none";
+      let disabledSubmitBttn = document.getElementsByClassName('disabledSubmitBttn')[0];
+      disabledSubmitBttn.style.display = "block";
+    };
+  };
 </script>
 @include ('footer.style')
