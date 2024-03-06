@@ -13,6 +13,9 @@ class Conflict extends Model
       'name',
       'start_year',
       'end_year',
+      'unit_participated',
+      'bobcat_casualties',
+      'bobcat_recipients',
       'parent_id'
     ];
 

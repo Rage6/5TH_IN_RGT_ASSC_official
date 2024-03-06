@@ -37,10 +37,12 @@ class RegistrationController extends Controller
       $modern_conflicts = Conflict::
         where([
           ['end_year','>',$current_year - 100],
+          ['unit_participated','=',1],
           ['name','!=','Training Exercises']
         ])
         ->orWhere([
           ['end_year','=',null],
+          ['unit_participated','=',1],
           ['name','!=','Training Exercises']
         ])
         ->orderBy('start_year','asc')

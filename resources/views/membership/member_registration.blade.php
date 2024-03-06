@@ -46,7 +46,6 @@
                   <input name="city" type="text" placeholder="City (required)" required/>
                 </div>
                 <div class="regText">
-                  <!-- <input name="state" type="text" placeholder="State"/> -->
                   <select class="regFormState" name="state" required>
                     <option value>State, territory, or military post</option>
                     <option value="AL">AL - Alabama</option>
@@ -126,6 +125,11 @@
                 <div class="regText">
                   <textarea name="unit_details" placeholder="List the unit(s), job(s), and start/end time(s) in the Regiment. (Example: 'Driver, JUN 2006 - AUG 2007')"></textarea>
                 </div>
+                <div class="trialEl">
+                  <u>30-Day Free Trial</u>
+                  <div>Want to try out our membership options? Request our free trial in the "Question & Comment" box.</div>
+                  <div>Note: Free Trial members <u>cannot</u> make "Members Only" purchases.</div>
+                </div>
               </div>
               <div>
                 <div class="regInputTitle">I participated in:</div>
@@ -138,17 +142,14 @@
                   @endforeach
                 </div>
                 <div class="regText">
-                  <textarea maxlength="255" name="comments" placeholder="Include any necessarry questions or comments about your registration form"></textarea>
+                  <textarea maxlength="255" name="other_conflicts" placeholder="Did you participate in a war/conflict that is not on this list? Type it here:"></textarea>
                 </div>
-                <div class="trialEl">
-                  <u>30-Day Free Trial</u>
-                  <div>Want to try out our membership options? Request our free trial in the Comment box above.</div>
-                  <div>Note: Free Trial members <u>cannot</u> make "Members Only" purchases.</div>
+                <div class="regText">
+                  <textarea maxlength="255" name="comments" placeholder="Include any necessarry questions or comments about your registration form"></textarea>
                 </div>
               </div>
             </div>
             <div class="submitBttn">
-              <!-- <input type="submit" name="post" value="SUBMIT"/> -->
               <button
                 data-sitekey="6LfiwBcpAAAAAKC5TcLJjg9Fmg06wHJ_bn4Yr0W3"
                 data-callback='onSubmit'
@@ -161,31 +162,10 @@
               </div>
             </div>
           </form>
-          <!-- <a href="{{ url('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options') }}">
-            <div>
-              Renewing your membership? Click here.
-            </div>
-          </a> -->
         </div>
-        <!-- <div class="theOr">
-          - OR -
-        </div>
-        <div>
-          <div class="regFormTitle">
-            MAILING
-          </div>
-          <div class="mailingInfo">
-            Please print out our <a href="http://www.bobcat.ws/application.htm" target="_blank">official registration form</a> and send it to:
-            <div>
-              Tom Frame</br>
-              460 Center School Road</br>
-              Perkasie, PA 18944</br>
-            </div>
-          </div>
-        </div> -->
       </div>
       <div class="regRow">
-        <div class="regSection" style="background:rgba(139,0,0,0.8)">
+        <div class="regSection regPurpose" style="background:rgba(139,0,0,0.8)">
           <div class="regSubtitle">
             Purpose & Values
           </div>
@@ -194,7 +174,7 @@
               <div>Purposes of this Association</div>
               <ul>
                 <li>
-                  To carry on in mind, spirit, and deed the values and traditions instilled in us as members of the 5th Infantry of the 25th Infantry Division.
+                  To carry on in mind, spirit, and deed the values and traditions instilled in us as members of the 5th Infantry Regiment.
                 </li>
                 <li>
                   To provide support to our members and their families.
@@ -226,7 +206,7 @@
             </div>
           </div>
         </div>
-        <div class="regSection" style="background:rgba(255,255,255,0.8);color:black">
+        <div class="regSection regBenefits" style="background:rgba(255,255,255,0.8);color:black">
           <div class="regSubtitle">
             Benefits & Opportunities
           </div>
@@ -235,19 +215,39 @@
               Every member of the 5th Infantry Regiment Association gains:
               <ul>
                 <li>
-                  A personal account within our website. This provides an easy way to: find other members, send direct messages to another member, and customize your profile. No apps or Facebook required!
+                  A personal website account, which includes:
+                  <ul>
+                    <li>
+                      Customizing your own profile
+                    </li>
+                    <li>
+                      Record your unit & roles at the Regiment, as well as any conflict or war you were part of
+                    </li>
+                    <li>
+                      Viewing other members' profiles and contact information
+                    </li>
+                    <li>
+                      Identify and communicate with the Bobcat staff
+                    </li>
+                    <li>
+                      Carrying out all applications, purchases, or fees online
+                    </li>
+                  </ul>
                 </li>
                 <li>
-                  Quarterly newsletters
+                  Eligibility for an annual college scholarship
                 </li>
                 <li>
-                  Membership roster of names, addresses, and phone numbers
+                  Access to purchasing member-only merchandise, which include customizable clothing
                 </li>
                 <li>
-                  Member names and email addresses
+                  Quarterly newsletters, both past and present
                 </li>
                 <li>
-                  Frequent email updates with Association, Regiment, Division and reunion news
+                  A printable roster with all of the names and contact info of your fellow members
+                </li>
+                <li>
+                  Frequent email updates with Association, Regiment, and reunion news
                 </li>
                 <li>
                   Membership card
@@ -256,31 +256,40 @@
             </div>
           </div>
         </div>
-        <div class="regSection" style="background:rgba(0,100,0,0.8)">
-          <div class="regSubtitle">
+        <div class="regSection regFee" style="background:rgba(0,100,0,0.8)">
+          <div class="regSubtitle regFeeTitle">
             Qualifications &</br> Pricing Options
           </div>
-          <div>
+          <div class="regFeeDescription">
             <div>
               <div class="qualTitle">
-                <i>Can I become a member?</i>
+                <i>Who is eligible for a membership?</i>
               </div>
               <div>
                 <div>
-                  <u>Soldiers & Veterans</u>: If you are/were a member of the 5th Infantry Regiment, and would like to rejoin your unit, you have found the right place. We are the 5th Infantry Regiment Association, and we need a few good soldiers to fill the ranks of the finest chapter in the US Army.
+                  <u>Active Duty</u>: Soldiers that (a) were member of the 5th Infantry Regiment at any time and (b) are still in active duty are eligible.
                 </div>
                 <div style="margin-top:10px">
-                  <u>Associate Members</u>: We also offer an associates membership to those that were a family member of a veteran that was in the 5th Infantry Regiment. Associate members share the same dues as regular members do.
+                  <u>Veteran</u>: In this case, "veteran" applies to anyone out of the military and with an honorable discharge. Any veteran that was a members of the 5th Infantry Regiment is eligible.
+                </div>
+                <div style="margin-top:10px">
+                  <u>Associate Members</u>: A family members of someone that served in the 5th Infantry Regiment is eligible for an "associate membership". Associated members recieve the same privileges and appropriate dues.
                 </div>
               </div>
-            </div>
-            <div>
               <div class="qualTitle">
                 <i>What are the membership costs?</i>
               </div>
               <div>
-                If you would like to become a member, the dues and how long each due lasts are listed below. The prices of the "Lifetime" options are based on your age when you paid for your Lifetime membership.
+                If you would like to become a member, the dues and how long each due lasts are listed below.<br>
+                <br>
+                <u>About "Active Duty" pricing</u>: Our active duty fees reflect the Army's increased incomes of higher ranked soldiers<br>
+                <br>
+                <u>About "Veteran" pricing</u>: Our age-based, lifetime, veteran fees are set based on how younger members (and their lifetime memberships) will likely live longer<br>
+                <br>
+                <u>Current age & rank</u>: If your renewal depends on your age or rank, then your fee is based on your <i>current</i> age or rank.
               </div>
+            </div>
+            <div>
               <div class="costList">
                 @foreach ($membership_options as $one_option)
                   <div class="cost">
@@ -308,62 +317,6 @@
                     @endif
                   </div>
                 @endforeach
-                <!-- <div class="cost">
-                  <div class="costTitle">
-                    Active duty
-                  </div>
-                  <div class="costNumbers">
-                    $5 per year
-                  </div>
-                </div>
-                <div class="cost">
-                  <div class="costTitle">
-                    One Year
-                  </div>
-                  <div class="costNumbers">
-                    $15 per year
-                  </div>
-                </div>
-                <div class="cost">
-                  <div class="costTitle">
-                    Two Years
-                  </div>
-                  <div class="costNumbers">
-                    $25 for 2 years
-                  </div>
-                </div>
-                <div class="cost">
-                  <div class="costTitle">
-                    Five Years
-                  </div>
-                  <div class="costNumbers">
-                    $60 for 5 years
-                  </div>
-                </div>
-                <div class="cost">
-                  <div class="costTitle">
-                    Lifetime (< 50 y/o)
-                  </div>
-                  <div class="costNumbers">
-                    $200 once
-                  </div>
-                </div>
-                <div class="cost">
-                  <div class="costTitle">
-                    Lifetime (50 - 64 y/o)
-                  </div>
-                  <div class="costNumbers">
-                    $150 once
-                  </div>
-                </div>
-                <div class="cost">
-                  <div class="costTitle">
-                    Lifetime (65+ y/o)
-                  </div>
-                  <div class="costNumbers">
-                    $100 once
-                  </div>
-                </div> -->
               </div>
             </div>
           </div>

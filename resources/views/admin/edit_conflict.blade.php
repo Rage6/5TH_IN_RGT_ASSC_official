@@ -27,6 +27,21 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>
+                          Did the 5th Infantry Regt. participate in ''{{ $conflict->name }}'' <u>as a unit</u>? This does not count if Bobcats only participating in this conflict with other regiments.
+                        </div>
+                        <div>
+                          <select name="unitParticipated">
+                            <option @if ($conflict->unit_participated == 0) selected @endif value="0">
+                              No
+                            </option>
+                            <option @if ($conflict->unit_participated == 1) selected @endif value="1">
+                              Yes
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
                           Was '{{ $conflict->name }}' part of a larger conflict? If so, select the overall conflict here.
                         </div>
                         @if (count($all_children) == 0)

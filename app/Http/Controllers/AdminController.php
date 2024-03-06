@@ -2846,6 +2846,7 @@ class AdminController extends Controller
         'name' => 'required|string',
         'startYear' => 'required|integer',
         'endYear' => 'nullable|integer',
+        'unitParticipated' => 'required|integer',
         'hasCasualties' => 'required|integer',
         'hasRecipients' => 'required|integer',
         'parentId' => 'required|integer'
@@ -2860,6 +2861,7 @@ class AdminController extends Controller
       $input->name = $request->name;
       $input->start_year = $request->startYear;
       $input->end_year = $request->endYear;
+      $input->unit_participated = $request->unitParticipated;
       $input->bobcat_casualties = $request->hasCasualties;
       $input->bobcat_recipients = $request->hasRecipients;
       $input->parent_id = $request->parentId;
@@ -2924,6 +2926,7 @@ class AdminController extends Controller
         'name' => 'required|string',
         'startYear' => 'required|integer',
         'endYear' => 'nullable|integer',
+        'unitParticipated' => 'required|integer',
         'parentId' => 'nullable|integer',
         // 'memberParticipated' => 'required|integer'
       ]);
@@ -3003,6 +3006,7 @@ class AdminController extends Controller
       $conflict->name = $request->name;
       $conflict->start_year = $request->startYear;
       $conflict->end_year = $request->endYear;
+      $conflict->unit_participated = $request->unitParticipated;
       $conflict->parent_id = $request->parentId;
       // $conflict->member_participated = $request->memberParticipated;
 

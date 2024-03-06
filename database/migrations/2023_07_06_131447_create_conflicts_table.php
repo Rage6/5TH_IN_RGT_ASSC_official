@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('start_year');
             $table->integer('end_year');
+            $table->boolean('unit_participated')->default(0);
             $table->boolean('bobcat_casualties')->default(0);
             $table->boolean('bobcat_recipients')->default(0);
             $table->boolean('member_participated')->default(0);

@@ -51,7 +51,28 @@
 
 .regRow {
   display: grid;
-  grid-template-columns: 33% auto 33%;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: 
+    "purpose benefits"
+    "fee fee";
+}
+
+.regPurpose {
+  grid-area: purpose;
+}
+
+.regBenefits {
+  grid-area: benefits;
+}
+
+.regFee {
+  grid-area: fee;
+}
+
+.regFeeDescription {
+  display: grid;
+  grid-template-columns: 48% 48%;
+  grid-gap: 4%;
 }
 
 .regSection {

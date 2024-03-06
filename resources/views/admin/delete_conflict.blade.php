@@ -19,7 +19,19 @@
                       </div>
                       <div class="basicInfoGrid">
                         <div>Time Span</div>
-                        <div>{{ $conflict->start_year }} - {{ $conflict->end_year }}"</div>
+                        <div>{{ $conflict->start_year }} - {{ $conflict->end_year }}</div>
+                      </div>
+                      <div class="basicInfoGrid">
+                        <div>
+                          Did the 5th Infantry Regt. participate in '{{ $conflict->name }}' <u>as a unit</u>?
+                        </div>
+                        <div>
+                          @if ($conflict->unit_participated == 0)
+                            No
+                          @else 
+                            Yes 
+                          @endif
+                        </div>
                       </div>
                       @if (count($all_children) > 0)
                         <div class="basicInfoGrid">
