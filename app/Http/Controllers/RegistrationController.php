@@ -87,62 +87,10 @@ class RegistrationController extends Controller
         'comments' => 'string|nullable|max:255',
       ]);
 
-      $current_year = date("Y");
-      $modern_conflicts = Conflict::
-        where('end_year','>',$current_year - 100)
-        ->orWhere('end_year','=',null)
-        ->orderBy('start_year','asc')
-        ->get();
-
-      // Creates an applicant letter and mails it
-      $init_submission = app();
-      $new_submission = $init_submission->make('stdClass');
-      $new_submission->first_name = $request->first_name;
-      $new_submission->last_name = $request->last_name;
-      $new_submission->spouse_name = $request->spouse_name;
-      $new_submission->address_line_1 = $request->address_line_1;
-      $new_submission->address_line_2 = $request->address_line_2;
-      $new_submission->city = $request->city;
-      $new_submission->state = $request->state;
-      $new_submission->zip_code = $request->zip_code;
-      $new_submission->country = $request->country;
-      $new_submission->phone_number = $request->phone_number;
-      $new_submission->conflicts = '';
-      $init_conflict = true;
-      foreach ($modern_conflicts as $one_conflict) {
-        $input_name = "conflict_".$one_conflict->id;
-        $conflict_result = request($input_name);
-        if (isset($conflict_result)) {
-          if ($init_conflict == true) {
-            $new_submission->conflicts .= request($input_name);
-            $init_conflict = false;
-          } else {
-            $new_submission->conflicts .= ", ".request($input_name);
-          }
-        };
-      };
-      $new_submission->unit_details = $request->unit_details;
-      $new_submission->email = $request->email;
-      $new_submission->comments = $request->comments;
-
-      $users = User::where([
-        ['expiration_date','!=',null],
-        ['deceased','=',0]
-      ])->get();
-
-      $registration_email = [];
-      foreach ($users as $one_user) {
-        $is_manager = User::find($one_user->id)->check_for_role("Member Data Manager");
-        $is_all_permissions = User::find($one_user->id)->check_for_role("All Permissions Staff Member");
-        if ($is_manager == true || $is_all_permissions == true) {
-          $registration_email[] = $one_user->email;
-        };
-      };
-
       $is_duplicate = false;
       $all_applicants = Applicant::all();
       foreach ($all_applicants as $one_applicant) {
-        if ($one_applicant->first_name && $one_applicant->last_name) {
+        if ($one_applicant->first_name == $request->first_name && $one_applicant->last_name == $request->last_name && $one_applicant->type == 'membership') {
           $original_date = $one_applicant->created_at;
           $expire_date = date_add($original_date,date_interval_create_from_date_string("45 seconds"));
           $current_date = date("Y-m-d h:i:s");
@@ -153,6 +101,73 @@ class RegistrationController extends Controller
       };
 
       if (!$is_duplicate) {
+
+        $current_year = date("Y");
+        $modern_conflicts = Conflict::
+          where('end_year','>',$current_year - 100)
+          ->orWhere('end_year','=',null)
+          ->orderBy('start_year','asc')
+          ->get();
+
+        // Creates an applicant letter and mails it
+        $init_submission = app();
+        $new_submission = $init_submission->make('stdClass');
+        $new_submission->first_name = $request->first_name;
+        $new_submission->last_name = $request->last_name;
+        $new_submission->spouse_name = $request->spouse_name;
+        $new_submission->address_line_1 = $request->address_line_1;
+        $new_submission->address_line_2 = $request->address_line_2;
+        $new_submission->city = $request->city;
+        $new_submission->state = $request->state;
+        $new_submission->zip_code = $request->zip_code;
+        $new_submission->country = $request->country;
+        $new_submission->phone_number = $request->phone_number;
+        $new_submission->conflicts = '';
+        $init_conflict = true;
+        foreach ($modern_conflicts as $one_conflict) {
+          $input_name = "conflict_".$one_conflict->id;
+          $conflict_result = request($input_name);
+          if (isset($conflict_result)) {
+            if ($init_conflict == true) {
+              $new_submission->conflicts .= request($input_name);
+              $init_conflict = false;
+            } else {
+              $new_submission->conflicts .= ", ".request($input_name);
+            }
+          };
+        };
+        $new_submission->unit_details = $request->unit_details;
+        $new_submission->email = $request->email;
+        $new_submission->comments = $request->comments;
+
+        $users = User::where([
+          ['expiration_date','!=',null],
+          ['deceased','=',0]
+        ])->get();
+
+        $registration_email = [];
+        foreach ($users as $one_user) {
+          $is_manager = User::find($one_user->id)->check_for_role("Member Data Manager");
+          $is_all_permissions = User::find($one_user->id)->check_for_role("All Permissions Staff Member");
+          if ($is_manager == true || $is_all_permissions == true) {
+            $registration_email[] = $one_user->email;
+          };
+        };
+
+        // $is_duplicate = false;
+        // $all_applicants = Applicant::all();
+        // foreach ($all_applicants as $one_applicant) {
+        //   if ($one_applicant->first_name == $request->first_name && $one_applicant->last_name == $request->last_name && $one_applicant->type == 'membership') {
+        //     $original_date = $one_applicant->created_at;
+        //     $expire_date = date_add($original_date,date_interval_create_from_date_string("45 seconds"));
+        //     $current_date = date("Y-m-d h:i:s");
+        //     if ($current_date < $expire_date) {
+        //       $is_duplicate = true;
+        //     };
+        //   };
+        // };
+
+        // if (!$is_duplicate) {
         Mail::to($registration_email)->send(new RegistrationEmail($new_submission));
 
         $applicant['first_name'] = $request->first_name;
