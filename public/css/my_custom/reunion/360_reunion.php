@@ -197,6 +197,27 @@
   width: 52%;
 }
 
+.disabledSubmitBttn {
+  margin: 40px 0 0 24%;
+  display: none;
+  border: 2px solid white;
+  border-radius: 20px;
+  padding: 10px;
+  color: white;
+  font-size: 1.5rem;
+  font-family: 'Arial';
+  text-align: center;
+  background-image: 
+    url('/images/items/loading-gif-2.gif'),
+    linear-gradient(
+      rgba(137,206,137,1),
+      rgba(137,206,137,1));
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 44%;
+}
+
 .regText {
   padding: 10px 5% 0 5%;
 }

@@ -139,24 +139,39 @@ class RegistrationController extends Controller
         };
       };
 
-      Mail::to($registration_email)->send(new RegistrationEmail($new_submission));
+      $is_duplicate = false;
+      $all_applicants = Applicant::all();
+      foreach ($all_applicants as $one_applicant) {
+        if ($one_applicant->first_name && $one_applicant->last_name) {
+          $original_date = $one_applicant->created_at;
+          $expire_date = date_add($original_date,date_interval_create_from_date_string("45 seconds"));
+          $current_date = date("Y-m-d h:i:s");
+          if ($current_date < $expire_date) {
+            $is_duplicate = true;
+          };
+        };
+      };
 
-      $applicant['first_name'] = $request->first_name;
-      $applicant['last_name'] = $request->last_name;
-      $applicant['spouse_name'] = $request->spouse_name;
-      $applicant['address_line_1'] = $request->address_line_1;
-      $applicant['address_line_2'] = $request->address_line_2;
-      $applicant['city'] = $request->city;
-      $applicant['state'] = $request->state;
-      $applicant['zip_code'] = $request->zip_code;
-      $applicant['country'] = $request->country;
-      $applicant['phone_number'] = $request->phone_number;
-      $applicant['conflicts'] = $new_submission->conflicts;
-      $applicant['unit_details'] = $request->unit_details;
-      $applicant['email'] = $request->email;
-      $applicant['comments'] = $request->comments;
-      $applicant['type'] = 'membership';
-      Applicant::create($applicant);
+      if (!$is_duplicate) {
+        Mail::to($registration_email)->send(new RegistrationEmail($new_submission));
+
+        $applicant['first_name'] = $request->first_name;
+        $applicant['last_name'] = $request->last_name;
+        $applicant['spouse_name'] = $request->spouse_name;
+        $applicant['address_line_1'] = $request->address_line_1;
+        $applicant['address_line_2'] = $request->address_line_2;
+        $applicant['city'] = $request->city;
+        $applicant['state'] = $request->state;
+        $applicant['zip_code'] = $request->zip_code;
+        $applicant['country'] = $request->country;
+        $applicant['phone_number'] = $request->phone_number;
+        $applicant['conflicts'] = $new_submission->conflicts;
+        $applicant['unit_details'] = $request->unit_details;
+        $applicant['email'] = $request->email;
+        $applicant['comments'] = $request->comments;
+        $applicant['type'] = 'membership';
+        Applicant::create($applicant);
+      };
 
       return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options')->with('submit_message','Member Registration Submitted>>>You will be notified when your membership is approved');
     }

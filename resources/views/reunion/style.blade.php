@@ -14,6 +14,7 @@
 <!-- 1921px and Greater -->
 <link rel="stylesheet" media="screen and (min-width: 1921px)" type="text/css" href="{{ config('app.url_ext') }}/css/my_custom/reunion/past_1920_reunion.php">
 <script>
+
   function openAndCloseForm() {
     let currentDisplay = document.getElementById("reunionForm").style.display;
     let currentWidth = window.outerWidth;
@@ -34,6 +35,7 @@
       behavior: 'smooth'
     });
   };
+
   function clickSection(id,type) {
   // function clickSection(section,type) {
     // Opens the correct box...
@@ -54,5 +56,28 @@
     });
   };
   document.querySelectorAll('[data-type]');
+
+  function showsProcessing() {
+    let listOfRequired = [
+      'first_name',
+      'last_name',
+      'email',
+      'phone_number'
+    ];
+    let validPost = true;
+    for (let i = 0; i < listOfRequired.length; i++) {
+      let input = document.getElementsByName(listOfRequired[i]);
+      if (input[0]['value'] == null || input[0]['value'] == "") {
+        console.log(listOfRequired[i]);
+        validPost = false;
+      };
+    };
+    if (validPost == true) {
+      let submitBttn = document.querySelector(".regForm div form button");
+      submitBttn.style.display = "none";
+      let disabledSubmitBttn = document.getElementsByClassName('disabledSubmitBttn')[0];
+      disabledSubmitBttn.style.display = "block";
+    };
+  };
 </script>
 @include ('footer.style')

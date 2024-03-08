@@ -74,7 +74,7 @@
                     <input required type='text' name='last_name' placeholder='Last Name (required)'/>
                     <input required type='email' name='email' placeholder='Email (required)'/>
                   @endauth
-                  <input required type='text' minlength='10' maxlength='16' name='phone_number' placeholder='Phone Number'/>
+                  <input required type='text' minlength='10' maxlength='16' name='phone_number' placeholder='Phone Number (required)'/>
                 </div>
                 <div class="regFormBasic">
                   <div class="regFormSubtitles">
@@ -99,52 +99,18 @@
                     <input checked type='radio' name='{{ $key }}' value='No'/><span>No</span>
                   </div>
                 @endfor
-                <!-- <div class='radioTypeBox'>
-                  <div>
-                    Do you plan on attending the Valley Forge Tour?
-                  </div>
-                  <input type='radio' name='event_0' value='Yes'/><span>Yes</span>
-                  <input checked type='radio' name='event_0' value='No'/><span>No</span>
-                </div>
-                <div class='radioTypeBox'>
-                  <div>
-                    Do you plan on attending the Philadelphia City Tour?
-                  </div>
-                  <input type='radio' name='event_1' value='Yes'/><span>Yes</span>
-                  <input checked type='radio' name='event_1' value='No'/><span>No</span>
-                </div>
-                <div class='radioTypeBox'>
-                  <div>
-                    Do you plan on attending the Memorial Service at George Washington Memorial?
-                  </div>
-                  <input type='radio' name='event_2' value='Yes'/><span>Yes</span>
-                  <input checked type='radio' name='event_2' value='No'/><span>No</span>
-                </div>
-                <div class='radioTypeBox'>
-                  <div>
-                    Do you plan on attending the ladies breakfast 9am Saturday morning? There is no charge.
-                  </div>
-                  <input type='radio' name='ladies_breakfast' value='Yes'/><span>Yes</span>
-                  <input checked type='radio' name='ladies_breakfast' value='No'/><span>No</span>
-                </div>
-                <div class='radioTypeBox'>
-                  <div>
-                    Are you driving?
-                  </div>
-                  <input type='radio' name='driving' value='Yes'/><span>Yes</span>
-                  <input checked type='radio' name='driving' value='No'/><span>No</span>
-                </div>
-                <div class='radioTypeBox'>
-                  <div>
-                    Is this your first reunion?
-                  </div>
-                  <input type='radio' name='first_reunion' value='Yes'/><span>Yes</span>
-                  <input checked type='radio' name='first_reunion' value='No'/><span>No</span>
-                </div> -->
                 <textarea rows="4" class="commentArea" name='comments' placeholder='Comments...'></textarea>
               </div>
             </div>
-            <button>REGISTER</button>
+            <button
+              data-callback='onSubmit'
+              data-action='submit'
+              onclick="showsProcessing()">
+              REGISTER
+            </button>
+            <div class="disabledSubmitBttn">
+              REGISTER
+            </div>
           </form>
         </div>
       </div>
