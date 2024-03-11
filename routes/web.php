@@ -352,10 +352,12 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
 
     Route::middleware(['permission:See Membership Applicants'])->group(function() {
       Route::get('membership-applicant-list',[App\Http\Controllers\AdminController::class,'membership_list_index'])->name('membership.list');
+      Route::get('delete-membership-application/{id}',[App\Http\Controllers\AdminController::class,'delete_member_application'])->name('member.application.delete');
     });
 
     Route::middleware(['permission:See Reunion Applicants'])->group(function() {
       Route::get('reunion-applicant-list',[App\Http\Controllers\AdminController::class,'reunion_list_index'])->name('reunion.list');
+      Route::get('delete-reunion-application/{id}',[App\Http\Controllers\AdminController::class,'delete_reunion_application'])->name('reunion.application.delete');
     });
 
     Route::middleware(['permission:Add A Bulletin'])->group(function() {

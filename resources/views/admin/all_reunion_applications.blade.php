@@ -99,6 +99,9 @@
                               {{ $option[0] }}: {{ $option[1] }}
                             </div>
                           @endfor
+                          <a href="{{ route('reunion.application.delete',['id' => $one_application->id]) }}">
+                            <span type="submit" style="background-color:red;color:white">DELETE APPLICATION</span>
+                          </a>
                         </div>
                         @php
                           if ($bkgd == 'rgba(0,0,0,0.1)') {

@@ -88,6 +88,9 @@
                           <div>
                             Comments: {{ $one_application->comments }}
                           </div>
+                          <a href="{{ route('member.application.delete',['id' => $one_application->id]) }}">
+                            <span type="submit" style="background-color:red;color:white">DELETE APPLICATION</span>
+                          </a>
                         </div>
                         @php
                           if ($bkgd == 'rgba(0,0,0,0.1)') {
