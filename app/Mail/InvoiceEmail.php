@@ -15,6 +15,7 @@ class InvoiceEmail extends Mailable
     public $customer_data;
     public $new_invoice;
     public $total_costs;
+    public $follow_up_list;
     public $email_title;
 
     /**
@@ -22,12 +23,13 @@ class InvoiceEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($customer_data, $new_invoice, $total_costs, $email_title)
+    public function __construct($customer_data, $new_invoice, $total_costs, $email_title, $follow_up_list)
     {
         // $this->data = $data;
         $this->customer = $customer_data;
         $this->invoice = $new_invoice;
         $this->totals = $total_costs;
+        $this->follow_up_list = $follow_up_list;
         $this->subject = $email_title;
     }
 
@@ -45,6 +47,6 @@ class InvoiceEmail extends Mailable
       // return $this->from($this->new_email)
       return $this->view('emails.invoice')
                   ->subject($this->subject)
-                  ->with([ 'customer' => $this->customer, 'content' => $this->invoice, 'totals' => $this->totals ]);
+                  ->with([ 'customer' => $this->customer, 'content' => $this->invoice, 'totals' => $this->totals, 'staff_list' => $this->follow_up_list]);
     }
 }

@@ -396,6 +396,7 @@ class ItemController extends Controller
       ])->get();
 
       $invoice_email = [];
+      $follow_up_list = [];
 
       if ($request->get_email_list == "registration.index") {
         foreach ($users as $one_user) {
@@ -404,6 +405,9 @@ class ItemController extends Controller
           $is_all_permissions = User::find($one_user->id)->check_for_role("All Permissions Staff Member");
           if ($is_manager == true || $is_treasurer == true ||$is_all_permissions == true) {
             $invoice_email[] = $one_user->email;
+          };
+          if ($is_manager == true || $is_treasurer == true) {
+            $follow_up_list[] = [$one_user->first_name." ".$one_user->last_name,$one_user->email];
           };
         };
       } elseif ($request->get_email_list == "reunion.index") {
@@ -414,6 +418,9 @@ class ItemController extends Controller
           if ($is_coordinator == true || $is_treasurer == true ||$is_all_permissions == true) {
             $invoice_email[] = $one_user->email;
           };
+          if ($is_coordinator == true || $is_treasurer == true) {
+            $follow_up_list[] = [$one_user->first_name." ".$one_user->last_name,$one_user->email];
+          };
         };
       } elseif ($request->get_email_list == "merchandise.index") {
         foreach ($users as $one_user) {
@@ -423,6 +430,9 @@ class ItemController extends Controller
           if ($is_quartermaster == true || $is_treasurer == true ||$is_all_permissions == true) {
             $invoice_email[] = $one_user->email;
           };
+          if ($is_quartermaster == true || $is_treasurer == true) {
+            $follow_up_list[] = [$one_user->first_name." ".$one_user->last_name,$one_user->email];
+          };
         };
       } elseif ($request->get_email_list == "donation.index") {
         foreach ($users as $one_user) {
@@ -430,6 +440,9 @@ class ItemController extends Controller
           $is_all_permissions = User::find($one_user->id)->check_for_role("All Permissions Staff Member");
           if ($is_treasurer == true || $is_all_permissions == true) {
             $invoice_email[] = $one_user->email;
+          };
+          if ($is_treasurer == true) {
+            $follow_up_list[] = [$one_user->first_name." ".$one_user->last_name,$one_user->email];
           };
         };
       };
@@ -448,9 +461,9 @@ class ItemController extends Controller
 
       if (!$has_duplicate) {
         // Email to customer
-        Mail::to($this_user->email)->send(new InvoiceEmail($customer_info,$purchase_list,$email_totals,$request->email_title));
+        Mail::to($this_user->email)->send(new InvoiceEmail($customer_info,$purchase_list,$email_totals,$request->email_title,$follow_up_list));
         // Email to Bobcat Staff
-        Mail::to($invoice_email)->send(new InvoiceEmail($customer_info,$purchase_list,$email_totals,$request->email_title));
+        Mail::to($invoice_email)->send(new InvoiceEmail($customer_info,$purchase_list,$email_totals,$request->email_title,null));
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
