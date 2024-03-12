@@ -723,9 +723,19 @@ class AdminController extends Controller
       ]);
 
       $timespan = new Timespan;
-      $timespan->start_month = $request->startMonth;
+      // $timespan->start_month = $request->startMonth;
+      if ($request->startMonth == 0) {
+        $timespan->start_month = null;
+      } else {
+        $timespan->start_month = $request->startMonth;
+      };
       $timespan->start_year = $request->startYear;
-      $timespan->end_month = $request->endMonth;
+      // $timespan->end_month = $request->endMonth;
+      if ($request->endMonth == 0) {
+        $timespan->end_month = null;
+      } else {
+        $timespan->end_month = $request->endMonth;
+      };
       $timespan->end_year = $request->endYear;
       $timespan->job = $request->job;
       $timespan->unit = $request->unit;

@@ -49,12 +49,12 @@
                                 {{ $all_jobs[$i]->unit }}
                               </div>
                               <div class="bobcatStart">
-                                {{ $all_jobs[$i]->start_month }}, {{ $all_jobs[$i]->start_year }}
+                                @if ($all_jobs[$i]->start_month) {{ $all_jobs[$i]->start_month }}, @endif {{ $all_jobs[$i]->start_year }}
                               </div>
                               <div class="bobcatDash">
                               </div>
                               <div class="bobcatEnd">
-                                {{ $all_jobs[$i]->end_month }}, {{ $all_jobs[$i]->end_year }}
+                                @if ($all_jobs[$i]->end_month) {{ $all_jobs[$i]->end_month }}, @endif {{ $all_jobs[$i]->end_year }}
                               </div>
                             </div>
                             @php
