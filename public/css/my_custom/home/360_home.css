@@ -123,6 +123,7 @@
 .rowImg {
   background-position: center;
   background-size: contain;
+  background-repeat: no-repeat;
   height: 40px;
   width: 40px
 }

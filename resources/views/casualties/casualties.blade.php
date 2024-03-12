@@ -17,84 +17,6 @@
     </div>
     <div class="dailyAndSearchBox">
       <div class="casualtyIntro oneSection">
-        <!-- <div class="dailyMemorial oneSection">
-          <div class="dailyInfo">
-            <div class="rankWithMedal">
-              <div>
-                {{ $already_selected->rank }}
-              </div>
-              @if ($already_selected->moh_id != null)
-                <div class="medal" style="background-image:url('/images/memorials/us-army-medal-of-honor.png')"></div>
-              @else
-                <div class="medal"></div>
-              @endif
-            </div>
-            <div>
-              {{ $already_selected->first_name }}
-              @if ($already_selected->middle_name != null)
-                {{ $already_selected->middle_name }}
-              @endif
-              {{ $already_selected->last_name }}
-            </div>
-          </div>
-          @if ($already_selected->con_name != null)
-            <div class="dailyConflict">
-              {{ $already_selected->con_name }}
-            </div>
-          @endif
-          @if ($already_selected->photo != null)
-            <div class="dailyImg" style="background-image: url('https://5th-rgt-profile-photos.s3.us-east-2.amazonaws.com/{{ $already_selected->photo }}?t=@php echo(time()) @endphp')"></div>
-          @else
-            <div class="dailyImg" style="background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/04/65/24/73/d-day-tours-of-normandy.jpg')"></div>
-          @endif
-          <div class="dailyBio">
-            @if ($already_selected->city != null && $already_selected->state != null)
-              <div>
-                Home: {{ $already_selected->city }}, {{ $already_selected->state }}
-              </div>
-            @elseif ($already_selected->city == null && $already_selected->state != null)
-              <div>
-                Home: {{ $already_selected->state }}
-              </div>
-            @endif
-            @if ($already_selected->unit != null)
-              <div>
-                Unit: {{ $already_selected->unit }}
-              </div>
-            @endif
-            <div>
-              Date of Death: {{ $already_selected->month_of_death }}/{{ $already_selected->day_of_death }}/{{ $already_selected->year_of_death }}
-            </div>
-            @if ($already_selected->place != null)
-              <div>
-                Location of Death: {{ $already_selected->place }}
-              </div>
-            @endif
-            @if ($already_selected->injury_type != null)
-              <div>
-                Type of Injury: {{ $already_selected->injury_type }}
-              </div>
-            @endif
-            @if ($already_selected->burial_site != null)
-              <div>
-                Burial Site: {{ $already_selected->burial_site }}
-              </div>
-            @endif
-            @if ($already_selected->comments != null)
-              <div>
-                Comments: {{ $already_selected->comments }}
-              </div>
-            @endif
-            @if ($already_selected->moh_id != null)
-              <div>
-                <a href="/memorials/medal_of_honor/{{ $already_selected->moh_id }}">
-                  Medal of Honor (5th IN RGT Association)
-                </a>
-              </div>
-            @endif
-
-          </div>
-        </div> -->
         <div class="dailyMemorial oneSection">
           <div class="dailyInfo">
             <div class="rankWithMedal">
@@ -209,17 +131,4 @@
   </div>
   @include ('footer.content')
 </div>
-@php
-  $unset_these = [
-    $all_casualty_basics,
-    $all_conflicts,
-    $casualty_count,
-    $already_selected,
-    $cas_links,
-    $casualty_data,
-    $image_path
-  ];
-
-  check_memory_limit($unset_these);
-@endphp
 @stop
