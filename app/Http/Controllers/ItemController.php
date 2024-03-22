@@ -289,7 +289,8 @@ class ItemController extends Controller
         'text_cart'        => 'required|string',
         'card_holder_name' => 'required|string',
         'email_title'      => 'required|string',
-        'get_email_list'   => 'required|string'
+        'get_email_list'   => 'required|string',
+        'comments'         => 'nullable|string'
       ]);
 
       $current_cart = Cart::where('id',intval(Cookie::get('cartid')))->first();
@@ -337,6 +338,7 @@ class ItemController extends Controller
       };
       $this_user->email = $request->payment_email;
       $this_user->mailing_address = $request->mailing_address;
+      $this_user->comments = $request->comments;
       
       $overall_total = 0;
       $purchase_email_details = "";
@@ -383,6 +385,7 @@ class ItemController extends Controller
       $customer_info[] = "Credit Card Holder:         ".$request->card_holder_name;
       $customer_info[] = "Mailing Address (optional): ".$this_user->mailing_address;
       $customer_info[] = "Email Address:              ".$this_user->email;
+      $customer_info[] = "Customer comments:          ".$this_user->comments;
 
       $purchase_list = explode(">>>",$purchase_email_details);
 
@@ -477,6 +480,7 @@ class ItemController extends Controller
           'customer_email' => $this_user->email,
           'total_cost' => round($overall_total,2),
           'details' => $purchase_email_details,
+          'comments' => $this_user->comments,
           'user_id' => $customer_id,
           'cart_id' => $current_cart->id
         ]);

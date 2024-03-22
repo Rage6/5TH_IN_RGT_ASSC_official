@@ -13,6 +13,7 @@ class Payment extends Model
       'customer_email',
       'total_cost',
       'details',
+      'comments',
       'cart_id',
       'user_id'
     ];

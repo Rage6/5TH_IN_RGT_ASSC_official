@@ -171,13 +171,13 @@
                     </div>
                     <input class='cardInput' placeholder="Email Address" type='email' name="payment_email" required>
                     <input class='cardInput' placeholder="Mailing Address (optional)" type='text' name="mailing_address">
+                    <textarea class='cardInput' placeholder="Optional Comments (max. 300 characters)" name="comments" maxlength="300"></textarea>
                     <input type="hidden" name="text_cart" value="{{ $text_cart }}" required>
                     <input type="hidden" name="email_title" value="{{ $title }}" required>
                     <input type="hidden" name="get_email_list" value="{{ $purpose }}" required>
                     {{-- <div class='form-row row'>
                        <div class='col-md-12 error form-group hide'>
-                          <div class='alert-danger alert'>Please correct the errors and try
-                             again.
+                          <div class='alert-danger alert'>Please correct the errors and try again.
                           </div>
                        </div>
                     </div> --}}

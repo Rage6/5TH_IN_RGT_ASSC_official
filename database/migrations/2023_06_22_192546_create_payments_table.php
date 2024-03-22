@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string("customer_email");
             $table->float("total_cost");
-            $table->bigInteger("cart_id");
-            $table->bigInteger("user_id");
+            $table->text("details")->nullable();
+            $table->string("comments", 300)->nullable();
+            $table->bigInteger("cart_id")->nullable();
+            $table->bigInteger("user_id")->nullable();
             $table->timestamps();
 
             $table->index('user_id');
