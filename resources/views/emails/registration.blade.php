@@ -13,7 +13,8 @@
     <div>State: {{ $content->state }}</div>
     <div>Zip Code: {{ $content->zip_code }}</div>
     <div>Phone #: {{ $content->phone_number }}</div>
-    <div>Conflict(s): {{ $content->conflicts }}</div>
+    <div>Conflict(s) when with the 5th Infantry Regt: {{ $content->conflicts }}</div>
+    <div>Conflict(s) when <u>NOT</u> with the 5th Infantry Regt: {{ $content->other_conflicts }}</div>
     <div>Jobs, Units, Times: {{ $content->unit_details }}</div>
     <div>Email: {{ $content->email }}</div>
     <div>Comments: {{ $content->comments }}</div>

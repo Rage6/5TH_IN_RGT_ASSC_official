@@ -21,6 +21,7 @@ class Applicant extends Model
       'country',
       'phone_number',
       'conflicts',
+      'other_conflicts',
       'unit_details',
       'email',
       'comments',

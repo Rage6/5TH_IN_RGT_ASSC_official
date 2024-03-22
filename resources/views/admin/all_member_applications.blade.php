@@ -64,7 +64,8 @@
                           <div>
                             Address:
                             <div>
-                              {{ $one_application->address_line_1 }} {{ $one_application->address_line_2 }}
+                              {{ $one_application->address_line_1 }}
+                              @if ($one_application->address_line_2) <br>{{ $one_application->address_line_2 }} @endif
                             </div>
                             <div>
                               {{ $one_application->city }}, {{ $one_application->state }} {{ $one_application->zip_code }}
@@ -77,7 +78,10 @@
                             Phone Number: {{ $one_application->phone_number }}
                           </div>
                           <div>
-                            Conflicts: {{ $one_application->conflicts }}
+                            Conflicts when with 5th: {{ $one_application->conflicts }}
+                          </div>
+                          <div>
+                            Conflicts when <u>NOT</u> with the 5th: {{ $one_application->conflicts }}
                           </div>
                           <div>
                             Unit Details: {{ $one_application->unit_details }}

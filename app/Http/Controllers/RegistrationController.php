@@ -82,6 +82,7 @@ class RegistrationController extends Controller
         'country' => 'string|nullable',
         'phone_number' => 'string|nullable',
         'conflicts' => 'string|nullable',
+        'other_conflicts' => 'string|nullable|max:255',
         'unit_details' => 'string|nullable',
         'email' => 'string|required',
         'comments' => 'string|nullable|max:255',
@@ -136,6 +137,7 @@ class RegistrationController extends Controller
             }
           };
         };
+        $new_submission->other_conflicts = $request->other_conflicts;
         $new_submission->unit_details = $request->unit_details;
         $new_submission->email = $request->email;
         $new_submission->comments = $request->comments;
@@ -181,6 +183,7 @@ class RegistrationController extends Controller
         $applicant['country'] = $request->country;
         $applicant['phone_number'] = $request->phone_number;
         $applicant['conflicts'] = $new_submission->conflicts;
+        $applicant['other_conflicts'] = $new_submission->other_conflicts;
         $applicant['unit_details'] = $request->unit_details;
         $applicant['email'] = $request->email;
         $applicant['comments'] = $request->comments;

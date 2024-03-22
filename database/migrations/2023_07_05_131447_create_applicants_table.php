@@ -26,9 +26,16 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('conflicts')->nullable();
+            $table->string('other_conflicts')->nullable();
             $table->string('unit_details')->nullable();
             $table->string('email');
             $table->string('comments')->nullable();
+            $table->string('type')->nullable();
+            $table->integer('guest_num')->nullable();
+            $table->string('guest_names')->nullable();
+            $table->date('arrival_date')->nullable();
+            $table->string('all_boolean_options')->nullable();
+            $table->integer('all_boolean_count')->nullable();
             $table->timestamps();
         });
     }
