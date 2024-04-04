@@ -23,6 +23,11 @@
           <div class="regRenew">
             Just Paying Your Membership Fee?</br> <a href="{{ url('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options') }}">Click here</a>
           </div>
+          @if (session('duplicate'))
+            <span class="regDuplicate">
+              {{ session('duplicate') }}
+            </span>
+          @endif
           <form method="POST" id="memberForm" action="{{ route('registration.post') }}">
             @csrf
             <div class="regGrid">

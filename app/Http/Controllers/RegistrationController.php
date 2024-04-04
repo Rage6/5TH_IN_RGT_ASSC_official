@@ -91,13 +91,13 @@ class RegistrationController extends Controller
       $is_duplicate = false;
       $all_applicants = Applicant::all();
       foreach ($all_applicants as $one_applicant) {
-        if ($one_applicant->first_name == $request->first_name && $one_applicant->last_name == $request->last_name && $one_applicant->type == 'membership') {
-          $original_date = $one_applicant->created_at;
-          $expire_date = date_add($original_date,date_interval_create_from_date_string("45 seconds"));
-          $current_date = date("Y-m-d h:i:s");
-          if ($current_date < $expire_date) {
+        if ($one_applicant->email == $request->email && $one_applicant->type == 'membership') {
+          // $original_date = $one_applicant->created_at;
+          // $expire_date = date_add($original_date,date_interval_create_from_date_string("45 seconds"));
+          // $current_date = date("Y-m-d h:i:s");
+          // if ($current_date < $expire_date) {
             $is_duplicate = true;
-          };
+          // };
         };
       };
 
@@ -189,9 +189,13 @@ class RegistrationController extends Controller
         $applicant['comments'] = $request->comments;
         $applicant['type'] = 'membership';
         Applicant::create($applicant);
+
+        return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options')->with('submit_message','Member Registration Submitted>>>You will be notified when your membership is approved');
+      } else {
+        return redirect()->route('registration.index')->with('duplicate','You have already applied. One of our staff members should contact you soon.');
       };
 
-      return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options')->with('submit_message','Member Registration Submitted>>>You will be notified when your membership is approved');
+      // return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options')->with('submit_message','Member Registration Submitted>>>You will be notified when your membership is approved');
     }
 
     /**

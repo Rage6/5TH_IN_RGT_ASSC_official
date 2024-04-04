@@ -89,6 +89,15 @@
   text-decoration: underline;
 }
 
+.regDuplicate {
+  margin-bottom: 40px;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  background-color: rgba(139,0,0,0.8);
+}
+
 .regTotal a div {
   margin-left: 10%;
   text-decoration: underline;
