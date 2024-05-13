@@ -430,61 +430,82 @@ class HomeController extends Controller
       return redirect()->route('bobcat.list.index',['name' => $request->bobcatName]);
     }
 
-    public function bobcat_list_export() {
-      // // The following code for exporting SQL data as an Excel spreadsheet is a modified version of this example: https://www.codexworld.com/export-data-to-excel-in-php/
-      // // Excel file name for download 
-      // $fileName = "bobcat-data_" . date('Y-m-d') . ".xls";
-      // // Column names 
-      // $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'MAILING ADDRESS', 'PHONE NUMBER', 'SPOUSE', 'EMAIL');
-      // // Display column names as first row 
-      // $excelData = implode("\t", array_values($fields)) . "\n";
-      // // Fetch records from database 
-      // $current_timestamp = time();
-      // $bobcat_list = User::where([
-      //     ['expiration_date','1970-01-01 00:00:00'],
-      //     ['year_of_death',null]
-      //   ])
-      //   ->orWhere([
-      //     ['expiration_date','>',$current_timestamp],
-      //     ['year_of_death',null]
-      //   ])
-      //   ->orderBy('last_name','ASC')
-      //   ->orderBy('first_name','ASC')
-      //   ->get();
-      // if (count($bobcat_list) > 0){ 
-      //   // Output each row of the data 
-      //   foreach ($bobcat_list as $one_bobcat) { 
-      //     if ($one_bobcat->email != null && $one_bobcat->email_visible == 0) {
-      //       $one_bobcat->email = "*** private ***";
-      //     };
-      //     if ($one_bobcat->phone_number != null && $one_bobcat->phone_visible == 0) {
-      //       $one_bobcat->phone_number = "*** private ***";
-      //     };
-      //     $lineData = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $one_bobcat->mailing_address, $one_bobcat->phone_number, $one_bobcat->spouse, $one_bobcat->email);
-
-      //     for ($index = 0; count($lineData) > $index; $index++) {
-      //       $str = $lineData[$index];
-      //       $str = preg_replace("/\t/", "\\t", $str); 
-      //       $str = preg_replace("/\r?\n/", "\\n", $str); 
-      //       if (strstr($str, '"')) {
-      //         $str = '"' . str_replace('"', '""', $str) . '"'; 
-      //       };
-      //     };
-
-      //     $excelData .= implode("\t", array_values($lineData)) . "\n"; 
-      //   };
-      // } else { 
-      //   $excelData .= 'No records found...'. "\n"; 
-      // };
-      // // Headers for download 
-      // header("Content-Type: application/vnd.ms-excel"); 
-      // header("Content-Disposition: attachment; filename=\"$fileName\"");
-      // // Render excel data 
-      // echo $excelData;
-      // exit;
-
+    public function bobcat_list_export_excel() {
       // The following code for exporting SQL data as an Excel spreadsheet is a modified version of this example: https://www.codexworld.com/export-data-to-excel-in-php/
       // Excel file name for download 
+      $fileName = "bobcat-data_" . date('Y-m-d') . ".xls";
+      // Column names 
+      $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'MAILING ADDRESS', 'PHONE NUMBER', 'UNIT/YEAR','SPOUSE', 'EMAIL');
+      // Display column names as first row 
+      $excelData = implode("\t", array_values($fields)) . "\n";
+      // Fetch records from database 
+      $current_timestamp = time();
+      $bobcat_list = User::where([
+          ['expiration_date','1970-01-01 00:00:00'],
+          ['year_of_death',null]
+        ])
+        ->orWhere([
+          ['expiration_date','>',$current_timestamp],
+          ['year_of_death',null]
+        ])
+        ->orderBy('last_name','ASC')
+        ->orderBy('first_name','ASC')
+        ->get();
+      if (count($bobcat_list) > 0){ 
+        // Output each row of the data 
+        foreach ($bobcat_list as $one_bobcat) { 
+          if ($one_bobcat->email != null && $one_bobcat->email_visible == 0) {
+            $one_bobcat->email = "*** private ***";
+          };
+          if ($one_bobcat->phone_number != null && $one_bobcat->phone_visible == 0) {
+            $one_bobcat->phone_number = "*** private ***";
+          };
+          $all_careers = Timespan::where([
+            ['user_id',$one_bobcat->id]
+          ])
+          ->orderBy('start_year','ASC')
+          ->orderBy('start_month','ASC')
+          ->get();
+          $bobcat_careers = "";
+          if (count($all_careers) > 0) {
+            foreach ($all_careers as $career) {
+              $bobcat_careers .= $career->job.", ".$career->unit." (".$career->start_year."-".$career->end_year.")";
+              if (count($all_careers) > 1) {
+                $bobcat_careers .= "; ";
+              };
+            };
+          };
+          $lineData = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $one_bobcat->mailing_address, $one_bobcat->phone_number, $bobcat_careers, $one_bobcat->spouse, $one_bobcat->email);
+
+          for ($index = 0; count($lineData) > $index; $index++) {
+            $str = $lineData[$index];
+            $str = preg_replace("/\t/", "\\t", $str); 
+            $str = preg_replace("/\r?\n/", "\\n", $str); 
+            if (strstr($str, '"')) {
+              $str = '"' . str_replace('"', '""', $str) . '"'; 
+            };
+          };
+
+          $excelData .= implode("\t", array_values($lineData)) . "\n"; 
+        };
+      } else { 
+        $excelData .= 'No records found...'. "\n"; 
+      };
+      // Headers for download 
+      header("Content-Type: application/vnd.ms-excel"); 
+      header("Content-Disposition: attachment; filename=\"$fileName\"");
+      // Render excel data 
+      echo $excelData;
+      exit;
+
+      return redirect(route('home'));
+
+    }
+
+    public function bobcat_list_export_html() {
+
+      // The following code for exporting SQL data as an HTML page is a modified version of this example: https://www.codexworld.com/export-data-to-excel-in-php/
+      // HTML file name for download 
       $fileName = "Bobcat_roster_" . date('Y-m-d') . ".html";
       // Column names 
       $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'MAILING ADDRESS', 'PHONE NUMBER', 'SPOUSE', 'EMAIL');

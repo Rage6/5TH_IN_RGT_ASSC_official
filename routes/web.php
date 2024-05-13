@@ -141,8 +141,10 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
     Route::get('list-of-bobcats/{name?}', [App\Http\Controllers\HomeController::class,'bobcat_list_index'])->name('bobcat.list.index');
     // Search for Bobcats by name
     Route::post('search-of-bobcats', [App\Http\Controllers\HomeController::class,'bobcat_list_search'])->name('bobcat.list.search');
-    // Download the roster of all living Bobcats
-    Route::get('download-all-bobcats', [App\Http\Controllers\HomeController::class,'bobcat_list_export'])->name('bobcat.list.export');
+    // Download the roster of all living Bobcats in Excel
+    Route::get('download-all-bobcats', [App\Http\Controllers\HomeController::class,'bobcat_list_export_excel'])->name('bobcat.list.export');
+    // Download the roster of all living Bobcats in HTML
+    Route::get('download-all-bobcats-page', [App\Http\Controllers\HomeController::class,'bobcat_list_export_html'])->name('bobcat.list.html');
     // See one Bobcat's profiles
     Route::get('profile/{id}', [App\Http\Controllers\HomeController::class,'bobcat_profile_index'])->name('bobcat.profile.index');
     // See the staff of the Bobcat organization
