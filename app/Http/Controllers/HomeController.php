@@ -435,7 +435,8 @@ class HomeController extends Controller
       // Excel file name for download 
       $fileName = "bobcat-data_" . date('Y-m-d') . ".xls";
       // Column names 
-      $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'MAILING ADDRESS', 'PHONE NUMBER', 'UNIT/YEAR','SPOUSE', 'EMAIL');
+      // $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'MAILING ADDRESS', 'PHONE NUMBER', 'UNIT/YEAR','SPOUSE', 'EMAIL');
+      $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'STREET ADDRESS', 'CITY', 'STATE', 'ZIP CODE', 'PHONE NUMBER', 'UNIT/YEAR','SPOUSE', 'EMAIL');
       // Display column names as first row 
       $excelData = implode("\t", array_values($fields)) . "\n";
       // Fetch records from database 
@@ -475,7 +476,11 @@ class HomeController extends Controller
               };
             };
           };
-          $lineData = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $one_bobcat->mailing_address, $one_bobcat->phone_number, $bobcat_careers, $one_bobcat->spouse, $one_bobcat->email);
+          $street_address = $one_bobcat->street_address_1;
+          if ($one_bobcat->street_address_2) {
+            $street_address .= ", ".$one_bobcat->street_address_2;
+          };
+          $lineData = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $street_address, $one_bobcat->mailing_city, $one_bobcat->mailing_state, $one_bobcat->zip_code, $one_bobcat->phone_number, $bobcat_careers, $one_bobcat->spouse, $one_bobcat->email);
 
           for ($index = 0; count($lineData) > $index; $index++) {
             $str = $lineData[$index];

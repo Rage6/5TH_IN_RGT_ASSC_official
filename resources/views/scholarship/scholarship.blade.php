@@ -18,19 +18,18 @@
           </div>
           <div class="scholarImg">
             <div class="aroundButtons applyNow">
-              @if (isset($this_user))
+              
                 <a target="_blank" href="/scholarship/form/2024-Scholarship-Criteria-and-Application.pdf">
                   <span class="buttons">
                     APPLY NOW
                   </span>
                 </a>
-              @else
-                <a href="{{ route('login') }}">
+              
+                <!-- <a href="{{ route('login') }}">
                   <span class="buttons">
                     LOGIN & APPLY
                   </span>
-                </a>
-              @endif
+                </a> -->
             </div>
             <div class="aroundButtons scholarshipInfo">
               <a>

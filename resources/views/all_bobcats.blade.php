@@ -59,9 +59,6 @@
                           <li>
                             <a href="{{ route('bobcat.list.html') }}">Download</a> as simple web page
                           </li>
-                          <li>
-                            <a target="_blank" href="https://docs.google.com/spreadsheets/d/1KBH6aN6CCdDAK4FiP88dfpPILIQ1v22WyH9ea6u47Ns/edit?usp=sharing">Link</a> to online spreadsheet
-                          </li>
                         </ul>
                       </div>
                     </div>

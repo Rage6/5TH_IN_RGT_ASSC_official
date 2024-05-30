@@ -132,6 +132,12 @@ Route::get('bulletins/{filename}', function($filename){
         return response()->file($storagePath);
 });
 
+// Retrieves a 'scholarship' pdf file from the 'storage' directory
+Route::get('scholarship/form/{filename}', function($filename){
+  $storagePath = storage_path('app/public/scholarship/form/' . $filename);
+    return response()->file($storagePath);
+});
+
 Route::middleware('auth')->middleware('expiration')->group(function() {
 
   Route::prefix('/home')->group(function() {
@@ -168,12 +174,6 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
     Route::post('delete-personal-image-complete{img_type}', [App\Http\Controllers\HomeController::class,'image_personal_delete'])->name('delete.personal.image.complete');
     Route::get('edit-password', [App\Http\Controllers\HomeController::class,'edit_password_index'])->name('password.edit');
     Route::post('edit-password-change', [App\Http\Controllers\HomeController::class,'edit_password_change'])->name('password.edit.change');
-  });
-
-  // Retrieves a 'scholarship' pdf file from the 'storage' directory
-  Route::get('scholarship/form/{filename}', function($filename){
-    $storagePath = storage_path('app/public/scholarship/form/' . $filename);
-      return response()->file($storagePath);
   });
 
   Route::middleware('access')->group(function() {
