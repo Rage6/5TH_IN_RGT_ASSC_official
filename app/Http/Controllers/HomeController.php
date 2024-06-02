@@ -513,7 +513,7 @@ class HomeController extends Controller
       // HTML file name for download 
       $fileName = "Bobcat_roster_" . date('Y-m-d') . ".html";
       // Column names 
-      $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'MAILING ADDRESS', 'PHONE NUMBER', 'SPOUSE', 'EMAIL');
+      $fields = array('LAST NAME', 'FIRST NAME', 'MI', 'STREET ADDRESS', 'CITY', 'STATE', 'ZIP CODE', 'PHONE NUMBER', 'UNIT/YEAR','SPOUSE', 'EMAIL');
       // Display column names as first row 
       $name_row = "<tr style='background-color:lightgrey'>";
       for ($i = 0; $i < count($fields); $i++) {
@@ -550,7 +550,29 @@ class HomeController extends Controller
           if ($one_bobcat->phone_number != null && $one_bobcat->phone_visible == 0) {
             $one_bobcat->phone_number = "*** private ***";
           };
-          $this_array = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $one_bobcat->mailing_address, $one_bobcat->phone_number, $one_bobcat->spouse, $one_bobcat->email);
+          // Combines the first and second street addresses, if applicable
+          $street_address = $one_bobcat->street_address_1;
+          if ($one_bobcat->street_address_2) {
+            $street_address .= ", ".$one_bobcat->street_address_2;
+          };
+          // Gets all career info 
+          $all_careers = Timespan::where([
+            ['user_id',$one_bobcat->id]
+          ])
+          ->orderBy('start_year','ASC')
+          ->orderBy('start_month','ASC')
+          ->get();
+          $bobcat_careers = "";
+          if (count($all_careers) > 0) {
+            foreach ($all_careers as $career) {
+              $bobcat_careers .= $career->job.", ".$career->unit." (".$career->start_year."-".$career->end_year.")";
+              if (count($all_careers) > 1) {
+                $bobcat_careers .= "; ";
+              };
+            };
+          };
+          // Makes the entire row
+          $this_array = array($one_bobcat->last_name, $one_bobcat->first_name, $one_bobcat->middle_name, $street_address, $one_bobcat->mailing_city, $one_bobcat->mailing_state, $one_bobcat->zip_code, $one_bobcat->phone_number, $bobcat_careers, $one_bobcat->spouse, $one_bobcat->email);
           for ($a = 0; $a < count($this_array); $a++) {
             $this_row .= "<td style='border:black solid 1px;border-collapse:collapse;padding: 2px 5px'>".$this_array[$a]."</td>";
           };
