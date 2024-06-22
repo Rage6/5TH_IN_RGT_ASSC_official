@@ -91,7 +91,7 @@
           <div>
             <ol>
               <li>
-                Applicants must apply between February 15 and close of business on May 15. The application form can only be found by logging into our website, returning to this page, and clicking "APPLY NOW". Only members can log in, so non-member applicants (ex. grandchildren) must contact their related Bobcat member for access. 
+                Applicants must apply during the 60 days between March 1st and the close of business on April 30th. The application form can only be found by logging into our website, returning to this page, and clicking "APPLY NOW". Only members can log in, so non-member applicants (ex. grandchildren) must contact their related Bobcat member for access. 
               </li>
               <li>
                 The Scholarship Committee will review the submitted applications and vote on the selected applicant(s) no later than May 31. These are then reviewed and, if accepted, approved by the President and Board of Directors.
@@ -112,10 +112,18 @@
         </div>
         <div class="regSection">
           <div class="regSubtitle">
+            Who Can Answer Questions About The Scholarship?
+          </div>
+          <div>
+            Scholarship and application inquiries should be directed to <a style="color:white" href="mailto:general.anderson.scholarship.info@gmail.com"><u><b>general.anderson.scholarship.info@gmail.com</b></u></a>
+          </div>
+        </div>
+        <div class="regSection">
+          <div class="regSubtitle">
             How Much Money Does The Scholarship Provide?
           </div>
           <div>
-            Individual scholarships of up to $1,500.00 for Undergraduate and Associate Degree Programs and up to $750.00 for Accredited VoTech School Certificates of Completion / Certification are based solely on the decision(s) of the Scholarship Committee and available funds.<br>
+            Individual scholarships will provide up to $1,500.00 for Undergraduate Degree Programs, Associate Degree Programs, and Accredited VoTech School Certificates of Completion / Certification. Choices of the recipients are based solely on the decision(s) of the Scholarship Committee and the available funds.<br>
           </div>
         </div>
         <div class="regSection">
