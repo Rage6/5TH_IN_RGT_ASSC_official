@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->string('biography')->nullable();
+            $table->text('biography')->nullable();
             $table->string('current_img')->nullable();
             $table->string('veteran_img')->nullable();
             $table->string('tombstone_img')->nullable();
             $table->boolean('deceased')->default(0);
-            // $table->string('mailing_address')->nullable();
             $table->string('street_address_1')->nullable();
             $table->string('street_address_2')->nullable();
             $table->string('mailing_city')->nullable();
@@ -57,6 +57,7 @@ return new class extends Migration
             $table->string('moh_rank')->nullable();
             $table->text('citation')->nullable();
             $table->boolean('awarded_posthumously')->default(0);
+            $table->timestamp('trial_ends_at')->nullable();
 
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
@@ -64,8 +65,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->bigInteger('casualty_conflict_id')->unsigned();
-            $table->bigInteger('moh_conflict_id')->unsigned();
+            $table->bigInteger('casualty_conflict_id')->unsigned()->nullable();
+            $table->bigInteger('moh_conflict_id')->unsigned()->nullable();
         });
     }
 

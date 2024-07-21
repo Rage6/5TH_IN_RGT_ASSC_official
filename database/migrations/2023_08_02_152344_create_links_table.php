@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('url');
             // $table->integer('member_id')->nullable();
-            $table->boolean('is_member')->default(0);
+            $table->boolean('is_member_link')->default(0);
             // $table->integer('casualty_id')->nullable();
-            $table->boolean('is_casualty')->default(0);
+            $table->boolean('is_casualty_link')->default(0);
             // $table->integer('moh_id')->nullable();
-            $table->boolean('is_moh')->default(0);
+            $table->boolean('is_moh_link')->default(0);
             $table->foreignId("user_id")->constrained()->onUpdate("cascade")->onDelete("cascade")->nullable();
             $table->timestamps();
         });

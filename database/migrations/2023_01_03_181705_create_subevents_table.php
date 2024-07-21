@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('title',255);
             $table->datetime('start_time')->nullable();
+            $table->boolean('has_start_time')->default(0);
             $table->datetime('end_time')->nullable();
+            $table->boolean('has_end_time')->default(0);
             $table->string('iframe_map_src',1000)->nullable();
             $table->string('classes')->nullable();
             $table->string('description',10000)->nullable();

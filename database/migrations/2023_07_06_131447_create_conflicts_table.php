@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('start_year');
-            $table->integer('end_year');
+            $table->integer('end_year')->nullable();
             $table->boolean('unit_participated')->default(0);
             $table->boolean('bobcat_casualties')->default(0);
             $table->boolean('bobcat_recipients')->default(0);
