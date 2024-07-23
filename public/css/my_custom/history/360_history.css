@@ -258,6 +258,17 @@ p {
   background-size: cover;
 }
 
+.alaskaSegment {
+  background:
+    linear-gradient(
+      to right,
+      rgba(255,255,255,0.7),
+      rgba(255,255,255,0.7)),
+    url('/images/history/alaska-airborne.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
 .firstTimeSegment {
   margin-top: 0;
 }

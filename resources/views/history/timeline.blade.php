@@ -5,7 +5,7 @@
 @section('timeline_content')
   <div class="mainBody">
     <div class="timelineBox">
-      <div class="timelineBar timelineBar_12">
+      <div class="timelineBar timelineBar_13">
         <div data-button="warOf1812">
           <div data-button="warOf1812">War of 1812</div>
         </div>
@@ -41,6 +41,9 @@
         </div>
         <div data-button="warOnTerror">
           <div data-button="warOnTerror">Global War On Terrorism</div>
+        </div>
+        <div data-button="2021toPresent">
+          <div data-button="2021toPresent">2021 to Present</div>
         </div>
       </div>
     </div>
@@ -534,6 +537,36 @@
             <p>
               On August 16, 2009, 2nd Battalion, 5th Infantry was re-activated at Fort Bliss, Texas.  The battalion is part of the 3rd Infantry Brigade, 1st Armored Division.  Following more than a year of training in the mountainous terrain of New Mexico and West Texas, 2nd Battalion is combat ready and destined to earn further honors for America’s third oldest active infantry regiment.
             </p>
+            <p>
+              The Second Battalion, 5 th Infantry Regiment was re-activated at Fort Bliss, Texas on August 16, 2009. The battalion became part of the 3 rd Infantry Brigade, 1 st Armored Division. Following two years of training in the mountainous terrain of New Mexico and West Texas, 2 nd Battalion was deployed to Wardak Province, Afghanistan in late September of 2011. The battalion’s initial mission was to man outposts and conduct patrols to reduce the insurgents’ ability to disrupt freedom of movement along Highway 1, the main arterial between Kabul and Kandahar. During the fall the battalion assessed and taught basic combat skills to Afghan National Army troops. By December, the Afghan soldiers were able to conduct routine operations independent of American supervision. 
+            </p>
+            <p>
+              Five months prior to 2 nd Battalion’s deployment, 1 st Battalion, 5 th Infantry had returned to Afghanistan and fell in on an area in Kandahar Province that encompassed the Panjwa’l and Dand Districts. In June, 2011 they observed and supported Afghan soldiers on clearance operations throughout southern and central Dand. In late July and early August, 1 st Battalion conducted two operations. The first was against Taliban headquarters in the village of Khenjakak . This was followed by Operation Bobcat Maul, a 10-day effort to control the major supply routes in the Horn of Panjwa’l. In October, Company C, 1 st Battalion moved north and, like 2 nd Battalion, conducted numerous combat patrols to reduce the Taliban’s ability to disrupt travel along Highway 1. 
+            </p>
+            <p>
+              In February, 2012, representatives from 2 nd Battalion flew from Forward Operating Base Shank in the eastern mountains of Afghanistan to Kandahar Airfield to reunite the two 5 th Infantry battalions for the first time since 1957 when they were stationed in Germany. It was the first time that the battalions had been in a war zone together since the Korean War. The Second Battalion re-deployed to Fort Bliss in July, 2012.
+            </p>
+            <p>
+              Despite rumors that the 2 nd Battalion would be transferred to the 101 st Airborne Division, the battalion was inactivated in April, 2015 during a restructuring of the 1 st Armored Division. Most of the battalion’s men and equipment at Fort Bliss were absorbed by the armored division. 
+            </p>
+            <p>
+              First Battalion completed its assignment in Afghanistan in April 2013 and returned to Fort Wainwright. They were soon alerted that they would be returning to Afghanistan but were later told that the brigade had been taken off the deployment schedule in order to focus on strategic objectives in the Pacific region. First Battalion, 5 th Infantry, 1 st Stryker Brigade at Fort Wainwright was, once again, the only vestige of America’s third-oldest regular army infantry unit. During the winter of 2015, the Bobcats won the United States Army Alaska Winter Games; a mix of snowshoe marching, down-hill skiing, and the biathlon firing range; a combination of cross-country skiing and close-range marksmanship. Highlights in 2016 involved training in conjunction with the U.S Air Force as well as with Canadian forces. 
+            </p>
+            <p>
+              In May of 2017, the battalion traveled to Korea for Operation Arctic Tiger, a month-long training event. While they were there, the Bobcats had the opportunity to view Outpost Harry, the scene of an epic battle that took place in June of 1953. ( Company A, 5 th RCT received the Distinguished Unit Citation for its valiant defense of that combat outpost.) By spring of 2018, 1 st Battalion had been organized into a unit composed of five companies: Headhunter Company (HHC), Anger Company, Bayonet Company, Charger Company, and Gladiator Company (G Co). Company G provided the battalion with logistical support. 
+            </p>
+            <p>
+              The Bobcats deployed to Iraq in the fall of 2019. On 20 September they relieved the 1st Battalion, 506th Regiment, 101 st Airborne Division near the city of Mosul. The Bobcats’ initial mission was to provide training and support for the Iraqi Army operations against Isis fighters but, several days later, the battalion moved from Mosul to Ein al-Asad Airbase in western Iraq to help the Iraqi Army provide security for the base. Anger Company was assigned to Al Qaim, near the Syrian border, to prevent ISIS fighters from infiltrating Iraq. 
+            </p>
+            <p>
+              On January 3, 2020, Iranian General Qasem Soleimani was killed by a U.S. drone missile strike while paying a visit to Baghdad, Iraq. Iran retaliated early on the morning of January 8, launching multiple ballistic missiles at select Iraqi bases hosting U. S. forces. Prior to the attack, personnel at Ein al-Asad were warned by U.S. Central Command that they had received intelligence that the Iranians were about to launch a missile attack. There was no missile defense system at the base. The first missiles hit the air base at 1:34 A.M and were followed by three more volleys. 
+            </p>
+            <p>
+              Prior to the missile attack, LTC Tim Garland, commander of 1/5, realizing that the number and size of the underground bunkers at Ein al-Asad would not safely accommodate the number of personnel on the base, had ordered most members of the battalion to disperse to the surrounding desert so they would not be in the impact area. Fifty aircraft and 1000 troops were able to evacuate before the missiles hit. It was later determined that 110 of the 200 people that remained in the blast zone were suffering from some level of traumatic brain injury. In the months following the attack, the United States deployed missile defense systems at some of the Iraqi installations. 
+            </p>
+            <p>
+              Elements of the 82d Airborne Division relieved the 5 th Infantry in the spring of 2020. The battalion returned to Fort Wainwright and resumed training. They turned in their Humvees for a new vehicle, the Joint Light Tactical Vehicle, which was designed to be less vulnerable to improvised explosive devices. During the winter of 2020-21, the Bobcats continued their cold weather training. In January, the Bobcat Battalion represented the entire Arctic Wolf Brigade at the Army Alaska Winter Games. The Bobcatsdominated.
+            </p>
           </div>
           <div class="segmentLinks">
             <div class="linkBox">
@@ -543,6 +576,38 @@
                   <li>Photo Album</li>
                 </a>
               </ul>
+            </div>
+            <div class="linkBox">
+              <div class="linkTitle externalLink">EXTERNAL LINKS</div>
+              <ul class="linkContent">
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="timeSegment alaskaSegment" data-section="2021toPresent">
+        <div class="segmentTitle"><u>2021 To Present</u></div>
+        <div class="segmentContent">
+          <div class="segmentWords">
+            <p>
+              In May, 2022, Army Secretary Christine Wormuth announced that U.S. Army Alaska would be reflagged as the 11 th Airborne Division. It would be composed of the 1 st Infantry Brigade Combat Team at Fort Wainwright and the 2 nd Infantry Brigade Combat Team (Airborne) at Joint Base Elmendorf-Richardson. The Combat Team at Fort Wainwright includes 1 st Brigade HHC; 5 th Squadron, 1 st Cavalry Regiment; 1 st Battalion, 5 th Infantry Regiment; 2 nd Battalion, 8 th Field Artillery; 70 th Brigade Engineer Battalion and the 25 th Brigade Support Battalion.
+            </p>
+            <p>
+              The 11 th Airborne surrendered its fleet of approximately 320 Stryker vehicles in September, 2022 to focus on air assault. Strykers were not designed to operate in freezing temperatures nor maneuver on snow and ice. 1 st Battalion, 5 th Infantry grew in number in early 2023 when the 3 rd Battalion, 21 st Infantry at Ft. Wainwright was inactivated. A Company, 21 st Infantry became D Company, 5 th Infantry. It was christened Dagger Company.
+            </p>
+            <p>
+              In the spring of 2023, the Bobcats served as an aggressor force taking on the entire 2 nd Brigade Combat Team at Joint Base Elmendorf-Richardson. Following that, half of the 5 th Infantry went to Malaysia for maneuvers and the other half remained at Ft. Wainwright to work on Expert Infantry, Expert Soldier, and Expert Medical Field Badges. Over three hundred fifty members of the battalion then went to Japan in July for Exercise Orient Shield. With deployments to the Middle East currently “on hold” the 1 st Battalion, 5 th Infantry has had a number of good opportunities to prepare to protect our interests in the Asian Pacific and Arctic regions.
+            </p>
+          </div>
+          <div class="segmentLinks">
+            <div class="linkBox">
+              <div class="linkTitle learnMore">LEARN MORE</div>
+              <!-- <ul class="linkContent">
+                <a href="{{ url('/history/album/gwot') }}">
+                  <li>Photo Album</li>
+                </a>
+              </ul> -->
             </div>
             <div class="linkBox">
               <div class="linkTitle externalLink">EXTERNAL LINKS</div>

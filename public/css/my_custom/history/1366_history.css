@@ -21,8 +21,8 @@
   overflow-y: scroll;
 }
 
-.timelineBar_12 {
-  grid-template-rows: repeat(12,calc(69vh/12));
+.timelineBar_13 {
+  grid-template-rows: repeat(13,calc(69vh/13));
 }
 
 .timelineBar_19 {
