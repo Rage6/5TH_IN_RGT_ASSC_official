@@ -354,6 +354,7 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
 
     Route::middleware(['permission:See Membership Applicants'])->group(function() {
       Route::get('membership-applicant-list',[App\Http\Controllers\AdminController::class,'membership_list_index'])->name('membership.list');
+      Route::post('membership-applicant-status/{id}',[App\Http\Controllers\AdminController::class,'membership_status_change'])->name('membership.change.status');
       Route::get('delete-membership-application/{id}',[App\Http\Controllers\AdminController::class,'delete_member_application'])->name('member.application.delete');
     });
 

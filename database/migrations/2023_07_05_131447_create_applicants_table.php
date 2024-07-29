@@ -36,6 +36,7 @@ return new class extends Migration
             $table->date('arrival_date')->nullable();
             $table->string('all_boolean_options')->nullable();
             $table->integer('all_boolean_count')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

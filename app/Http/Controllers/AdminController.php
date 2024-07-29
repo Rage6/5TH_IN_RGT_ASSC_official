@@ -3319,6 +3319,19 @@ class AdminController extends Controller
       ]);
     }
 
+    public function membership_status_change(Request $request, $id) {
+      $application = Applicant::find($id);
+
+      $request->validate([
+        'status' => 'required|string'
+      ]);
+
+      $application['status'] = $request->status;
+      $application->save();
+
+      return redirect()->route('membership.list');
+    }
+
     public function delete_member_application($id) {
       $applicant = Applicant::find($id);
 
