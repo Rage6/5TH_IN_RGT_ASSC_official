@@ -5,7 +5,7 @@
 @section('vietnam_glossary')
   <div class="mainBody">
     <div class="timelineBox">
-      <div class="timelineBar timelineBar_12">
+      <div class="timelineBar timelineBar_13">
         <a href="{{ route('history.timeline') }}">
           <div>
             <div> RETURN </div>
@@ -349,7 +349,7 @@
 @section('michelin_rubber_plant_battle_content')
   <div class="mainBody">
     <div class="timelineBox">
-      <div class="timelineBar timelineBar_12">
+      <div class="timelineBar timelineBar_13">
         <a href="{{ route('history.timeline') }}">
           <div>
             <div> RETURN </div>
@@ -397,7 +397,7 @@
 @section('presidential_citation_content')
   <div class="mainBody">
     <div class="timelineBox">
-      <div class="timelineBar timelineBar_12">
+      <div class="timelineBar timelineBar_13">
         <a href="{{ route('bencui.main') }}">
           <div>
             <div> RETURN </div>
@@ -506,7 +506,7 @@
 @section('ben_cui_forum_content')
   <div class="mainBody">
     <div class="timelineBox">
-      <div class="timelineBar timelineBar_12">
+      <div class="timelineBar timelineBar_13">
         <a href="{{ route('history.timeline') }}">
           <div>
             <div> RETURN </div>
@@ -620,7 +620,7 @@
 @section('the_rifle_and_the_myth_content')
   <div class="mainBody">
     <div class="timelineBox">
-      <div class="timelineBar timelineBar_12">
+      <div class="timelineBar timelineBar_13">
         <a href="{{ route('history.timeline') }}">
           <div>
             <div> RETURN </div>

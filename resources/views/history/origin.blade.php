@@ -5,7 +5,7 @@
 @section('origin_and_traditions_content')
   <div class="mainBody">
     <div class="timelineBox">
-      <div class="timelineBar timelineBar_12">
+      <div class="timelineBar timelineBar_13">
         <a href="{{ route('welcome') }}">
           <div>
             <div> RETURN </div>

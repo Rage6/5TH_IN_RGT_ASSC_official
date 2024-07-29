@@ -5,7 +5,7 @@
 @section('ben_cui_battle_content')
   <div class="mainBody">
     <div class="timelineBox">
-      <div class="timelineBar timelineBar_12">
+      <div class="timelineBar timelineBar_13">
         <a href="{{ route('history.timeline') }}">
           <div>
             <div> RETURN </div>
