@@ -24,7 +24,7 @@
               </i>
             </p>
             <div class="benCuiAlbumRow benCuiRight">
-              <a href="">
+              <a href="{{ route('album.bencui') }}">
                 <div class="benCuiAlbumBttn">
                   <div>BEN CUI</div>
                   <div>PHOTOS</div>

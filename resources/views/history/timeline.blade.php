@@ -431,7 +431,7 @@
                 <a href="{{ route('vietnam.1971') }}">
                   <div>+ 1971</div>
                 </a>
-                <a href="{{ url('/history/vietnam-history/maps') }}">
+                <a href="{{ route('album.vietnammaps') }}">
                   <div>+ Maps</div>
                 </a>
                 <a href="{{ route('vietnam.glossary') }}">

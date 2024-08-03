@@ -66,6 +66,14 @@ Route::prefix('history')->group(function() {
     Route::get('the-rifle-and-the-myth',[App\Http\Controllers\HistoryTopicController::class,'the_rifle_and_the_myth'])->name('rifle.myth');
     Route::get('presidential-citation',[App\Http\Controllers\HistoryTopicController::class,'presidential_citation'])->name('bencui.presidential');
   });
+  Route::prefix('album')->group(function() {
+    Route::get('ww2',[App\Http\Controllers\AlbumController::class,'ww2'])->name('album.ww2');
+    Route::get('korea',[App\Http\Controllers\AlbumController::class,'korea'])->name('album.korea');
+    Route::get('vietnam',[App\Http\Controllers\AlbumController::class,'vietnam'])->name('album.vietnam');
+    Route::get('gwot','AlbumController@gwot');
+    Route::get('ben-cui',[App\Http\Controllers\AlbumController::class,'ben_cui'])->name('album.bencui');
+    Route::get('vietnam-maps',[App\Http\Controllers\AlbumController::class,'vietnam_maps'])->name('album.vietnammaps');
+  });
 });
 
 Route::prefix('items')->group(function() {

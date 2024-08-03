@@ -16,6 +16,11 @@
 
     @include('footer.style')
 
+    <!-- This is only for the history 'album' pages -->
+    @if (isset($style)) 
+      @yield($style)
+    @endif
+
     <link rel="icon" href="/{{ config('app.url_ext') }}images/welcome/5INF_crest-min.png">
 
     <!-- Javascripts -->

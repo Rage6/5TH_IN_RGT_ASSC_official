@@ -18,7 +18,8 @@
 }
 
 .searchEl {
-  height: inherit;
+  max-height: 90vh;
+  height: unset;
 }
 
 .searchTitle {
