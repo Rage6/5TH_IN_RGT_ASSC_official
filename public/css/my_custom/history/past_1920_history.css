@@ -188,3 +188,10 @@ body {
 .onePanelBox {
   width: 45%;
 }
+
+.stuffelbeamImg {
+  margin-left: 2vw;
+  float: right;
+  height: 40vh;
+  width: 28vw;
+}

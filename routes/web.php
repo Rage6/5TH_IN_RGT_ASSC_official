@@ -75,6 +75,8 @@ Route::prefix('history')->group(function() {
     Route::get('vietnam-maps',[App\Http\Controllers\AlbumController::class,'vietnam_maps'])->name('album.vietnammaps');
   });
   Route::get('korean-war-distinguished-unit-citation', [App\Http\Controllers\HistoryTopicController::class,'korea_citation'])->name('korea.citation');
+  Route::get('million-dollar-hill', [App\Http\Controllers\HistoryTopicController::class,'million_dollar_hill'])->name('korea.hill');
+  Route::get('myron-stuffelbeam-50-year-anniversary', [App\Http\Controllers\HistoryTopicController::class,'myron_stuffelbeam'])->name('korea.stuffelbeam');
 });
 
 Route::prefix('items')->group(function() {

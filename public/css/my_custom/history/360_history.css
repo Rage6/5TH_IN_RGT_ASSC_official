@@ -874,3 +874,12 @@ p {
   font-size: 1.3rem;
   font-family: 'Bellefair', serif;
 }
+
+.stuffelbeamImg {
+  margin-bottom: 20px;
+  background-image: url('/images/history/topics/stuffelbeam.jpg');
+  background-size:contain;
+  background-position:center;
+  background-repeat: no-repeat;
+  height: 40vh;
+}

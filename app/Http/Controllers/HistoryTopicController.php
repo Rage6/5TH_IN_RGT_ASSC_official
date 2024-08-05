@@ -17,19 +17,47 @@ class HistoryTopicController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function korea_citation(Request $request)
-     {
-        // The 'get_cart_count' function is in 'app\helper.php'
-        $cart_count = get_cart_count($request)->cart_count;
- 
-        return view('history.korea.history_topic',[
-          'style' => 'history_style',
-          'js' => '/js/my_custom/history/history.js',
-          'content' => 'distinguished_unit_citation_content',
-          'page_title' => "Distinguished Unit Citation",
-          'cart_count' => $cart_count
-        ]);
-     }
+    public function korea_citation(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.korea.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'distinguished_unit_citation_content',
+        'page_title' => "Distinguished Unit Citation",
+        'cart_count' => $cart_count
+      ]);
+    }
+
+    public function million_dollar_hill(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.korea.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'million_dollar_hill_content',
+        'page_title' => "Million Dollar Hill",
+        'cart_count' => $cart_count
+      ]);
+    }
+
+    public function myron_stuffelbeam(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.korea.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'myron_stuffelbeam_content',
+        'page_title' => "Myron Stuffelbeam - 50th Year of Korean War",
+        'cart_count' => $cart_count
+      ]);
+    }
     
      public function vietnam_preface(Request $request)
     {

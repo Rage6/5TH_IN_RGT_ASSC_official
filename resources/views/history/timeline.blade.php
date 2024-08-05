@@ -318,13 +318,13 @@
                 <a href="{{ url('/history/album/korea') }}">
                   <li>Photo Album</li>
                 </a>
-                <a href="https://classic.bobcat.ws/stuffelbeam.html">
+                <a href="{{ route('korea.stuffelbeam') }}">
                   <li>Myron Stuffelbeam - 50th Year Recognition</li>
                 </a>
                 <a href="{{ route('korea.citation') }}">
                   <li>Distinguished Unit Citation</li>
                 </a>
-                <a href="https://classic.bobcat.ws/million-dollar-hill.html">
+                <a href="{{ route('korea.hill') }}">
                   <li>"Million Dollar Hill"</li>
                 </a>
               </ul>
