@@ -17,7 +17,21 @@ class HistoryTopicController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function vietnam_preface(Request $request)
+     public function korea_citation(Request $request)
+     {
+        // The 'get_cart_count' function is in 'app\helper.php'
+        $cart_count = get_cart_count($request)->cart_count;
+ 
+        return view('history.korea.history_topic',[
+          'style' => 'history_style',
+          'js' => '/js/my_custom/history/history.js',
+          'content' => 'distinguished_unit_citation_content',
+          'page_title' => "Distinguished Unit Citation",
+          'cart_count' => $cart_count
+        ]);
+     }
+    
+     public function vietnam_preface(Request $request)
     {
        // The 'get_cart_count' function is in 'app\helper.php'
        $cart_count = get_cart_count($request)->cart_count;

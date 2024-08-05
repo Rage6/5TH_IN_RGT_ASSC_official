@@ -321,7 +321,7 @@
                 <a href="https://classic.bobcat.ws/stuffelbeam.html">
                   <li>Myron Stuffelbeam - 50th Year Recognition</li>
                 </a>
-                <a href="https://classic.bobcat.ws/Co%20A%20Dist.%20Unit%20Cit.%20Korea.pdf">
+                <a href="{{ route('korea.citation') }}">
                   <li>Distinguished Unit Citation</li>
                 </a>
                 <a href="https://classic.bobcat.ws/million-dollar-hill.html">

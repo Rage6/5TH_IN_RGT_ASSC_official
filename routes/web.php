@@ -74,6 +74,7 @@ Route::prefix('history')->group(function() {
     Route::get('ben-cui',[App\Http\Controllers\AlbumController::class,'ben_cui'])->name('album.bencui');
     Route::get('vietnam-maps',[App\Http\Controllers\AlbumController::class,'vietnam_maps'])->name('album.vietnammaps');
   });
+  Route::get('korean-war-distinguished-unit-citation', [App\Http\Controllers\HistoryTopicController::class,'korea_citation'])->name('korea.citation');
 });
 
 Route::prefix('items')->group(function() {
