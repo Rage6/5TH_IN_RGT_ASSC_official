@@ -58,7 +58,7 @@
           <div class="segmentWords">
             <p>
               <i>
-                Information from: <a href="https://history.army.mil/reference/Korea/kw-remem.htm">U.S. Army Center of Military History</a>
+                Information from: <a href="https://history.army.mil/reference/Korea/kw-remem.htm" target="_blank">U.S. Army Center of Military History</a>
               </i>
             </p>
             <p>

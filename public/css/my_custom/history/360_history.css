@@ -883,3 +883,28 @@ p {
   background-repeat: no-repeat;
   height: 40vh;
 }
+
+.companyIntro {
+  font-size: 1.3rem;
+  font-family: 'Bellefair', serif;
+  font-style: italic;
+}
+
+.companyIntro div {
+  margin-left: 10%;
+  margin-bottom: 20px;
+  width: 80%;
+}
+
+.companyIntro div:first-of-type {
+  text-align: center;
+}
+
+.compCimg {
+  margin-bottom: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url('/images/history/topics/Comp_C_History.jpg');
+  height: 40vh;
+}

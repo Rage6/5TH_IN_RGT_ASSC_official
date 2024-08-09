@@ -48,6 +48,7 @@ Route::prefix('history')->group(function() {
   Route::get('origin-and-tradition',[App\Http\Controllers\HistoryController::class,'origin'])->name('origin.index');
   Route::get('timeline',[App\Http\Controllers\HistoryController::class,'index'])->name('history.timeline');
   Route::prefix('topic')->group(function() {
+    // Vietnam topics
     Route::get('vietnam-after-action-reports',[App\Http\Controllers\HistoryTopicController::class,'after_action_reports'])->name('vietnam.aar');
     Route::prefix('vietnam-history')->group(function() {
       Route::get('preface',[App\Http\Controllers\HistoryTopicController::class,'vietnam_preface'])->name('vietnam.preface');
@@ -65,6 +66,12 @@ Route::prefix('history')->group(function() {
     Route::get('michelin-rubber-plant-battle',[App\Http\Controllers\HistoryTopicController::class,'michelin_rubber_plant_battle'])->name('michelin.battle');
     Route::get('the-rifle-and-the-myth',[App\Http\Controllers\HistoryTopicController::class,'the_rifle_and_the_myth'])->name('rifle.myth');
     Route::get('presidential-citation',[App\Http\Controllers\HistoryTopicController::class,'presidential_citation'])->name('bencui.presidential');
+    // Korea topics
+    Route::get('korean-war-distinguished-unit-citation', [App\Http\Controllers\HistoryTopicController::class,'korea_citation'])->name('korea.citation');
+    Route::get('million-dollar-hill', [App\Http\Controllers\HistoryTopicController::class,'million_dollar_hill'])->name('korea.hill');
+    Route::get('myron-stuffelbeam-50-year-anniversary', [App\Http\Controllers\HistoryTopicController::class,'myron_stuffelbeam'])->name('korea.stuffelbeam');
+    // WWII topics
+    Route::get('history-of-company-c', [App\Http\Controllers\HistoryTopicController::class,'c_company'])->name('ww2.company');
   });
   Route::prefix('album')->group(function() {
     Route::get('ww2',[App\Http\Controllers\AlbumController::class,'ww2'])->name('album.ww2');
@@ -74,9 +81,9 @@ Route::prefix('history')->group(function() {
     Route::get('ben-cui',[App\Http\Controllers\AlbumController::class,'ben_cui'])->name('album.bencui');
     Route::get('vietnam-maps',[App\Http\Controllers\AlbumController::class,'vietnam_maps'])->name('album.vietnammaps');
   });
-  Route::get('korean-war-distinguished-unit-citation', [App\Http\Controllers\HistoryTopicController::class,'korea_citation'])->name('korea.citation');
-  Route::get('million-dollar-hill', [App\Http\Controllers\HistoryTopicController::class,'million_dollar_hill'])->name('korea.hill');
-  Route::get('myron-stuffelbeam-50-year-anniversary', [App\Http\Controllers\HistoryTopicController::class,'myron_stuffelbeam'])->name('korea.stuffelbeam');
+  // Route::get('korean-war-distinguished-unit-citation', [App\Http\Controllers\HistoryTopicController::class,'korea_citation'])->name('korea.citation');
+  // Route::get('million-dollar-hill', [App\Http\Controllers\HistoryTopicController::class,'million_dollar_hill'])->name('korea.hill');
+  // Route::get('myron-stuffelbeam-50-year-anniversary', [App\Http\Controllers\HistoryTopicController::class,'myron_stuffelbeam'])->name('korea.stuffelbeam');
 });
 
 Route::prefix('items')->group(function() {

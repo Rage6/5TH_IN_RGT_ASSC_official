@@ -82,3 +82,10 @@
   height: 20vh;
   width: 28vw;
 }
+
+.compCimg {
+  margin-left: 3vw;
+  float: right;
+  width: 30vw;
+  height: 30vh;
+}

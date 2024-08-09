@@ -58,8 +58,22 @@ class HistoryTopicController extends Controller
         'cart_count' => $cart_count
       ]);
     }
+
+    public function c_company(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.ww2.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'c_company_content',
+        'page_title' => "History of Company C",
+        'cart_count' => $cart_count
+      ]);
+    }
     
-     public function vietnam_preface(Request $request)
+    public function vietnam_preface(Request $request)
     {
        // The 'get_cart_count' function is in 'app\helper.php'
        $cart_count = get_cart_count($request)->cart_count;

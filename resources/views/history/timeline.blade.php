@@ -235,7 +235,7 @@
                 <a href="{{ url('/history/album/ww2') }}">
                   <li>Photo Album</li>
                 </a>
-                <a href="https://classic.bobcat.ws/ww2history.html">
+                <a href="{{ route('ww2.company') }}">
                   <li>History of Company C</li>
                 </a>
                 <a href="https://classic.bobcat.ws/recollections-by-ponder.html">
