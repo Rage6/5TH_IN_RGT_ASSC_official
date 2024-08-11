@@ -875,6 +875,8 @@ p {
   font-family: 'Bellefair', serif;
 }
 
+/* Korean War topics */
+
 .stuffelbeamImg {
   margin-bottom: 20px;
   background-image: url('/images/history/topics/stuffelbeam.jpg');
@@ -883,6 +885,8 @@ p {
   background-repeat: no-repeat;
   height: 40vh;
 }
+
+/* World War II topics */
 
 .companyIntro {
   font-size: 1.3rem;
@@ -907,4 +911,27 @@ p {
   background-size: contain;
   background-image: url('/images/history/topics/Comp_C_History.jpg');
   height: 40vh;
+}
+
+.songList {
+  border: 1px solid black;
+  overflow-y: scroll;
+  height: 50vh;
+}
+
+.songList div {
+  padding: 5px;
+}
+
+.audio1 {
+  background-color: rgba(0,0,0,0.1);
+}
+
+.audio2 {
+  background-color: rgba(0,0,0,0.3);
+}
+
+.songList div div {
+  margin-bottom: 5px;
+  text-align: center;
 }

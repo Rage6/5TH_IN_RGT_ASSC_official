@@ -140,3 +140,235 @@
   </div>
   @include ('footer.content')
 @stop
+
+@section('recollections_content')
+  <div class="mainBody">
+    <div class="timelineBox">
+      <div class="timelineBar timelineBar_13">
+        <a href="{{ route('history.timeline') }}">
+          <div>
+            <div> RETURN </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="allSegments">
+      <div class="nonTimeSegment topicSegment">
+        <div class="segmentTitle">
+          <u>
+            Recollections
+          </u>
+        </div>
+        <div class="segmentContent">
+          <div class="segmentWords">
+            <div class="companyIntro">
+              <div>
+                Written by COL Lewington "Lew" Ponder
+              </div>
+              <div>
+                Some personal recollections, aided by a small diary I kept during those days.
+              </div>
+            </div>
+            <p>
+              I joined the 5th Infantry in June, 1944, after they moved to Ft. Benning and the 71st Division was reconfigured from a Light Division (an experiment which did not work) into a standard Infantry Division. I served the summer and fall of 1944 as a Liaison Officer (assistant to the S3) and later as Acting Regimental S1. During that period the regiment was brought to full strength and trained on the equipment which it had not had when it was in the Light Division. All this training culminated in several field exercises varying from Battalion, Regimental and finally a Division sized exercise. Immediately after the division level exercise we went to a full size packing and crating operation and the sending out of the advance parties in preparation for overseas movement. The 5th Infantry moved out of Ft. Benning on 11 Jan 1945 and arrived at Camp Kilmer, NJ, on 13 Jan 45. Since our Adjutant, Captain Adelbert "Dale" Boggs, had gone with the Advance Party I was the Acting Adjutant.
+            </p>
+            <p>
+              On 23 Jan 45 I boarded the Naval Transport The General Tasker H. Bliss with the advance elements of the 5th Infantry. The entire 5th Infantry plus 71st Division Headquarters came aboard 25 Jan and we sailed on 26 Jan into the icy North Atlantic. The remainder of the division were in several smaller ships. There were well over a hundred ships in our convoy but I don't recall the exact number. They voyage was fairly rough as the North Atlantic usually is rough that time of the year. One event during the voyage is worth noting and I quote from "The Siegfried and Beyond", a history of the 71st Division by Gerald McMahon.
+            </p>
+            <p>
+              "Lt. Lew Ponder, a junior officer on the regimental staff, sailed on the General Bliss, a flagship of the Convoy Commander. The ship was a well built Navy Transport initially designed to carry 1,500 men but converted to carry 5,200. Aboard was the entire 5th Infantry Regiment and most of the elements of the division staff and special troops. The General Bliss maintained position centered in the first rank of the convoy.  While we were at least four days out from our scheduled landfall in southern England we experienced a particularly unusual attack, one which could have been a disaster for t,200 men. Lew Ponder wrote the following account: "The night of February 2nd, I was awakened at around 2:30a.m. by one of the other officers moving about the cabin. As I was drifting off to sleep again I felt a jar and heard a noise as if a heavy, metal object had fallen on the deck below. I listened for a while but heard nothing else nor did I note any unusual activity so I went back to sleep. In the morning, the Transportation Corps Liaison Officer told me we had been struck by a torpedo but that it did not explode. Going on deck I went to where there was a crowd at the rail. By leaning way out it was possible, when the ship rolled to starboard, to see a long dent in the port side, just below the water line. Later Colonel Wooten told me that the ship did strike something during the night. Just what was unknown. Word from the Captain was that it could have been a glancing hit from a torpedo which did not explode, but more likely it was some heavy, inert object. In any event, it drove home to us that we really were in the combat zone."  
+            </p>
+            <p>
+              Gerry McMahon goes on to say, "......I was on the Bliss and went below in the morning to see the indentation and long scar made in the hull by the "object." The men in that compartment were really shaken. Actually, had the torpedo exploded it is not likely we would have been able to limp into port. The convoy would have gone on, in keeping with standard procedure. ....."
+            </p>
+            <p>
+              The 5th Infantry landed at the Port of Le Harve, France 6 February 1945 and proceeded to Camp Old Gold near the village of St. Laurent en Caux, Camp Old God was one of the "Cigarette" camps where units and individuals newly arrived in the theater of operations were staged. We remained there drawing weapons and equipment, zeroing weapons, getting familiar with German weapons and equipment, and generally getting ready for the move to the front. The 5th moved out of Camp Old Gold on March 8th by motor and rail. I went with the motor element and we moved from the Le Harve area, through the outskirts of Paris to Kirweiler in the Saar area of France, arriving late on the 9th. All elements of the Regiment had closed by the 11th and on the 12th we relieved elements of the 100th Division on the front line. Regimental CP was in the town of St. Louis les Bitche.
+            </p>
+            <p>
+              The 5th Infantry, as part of the overall push to break through the Siegfried Line move out on the 18th of March but I was not with them. I had been assigned to fly as an observer with the 34th Squadron, 42nd Bomb Group (Light) who flew B-26 bombers. The 5th was engaged in heavy fighting, particularly at Lingenfeld and Westheim but reached the Rhine River near Speyer on March 26th, I think, where I rejoined them after flying five combat missions with the B-26 outfit.
+            </p>
+            <p>
+              There is little I can add to what Gerry McMahon has put into "Riding Point for Patton. Each of us has our war stories and saw the action differently but he has the basic facts in his booklet. The only area in which he perhaps didn't give the 5th Infantry enough credit is in the liberation of the Gunskirchen Lager, a fairly new satellite concentration camp of the major concentration camp of Mauthausen. Gerry later edited a pamphlet "A Corner of Hell - the Liberation of Gunskirchen Lager", a compilation of official reports. Gunskirchen was about 20 miles SW of Linz, Austria. The first US elements to reach Gunskirchen were units of the 71st Division Reconnaissance Company but it fell to the 3rd Battalion, 5th Infantry -- particularly Company K -- to administer and care for the inmates until help arrived from higher up. There were 15,000 Hungarian Jews still alive when our troops arrived. No one knows how many had died there though it is estimated that at least 8,000 had died of malnutrition and abuse (there were no mass executions there as there was in some other camps). There were dead bodies strewn all ove the area. After the Reconn elements arrived and before proper control could be placed on the camp many inmates fled the camp and died on the road before they could be rounded up and taken for proper care. Even after proper medical and other care was provided many were so far gone that deaths continued for several weeks. Great credit should be given to the soldiers of the 5th Infantry for the great care they gave the survivors during the hours and days immediately after the liberation of the camp. Several survivors of the camp or their descendants eventually migrated to the US and many have joined as Honorary Members of the 71st Division Association where they continually express their gratitude for the men of the 71st Division and the 5th Infantry.
+            </p>
+            <p>
+              Did Gerry mention in his Riding Point that at war's end the 5th Infantry was the farthest east of any US unit? It is true. Steyer was the farthest east any unit got before having to stop and wait for the Russians. 
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  @include ('footer.content')
+@stop
+
+@section('soldiers_chorus_content')
+  <div class="mainBody">
+    <div class="timelineBox">
+      <div class="timelineBar timelineBar_13">
+        <a href="{{ route('history.timeline') }}">
+          <div>
+            <div> RETURN </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="allSegments">
+      <div class="nonTimeSegment topicSegment">
+        <div class="segmentTitle">
+          <u>
+            5th Infantry Soldier Chorus
+          </u>
+        </div>
+        <div class="segmentContent">
+          <div class="segmentWords">
+            <div class="companyIntro">
+              <div>
+                This is the story of the Fifth Infantry Soldier Chorus founded by Luther Onerheim while serving with the Third Army, 71st Infantry Division 5th Infantry Regiment, during World War II.
+              </div>
+              <div style="text-align:center">
+                For photos of the chorus, see our <u><a href="https://classic.bobcat.ws/5th-infantry-chorus.html">classic version</a>.</u>
+              </div>
+            </div>
+            <p>
+              The men of the 71st Division were unclear what the future held as they started training at Fort Benning, Georgia for the fight still ahead. The idea of a Regimental Chorus in this uncertain environment was controversial at best. But visionaries Chaplain Thomas O. Harrison and Chaplain Leon R. Gorsline believed and supported the dream of a top notch a cappella chorus made up of ordinary infantry soldiers. Undaunted by scoffers and general opposition, Pfc. Luther Onerheim held the first rehearsal on September 1, 1944 in the Sand Hill Chapel No. 5, Fort Benning Georgia. However, men were unable to attend rehearsals and the initial progress was very slow. A plea was made to Colonel Sidney C. Wooten, commander of the Fifth Infantry Regiment. He consented to give the chorus a chance and had a meeting with all First Sergeants . Attendance at rehearsals was no longer a problem! From these shaky beginnings, an outstanding musical ensemble was formed which would delight the audiences of Europe, as well as military dignitaries, including General George S. Patton who praised them saying "Fine music and excellent soldierly appearance".
+            </p>
+            <div class="segmentImg imgLeft songList">
+              <div class="audio1">
+                <div>
+                  Out of the Depths I Cry to Thee
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/01_out_of_the_depths_i_cry_to_thee.mp3">
+                </audio>
+              </div>
+              <div class="audio2">
+                <div>
+                  Jesu, Joy of Man's Desiring
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/02_jesu_joy_of_mans_desiring.mp3">
+                </audio>
+              </div>
+              <div class="audio1">
+                <div>
+                  Pilgrim's Hymn
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/03_pilgrims_hymn.mp3">
+                </audio>
+              </div>
+              <div class="audio2">
+                <div>
+                  Qui Tollis
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/04_qui_tollis.mp3">
+                </audio>
+              </div>
+              <div class="audio1">
+                <div>
+                  Adoramus te Christe
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/05_adoramus_te.mp3">
+                </audio>
+              </div>
+              <div class="audio2">
+                <div>
+                  Glory to God in the Highest
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/06_glory_to_god_in_the_highest.mp3">
+                </audio>
+              </div>
+              <div class="audio1">
+                <div>
+                  Emitte Spiritum
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/07_emitte_spiritum.mp3">
+                </audio>
+              </div>
+              <div class="audio2">
+                <div>
+                  O Bone Jesu
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/08_o_bone_jesu.mp3">
+                </audio>
+              </div>
+              <div class="audio1">
+                <div>
+                  Cantate Domingo
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/09_cantate_domino.mp3">
+                </audio>
+              </div>
+              <div class="audio2">
+                <div>
+                  Landsighting
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/10_landsighting.mp3">
+                </audio>
+              </div>
+              <div class="audio1">
+                <div>
+                  Praise the Lord of All Creation
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/11_praise_the_lord_of_all_creation.mp3">
+                </audio>
+              </div>
+              <div class="audio2">
+                <div>
+                  With Hearts Uplifted
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/12_with_hearts_uplifted.mp3">
+                </audio>
+              </div>
+              <div class="audio1">
+                <div>
+                  Lost in the Night
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/13_lost_in_the_night.mp3">
+                </audio>
+              </div>
+              <div class="audio2">
+                <div>
+                  Joshua Fit the Battle of Jericho
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/14_joshua_fit_the_battle_of_jerico.mp3">
+                </audio>
+              </div>
+              <div class="audio1">
+                <div>
+                  Ave Vernum
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/15_ave_verum.mp3">
+                </audio>
+              </div>
+              <div class="audio2">
+                <div>
+                  Beautiful Savior
+                </div>
+                <audio class="audioClip" controls>
+                  <source src="/audio/16_beautiful_savior.mp3">
+                </audio>
+              </div>
+            </div>
+            <p>
+              Through contacts in Austria, the now Sergeant Onerheim arranged for the Soldier Chorus to sing at the prestigious Salzburg Music Festival on September 2, 1945. The concert, opened with A Mighty Fortress Is Our God, and included the Sibelius Thee, God, We Praise and the F. Melius Christiansen arrangement of  Lost in the Night*  with Richard Eichenberger, soloist.  Luther Onerheim was an inspiration for the men in the chorus. His personality enabled the chorus to rise above themselves and sing better than they believed they could. On January 16, 1946, Luther was driving to Saal, Germany to pick up props for a new tour. He met a six-ton engineering truck on an icy mountain road near Abendsberg. His jeep slid and struck the truck behind the cab. He was diagnosed with a severe basal skull fracture and died at 8:30 that night without ever regaining consciousness. The chorus was stunned. Their beloved leader was gone. It was agreed that Luther would want the chorus to continue singing as long as possible. Col. Wooten ordered all Regimental and National colors be lowered to half-mast on January 18 as a tribute to Onerheim. Col. Wooten saluted him as "The finest soldier and gentlemen I have ever known." The chorus sang  Beautiful Savior *  for the close of his memorial service in St.Paul's Lutheran Church, Augsburg. A final tour was given under the direction of chorus member Richard Eichenberger. On February 3, the chorus sang its final performance in the 71st Division Chapel in Augsburg.   On February 5, after many members had left or been called back to their companies, only a skeleton of the once great chorus remained. Col. Wooten had requested a new series of programs, but Eichenberger objected to singing inferior concerts to audiences who remembered the once first-rate chorus. It ended with Wooten sending the remaining members of the chorus back to their respective companies.During the months following V-E Day, the Fifth Infantry Soldier Chorus sang 110 major performances with a repertoire of nearly 100 selections, all memorized. The 60 men who were part of the Soldier Chorus since its beginning were brought closer to God through music and found inspiration in an atmosphere of death and destruction.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  @include ('footer.content')
+@stop

@@ -238,14 +238,11 @@
                 <a href="{{ route('ww2.company') }}">
                   <li>History of Company C</li>
                 </a>
-                <a href="https://classic.bobcat.ws/recollections-by-ponder.html">
+                <a href="{{ route('ww2.recollections') }}">
                   <li>Recollections by Lew Ponder</li>
                 </a>
-                <a href="https://classic.bobcat.ws/5th-infantry-chorus.html">
+                <a href="{{ route('ww2.chorus') }}">
                   <li>5th Infantry Soldier Chorus</li>
-                </a>
-                <a href="http://bobcat.ws/The%20Soldier%20Chorus.PDF">
-                  <li>"The Soldier Chorus" by Robert Peck</li>
                 </a>
               </ul>
             </div>
@@ -565,22 +562,26 @@
               Prior to the missile attack, LTC Tim Garland, commander of 1/5, realizing that the number and size of the underground bunkers at Ein al-Asad would not safely accommodate the number of personnel on the base, had ordered most members of the battalion to disperse to the surrounding desert so they would not be in the impact area. Fifty aircraft and 1000 troops were able to evacuate before the missiles hit. It was later determined that 110 of the 200 people that remained in the blast zone were suffering from some level of traumatic brain injury. In the months following the attack, the United States deployed missile defense systems at some of the Iraqi installations. 
             </p>
             <p>
-              Elements of the 82d Airborne Division relieved the 5 th Infantry in the spring of 2020. The battalion returned to Fort Wainwright and resumed training. They turned in their Humvees for a new vehicle, the Joint Light Tactical Vehicle, which was designed to be less vulnerable to improvised explosive devices. During the winter of 2020-21, the Bobcats continued their cold weather training. In January, the Bobcat Battalion represented the entire Arctic Wolf Brigade at the Army Alaska Winter Games. The Bobcatsdominated.
+              Elements of the 82d Airborne Division relieved the 5th Infantry in the spring of 2020. The battalion returned to Fort Wainwright and resumed training. They turned in their Humvees for a new vehicle, the Joint Light Tactical Vehicle, which was designed to be less vulnerable to improvised explosive devices. During the winter of 2020-21, the Bobcats continued their cold weather training. In January, the Bobcat Battalion represented the entire Arctic Wolf Brigade at the Army Alaska Winter Games. The Bobcatsdominated.
             </p>
           </div>
           <div class="segmentLinks">
-            <div class="linkBox">
+            <!-- <div class="linkBox">
               <div class="linkTitle learnMore">LEARN MORE</div>
               <ul class="linkContent">
                 <a href="{{ url('/history/album/gwot') }}">
                   <li>Photo Album</li>
                 </a>
               </ul>
-            </div>
+            </div> -->
             <div class="linkBox">
               <div class="linkTitle externalLink">EXTERNAL LINKS</div>
               <ul class="linkContent">
-
+                <li>
+                  <a href="https://www.thepanjwaipodcast.com/episodes/s2e15" target="_blank">
+                    "Rendering Aid" - Panjwai Podcast interview of Thomas Underhill
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

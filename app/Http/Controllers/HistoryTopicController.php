@@ -17,6 +17,48 @@ class HistoryTopicController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function c_company(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.ww2.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'c_company_content',
+        'page_title' => "History of Company C",
+        'cart_count' => $cart_count
+      ]);
+    }
+
+    public function recollections(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.ww2.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'recollections_content',
+        'page_title' => "Recollections",
+        'cart_count' => $cart_count
+      ]);
+    }
+
+    public function soldiers_chorus(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.ww2.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'soldiers_chorus_content',
+        'page_title' => "5th Infantry Soldier Chorus",
+        'cart_count' => $cart_count
+      ]);
+    }
+
     public function korea_citation(Request $request)
     {
       // The 'get_cart_count' function is in 'app\helper.php'
@@ -55,20 +97,6 @@ class HistoryTopicController extends Controller
         'js' => '/js/my_custom/history/history.js',
         'content' => 'myron_stuffelbeam_content',
         'page_title' => "Myron Stuffelbeam - 50th Year of Korean War",
-        'cart_count' => $cart_count
-      ]);
-    }
-
-    public function c_company(Request $request)
-    {
-      // The 'get_cart_count' function is in 'app\helper.php'
-      $cart_count = get_cart_count($request)->cart_count;
-
-      return view('history.ww2.history_topic',[
-        'style' => 'history_style',
-        'js' => '/js/my_custom/history/history.js',
-        'content' => 'c_company_content',
-        'page_title' => "History of Company C",
         'cart_count' => $cart_count
       ]);
     }

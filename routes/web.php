@@ -72,6 +72,8 @@ Route::prefix('history')->group(function() {
     Route::get('myron-stuffelbeam-50-year-anniversary', [App\Http\Controllers\HistoryTopicController::class,'myron_stuffelbeam'])->name('korea.stuffelbeam');
     // WWII topics
     Route::get('history-of-company-c', [App\Http\Controllers\HistoryTopicController::class,'c_company'])->name('ww2.company');
+    Route::get('recollections-by-lew-ponder', [App\Http\Controllers\HistoryTopicController::class,'recollections'])->name('ww2.recollections');
+    Route::get('the-soldiers-chorus', [App\Http\Controllers\HistoryTopicController::class,'soldiers_chorus'])->name('ww2.chorus');
   });
   Route::prefix('album')->group(function() {
     Route::get('ww2',[App\Http\Controllers\AlbumController::class,'ww2'])->name('album.ww2');
