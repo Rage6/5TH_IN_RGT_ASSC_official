@@ -202,3 +202,17 @@ body {
   width: 20vw;
   height: 30vh;
 }
+
+.lundysLaneImg {
+  margin-left: 3vw;
+  float: right;
+  width: 30vw;
+  height: 30vh;
+}
+
+.lundysLaneAnniversary {
+  margin-right: 3vw;
+  float: left;
+  width: 30vw;
+  height: 30vh;
+}

@@ -45,6 +45,20 @@ class HistoryTopicController extends Controller
       ]);
     }
 
+    public function battle_of_lundys_lane(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.war_of_1812.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'battle_of_lundys_lane_content',
+        'page_title' => "The Battle of Lundy's Lane",
+        'cart_count' => $cart_count
+      ]);
+    }
+
     public function soldiers_chorus(Request $request)
     {
       // The 'get_cart_count' function is in 'app\helper.php'

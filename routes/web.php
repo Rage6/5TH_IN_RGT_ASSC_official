@@ -48,6 +48,10 @@ Route::prefix('history')->group(function() {
   Route::get('origin-and-tradition',[App\Http\Controllers\HistoryController::class,'origin'])->name('origin.index');
   Route::get('timeline',[App\Http\Controllers\HistoryController::class,'index'])->name('history.timeline');
   Route::prefix('topic')->group(function() {
+    // War of 1812
+    Route::prefix('war-of-1812')->group(function() {
+      Route::get('battle-of-lundys-lane',[App\Http\Controllers\HistoryTopicController::class,'battle_of_lundys_lane'])->name('1812.battle');
+    });
     // Vietnam topics
     Route::get('vietnam-after-action-reports',[App\Http\Controllers\HistoryTopicController::class,'after_action_reports'])->name('vietnam.aar');
     Route::prefix('vietnam-history')->group(function() {

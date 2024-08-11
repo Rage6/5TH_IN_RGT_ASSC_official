@@ -76,12 +76,12 @@
             <div class="linkBox">
               <div class="linkTitle learnMore">LEARN MORE</div>
               <ul class="linkContent">
-                <a href="http://bobcat.ws/lundys-lane-history.html">
+                <a href="{{ route('1812.battle') }}">
                   <li>The Battle of Lundy's Lane</li>
                 </a>
-                <a href="http://bobcat.ws/lundys-lane-july-25-1814---2014.html">
+                <!-- <a href="http://bobcat.ws/lundys-lane-july-25-1814---2014.html">
                   <li>200 Year Celebration at Lundy's Lane</li>
-                </a>
+                </a> -->
               </ul>
             </div>
             <div class="linkBox">
