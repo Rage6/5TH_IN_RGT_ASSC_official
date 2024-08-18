@@ -429,6 +429,34 @@ class HistoryTopicController extends Controller
       ]);
     }
 
+    public function afghanistan_2004(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.gwot.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'afghanistan_2004_content',
+        'page_title' => "2nd Battalion: Afghanistan, 2004",
+        'cart_count' => $cart_count
+      ]);
+    }
+
+    public function iraq_2004(Request $request)
+    {
+      // The 'get_cart_count' function is in 'app\helper.php'
+      $cart_count = get_cart_count($request)->cart_count;
+
+      return view('history.gwot.history_topic',[
+        'style' => 'history_style',
+        'js' => '/js/my_custom/history/history.js',
+        'content' => 'iraq_2004_content',
+        'page_title' => "1st Battalion: Iraq, 2004",
+        'cart_count' => $cart_count
+      ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

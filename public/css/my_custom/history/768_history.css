@@ -103,3 +103,9 @@
   width: 30vw;
   height: 30vh;
 }
+
+.allArticles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

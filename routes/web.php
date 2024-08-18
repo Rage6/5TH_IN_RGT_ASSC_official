@@ -78,6 +78,9 @@ Route::prefix('history')->group(function() {
     Route::get('history-of-company-c', [App\Http\Controllers\HistoryTopicController::class,'c_company'])->name('ww2.company');
     Route::get('recollections-by-lew-ponder', [App\Http\Controllers\HistoryTopicController::class,'recollections'])->name('ww2.recollections');
     Route::get('the-soldiers-chorus', [App\Http\Controllers\HistoryTopicController::class,'soldiers_chorus'])->name('ww2.chorus');
+    // Global War on Terrorism
+    Route::get('2nd-battalion-afghanistan-2004', [App\Http\Controllers\HistoryTopicController::class,'afghanistan_2004'])->name('afghanistan.2004');
+    Route::get('1st-battalion-iraq-2004', [App\Http\Controllers\HistoryTopicController::class,'iraq_2004'])->name('iraq.2004');
   });
   Route::prefix('album')->group(function() {
     Route::get('ww2',[App\Http\Controllers\AlbumController::class,'ww2'])->name('album.ww2');
@@ -159,6 +162,12 @@ Route::get('bulletins/{filename}', function($filename){
 // Retrieves a 'scholarship' pdf file from the 'storage' directory
 Route::get('scholarship/form/{filename}', function($filename){
   $storagePath = storage_path('app/public/scholarship/form/' . $filename);
+    return response()->file($storagePath);
+});
+
+// Retrieve a deployment article pdf file from the 'storage' directory
+Route::get('articles/{deployment}/{filename}', function($deployment,$filename){
+  $storagePath = storage_path('app/public/articles/'.$deployment.'/' . $filename);
     return response()->file($storagePath);
 });
 

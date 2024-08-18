@@ -566,20 +566,42 @@
             </p>
           </div>
           <div class="segmentLinks">
-            <!-- <div class="linkBox">
+            <div class="linkBox">
               <div class="linkTitle learnMore">LEARN MORE</div>
               <ul class="linkContent">
-                <a href="{{ url('/history/album/gwot') }}">
+                <!-- <a href="{{ url('/history/album/gwot') }}">
                   <li>Photo Album</li>
-                </a>
+                </a> -->
+                <li>
+                  <a href="{{ route('afghanistan.2004') }}">
+                    2004, Afghanistan - 2nd Battalion
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('iraq.2004') }}">
+                    2004, Iraq - 1st Battalion
+                  </a>
+                </li>
+                <!-- <li>
+                  2008, Iraq - 1st Battalion
+                </li>
+                <li>
+                  2011, Afghanistan - 2nd Battalion
+                </li>
+                <li>
+                  2011, Afghanistan - 1st Battalion
+                </li>
+                <li>
+                  2019, Iraq - 1st Battalion
+                </li> -->
               </ul>
-            </div> -->
+            </div>
             <div class="linkBox">
               <div class="linkTitle externalLink">EXTERNAL LINKS</div>
               <ul class="linkContent">
                 <li>
                   <a href="https://www.thepanjwaipodcast.com/episodes/s2e15" target="_blank">
-                    "Rendering Aid" - Panjwai Podcast interview of Thomas Underhill
+                    "Rendering Aid" - Panjwai Podcast interview of combat medic, Thomas Underhill
                   </a>
                 </li>
               </ul>
@@ -601,14 +623,14 @@
               In the spring of 2023, the Bobcats served as an aggressor force taking on the entire 2 nd Brigade Combat Team at Joint Base Elmendorf-Richardson. Following that, half of the 5 th Infantry went to Malaysia for maneuvers and the other half remained at Ft. Wainwright to work on Expert Infantry, Expert Soldier, and Expert Medical Field Badges. Over three hundred fifty members of the battalion then went to Japan in July for Exercise Orient Shield. With deployments to the Middle East currently “on hold” the 1 st Battalion, 5 th Infantry has had a number of good opportunities to prepare to protect our interests in the Asian Pacific and Arctic regions.
             </p>
           </div>
-          <div class="segmentLinks">
+          <!-- <div class="segmentLinks">
             <div class="linkBox">
               <div class="linkTitle learnMore">LEARN MORE</div>
-              <!-- <ul class="linkContent">
+              <ul class="linkContent">
                 <a href="{{ url('/history/album/gwot') }}">
                   <li>Photo Album</li>
                 </a>
-              </ul> -->
+              </ul>
             </div>
             <div class="linkBox">
               <div class="linkTitle externalLink">EXTERNAL LINKS</div>
@@ -616,7 +638,7 @@
 
               </ul>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="author">
@@ -624,7 +646,7 @@
           Author: Sam Kier
         </div>
         <div>
-          Date: Veteran’s Day, 2010
+          Date: July, 2024
         </div>
       </div>
     </div>
