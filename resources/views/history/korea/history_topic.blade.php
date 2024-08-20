@@ -5,7 +5,7 @@
 @section('distinguished_unit_citation_content')
   <div class="mainBody">
     <div class="timelineBox">
-      <div class="timelineBar timelineBar_13">
+      <div class="timelineBar timelineBar_13 returnBar">
         <a href="{{ route('history.timeline') }}">
           <div>
             <div> RETURN </div>

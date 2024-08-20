@@ -87,6 +87,14 @@ p {
   justify-content: center;
 }
 
+.returnBar {
+  width: 100%;
+}
+
+.timelineBox:has(.returnBar) {
+  overflow-x: hidden;
+}
+
 .timeSegment {
   margin: 50px 2% 0 2%;
   border: 1px solid black;

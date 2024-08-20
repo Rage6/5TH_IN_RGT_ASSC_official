@@ -5,7 +5,7 @@
 @section('battle_of_lundys_lane_content')
   <div class="mainBody">
     <div class="timelineBox">
-      <div class="timelineBar timelineBar_13">
+      <div class="timelineBar timelineBar_13 returnBar">
         <a href="{{ route('history.timeline') }}">
           <div>
             <div> RETURN </div>

@@ -78,6 +78,12 @@ body {
   height: 9%;
 } */
 
+.returnBar {
+  display: grid;
+  width: 100%;
+  height: 88vh;
+}
+
 .allSegments {
   /* padding-left: 20%;
   background: linear-gradient(90deg, rgba(139,0,0,0.8), rgba(139,0,0,0.8) 20%, transparent 20%, transparent); */
