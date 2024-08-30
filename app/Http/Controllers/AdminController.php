@@ -235,7 +235,8 @@ class AdminController extends Controller
       } elseif ($item_status == "permanent") {
         $timestamp = '1970-01-01 00:00:00';
       } elseif ($item_status != "permanent") {
-        $timestamp = date("Y-m-d H:i:s",strtotime($start_date." +".$item_status));
+        $item_status = $item_status / 86400; // 1 day = 86400 seconds
+        $timestamp = date("Y-m-d H:i:s",strtotime($start_date." +".$item_status." days"));
       };
       $input['expiration_date'] = $timestamp;
 

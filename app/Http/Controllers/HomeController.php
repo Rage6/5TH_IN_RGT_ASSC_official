@@ -440,7 +440,8 @@ class HomeController extends Controller
       // Display column names as first row 
       $excelData = implode("\t", array_values($fields)) . "\n";
       // Fetch records from database 
-      $current_timestamp = time();
+      // $current_timestamp = time();
+      $current_timestamp = date("Y-m-d H:i:s");
       $bobcat_list = User::where([
           ['expiration_date','1970-01-01 00:00:00'],
           ['year_of_death',null]
@@ -521,7 +522,8 @@ class HomeController extends Controller
       };
       $name_row .= "</tr>";
       // Fetch records from database 
-      $current_timestamp = time();
+      // $current_timestamp = time();
+      $current_timestamp = date("Y-m-d H:i:s");
       $bobcat_list = User::where([
           ['expiration_date','1970-01-01 00:00:00'],
           ['year_of_death',null]
