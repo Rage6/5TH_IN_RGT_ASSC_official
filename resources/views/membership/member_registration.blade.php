@@ -128,7 +128,7 @@
                   <input name="email" type="email" placeholder="Email (required)" required />
                 </div>
                 <div class="regText">
-                  <textarea name="unit_details" placeholder="List the unit(s), job(s), and start/end time(s) in the Regiment. (Example: 'Driver, JUN 2006 - AUG 2007')"></textarea>
+                  <textarea name="unit_details" maxlength="255" placeholder="List the unit(s), job(s), and start/end time(s) in the Regiment. (Example: 'Driver, JUN 2006 - AUG 2007')"></textarea>
                 </div>
                 <div class="trialEl">
                   <u>30-Day Free Trial</u>

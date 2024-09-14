@@ -83,7 +83,7 @@ class RegistrationController extends Controller
         'phone_number' => 'string|nullable',
         'conflicts' => 'string|nullable',
         'other_conflicts' => 'string|nullable|max:255',
-        'unit_details' => 'string|nullable',
+        'unit_details' => 'string|nullable|max:255',
         'email' => 'string|required',
         'comments' => 'string|nullable|max:255',
       ]);
