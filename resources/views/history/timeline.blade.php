@@ -405,7 +405,7 @@
               <a href="{{ route('vietnam.aar') }}">
                 <li>After Action Reports (AAR)</li>
               </a>
-              <li>"In The Vietnam War 1966 - 1971" by Larry Hadzim</li>
+              <li>"In The Vietnam War 1966 - 1971" by Larry Hadzima</li>
               <div class="subChapters">
                 <a href="{{ route('vietnam.preface') }}">
                   <div>+ Preface</div>

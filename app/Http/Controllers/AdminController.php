@@ -2654,6 +2654,10 @@ class AdminController extends Controller
         $item->how_long = (60 * 60 * 24 * $request->itemDurationDay) + (60 * 60 * 24 * 365 * $request->itemDurationYear);
       };
 
+      if ($item->is_donation == 1) {
+        $item->set_quantity = 1;
+      };
+
       $item->slug = 'item-'.time();
 
       if ($request->itemPhoto) {
@@ -2763,6 +2767,10 @@ class AdminController extends Controller
         $item->how_long = null;
       } else {
         $item->how_long = (60 * 60 * 24 * $request->itemDurationDay) + (60 * 60 * 24 * 365 * $request->itemDurationYear);
+      };
+
+      if ($item->is_donation == 1) {
+        $item->set_quantity = 1;
       };
 
       if ($request->itemPhoto) {
