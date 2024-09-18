@@ -100,6 +100,9 @@ class RegistrationController extends Controller
           // };
         };
       };
+      if ($request->first_name == $request->last_name) {
+        $is_duplicate = true;
+      };
 
       if (!$is_duplicate) {
 
@@ -192,7 +195,7 @@ class RegistrationController extends Controller
 
         return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options')->with('submit_message','Member Registration Submitted>>>You will be notified when your membership is approved');
       } else {
-        return redirect()->route('registration.index')->with('duplicate','You have already applied. One of our staff members should contact you soon.');
+        return redirect()->route('registration.index')->with('duplicate','You either already applied or filled out your form incorrectly. If you already applied, then one of our members will contact you soon.');
       };
 
       // return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options')->with('submit_message','Member Registration Submitted>>>You will be notified when your membership is approved');
