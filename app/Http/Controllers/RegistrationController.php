@@ -38,12 +38,12 @@ class RegistrationController extends Controller
         where([
           ['end_year','>',$current_year - 100],
           ['unit_participated','=',1],
-          ['name','!=','Training Exercises']
+          ['name','!=','While on duty']
         ])
         ->orWhere([
           ['end_year','=',null],
           ['unit_participated','=',1],
-          ['name','!=','Training Exercises']
+          ['name','!=','While on duty']
         ])
         ->orderBy('start_year','asc')
         ->get();
