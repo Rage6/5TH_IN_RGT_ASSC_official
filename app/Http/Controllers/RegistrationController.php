@@ -71,20 +71,20 @@ class RegistrationController extends Controller
     public function post(Request $request)
     {
       $request->validate([
-        'first_name' => 'string|required',
-        'last_name' => 'string|required',
-        'spouse_name' => 'string|nullable',
-        'address_line_1' => 'string|nullable',
-        'address_line_2' => 'string|nullable',
-        'city' => 'string|nullable',
-        'state' => 'string|nullable',
-        'zip_code' => 'string|nullable',
-        'country' => 'string|nullable',
-        'phone_number' => 'string|nullable',
+        'first_name' => 'string|required|max:255',
+        'last_name' => 'string|required|max:255',
+        'spouse_name' => 'string|nullable|max:255',
+        'address_line_1' => 'string|nullable|max:255',
+        'address_line_2' => 'string|nullable|max:255',
+        'city' => 'string|nullable|max:255',
+        'state' => 'string|nullable|max:255',
+        'zip_code' => 'string|nullable|max:255',
+        'country' => 'string|nullable|max:255',
+        'phone_number' => 'string|nullable|max:255',
         'conflicts' => 'string|nullable',
         'other_conflicts' => 'string|nullable|max:255',
         'unit_details' => 'string|nullable|max:255',
-        'email' => 'string|required',
+        'email' => 'string|required|max:255',
         'comments' => 'string|nullable|max:255',
       ]);
 

@@ -33,25 +33,25 @@
             <div class="regGrid">
               <div>
                 <div class="regText">
-                  <input name="first_name" type="text" placeholder="First Name (required)" required/>
+                  <input name="first_name" type="text" placeholder="First Name (required)" maxlength="255" required/>
                 </div>
                 <div class="regText">
-                  <input name="last_name" type="text" placeholder="Last Name (required)" required/>
+                  <input name="last_name" type="text" placeholder="Last Name (required)" maxlength="255" required/>
                 </div>
                 <div class="regText">
-                  <input name="spouse_name" type="text" placeholder="Spouse Name"/>
+                  <input name="spouse_name" type="text" placeholder="Spouse Name" maxlength="255"/>
                 </div>
                 <div class="regText">
-                  <input name="address_line_1" type="text" placeholder="Street Address (required)" required/>
+                  <input name="address_line_1" type="text" placeholder="Street Address (required)" maxlength="255" required/>
                 </div>
                 <div class="regText">
-                  <input name="address_line_2" type="text" placeholder="Street Address 2"/>
+                  <input name="address_line_2" type="text" placeholder="Street Address 2" maxlength="255"/>
                 </div>
                 <div class="regText">
-                  <input name="city" type="text" placeholder="City (required)" required/>
+                  <input name="city" type="text" placeholder="City (required)" maxlength="255" required/>
                 </div>
                 <div class="regText">
-                  <select class="regFormState" name="state" required>
+                  <select class="regFormState" name="state" maxlength="255" required>
                     <option value>State, territory, or military post</option>
                     <option value="AL">AL - Alabama</option>
                     <option value="AK">AK - Alaska</option>
@@ -119,13 +119,13 @@
                   </select>
                 </div>
                 <div class="regText">
-                  <input name="zip_code" type="text" placeholder="Zip Code (required)" required/>
+                  <input name="zip_code" type="text" placeholder="Zip Code (required)" maxlength="255" required/>
                 </div>
                 <div class="regText">
-                  <input name="phone_number" type="text" placeholder="Phone Number"/>
+                  <input name="phone_number" type="text" placeholder="Phone Number" maxlength="255"/>
                 </div>
                 <div class="regText">
-                  <input name="email" type="email" placeholder="Email (required)" required />
+                  <input name="email" type="email" placeholder="Email (required)" maxlength="255" required />
                 </div>
                 <div class="regText">
                   <textarea name="unit_details" maxlength="255" placeholder="List the unit(s), job(s), and start/end time(s) in the Regiment. (Example: 'Driver, JUN 2006 - AUG 2007')"></textarea>
