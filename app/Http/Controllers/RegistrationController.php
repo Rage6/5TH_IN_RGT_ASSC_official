@@ -83,21 +83,43 @@ class RegistrationController extends Controller
         'phone_number' => 'string|nullable|max:255',
         'conflicts' => 'string|nullable',
         'other_conflicts' => 'string|nullable|max:255',
-        'unit_details' => 'string|nullable|max:255',
+        'job_1' => 'string|nullable|max:255',
+        'unit_1' => 'string|nullable|max:255',
+        'start_year_1' => 'string|nullable|max:255',
+        'end_year_1' => 'string|nullable|max:255',
+        'job_2' => 'string|nullable|max:255',
+        'unit_2' => 'string|nullable|max:255',
+        'start_year_2' => 'string|nullable|max:255',
+        'end_year_2' => 'string|nullable|max:255',
+        'job_3' => 'string|nullable|max:255',
+        'unit_3' => 'string|nullable|max:255',
+        'start_year_3' => 'string|nullable|max:255',
+        'end_year_3' => 'string|nullable|max:255',
+        'unit_details' => 'string|nullable|max:500',
         'email' => 'string|required|max:255',
-        'comments' => 'string|nullable|max:255',
+        'comments' => 'string|nullable|max:500',
       ]);
 
+      // The unit details are then put together into one, standardized string
+      $unit_list = '';
+      for ($i = 1; $i <= 3; $i++) {
+        $job = 'job_'.$i;
+        $unit = 'unit_'.$i;
+        $start = 'start_year_'.$i;
+        $end = 'end_year_'.$i;
+        if ($request[$job] != null || $request[$unit] != null || $request[$start] != null || $request[$end] != null) {
+          $unit_string = "Job: ".$request[$job].", Unit: ".$request[$unit].", Start Date: ".$request[$start].", End Date: ".$request[$end].";";
+        };
+        $unit_list .= $unit_string;
+      };
+      $request->unit_details = $unit_list.$request->unit_details;
+
+      // This attempts to prevent bots or hacker attacks
       $is_duplicate = false;
       $all_applicants = Applicant::all();
       foreach ($all_applicants as $one_applicant) {
         if ($one_applicant->email == $request->email && $one_applicant->type == 'membership') {
-          // $original_date = $one_applicant->created_at;
-          // $expire_date = date_add($original_date,date_interval_create_from_date_string("45 seconds"));
-          // $current_date = date("Y-m-d h:i:s");
-          // if ($current_date < $expire_date) {
-            $is_duplicate = true;
-          // };
+          $is_duplicate = true;
         };
       };
       if ($request->first_name == $request->last_name) {

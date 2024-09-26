@@ -15,7 +15,20 @@
     <div>Phone #: {{ $content->phone_number }}</div>
     <div>Conflict(s) when with the 5th Infantry Regt: {{ $content->conflicts }}</div>
     <div>Conflict(s) when <u>NOT</u> with the 5th Infantry Regt: {{ $content->other_conflicts }}</div>
-    <div>Jobs, Units, Times: {{ $content->unit_details }}</div>
+    <div>Bobcat Career</div>
+    @if ($content->unit_details != null)
+      @php
+        $unit_array = explode(";", $content->unit_details);
+      @endphp
+      <div>
+        Bobcat Career:
+      </div>
+      @for ($i = 0; $i < count($unit_array); $i++)
+        <div>
+          * {{ $unit_array[$i] }}
+        </div>
+      @endfor
+    @endif
     <div>Email: {{ $content->email }}</div>
     <div>Comments: {{ $content->comments }}</div>
   </body>

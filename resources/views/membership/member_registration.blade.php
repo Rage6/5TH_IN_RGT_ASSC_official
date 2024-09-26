@@ -21,7 +21,7 @@
       <div class="regForm" id="regForm" style="display:none">
         <div class="regTotal">
           <div class="regRenew">
-            Just Paying Your Membership Fee?</br> <a href="{{ url('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options') }}">Click here</a>
+            Only Need To Pay Your Membership Fee?</br> <a href="{{ url('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options') }}">Click here</a>
           </div>
           @if (session('duplicate'))
             <span class="regDuplicate">
@@ -127,13 +127,31 @@
                 <div class="regText">
                   <input name="email" type="email" placeholder="Email (required)" maxlength="255" required />
                 </div>
-                <div class="regText">
-                  <textarea name="unit_details" maxlength="255" placeholder="List the unit(s), job(s), and start/end time(s) in the Regiment. (Example: 'Driver, JUN 2006 - AUG 2007')"></textarea>
+                <div class="regInputTitle">
+                  While a Bobcat, I served as...
                 </div>
-                <div class="trialEl">
-                  <u>30-Day Free Trial</u>
-                  <div>Want to try out our membership options? Request our free trial in the "Question & Comment" box.</div>
-                  <div>Note: Free Trial members <u>cannot</u> make "Members Only" purchases.</div>
+                <div class="regText">
+                  <div class="oneUnitDetail">
+                    <input name="job_1" maxlength="255" placeholder="First job">
+                    <input name="unit_1" maxlength="255" placeholder="First unit">
+                    <input name="start_year_1" maxlength="255" placeholder="Started on...">
+                    <input name="end_year_1" maxlength="255" placeholder="Ended on...">
+                  </div>
+                  <div class="oneUnitDetail">
+                    <input name="job_2" maxlength="255" placeholder="Second job">
+                    <input name="unit_2" maxlength="255" placeholder="Second unit">
+                    <input name="start_year_2" maxlength="255" placeholder="Started on...">
+                    <input name="end_year_2" maxlength="255" placeholder="Ended on...">
+                  </div>
+                  <div class="oneUnitDetail">
+                    <input name="job_3" maxlength="255" placeholder="Third job">
+                    <input name="unit_3" maxlength="255" placeholder="Third unit">
+                    <input name="start_year_3" maxlength="255" placeholder="Started on...">
+                    <input name="end_year_3" maxlength="255" placeholder="Ended on...">
+                  </div>
+                </div>
+                <div class="regText">
+                  <textarea name="unit_details" maxlength="500" placeholder="Feel free to share any additional details about your Bobcat career here"></textarea>
                 </div>
               </div>
               <div>
@@ -150,7 +168,12 @@
                   <textarea maxlength="255" name="other_conflicts" placeholder="Did you participate in a war/conflict that is not on this list? Type it here:"></textarea>
                 </div>
                 <div class="regText">
-                  <textarea maxlength="255" name="comments" placeholder="Include any necessarry questions or comments about your registration form"></textarea>
+                  <textarea maxlength="500" name="comments" placeholder="Questions or Comments? Feel free to enter them here"></textarea>
+                </div>
+                <div class="trialEl">
+                  <u>30-Day Free Trial</u>
+                  <div>Want to try out our membership options? Request our free trial in the "Question or Comment" box.</div>
+                  <div>Note: Free Trial members <u>cannot</u> make "Members Only" purchases.</div>
                 </div>
               </div>
             </div>
