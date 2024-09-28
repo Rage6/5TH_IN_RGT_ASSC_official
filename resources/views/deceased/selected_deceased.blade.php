@@ -85,6 +85,25 @@
                     </ul>
                   </div>
                 @endif
+                @if ($all_jobs)
+                  <div class="basicKey">Service as a Bobcat...</div>
+                  <div class="basicValue">
+                    <ul>
+                      @foreach ($all_jobs as $one_job)
+                        <li>
+                          @if ($one_job->job) 
+                            {{$one_job->job.","}} 
+                          @endif 
+                          @if ($one_job->unit) 
+                            {{$one_job->unit.","}} 
+                          @endif 
+                          @if ($one_job->start_year) 
+                            {{$one_job->start_month}} {{$one_job->start_year}} - {{$one_job->end_month}} {{$one_job->end_year}} 
+                          @endif</li>
+                      @endforeach
+                    </ul>
+                  </div>
+                @endif
                 @if (count($all_links) > 0)
                   <div class="basicKey">
                     External Links

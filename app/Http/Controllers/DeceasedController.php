@@ -9,6 +9,7 @@ use App\Http\Controllers\stdClass;
 use App\Models\User;
 use App\Models\Conflict;
 use App\Models\Link;
+use App\Models\Timespan;
 
 class DeceasedController extends Controller
 {
@@ -160,6 +161,35 @@ class DeceasedController extends Controller
 
         $all_conflicts = $member->all_user_conflicts;
 
+        $all_raw_jobs = Timespan::where('user_id',$member->id)->orderBy('end_year','asc')->orderBy('end_month','asc')->get();
+        $months = [
+          ['JAN',1],
+          ['FEB',2],
+          ['MAR',3],
+          ['APR',4],
+          ['MAY',5],
+          ['JUN',6],
+          ['JUL',7],
+          ['AUG',8],
+          ['SEP',9],
+          ['OCT',10],
+          ['NOV',11],
+          ['DEC',12]
+        ];
+        $all_jobs = [];
+        foreach ($all_raw_jobs as $one_job) {
+          for ($i = 0; count($months) > $i; $i++) {
+            if ($one_job->start_month == $months[$i][1]) {
+              $one_job->start_month = $months[$i][0];
+            };
+            if ($one_job->end_month == $months[$i][1]) {
+              $one_job->end_month = $months[$i][0];
+            };
+          };
+          $all_jobs[] = $one_job;
+        };
+        // die(dd($all_jobs));
+
         return view('deceased.selected_deceased',[
           'js' => '/js/my_custom/memorials/deceased.js',
           'content' => 'deceased_selected',
@@ -167,6 +197,7 @@ class DeceasedController extends Controller
           'member' => $member,
           'all_links' => $all_links,
           'all_conflicts' => $all_conflicts,
+          'all_jobs' => $all_jobs,
           'cart_count' => $cart_count
         ]);
     }

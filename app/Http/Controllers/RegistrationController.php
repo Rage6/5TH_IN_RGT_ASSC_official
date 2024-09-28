@@ -81,7 +81,7 @@ class RegistrationController extends Controller
         'zip_code' => 'string|nullable|max:255',
         'country' => 'string|nullable|max:255',
         'phone_number' => 'string|nullable|max:255',
-        'conflicts' => 'string|nullable',
+        'conflicts' => 'string|nullable|max:255',
         'other_conflicts' => 'string|nullable|max:255',
         'job_1' => 'string|nullable|max:255',
         'unit_1' => 'string|nullable|max:255',
@@ -109,8 +109,8 @@ class RegistrationController extends Controller
         $end = 'end_year_'.$i;
         if ($request[$job] != null || $request[$unit] != null || $request[$start] != null || $request[$end] != null) {
           $unit_string = "Job: ".$request[$job].", Unit: ".$request[$unit].", Start Date: ".$request[$start].", End Date: ".$request[$end].";";
+          $unit_list .= $unit_string;
         };
-        $unit_list .= $unit_string;
       };
       $request->unit_details = $unit_list.$request->unit_details;
 
