@@ -119,29 +119,11 @@
                   </div>
                 @endif
               </div>
-            </div>@if ($member->comments){{ $member->comments }}@endif
+            </div>
+            <div class="commentInfo">
+              @if ($member->comments){{ $member->comments }}@endif
+            </div>
           </div>
-          <!-- @if ($member->comments)
-            <div class="recipientBio">
-              {{ $member->comments }}
-            </div>
-          @endif -->
-          <!-- @if (count($all_links) > 0)
-            <div class="externalBox">
-              <div class="externalTitle">
-                External Links
-              </div>
-              <div class="linkList">
-                @foreach ($all_links as $one_link)
-                  <div class="linkRow">
-                    <a href="{{ $one_link->url }}" target="_blank">
-                      + {{ $one_link->name }}
-                    </a>
-                  </div>
-                @endforeach
-              </div>
-            </div>
-          @endif -->
         </div>
       </div>
       <div class="sidePad rightPad"></div>

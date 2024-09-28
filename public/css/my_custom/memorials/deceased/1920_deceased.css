@@ -125,24 +125,33 @@
 }
 
 .recipientNameAndImg {
-  display: block;
+  display: grid;
+  grid-template-areas: 
+    "basic comment"
+    ". comment";
+  grid-template-columns: 50% 50%;
   background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
 }
 
 .basicInfo {
-  float: left;
-  width: 50%;
+  /* float: left;
+  width: 50%; */
+  grid-area: basic;
+}
+
+.commentInfo {
+  grid-area: comment;
 }
 
 .basicInfoNoComment {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 100%; */
 }
 
 .recipientName {
-  margin-right: 10px;
-  padding: 10px;
+  /* margin-right: 10px;
+  padding: 10px; */
 }
 
 .recipientNameNoComment {
@@ -155,7 +164,7 @@
 }
 
 .actionDateNoComment {
-  width: 50%;
+  /* width: 50%; */
 }
 
 .linkList {
