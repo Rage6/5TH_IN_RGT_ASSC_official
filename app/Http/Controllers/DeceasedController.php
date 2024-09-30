@@ -28,6 +28,13 @@ class DeceasedController extends Controller
           ['expiration_date','!=',null]
         ];
 
+        // The unfiltered list is for the menu of conflicts
+        $all_unfiltered_deceased = User::where($all_parameters)
+          ->orderBy('last_name','asc')
+          ->orderBy('first_name','asc')
+          ->get()
+          ->all();
+
         $search_first_name = null;
         if (isset($_GET['first_name'])) {
           $all_parameters[] = ['first_name','LIKE','%'.$_GET['first_name'].'%'];
@@ -40,13 +47,18 @@ class DeceasedController extends Controller
           $search_last_name = $_GET['last_name'];
         };
 
+        $search_conflict = null;
+        if (isset($_GET['conflict_id'])) {
+          $search_conflict = $_GET['conflict_id'];
+        };
+
         $all_deceased = User::where($all_parameters)
           ->orderBy('last_name','asc')
           ->orderBy('first_name','asc')
           ->get()
           ->all();
 
-        $possible_conflicts = Conflict::where('member_participated',1)->orderBy('start_year','ASC')->get();
+        // $possible_conflicts = Conflict::where('member_participated',1)->orderBy('start_year','ASC')->get();
 
         $search_conflict_id = null;
         $new_all_deceased = $all_deceased;
@@ -66,6 +78,21 @@ class DeceasedController extends Controller
               $new_all_deceased[] = $all_deceased[$i];
             };
           };
+        };
+
+        $conflicts_menu = [];
+        $possible_conflicts = Conflict::orderBy('start_year','ASC')->get();
+        foreach ($possible_conflicts as $one_conflict) {
+          foreach ($all_unfiltered_deceased as $new_deceased) {
+            $new_deceased_conflicts = $new_deceased->all_user_conflicts;
+            for ($i = 0; $i < count($new_deceased_conflicts); $i++) {
+              if ($new_deceased_conflicts[$i]->id == $one_conflict->id) {
+                $conflicts_menu[] = $one_conflict;
+                goto endloop; // this gets it out of the 'all_unfiltered_deceased' foreach loop by sending it down to the 'endloop:' below
+              };
+            };
+          };
+          endloop:
         };
 
         $deceased_count = count($new_all_deceased);
@@ -95,9 +122,10 @@ class DeceasedController extends Controller
           'all_deceased_basics' => $new_all_deceased,
           'deceased_count' => $deceased_count,
           'cart_count' => $cart_count,
-          'possible_conflicts' => $possible_conflicts,
+          'conflicts_menu' => $conflicts_menu,
           'search_first' => $search_first_name,
           'search_last' => $search_last_name,
+          'search_conflict' => $search_conflict,
           'search_conflict' => $search_conflict_id,
           'how_many_pages' => $how_many_pages,
           'current_page' => $page_number

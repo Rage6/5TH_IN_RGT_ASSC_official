@@ -29,7 +29,7 @@
               <option value="">
                 Choose war/conflict
               </option>
-              @foreach ($possible_conflicts as $one_conflict)
+              @foreach ($conflicts_menu as $one_conflict)
                 <option value="{{ $one_conflict->id }}" @if ($search_conflict == $one_conflict->id) selected @endif>
                   {{ $one_conflict->name }}
                 </option>
@@ -85,7 +85,19 @@
           <div class="deceasedPaginator">
             @for ($i = 1; $i <= $how_many_pages; $i++ )
               <span>
-                <a href="{{ url('/deceased-members?page='.$i) }}" @if ($i == $current_page) style="text-decoration: underline" @endif>
+                <?php 
+                  $searches = '';
+                  if ($search_first) {
+                    $searches .= '&first_name='.$search_first;
+                  };
+                  if ($search_last) {
+                    $searches .= '&last_name='.$search_last;
+                  };
+                  if ($search_conflict) {
+                    $searches .= '&conflict_id='.$search_conflict;
+                  };
+                ?>
+                <a href="{{ url('/deceased-members?page='.$i.$searches) }}" @if ($i == $current_page) style="text-decoration: underline" @endif>
                   {{ $i }}
                 </a>
               </span>
