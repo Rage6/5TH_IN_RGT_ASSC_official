@@ -96,6 +96,7 @@ class RegistrationController extends Controller
         'start_year_3' => 'string|nullable|max:255',
         'end_year_3' => 'string|nullable|max:255',
         'unit_details' => 'string|nullable|max:500',
+        'free_trial' => 'integer|required|max:1',
         'email' => 'string|required|max:255',
         'comments' => 'string|nullable|max:500',
       ]);
@@ -164,6 +165,12 @@ class RegistrationController extends Controller
         };
         $new_submission->other_conflicts = $request->other_conflicts;
         $new_submission->unit_details = $request->unit_details;
+
+        if (intval($request->free_trial) == 1) {
+          $new_submission->free_trial = "YES";
+        } else {
+          $new_submission->free_trial = "NO";
+        };
         $new_submission->email = $request->email;
         $new_submission->comments = $request->comments;
 
@@ -210,12 +217,17 @@ class RegistrationController extends Controller
         $applicant['conflicts'] = $new_submission->conflicts;
         $applicant['other_conflicts'] = $new_submission->other_conflicts;
         $applicant['unit_details'] = $request->unit_details;
+        $applicant['free_trial'] = $request->free_trial;
         $applicant['email'] = $request->email;
         $applicant['comments'] = $request->comments;
         $applicant['type'] = 'membership';
         Applicant::create($applicant);
 
-        return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options')->with('submit_message','Member Registration Submitted>>>You will be notified when your membership is approved');
+        if ($request->free_trial == 0) {
+          return redirect('items?purpose=registration.index&title=Member%20Registration%20Fee%20Options')->with('submit_message','Member Registration Submitted>>>You will be notified when your membership is approved');
+        } else {
+          return redirect()->route('welcome');
+        };
       } else {
         return redirect()->route('registration.index')->with('duplicate','You either already applied or filled out your form incorrectly. If you already applied, then one of our members will contact you soon.');
       };

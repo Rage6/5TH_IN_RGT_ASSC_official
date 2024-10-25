@@ -30,6 +30,7 @@
       @endfor
     @endif
     <div>Email: {{ $content->email }}</div>
+    <div>Free Trial Option: {{ $content->free_trial }}</div>
     <div>Comments: {{ $content->comments }}</div>
   </body>
 </html>

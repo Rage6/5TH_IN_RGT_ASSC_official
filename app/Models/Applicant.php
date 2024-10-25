@@ -23,6 +23,7 @@ class Applicant extends Model
       'conflicts',
       'other_conflicts',
       'unit_details',
+      'free_trial',
       'email',
       'comments',
       'type',

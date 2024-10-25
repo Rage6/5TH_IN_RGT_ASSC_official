@@ -171,9 +171,27 @@
                   <textarea maxlength="500" name="comments" placeholder="Questions or Comments? Feel free to enter them here"></textarea>
                 </div>
                 <div class="trialEl">
-                  <u>30-Day Free Trial</u>
-                  <div>Want to try out our membership options? Request our free trial in the "Question or Comment" box.</div>
-                  <div>Note: Free Trial members <u>cannot</u> make "Members Only" purchases.</div>
+                  <div class="trialTitle">
+                    <u>
+                      30-Day Free Trial
+                    </u>
+                  </div>
+                  <div class="trialContent">
+                    <div>
+                      Want to try out a free, temporary membership first? <u>No</u> payment method or credit card information is required. However, only paid members can make "Member Only" purchases.
+                    </div>
+                    <div>
+                      <div>
+                        Do you want the free, 30-day trial membership?
+                      </div>
+                      <div>
+                        <select name="free_trial">
+                          <option value="0">NO</option>
+                          <option value="1">YES</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

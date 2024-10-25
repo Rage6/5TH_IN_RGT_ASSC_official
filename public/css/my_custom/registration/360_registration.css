@@ -170,6 +170,14 @@ select.regFormState:first-child::after {
   margin-top: 20px;
 }
 
+.trialTitle {
+  text-align: center;
+}
+
+.trialContent div:last-child {
+  margin-top: 0;
+}
+
 .regCheckbox {
   margin-top: 10px;
   border-radius: 5px;
