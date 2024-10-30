@@ -19,7 +19,7 @@
           <div class="scholarImg">
             <div class="aroundButtons applyNow">
               
-                <a target="_blank" href="/scholarship/form/2024-Scholarship-Criteria-and-Application.pdf">
+                <a target="_blank" href="/scholarship/form/GASP_Application.docx">
                   <span class="buttons">
                     APPLY NOW
                   </span>
@@ -62,8 +62,7 @@
             Who Can Apply For The Scholarship?
           </div>
           <div>
-            The respite the scholarships offer is intended to assist the most deserving Applicants who meet one (1) of the following guidelines listed below.<br>
-            NOTE: A "member" is one of the 5th Infantry Regiment Association who has been a member for at least the preceding <u>12 months prior to the application</u> date deadline.
+            The respite the scholarships offer is intended to assist the most deserving Applicants who meet one (1) of the following guidelines listed below. Be aware that members can only be part of an application if they have been a member of the 5th Infantry Regiment Association for at least <u>12 months</u> prior to the application deadline.
             <ol type="a">
               <li>
                 A current, active member
@@ -82,6 +81,9 @@
               </li>
             </ol>
             Affiliate Members and Honorary Members of the 5th Infantry Regiment Association are <u>NOT</u> eligible.
+            <div>
+              Download the <a target="_blank" href="/scholarship/form/GASP_Criteria.docx" style="color:white;text-decoration:underline">official criteria</a> for a complete description of applicant eligibility.
+            </div>
           </div>
         </div>
         <div class="regSection">
@@ -99,7 +101,10 @@
               <li>
                 The winners of the scholarships are announced no later than June 15. Those not selected will also be notified by that date.
               </li>
-            </ol> 
+            </ol>
+            <div>
+              Download the <a target="_blank" href="/scholarship/form/GASP_Criteria.docx" style="color:white;text-decoration:underline">official criteria</a> for a complete description of selection process.
+            </div>
           </div>
         </div>
         <div class="regSection">
@@ -107,7 +112,7 @@
             Can Current College/VoTech Students Apply?
           </div>
           <div>
-            Students currently pursuing college or vocational/technical degrees can be selected. However, this requires some additional information, and the program's policies are slightly different for these cases.
+            Students currently pursuing college or vocational/technical degrees can be selected. However, this requires some additional information, and the program's policies are slightly different for these cases. Download the <a target="_blank" href="/scholarship/form/GASP_Addendum_Two.docx" style="color:white;text-decoration:underline">official addendum</a> to read these additional policies.
           </div>
         </div>
         <div class="regSection">
@@ -136,6 +141,14 @@
         </div>
         <div class="regSection">
           <div class="regSubtitle">
+            For Undergraduates & Associates Degree Students
+          </div>
+          <div>
+            Undergraduate and Associate students MUST enroll in and complete a minimum of <u>12 credit hours PER SEMESTER</u> and be registered as a full-time student. If an associated student later changes their mind and wants to pursue an undergraduate degree, they will have to reapply for an undergraduate degree program. However, it will only be awarded for 2 or 3 follow-on years (depending on the period already completed)! <u>Undergraduate students</u> can only be considered for renewal of their scholarship for three consecutive academic years after their first academic year, regardless of how long it takes to actually complete their degree program. Similarly, <u>Associate students</u> can only be considered for renewal for 1 additional consecutive academic year after the first academic year. 
+          </div>
+        </div>
+        <div class="regSection">
+          <div class="regSubtitle">
             For vocational-technical (VoTech) Students
           </div>
           <div>
@@ -144,10 +157,10 @@
         </div>
         <div class="regSection">
           <div class="regSubtitle">
-            For Undergraduates & Associates Degree Students
+            Who Was MG Andrew Anderson?
           </div>
           <div>
-            Undergraduate and Associate students MUST enroll in and complete a minimum of <u>12 credit hours PER SEMESTER</u> and be registered as a full-time student. If an associated student later changes their mind and wants to pursue an undergraduate degree, they will have to reapply for an undergraduate degree program. However, it will only be awarded for 2 or 3 follow-on years (depending on the period already completed)! <u>Undergraduate students</u> can only be considered for renewal of their scholarship for three consecutive academic years after their first academic year, regardless of how long it takes to actually complete their degree program. Similarly, <u>Associate students</u> can only be considered for renewal for 1 additional consecutive academic year after the first academic year. 
+            Retired MG Andrew Anderson dedicated his  life to serving his family, friends, communities, and nation. This included the Bobcat organization, consistently dedicating his time and efforts to it. You can read a detailed summary of his life by downloading this <a target="_blank" href="/scholarship/form/GASP_Addendum_One.docx" style="color:white;text-decoration:underline">short biography</a> or reading his story on our <a @if ($general) href="{{ route('deceased.select',[ 'id' => $general->id ]) }}" @endif style="color:white;text-decoration:underline">Deceased Member</a> page.
           </div>
         </div>
       </div>
