@@ -38,7 +38,7 @@
                           <div style="background-color:{{ $bkgd }}">
                             <div style="display:grid;grid-template-columns:45% 55%">
                               <div>
-                                ${{ $one_payment->total_cost }}
+                                ${{ number_format($one_payment->total_cost,2,".") }}
                               </div>
                               <div>
                                 {{ $one_payment->created_at }}

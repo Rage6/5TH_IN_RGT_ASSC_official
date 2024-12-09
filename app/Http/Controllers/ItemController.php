@@ -370,7 +370,7 @@ class ItemController extends Controller
           };
         };
         $one_total = $one_quantity * $one_price;
-        $item_string = $item_string.": $".$one_price." x ".$one_quantity." = $".$one_total;
+        $item_string = $item_string.": $".number_format($one_price,2,'.')." x ".$one_quantity." = $".number_format($one_total,2,'.');
         if ($purchase_email_details != "") {
           $purchase_email_details = $purchase_email_details.">>>".$item_string;
         } else {
@@ -389,9 +389,9 @@ class ItemController extends Controller
 
       $purchase_list = explode(">>>",$purchase_email_details);
 
-      $email_totals[] = "Customer Pays...          $".round($overall_total,2);
-      $email_totals[] = "Transaction Fee Costs...  $".round($transaction_fee,2);
-      $email_totals[] = "Bobcats Recieves...       $".round($final_total,2);
+      $email_totals[] = "Customer Pays...          $".number_format($overall_total,2,".");
+      $email_totals[] = "Transaction Fee Costs...  $".number_format($transaction_fee,2,".");
+      $email_totals[] = "Bobcats Recieves...       $".number_format($final_total,2,".");
 
       $users = User::where([
         ['expiration_date','!=',null],
