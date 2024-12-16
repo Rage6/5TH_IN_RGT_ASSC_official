@@ -319,7 +319,11 @@ class AdminController extends Controller
         };
       };
 
-      $role_id = Role::where('slug','basic-member')->first();
+      if ($request->membershipStatus == 'start_trial') {
+        $role_id = Role::where('slug','trial-member')->first();
+      } else {
+        $role_id = Role::where('slug','basic-member')->first();;
+      };
 
       if ($input['expiration_date'] != null) {
         $new_user->all_user_roles()->attach($role_id);

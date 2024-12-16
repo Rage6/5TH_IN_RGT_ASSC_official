@@ -347,11 +347,12 @@ class HomeController extends Controller
       ]);
     }
 
-    public function bobcat_list_index(?string $name = null) {
+    public function bobcat_list_index() {
 
       $current_user = Auth::user();
 
-      if ($name != null) {
+      if (isset($_GET['name']) && $_GET['name'] != null) {
+        $name = $_GET['name'];
         $all_bobcats = User::where([
           ['deceased',"=",0],
           ['expiration_date',">",date('Y-m-d h:m:s')],
@@ -376,6 +377,31 @@ class HomeController extends Controller
         ->orderBy('first_name','ASC')
         ->paginate(20);
 
+        $is_free_trial = false;
+        if ($current_user) {
+          $roles = User::find($current_user->id)->all_user_roles;
+          foreach ($roles as $one_role) {
+            if ($one_role->slug == "trial-member") {
+              $is_free_trial = true;
+            };
+          };
+        };
+
+        return view('all_bobcats',[
+          'all_bobcats' => $all_bobcats,
+          'page_title' => "Find A Bobcats",
+          'is_free_trial' => $is_free_trial
+        ]);
+      } elseif (isset($_GET['year']) && $_GET['year'] != null) {
+        $year = intval($_GET['year']);
+        $all_bobcats = Timespan::join('users','users.id','=','timespans.user_id')
+        ->distinct()
+        ->where([
+          ['start_year','<=',$year],
+          ['end_year','>=',$year]
+        ])
+        ->paginate(20,['user_id','users.id','last_name','first_name','middle_name','current_img','veteran_img']);
+        
         $is_free_trial = false;
         if ($current_user) {
           $roles = User::find($current_user->id)->all_user_roles;
@@ -424,10 +450,11 @@ class HomeController extends Controller
 
     public function bobcat_list_search(Request $request) {
       $request->validate([
-        'bobcatName' => 'string|nullable|max:100'
+        'bobcatName' => 'string|nullable|max:100',
+        'bobcatYear' => 'integer|nullable|min:1930'
       ]);
 
-      return redirect()->route('bobcat.list.index',['name' => $request->bobcatName]);
+      return redirect()->route('bobcat.list.index',['name' => $request->bobcatName, 'year' => $request->bobcatYear]);
     }
 
     public function bobcat_list_export_excel() {

@@ -16,8 +16,22 @@
                     <form method="POST" action="{{ route('bobcat.list.search') }}">
                       @csrf
                       <div class="bobcatSearchBox">
-                        <div>Search by first or last name</div>
-                        <input type="text" name="bobcatName"/>
+                        <div class="bobcatButton nameButton">
+                          <span data-searchbutton="name">
+                            NAME
+                          </span>
+                        </div>
+                        <div class="bobcatButton yearButton">
+                          <span data-searchbutton="year">
+                            YEAR
+                          </span>
+                        </div>
+                        <div class="nameInput" data-searchinput="name">
+                          <input type="text" name="bobcatName" placeholder="Enter a first or last name"/>
+                        </div>
+                        <div class="yearInput" data-searchinput="year">
+                          <input type="number" name="bobcatYear" placeholder="Enter a year"/>
+                        </div>
                         <button type="submit" name="searchBttn">FIND</button>
                         <a href="{{ route('bobcat.list.index') }}">
                           <span>RESET</span>

@@ -103,9 +103,11 @@ $(document).ready(() => {
 
   // Swaps the Bobcat's current and veteran images
   let mainImg = $("#primaryImg").css('background-image');
-  mainImg = mainImg.replace('url("','').replace('")','');
   let cornerImg = $("#secondaryImg").css('background-image');
-  cornerImg = cornerImg.replace('url("','').replace('")','');
+  if (mainImg != undefined) {
+    mainImg = mainImg.replace('url("','').replace('")','');
+    cornerImg = cornerImg.replace('url("','').replace('")','');
+  };
   const swapImages = () => {
     $("#primaryImg").css('background-image','url("' + cornerImg + '")');
     $("#secondaryImg").css('background-image','url("' + mainImg + '")');
@@ -117,6 +119,25 @@ $(document).ready(() => {
 
   $("#secondaryImg").click(()=>{
     swapImages();
+  });
+
+  // Choose between Bobcat search by names or years
+  var selectedButton = "[data-searchinput='name']";
+  $("[data-searchbutton]").click((event) => {
+    selectedButton = "[data-searchbutton='" + event.target.dataset.searchbutton + "']";
+    selectedInput = "[data-searchinput='" + event.target.dataset.searchbutton + "']";
+    var hiddenButton = "[data-searchbutton='name']";
+    var hiddenInput = "[data-searchinput='name']";
+    if (event.target.dataset.searchbutton == "name") {
+      hiddenButton = "[data-searchbutton='year']";
+      hiddenInput = "[data-searchinput='year']";
+    };
+    $(selectedButton).css('color','rgb(139,0,0)').css('text-decoration','underline');
+    $(selectedInput).css('display','block');
+    $(hiddenButton).css('color','black').css('text-decoration','none');
+    $(hiddenInput).css('display','none');
+    var trueHiddenInput = hiddenInput + " > input";
+    $(trueHiddenInput).val('');
   });
 
 });

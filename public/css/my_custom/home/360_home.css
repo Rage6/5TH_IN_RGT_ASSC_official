@@ -56,23 +56,53 @@
 .bobcatSearchBox {
   margin-bottom: 50px;
   display: grid;
-  grid-template-rows: auto auto auto;
-  grid-template-columns: 48% 48%;
+  grid-template-columns: 32% 31% 31%;
   grid-template-areas: 
-    "description description"
-    "input input"
-    "submit reset";
-  gap: 4%;
+    "namebutton yearbutton ."
+    "nameinput nameinput nameinput"
+    "yearinput yearinput yearinput"
+    "submit . reset";
+  gap: 2%;
 }
 
 .bobcatSearchBox div {
-  grid-area: description;
   text-align: center;
 }
 
-.bobcatSearchBox input {
-  grid-area: input;
+.bobcatButton {
+  display: flex;
+  justify-content: center;
+}
 
+.bobcatButton span {
+  padding: 1px 5px;
+  cursor: pointer;
+}
+
+.nameButton {
+  grid-area: namebutton;
+}
+
+.nameButton span {
+  color: rgb(139,0,0);
+  text-decoration: underline;
+}
+
+.yearButton {
+  grid-area: yearbutton;
+}
+
+.nameInput {
+  grid-area: nameinput;
+}
+
+.yearInput {
+  display: none;
+  grid-area: yearinput;
+}
+
+.bobcatSearchBox input {
+  width: 100%;
 }
 
 .bobcatSearchBox a {
