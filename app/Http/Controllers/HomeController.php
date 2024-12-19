@@ -376,6 +376,7 @@ class HomeController extends Controller
         ->orderBy('last_name','ASC')
         ->orderBy('first_name','ASC')
         ->paginate(20);
+        $all_bobcats->appends(['name' => $name]);
 
         $is_free_trial = false;
         if ($current_user) {
@@ -390,17 +391,29 @@ class HomeController extends Controller
         return view('all_bobcats',[
           'all_bobcats' => $all_bobcats,
           'page_title' => "Find A Bobcats",
-          'is_free_trial' => $is_free_trial
+          'is_free_trial' => $is_free_trial,
+          'name' => $name
         ]);
       } elseif (isset($_GET['year']) && $_GET['year'] != null) {
         $year = intval($_GET['year']);
         $all_bobcats = Timespan::join('users','users.id','=','timespans.user_id')
         ->distinct()
         ->where([
+          ['deceased','=',0],
+          ['expiration_date',">",date('Y-m-d h:m:s')],
           ['start_year','<=',$year],
           ['end_year','>=',$year]
         ])
+        ->orWhere([
+          ['deceased','=',0],
+          ['expiration_date',"=",'1970-01-01 00:00:00'],
+          ['start_year','<=',$year],
+          ['end_year','>=',$year]
+        ])
+        ->orderBy('last_name','ASC')
+        ->orderBy('first_name','ASC')
         ->paginate(20,['user_id','users.id','last_name','first_name','middle_name','current_img','veteran_img']);
+        $all_bobcats->appends(['year' => $year]);
         
         $is_free_trial = false;
         if ($current_user) {
@@ -415,7 +428,8 @@ class HomeController extends Controller
         return view('all_bobcats',[
           'all_bobcats' => $all_bobcats,
           'page_title' => "Find A Bobcats",
-          'is_free_trial' => $is_free_trial
+          'is_free_trial' => $is_free_trial,
+          'year' => $year
         ]);
       } else {
         $all_bobcats = User::where([

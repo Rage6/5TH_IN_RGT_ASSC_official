@@ -17,20 +17,32 @@
                       @csrf
                       <div class="bobcatSearchBox">
                         <div class="bobcatButton nameButton">
-                          <span data-searchbutton="name">
+                          <span 
+                            data-searchbutton="name"
+                            style="text-decoration:<?= !isset($year) ? 'underline' : 'none' ?>; color: <?= !isset($year) ? 'rgb(139,0,0)' : 'black' ?>">
                             NAME
                           </span>
                         </div>
                         <div class="bobcatButton yearButton">
-                          <span data-searchbutton="year">
+                          <span 
+                            data-searchbutton="year" 
+                            style="text-decoration:<?= isset($year) ? 'underline' : 'none' ?>; color: <?= isset($year) ? 'rgb(139,0,0)' : 'black' ?>">
                             YEAR
                           </span>
                         </div>
-                        <div class="nameInput" data-searchinput="name">
-                          <input type="text" name="bobcatName" placeholder="Enter a first or last name"/>
+                        <div class="nameInput" data-searchinput="name" style="display:<?= isset($year) ? 'none' : 'block' ?>">
+                          <input 
+                            type="text" 
+                            name="bobcatName" 
+                            placeholder="Enter a first or last name"
+                            value="<?= isset($name) ? $name : null ?>"/>
                         </div>
-                        <div class="yearInput" data-searchinput="year">
-                          <input type="number" name="bobcatYear" placeholder="Enter a year"/>
+                        <div class="yearInput" data-searchinput="year" style="display:<?= isset($year) ? 'block' : 'none' ?>">
+                          <input 
+                            type="number" 
+                            name="bobcatYear" 
+                            placeholder="Enter a year"
+                            value="<?= isset($year) ? $year : null ?>"/>
                         </div>
                         <button type="submit" name="searchBttn">FIND</button>
                         <a href="{{ route('bobcat.list.index') }}">
@@ -59,7 +71,7 @@
                           </a>
                         @endforeach
                       </div>
-                      {{ $all_bobcats->links('pagination::default') }}
+                      {{ $all_bobcats->links('pagination::casualty-list') }}
                     </div>
                   </div>
                   @if ($is_free_trial == false)
