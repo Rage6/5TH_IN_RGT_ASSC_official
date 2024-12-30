@@ -147,7 +147,7 @@
                           <ul>
                             @foreach ($all_links as $one_link)
                               <li>
-                                <a href="{{ $one_link->url }}">{{ $one_link->name }}</a>
+                                <a href="{{ explode('://',$one_link->url)[0] == 'https' || explode('://',$one_link->url)[0] == 'http' ? $one_link->url : 'https://'.$one_link->url }}">{{ $one_link->name }}</a>
                               </li>
                             @endforeach
                           </ul>
