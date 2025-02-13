@@ -68,3 +68,23 @@ body {
 .applyNow {
   font-size: 2.6rem;
 }
+
+.attachmentBox {
+  display: flex;
+}
+
+.attachmentBox {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.downloadImg {
+  margin-right: 30px;
+  height: 150px;
+  width: 150px;
+}
+
+.downloadImg > div {
+  padding: 5px;
+  font-size: 1rem;
+}

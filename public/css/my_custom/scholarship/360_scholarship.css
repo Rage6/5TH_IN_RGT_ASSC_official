@@ -153,9 +153,61 @@
   font-family: 'Bellefair', serif;
 }
 
+.regSection div a {
+  color: orange;
+  text-decoration: underline;
+}
+
+.regSectionTitle {
+  padding: 40px 0 20px 0;
+  text-align: center;
+  color: white;
+  font-size: 1.6rem;
+  font-family: 'Vollkorn SC', sans-serif;
+  text-decoration: underline;
+}
+
 .regSubtitle {
   margin-bottom: 20px;
   font-size: 1.4rem;
   font-family: 'Vollkorn SC', sans-serif;
   text-align: center;
+  cursor: pointer;
+}
+
+.attachmentBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.downloadImg {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-size: 80% 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('/images/scholarship/attachment.png');
+  height: 250px;
+  width: 250px;
+}
+
+.regSection .downloadImg a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.downloadImg > a > div {
+  border: 1px solid white;
+  padding: 10px;
+  color: white;
+  font-size: 1.5rem;
+  background-color: black;
+}
+
+div[data-answer] {
+  display: none;
 }
