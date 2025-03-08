@@ -1,0 +1,104 @@
+.photoContent {
+    padding-top: 10vh;
+    background: repeating-linear-gradient(
+        -45deg,
+        grey,
+        white 100px,
+        grey 130px,
+        white 180px,
+        grey 300px,
+        white 410px,
+        grey 550px);
+    min-height: 90vh;
+}
+
+.photoMainTitle {
+    border: 1px solid black;
+    padding: 20px;
+    background: linear-gradient(
+        rgba(255,255,255,0.7),
+        rgba(255,255,255,0.7)),
+      url('/images/registration/collage.png');
+    background-repeat: no-repeat, repeat;
+    background-size: 100% 100%, 360px 360px;
+}
+
+.photoMainTitle div {
+    text-align: center;
+    font-size: 2.5rem;
+    font-family: 'Vollkorn SC', sans-serif;
+}
+
+.mainContent {
+    display: grid;
+}
+
+.menuColumn {
+    padding: 10px 2vw;
+    color: white;
+    font-size: 1.1rem;
+    font-family: 'Special Elite', cursive;
+    background-color: rgba(139,0,0,0.8);
+}
+
+.menuColumn a {
+    color: white;
+}
+
+.addPhoto {
+    margin-bottom: 15px;
+}
+
+.addPhoto a span {
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    float: right;
+    background-color: rgb(139,0,0);
+    cursor: pointer;
+}
+
+.allPhotos {
+    padding: 5vw;
+    background-color: rgba(145,74,14,0.7);
+    display: grid;
+    gap: 2px;
+}
+
+.onePhotoEl {
+    /* margin: 0px 5vw;
+    border: 1px solid black; */
+    background-color: white;
+    padding: 0 3vw;
+    height: 90vw;
+    /* width: 82vw;
+    height: 82vw;
+    position: relative; */
+}
+
+.onePhotoEl a {
+    color: black;
+    cursor: pointer;
+}
+
+.photoImg {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 80%;
+}
+
+.photoTitle {
+    font-size: 1.3rem;
+    font-family: 'Bellefair', serif;
+    text-align: center;
+}
+
+.editPhoto {
+    height: 150px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}

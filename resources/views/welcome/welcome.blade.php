@@ -18,9 +18,15 @@
       <div>Regiment</div>
       <div>Association</div>
     </div>
-    <div id="bottomView" class="bottomView">
-      <div>LEARN MORE BELOW</div>
-    </div>
+    <?php if (intval(date('m')) >= 3 && intval(date('m')) <= 4): ?>
+      <div class="scholarshipBottomView">
+        <div><a href="{{ route('scholarship.index') }}">SCHOLARSHIP APPLICATIONS FROM Mar. 1st - Apr. 30th!</a></div>
+      </div>
+    <?php else: ?>
+      <div id="bottomView" class="bottomView">
+        <div>LEARN MORE BELOW</div>
+      </div>
+    <?php endif ?>
   </div>
   <div class="lowerBody">
     <div id="welcomeTitle" class="sectionTitle">Home of the Bobcats</div>

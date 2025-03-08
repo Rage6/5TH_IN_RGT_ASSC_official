@@ -123,6 +123,11 @@ Route::prefix('medal-of-honor')->group(function() {
   Route::get('recipient/{id}',[App\Http\Controllers\RecipientController::class,'show'])->name('recipients.select');
 });
 
+Route::prefix('photos')->group(function() {
+  Route::get('',[App\Http\Controllers\PhotoController::class,'index'])->name('photos.index');
+  Route::get('{id}',[App\Http\Controllers\PhotoController::class,'show'])->name('photos.show');
+});
+
 // Retrieves a 'current' image from the 'storage' directory
 Route::get('images/current/{filename}', function($filename){
      $storagePath = storage_path('app/public/images/current/' . $filename);
@@ -151,6 +156,12 @@ Route::get('images/events/{filename}', function($filename){
 Route::get('images/events/subevents/{filename}', function($filename){
      $storagePath = storage_path('app/public/images/events/subevents/' . $filename);
         return response()->file($storagePath);
+});
+
+// Retrieves an 'event' image from the 'storage' directory
+Route::get('images/gallery/{filename}', function($filename){
+  $storagePath = storage_path('app/public/images/gallery/' . $filename);
+     return response()->file($storagePath);
 });
 
 // Retrieves a 'bulletin' pdf file from the 'storage' directory
@@ -207,6 +218,14 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
     Route::post('delete-personal-image-complete{img_type}', [App\Http\Controllers\HomeController::class,'image_personal_delete'])->name('delete.personal.image.complete');
     Route::get('edit-password', [App\Http\Controllers\HomeController::class,'edit_password_index'])->name('password.edit');
     Route::post('edit-password-change', [App\Http\Controllers\HomeController::class,'edit_password_change'])->name('password.edit.change');
+    // Add a photo to the gallery
+    Route::get('add-to-the-gallery', [App\Http\Controllers\PhotoController::class,'create'])->name('gallery.photo.create');
+    Route::post('store-to-the-gallery', [App\Http\Controllers\PhotoController::class,'store'])->name('gallery.photo.store');
+    // Edit the photo
+    Route::get('edit-gallery-photo/{id}', [App\Http\Controllers\PhotoController::class,'edit'])->name('gallery.photo.edit');
+    Route::post('complete-gallery-photo-update/{id}', [App\Http\Controllers\PhotoController::class,'update'])->name('gallery.photo.update');
+    // Delete a photo
+    Route::get('delete-gallery-photo/{id}', [App\Http\Controllers\PhotoController::class,'destroy'])->name('gallery.photo.delete');
   });
 
   Route::middleware('access')->group(function() {

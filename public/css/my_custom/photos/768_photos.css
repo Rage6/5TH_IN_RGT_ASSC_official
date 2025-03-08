@@ -1,0 +1,13 @@
+.mainContent {
+    grid-template-columns: 20% 80%
+}
+
+.allPhotos {
+    grid-template-columns: 30vw 30vw;
+    gap: 10vw;
+}
+
+.onePhotoEl {
+    height: 30vw;
+    width: 24vw;
+}

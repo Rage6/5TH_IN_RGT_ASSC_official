@@ -3,6 +3,21 @@
 @include('scholarship.style')
 
 @section('scholarship_content')
+  <?php if (intval(date('m')) >= 3 && intval(date('m')) <= 4): ?>
+    <div id="notificationEl" class="scholarNotifBackground">
+      <div class="scholarNotification">
+        <span id="closeNotification">
+          &#10005;
+        </span>
+        <div>
+          <div>
+            APPLICATIONS ARE NOW ACCEPTED!
+          </div>
+          Applications are accepted from <u>Mar. 1st to Apr. 30th</u>. <b>Please read/use the "Application", "Criteria", "Biography", and "Criteria Supplement"</b> files when applying. If you have any questions, please <a href="mailto:general.anderson.scholarship.info@gmail.com">email us</a>.
+        </div>
+      </div>
+    </div>
+  <?php endif ?>
   <div class="main">
     <div class="content">
       <!-- <div class="regIntro"> -->
@@ -18,7 +33,7 @@
           </div>
           <div class="scholarImg">
             <div class="aroundButtons applyNow">
-              <a target="_blank" href="/images/scholarship/form/GASP_Application.docx">
+              <a target="_blank" href="/scholarship/form/GASP_Application.docx">
                 <span class="buttons">
                   APPLY NOW
                 </span>
@@ -58,6 +73,11 @@
             The following attachments are necessary for understanding the scholarship program and and the application process.
           </div>
           <div class="regSection attachmentBox">
+            <div class="downloadImg">
+              <a target="_blank" href="/scholarship/form/GASP_Application.docx">
+                <div>Application</div>
+              </a>
+            </div>
             <div class="downloadImg">
               <a target="_blank" href="/scholarship/form/GASP_Addendum_One.docx">
                 <div>Biography</div>
