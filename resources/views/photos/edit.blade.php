@@ -11,7 +11,7 @@
 
                 <div class="card-body">
                   <div>
-                    <a href="{{ route('photos.index') }}">
+                    <a href="{{ route('photos.show', ['id' => $photo->id]) }}">
                       << BACK
                     </a>
                     <form method="POST" action="{{ route('gallery.photo.update', ['id'=>$photo->id]) }}" enctype="multipart/form-data">
@@ -54,6 +54,28 @@
                           <div>Day</div>
                           <div>Year</div>
                         </div>
+                        <div>
+                          Album
+                        </div>
+                        <select name="albumId">
+                          <option value="none">No album</option>
+                          <option disabled>-- Public Albums --</option>
+                          @foreach ($public_albums as $album)
+                            @if ($album->id == $photo->album_id)
+                              <option selected value="{{ $album->id }}">{{ $album->title }}</option>
+                            @else
+                              <option value="{{ $album->id }}">{{ $album->title }}</option>
+                            @endif
+                          @endforeach
+                          <option disabled>-- Member Albums --</option>
+                          @foreach ($member_albums as $album)
+                            @if ($album->id == $photo->album_id)
+                              <option selected value="{{ $album->id }}">{{ $album->title }}</option>
+                            @else
+                              <option value="{{ $album->id }}">{{ $album->title }}</option>
+                            @endif
+                          @endforeach
+                        </select>
                         <div>
                           Do you want this photo to be available to the public or only to other members?
                         </div>

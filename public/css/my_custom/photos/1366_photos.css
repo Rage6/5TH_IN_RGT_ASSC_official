@@ -6,6 +6,14 @@
     grid-template-columns: 20% 80%;
 }
 
+.allButtons {
+    justify-content: end;
+}
+
+.addPhoto {
+    margin-left: 20px;
+}
+
 .allPhotos {
     padding: 2vw;
     grid-template-columns: 24vw 24vw 24vw;

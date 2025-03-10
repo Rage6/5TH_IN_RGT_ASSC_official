@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Photo;
+use App\Models\Album;
 
 class PhotoController extends Controller
 {
@@ -22,9 +23,10 @@ class PhotoController extends Controller
         $current_user = Auth::user();
         
         if ($current_user == null) {
-            $all_photos = Photo::where('member_only',0)->get();
+            $all_photos = Photo::where('member_only',0)
+                ->paginate(20);
         } else {
-            $all_photos = Photo::all();
+            $all_photos = Photo::paginate(20);
         };
 
         return view('photos.index',[
@@ -44,7 +46,19 @@ class PhotoController extends Controller
     public function create()
     {
         $current_user = Auth::user();
-        return view('photos.create');
+
+        $public_albums = Album::where('members_only', 0)
+            ->orderBy('title', 'ASC')
+            ->get();
+
+        $member_albums = Album::where('members_only', 1)
+            ->orderBy('title', 'ASC')
+            ->get();
+
+        return view('photos.create', [
+            'public_albums' => $public_albums,
+            'member_albums' => $member_albums
+        ]);
     }
 
     /**
@@ -57,6 +71,10 @@ class PhotoController extends Controller
     {
         $current_user = Auth::user();
 
+        if ($request->albumId == "none") {
+            $request->albumId = null;
+        };
+
         $request->validate([
             'title'          => 'nullable|string|max:250',
             'photo_file'     => 'required|file|max:255',
@@ -66,6 +84,7 @@ class PhotoController extends Controller
             'dayOfPhoto'     => 'nullable|integer|max:31|min:1',
             'yearOfPhoto'    => 'nullable|integer|min:1830',
             'membersOnly'    => 'required|integer',
+            'album_id'       => 'nullable|integer'
         ]);
 
         $photo = Photo::create([
@@ -77,7 +96,8 @@ class PhotoController extends Controller
             'day_of_photo' => $request->dayOfPhoto,
             'year_of_photo' => $request->yearOfPhoto,
             'members_only' => $request->membersOnly,
-            'user_id' => $current_user->id
+            'user_id' => $current_user->id,
+            'album_id' => $request->albumId
         ]);
 
         $photo->photo_file = request('photo_file')->store("public/images/gallery");
@@ -86,7 +106,7 @@ class PhotoController extends Controller
 
         $photo->save();
           
-        return redirect()->route('home');
+        return redirect()->route('photos.show', ['id' => $photo->id]);
     }
 
     /**
@@ -99,6 +119,8 @@ class PhotoController extends Controller
     {
         $cart_count = get_cart_count($request)->cart_count;
 
+        $current_user = Auth::user();
+
         $photo = Photo::find($id);
 
         return view('photos.view',[
@@ -106,7 +128,8 @@ class PhotoController extends Controller
             'js' => '/js/my_custom/history/album/album.js',
             'content' => 'photo_content',
             'photo' => $photo,
-            'cart_count' => $cart_count
+            'cart_count' => $cart_count,
+            'current_user' => $current_user
         ]);
     }
 
@@ -122,11 +145,19 @@ class PhotoController extends Controller
 
         $photo = Photo::find($id);
 
+        $public_albums = Album::where('members_only', 0)
+            ->orderBy('title', 'ASC')
+            ->get();
+
+        $member_albums = Album::where('members_only', 1)
+            ->orderBy('title', 'ASC')
+            ->get();
+
         if ($current_user->id == $photo->user_id) {
-            return view('photos.edit', compact('current_user','photo'));
+            return view('photos.edit', compact('current_user','photo','public_albums','member_albums'));
         } else {
-            return redirect()->route('home');
-        }
+            return redirect()->route('photos.show', ['id' => $photo->id]);
+        };
     }
 
     /**
@@ -140,6 +171,10 @@ class PhotoController extends Controller
     {
         $current_user = Auth::user();
 
+        if ($request['albumId'] == "none") {
+            $request['albumId'] = null;
+        };
+
         $request->validate([
             'title'          => 'nullable|string|max:250',
             'photographer'   => 'nullable|string|max:250',
@@ -148,20 +183,24 @@ class PhotoController extends Controller
             'dayOfPhoto'     => 'nullable|integer|max:31|min:1',
             'yearOfPhoto'    => 'nullable|integer|min:1830',
             'memberOnly'     => 'required|integer',
+            'albumId'        => 'nullable|integer',
         ]);
 
         $photo = Photo::find($id);
-        $photo->title = $request['title'];
-        $photo->title = $request['photographer'];
-        $photo->caption = $request['caption'];
-        $photo->month_of_photo = $request['monthOfPhoto'];
-        $photo->day_of_photo = $request['dayOfPhoto'];
-        $photo->year_of_photo = $request['yearOfPhoto'];
-        $photo->member_only = $request['memberOnly'];
+        if ($current_user->id == $photo->user_id) {
+            $photo->title = $request['title'];
+            $photo->photographer = $request['photographer'];
+            $photo->caption = $request['caption'];
+            $photo->month_of_photo = $request['monthOfPhoto'];
+            $photo->day_of_photo = $request['dayOfPhoto'];
+            $photo->year_of_photo = $request['yearOfPhoto'];
+            $photo->member_only = $request['memberOnly'];
+            $photo->album_id = $request['albumId'];
 
-        $photo->save();
+            $photo->save();
+        };
           
-        return redirect()->route('home');
+        return redirect()->route('photos.show', ['id' => $photo->id]);
     }
 
     /**

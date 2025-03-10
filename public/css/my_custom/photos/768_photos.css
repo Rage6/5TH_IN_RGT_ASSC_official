@@ -2,6 +2,14 @@
     grid-template-columns: 20% 80%
 }
 
+.allButtons {
+    justify-content: end;
+}
+
+.addPhoto {
+    margin-left: 20px;
+}
+
 .allPhotos {
     grid-template-columns: 30vw 30vw;
     gap: 10vw;

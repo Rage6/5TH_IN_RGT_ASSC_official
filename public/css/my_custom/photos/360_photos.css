@@ -45,8 +45,18 @@
     color: white;
 }
 
+.photosAndButtons {
+    background-color: rgba(145,74,14,0.7);
+}
+
+.allButtons {
+    padding: 0 5vw;
+    display: flex;
+    justify-content: space-between;
+}
+
 .addPhoto {
-    margin-bottom: 15px;
+    margin-top: 20px;
 }
 
 .addPhoto a span {
@@ -54,23 +64,23 @@
     border: 2px solid white;
     border-radius: 10px;
     color: white;
-    float: right;
+    /* float: right; */
     background-color: rgb(139,0,0);
     cursor: pointer;
 }
 
 .allPhotos {
     padding: 5vw;
-    background-color: rgba(145,74,14,0.7);
+    /* background-color: rgba(145,74,14,0.7); */
     display: grid;
     gap: 2px;
 }
 
 .onePhotoEl {
-    /* margin: 0px 5vw;
-    border: 1px solid black; */
+    margin-bottom: 15px;
+    /* border: 1px solid black; */
     background-color: white;
-    padding: 0 3vw;
+    padding: 3vw;
     height: 90vw;
     /* width: 82vw;
     height: 82vw;
@@ -86,11 +96,13 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: grey;
     width: 100%;
     height: 80%;
 }
 
 .photoTitle {
+    margin-top: 5px;
     font-size: 1.3rem;
     font-family: 'Bellefair', serif;
     text-align: center;
@@ -102,3 +114,22 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+/* PAGINATION  */
+.customPagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style-type: none;
+  }
+  
+  .customPagination li {
+    margin-right: 20px;
+    font-size: 1.2rem;
+    font-family: 'Special Elite', cursive;
+  }
+  
+  .customPagination li a {
+    text-decoration: underline;
+    color: black;
+  }

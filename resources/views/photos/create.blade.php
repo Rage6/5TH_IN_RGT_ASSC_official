@@ -54,6 +54,20 @@
                           <div>Year</div>
                         </div>
                         <div>
+                          Album
+                        </div>
+                        <select name="albumId">
+                          <option value="none">No album</option>
+                          <option disabled>-- Public Albums --</option>
+                          @foreach ($public_albums as $album)
+                            <option value="{{ $album->id }}">{{ $album->title }}</option>
+                          @endforeach
+                          <option disabled>-- Member Albums --</option>
+                          @foreach ($member_albums as $album)
+                            <option value="{{ $album->id }}">{{ $album->title }}</option>
+                          @endforeach
+                        </select>
+                        <div>
                           Do you want this photo to be available to the public or only to other members?
                         </div>
                         <div>

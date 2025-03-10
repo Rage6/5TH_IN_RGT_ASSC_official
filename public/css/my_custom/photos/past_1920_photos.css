@@ -19,6 +19,14 @@ body {
     grid-template-columns: 384px 1536px
 }
 
+.allButtons {
+    justify-content: end;
+}
+
+.addPhoto {
+    margin-left: 20px;
+}
+
 .allPhotos {
     padding: 40px;
     grid-template-columns: 458px 458px 458px;

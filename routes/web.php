@@ -226,6 +226,14 @@ Route::middleware('auth')->middleware('expiration')->group(function() {
     Route::post('complete-gallery-photo-update/{id}', [App\Http\Controllers\PhotoController::class,'update'])->name('gallery.photo.update');
     // Delete a photo
     Route::get('delete-gallery-photo/{id}', [App\Http\Controllers\PhotoController::class,'destroy'])->name('gallery.photo.delete');
+    // Add an album to the gallery
+    Route::get('create-an-album', [App\Http\Controllers\AlbumController::class,'create'])->name('gallery.album.create');
+    Route::post('store-an-album', [App\Http\Controllers\AlbumController::class,'store'])->name('gallery.album.store');
+    // Update an album to the gallery
+    Route::get('edit-an-album/{id}', [App\Http\Controllers\AlbumController::class,'edit'])->name('gallery.album.edit');
+    Route::post('update-an-album/{id}', [App\Http\Controllers\AlbumController::class,'update'])->name('gallery.album.update');
+    // Delete an album from the gallery
+    Route::get('delete-an-album/{id}', [App\Http\Controllers\AlbumController::class,'destroy'])->name('gallery.album.delete');
   });
 
   Route::middleware('access')->group(function() {
