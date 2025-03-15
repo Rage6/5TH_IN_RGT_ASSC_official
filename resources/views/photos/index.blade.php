@@ -4,6 +4,31 @@
 
 @section('photos_content')
     <div class="photoContent">
+        <div class="albumListBkgrd">
+            <div class="albumListEl">
+                <div class="exitBttn">
+                    <span data-button="hide">
+                        &#10005;
+                    </span>
+                </div>
+                <div>
+                    Choose an album
+                </div>
+                <div class="albumList">
+                    <a href="{{ route('photos.index') }}">
+                        <div>All Photos</div>
+                    </a>
+                    @foreach ($all_albums as $one_album)
+                        <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
+                            <div>{{ $one_album->title }}</div>
+                        </a>
+                    @endforeach
+                    <a href="{{ route('photos.index', ['album' => 'unassigned']) }}">
+                        <div>Unassigned</div>
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="photoMainTitle">
             <div>
                 Bobcat<br> 
@@ -15,6 +40,9 @@
                 <a href="{{ route('welcome') }}">
                     <div><< HOME</div>
                 </a>
+                <div data-button="show">
+                    Filter By Album
+                </div>
             </div>
             <div class="photosAndButtons">
                 @auth

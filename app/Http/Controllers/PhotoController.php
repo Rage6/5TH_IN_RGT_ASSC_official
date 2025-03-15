@@ -21,18 +21,36 @@ class PhotoController extends Controller
         $cart_count = get_cart_count($request)->cart_count;
 
         $current_user = Auth::user();
+
+        if (isset($_GET['album'])) {
+            if ($_GET['album'] == 'unassigned') {
+                $album_where = ['album_id',null];
+            } else {
+                $album_id = intval($_GET['album']);
+                $album_where = ['album_id',$album_id];
+            };
+        } else {
+            $album_where = [null];
+        };
         
         if ($current_user == null) {
-            $all_photos = Photo::where('member_only',0)
+            $all_albums = Album::where('members_only',0)
+                ->orderBy('title','ASC')
+                ->get();
+            $all_photos = Photo::where([['member_only',0],$album_where])
                 ->paginate(20);
         } else {
-            $all_photos = Photo::paginate(20);
+            $all_albums = Album::orderBy('title','ASC')
+                ->get();
+            $all_photos = Photo::where([$album_where])
+                ->paginate(20);
         };
 
         return view('photos.index',[
             'style' => 'album_style',
             'js' => '/js/my_custom/history/album/album.js',
             'content' => 'photos_content',
+            'all_albums' => $all_albums,
             'all_photos' => $all_photos,
             'cart_count' => $cart_count
         ]);

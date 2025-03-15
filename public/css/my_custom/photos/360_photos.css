@@ -12,6 +12,36 @@
     min-height: 90vh;
 }
 
+.albumListBkgrd {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.5);
+    height: 100vh;
+    width: 100vw;
+}
+
+.albumListEl {
+    margin: 0 10vw;
+    padding: 5vh 5vw;
+    color: white;
+    background-color:rgb(139,0,0);
+    height: 65vh;
+}
+
+.albumList {
+    background-color: black;
+    height: 58vh;
+}
+
+.albumList a {
+    color: white;
+}
+
 .photoMainTitle {
     border: 1px solid black;
     padding: 20px;
@@ -34,11 +64,24 @@
 }
 
 .menuColumn {
+    display: flex;
+    justify-content: space-between;
     padding: 10px 2vw;
     color: white;
     font-size: 1.1rem;
     font-family: 'Special Elite', cursive;
     background-color: rgba(139,0,0,0.8);
+}
+
+.exitBttn {
+    display: flex;
+    justify-content: right;
+}
+
+.exitBttn span {
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 2px;
 }
 
 .menuColumn a {
