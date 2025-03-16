@@ -38,3 +38,13 @@ body {
     height: 458px;
     width: 408px;
 }
+
+.menuColumn {
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.returnArrow {
+    margin-bottom: 30px;
+}

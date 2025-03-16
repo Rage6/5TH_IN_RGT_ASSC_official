@@ -19,3 +19,13 @@
     height: 30vw;
     width: 24vw;
 }
+
+.menuColumn {
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.returnArrow {
+    margin-bottom: 30px;
+}

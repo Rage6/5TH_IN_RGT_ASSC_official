@@ -37,12 +37,12 @@
         </div>
         <div class="mainContent">
             <div class="menuColumn">
-                <a href="{{ route('welcome') }}">
+                <a class="returnArrow" href="{{ route('welcome') }}">
                     <div><< HOME</div>
                 </a>
-                <div data-button="show">
+                <span class="filterBttn" data-button="show">
                     Filter By Album
-                </div>
+                </span>
             </div>
             <div class="photosAndButtons">
                 @auth
