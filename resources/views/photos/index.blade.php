@@ -57,6 +57,13 @@
                             <span>+ ADD AN ALBUM</span>
                         </a>
                     </div>
+                    @if ($is_album_admin == true && $album_id != null)
+                        <div class="addPhoto">
+                            <a href="{{ route('gallery.album.edit',['id' => $album_id]) }}">
+                                <span>+ EDIT THE ALBUM</span>
+                            </a>
+                        </div>
+                    @endif
                 </div>
                 @endauth
                 <div class="allPhotos">

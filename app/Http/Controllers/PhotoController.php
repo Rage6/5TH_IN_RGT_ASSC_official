@@ -21,7 +21,9 @@ class PhotoController extends Controller
         $cart_count = get_cart_count($request)->cart_count;
 
         $current_user = Auth::user();
+        $is_album_admin = false;
 
+        $album_id = null;
         if (isset($_GET['album'])) {
             if ($_GET['album'] == 'unassigned') {
                 $album_where = ['album_id',null];
@@ -42,6 +44,14 @@ class PhotoController extends Controller
         } else {
             $all_albums = Album::orderBy('title','ASC')
                 ->get();
+            if ($album_id != null) {
+                foreach ($all_albums as $one_album) {
+                    if ($one_album->id == $album_id && $one_album->user_id == $current_user->id) {
+                        $is_album_admin = true;
+                    };
+                };
+            };
+
             $all_photos = Photo::where([$album_where])
                 ->paginate(20);
         };
@@ -52,7 +62,9 @@ class PhotoController extends Controller
             'content' => 'photos_content',
             'all_albums' => $all_albums,
             'all_photos' => $all_photos,
-            'cart_count' => $cart_count
+            'cart_count' => $cart_count,
+            'is_album_admin' => $is_album_admin,
+            'album_id' => $album_id
         ]);
     }
 

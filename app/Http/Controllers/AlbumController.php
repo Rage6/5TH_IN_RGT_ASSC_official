@@ -71,6 +71,8 @@ class AlbumController extends Controller
   {
       $current_user = Auth::user();
 
+      $album = Album::find($id);
+
       if ($current_user->id == $album->user_id) {  
         $request->validate([
           'title'          => 'nullable|string|max:250',
@@ -78,7 +80,7 @@ class AlbumController extends Controller
           'membersOnly'     => 'required|integer'
         ]);
 
-        $album = Album::find($id);
+        // $album = Album::find($id);
         $album->title = $request['title'];
         $album->caption = $request['caption'];
         $album->members_only = $request['membersOnly'];
@@ -86,7 +88,7 @@ class AlbumController extends Controller
         $album->save();
       };
           
-      return redirect()->route('photos.index');
+      return redirect()->route('photos.index',['album' => $id]);
   }
 
   public function destroy($id)
