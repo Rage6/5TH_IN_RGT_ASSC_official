@@ -49,18 +49,18 @@
                 <div class="allButtons">
                     <div class="addPhoto">
                         <a href="{{ route('gallery.photo.create') }}">
-                            <span>+ ADD A PHOTO</span>
+                            <span>+ ADD PHOTO</span>
                         </a>
                     </div>
                     <div class="addPhoto">
                         <a href="{{ route('gallery.album.create') }}">
-                            <span>+ ADD AN ALBUM</span>
+                            <span>+ ADD ALBUM</span>
                         </a>
                     </div>
                     @if ($is_album_admin == true && $album_id != null)
                         <div class="addPhoto">
                             <a href="{{ route('gallery.album.edit',['id' => $album_id]) }}">
-                                <span>+ EDIT THE ALBUM</span>
+                                <span>+ EDIT ALBUM</span>
                             </a>
                         </div>
                     @endif

@@ -29,3 +29,8 @@
 .returnArrow {
     margin-bottom: 30px;
 }
+
+.allButtons {
+    display: flex;
+    justify-content: flex-end;
+}

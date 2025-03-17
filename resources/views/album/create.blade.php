@@ -34,7 +34,7 @@
                         <textarea name="caption" maxlength="1000" placeholder="Max. 1000 characters">
                         </textarea>
                         <div>
-                          Do you want this album to be available to the public or only to other members?
+                          Do you want this album to be visible to the public or only other members?
                         </div>
                         <div>
                           <select name="membersOnly">

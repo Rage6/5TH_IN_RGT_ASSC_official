@@ -89,6 +89,10 @@
     cursor: pointer;
 }
 
+.deleteAlbumBttn {
+    text-align: right;
+}
+
 .menuColumn a {
     color: white;
 }
@@ -99,8 +103,8 @@
 
 .allButtons {
     padding: 0 5vw;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 
 .addPhoto {
