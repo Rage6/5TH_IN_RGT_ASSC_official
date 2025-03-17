@@ -68,7 +68,7 @@
                           @endforeach
                         </select>
                         <div>
-                          Do you want this photo to be available to the public or only to other members?
+                          Do you want this photo to be visible to the public, or only to other members?
                         </div>
                         <div>
                           <select name="membersOnly">

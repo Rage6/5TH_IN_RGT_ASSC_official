@@ -42,6 +42,15 @@
                             <option @if ($album->members_only == 0) selected @endif value="0">Public</option>
                           </select>
                         </div>
+                        <div>
+                          Can only you add photos to this album, or can other members add them as well?
+                        </div>
+                        <div>
+                          <select name="onlyCreatorPhotos">
+                            <option @if ($album->only_creator_photos == 1) selected @endif value="1">Only me</option>
+                            <option @if ($album->only_creator_photos == 0) selected @endif value="0">All members</option>
+                          </select>
+                        </div>
                         <button type="submit" name="editAlbum" class="btn btn-primary">
                           EDIT THE ALBUM
                         </button>

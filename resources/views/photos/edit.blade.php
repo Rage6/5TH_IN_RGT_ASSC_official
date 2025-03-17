@@ -59,7 +59,9 @@
                         </div>
                         <select name="albumId">
                           <option value="none">No album</option>
-                          <option disabled>-- Public Albums --</option>
+                          @if (count($public_albums) > 0)
+                            <option disabled>-- Public Albums --</option>
+                          @endif
                           @foreach ($public_albums as $album)
                             @if ($album->id == $photo->album_id)
                               <option selected value="{{ $album->id }}">{{ $album->title }}</option>
@@ -67,7 +69,9 @@
                               <option value="{{ $album->id }}">{{ $album->title }}</option>
                             @endif
                           @endforeach
-                          <option disabled>-- Member Albums --</option>
+                          @if (count($member_albums) > 0)
+                            <option disabled>-- Member Albums --</option>
+                          @endif
                           @foreach ($member_albums as $album)
                             @if ($album->id == $photo->album_id)
                               <option selected value="{{ $album->id }}">{{ $album->title }}</option>
@@ -77,7 +81,7 @@
                           @endforeach
                         </select>
                         <div>
-                          Do you want this photo to be available to the public or only to other members?
+                          Do you want this photo to be visible to the public, or only to other members?
                         </div>
                         <div>
                           <select name="memberOnly">

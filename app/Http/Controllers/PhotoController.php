@@ -24,12 +24,18 @@ class PhotoController extends Controller
         $is_album_admin = false;
 
         $album_id = null;
+        $public_album = false;
+
         if (isset($_GET['album'])) {
             if ($_GET['album'] == 'unassigned') {
                 $album_where = ['album_id',null];
             } else {
                 $album_id = intval($_GET['album']);
                 $album_where = ['album_id',$album_id];
+                $selected_album = Album::where('id',$album_id)->first();
+                if ($selected_album->members_only == 0) {
+                    $public_album = true;
+                };
             };
         } else {
             $album_where = [null];
@@ -39,8 +45,12 @@ class PhotoController extends Controller
             $all_albums = Album::where('members_only',0)
                 ->orderBy('title','ASC')
                 ->get();
-            $all_photos = Photo::where([['member_only',0],$album_where])
-                ->paginate(20);
+            if (!isset($_GET['album']) || $_GET['album'] == 'unassigned' || $public_album == true) {
+                $all_photos = Photo::where([['member_only',0],$album_where])
+                    ->paginate(20);
+            } else {
+                $all_photos = null;
+            };
         } else {
             $all_albums = Album::orderBy('title','ASC')
                 ->get();
@@ -59,6 +69,7 @@ class PhotoController extends Controller
         return view('photos.index',[
             'style' => 'album_style',
             'js' => '/js/my_custom/history/album/album.js',
+            'current_user' => $current_user,
             'content' => 'photos_content',
             'all_albums' => $all_albums,
             'all_photos' => $all_photos,
@@ -77,11 +88,17 @@ class PhotoController extends Controller
     {
         $current_user = Auth::user();
 
-        $public_albums = Album::where('members_only', 0)
+        $public_albums = Album::where([
+                ['members_only', 0],
+                ['only_creator_photos', 0]
+            ])
             ->orderBy('title', 'ASC')
             ->get();
 
-        $member_albums = Album::where('members_only', 1)
+        $member_albums = Album::where([
+                ['members_only', 1],
+                ['only_creator_photos', 0]
+            ])
             ->orderBy('title', 'ASC')
             ->get();
 
@@ -175,11 +192,17 @@ class PhotoController extends Controller
 
         $photo = Photo::find($id);
 
-        $public_albums = Album::where('members_only', 0)
+        $public_albums = Album::where([
+                ['members_only', 0],
+                ['only_creator_photos', 0]
+            ])
             ->orderBy('title', 'ASC')
             ->get();
 
-        $member_albums = Album::where('members_only', 1)
+        $member_albums = Album::where([
+                ['members_only', 1],
+                ['only_creator_photos', 0]
+            ])
             ->orderBy('title', 'ASC')
             ->get();
 

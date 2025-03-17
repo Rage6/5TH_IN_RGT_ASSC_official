@@ -75,15 +75,17 @@ class AlbumController extends Controller
 
       if ($current_user->id == $album->user_id) {  
         $request->validate([
-          'title'          => 'nullable|string|max:250',
-          'caption'        => 'nullable|string|max:1000',
-          'membersOnly'     => 'required|integer'
+          'title'             => 'nullable|string|max:250',
+          'caption'           => 'nullable|string|max:1000',
+          'membersOnly'       => 'required|integer',
+          'onlyCreatorPhotos' => 'required|integer'
         ]);
 
         // $album = Album::find($id);
         $album->title = $request['title'];
         $album->caption = $request['caption'];
         $album->members_only = $request['membersOnly'];
+        $album->only_creator_photos = $request['onlyCreatorPhotos'];
 
         $album->save();
       };

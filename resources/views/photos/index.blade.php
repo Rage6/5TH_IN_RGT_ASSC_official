@@ -67,21 +67,27 @@
                 </div>
                 @endauth
                 <div class="allPhotos">
-                    @foreach ($all_photos as $one_photo)
-                        <div class="onePhotoEl">
-                            <a href="{{ route('photos.show', ['id' => $one_photo->id]) }}">
-                                <div class="photoImg" style="background-image:url('/images/gallery/{{ $one_photo->photo_file }}')">
-                                    <!-- The image goes here -->
+                    @if ($all_photos != null)
+                        @foreach ($all_photos as $one_photo)
+                            @if ($one_photo->member_only == 0 || $current_user != null)
+                                <div class="onePhotoEl">
+                                    <a href="{{ route('photos.show', ['id' => $one_photo->id]) }}">
+                                        <div class="photoImg" style="background-image:url('/images/gallery/{{ $one_photo->photo_file }}')">
+                                            <!-- The image goes here -->
+                                        </div>
+                                    </a>
+                                    <a href="{{ route('photos.show', ['id' => $one_photo->id]) }}">
+                                        <div class="photoTitle">
+                                            {{ $one_photo->title }}
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                            <a href="{{ route('photos.show', ['id' => $one_photo->id]) }}">
-                                <div class="photoTitle">
-                                    {{ $one_photo->title }}
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-                    {{ $all_photos->links('pagination::casualty-list') }}
+                            @endif
+                        @endforeach
+                        {{ $all_photos->links('pagination::casualty-list') }}
+                    @else 
+                        No photos were found
+                    @endif
                 </div>
             </div>
         </div>

@@ -42,6 +42,15 @@
                             <option value="0">Public</option>
                           </select>
                         </div>
+                        <div>
+                          Can only you add photos to this album, or can other members add them as well?
+                        </div>
+                        <div>
+                          <select name="onlyCreatorPhotos">
+                            <option selected value="1">Only me</option>
+                            <option value="0">All members</option>
+                          </select>
+                        </div>
                         <button type="submit" name="addAlbum" class="btn btn-primary">
                           CREATE THE ALBUM
                         </button>

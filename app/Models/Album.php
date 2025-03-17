@@ -13,6 +13,7 @@ class Album extends Model
         'title',
         'caption',
         'members_only',
+        'only_creator_photos',
         'user_id'
     ];
 }
