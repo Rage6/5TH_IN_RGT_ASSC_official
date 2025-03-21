@@ -28,15 +28,32 @@
                         </div>
                     @endif
                 @endauth
-                <div class="allPhotos">
-                    <div class="onePhotoEl">
-                        <div class="photoImg" style="background-image:url('/images/gallery/{{ $photo->photo_file }}')">
-                            <!-- The image goes here -->
-                        </div>
-                        <div class="photoTitle">
+                <div class="viewPhotoEl">
+                    @if ($photo->title != null)
+                        <div class="viewTitle">
                             {{ $photo->title }}
                         </div>
-                    </div>
+                    @endif
+
+                    <img src='/images/gallery/{{ $photo->photo_file }}' />
+                    @if ($photo->caption != null)
+                        <div>
+                            Caption: {{ $photo->caption }}
+                        </div>
+                    @endif
+                    @if ($photo->photographer != null)
+                        <div>
+                            Photo taken by {{ $photo->photographer }}
+                        </div>
+                    @endif
+                    @if ($photo->day_of_photo != null || $photo->month_of_photo != null || $photo->year_of_photo != null)
+                        <div>
+                            Date Taken: 
+                            @if ($photo->day_of_photo != null)
+                                {{ $photo->day_of_photo }}
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

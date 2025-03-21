@@ -25,7 +25,7 @@
                       @endif
                       <div class="basicInfoGrid">
                         <div>
-                          Photo
+                          Photo (max. 2MB)
                         </div>
                         <input type="file" name="photo_file" required="true" />
                         <div>

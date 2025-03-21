@@ -92,12 +92,20 @@ class PhotoController extends Controller
                 ['members_only', 0],
                 ['only_creator_photos', 0]
             ])
+            ->orWhere([
+                ['members_only', 0],
+                ['user_id', $current_user->id]
+            ])
             ->orderBy('title', 'ASC')
             ->get();
 
         $member_albums = Album::where([
                 ['members_only', 1],
                 ['only_creator_photos', 0]
+            ])
+            ->orWhere([
+                ['members_only', 1],
+                ['user_id', $current_user->id]
             ])
             ->orderBy('title', 'ASC')
             ->get();
@@ -124,7 +132,7 @@ class PhotoController extends Controller
 
         $request->validate([
             'title'          => 'nullable|string|max:250',
-            'photo_file'     => 'required|file|max:255',
+            'photo_file'     => 'required|file|max:2048', // <-- 8192 KB == 8 MB
             'photographer'   => 'nullable|string|max:255',
             'caption'        => 'nullable|string|max:1000',
             'monthOfPhoto'   => 'nullable|integer|max:12|min:1',
@@ -196,12 +204,20 @@ class PhotoController extends Controller
                 ['members_only', 0],
                 ['only_creator_photos', 0]
             ])
+            ->orWhere([
+                ['members_only', 0],
+                ['user_id', $current_user->id]
+            ])
             ->orderBy('title', 'ASC')
             ->get();
 
         $member_albums = Album::where([
                 ['members_only', 1],
                 ['only_creator_photos', 0]
+            ])
+            ->orWhere([
+                ['members_only', 1],
+                ['user_id', $current_user->id]
             ])
             ->orderBy('title', 'ASC')
             ->get();

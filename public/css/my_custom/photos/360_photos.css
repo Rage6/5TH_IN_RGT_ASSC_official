@@ -167,6 +167,26 @@
     background-repeat: no-repeat;
 }
 
+.viewPhotoEl {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: anchor-center;
+}
+
+.viewPhotoEl div {
+    margin-bottom: 20px;
+}
+
+.viewTitle {
+    /* margin-bottom: 20px; */
+}
+
+.viewPhotoEl img {
+    margin-bottom: 20px;
+    max-width: 96%;
+}
+
 /* PAGINATION  */
 .customPagination {
     display: flex;
