@@ -26,6 +26,8 @@ class PhotoController extends Controller
         $album_id = null;
         $public_album = false;
 
+        $photos_per_page = 20;
+
         if (isset($_GET['album'])) {
             if ($_GET['album'] == 'unassigned') {
                 $album_where = ['album_id',null];
@@ -47,7 +49,7 @@ class PhotoController extends Controller
                 ->get();
             if (!isset($_GET['album']) || $_GET['album'] == 'unassigned' || $public_album == true) {
                 $all_photos = Photo::where([['member_only',0],$album_where])
-                    ->paginate(20);
+                    ->paginate($photos_per_page);
             } else {
                 $all_photos = null;
             };
@@ -63,7 +65,11 @@ class PhotoController extends Controller
             };
 
             $all_photos = Photo::where([$album_where])
-                ->paginate(20);
+                ->paginate($photos_per_page);
+        };
+
+        if (isset($_GET['album'])) {
+            $all_photos->appends(['album' => $_GET['album']]);
         };
 
         return view('photos.index',[
@@ -75,7 +81,8 @@ class PhotoController extends Controller
             'all_photos' => $all_photos,
             'cart_count' => $cart_count,
             'is_album_admin' => $is_album_admin,
-            'album_id' => $album_id
+            'album_id' => $album_id,
+            'photos_per_page' => $photos_per_page
         ]);
     }
 

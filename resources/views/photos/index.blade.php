@@ -66,8 +66,8 @@
                     @endif
                 </div>
                 @endauth
-                <div class="allPhotos">
-                    @if ($all_photos != null)
+                @if ($all_photos != null)
+                    <div class="allPhotos">
                         @foreach ($all_photos as $one_photo)
                             @if ($one_photo->member_only == 0 || $current_user != null)
                                 <div class="onePhotoEl">
@@ -84,11 +84,13 @@
                                 </div>
                             @endif
                         @endforeach
-                        {{ $all_photos->links('pagination::casualty-list') }}
-                    @else 
+                    </div>
+                    {{ $all_photos->links('pagination::casualty-list') }}
+                @else 
+                    <div class="allPhotos">
                         No photos were found
-                    @endif
-                </div>
+                    </div>
+                @endif
             </div>
         </div>
         @include ('footer.content')
