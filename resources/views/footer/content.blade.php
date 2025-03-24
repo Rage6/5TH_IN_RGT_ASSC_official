@@ -51,16 +51,18 @@
       </a>
     </div>
     <div>
-      <div>PHOTO ALBUM</div>
+      <a href="{{ route('photos.index') }}">
+        <div>PHOTO ALBUM</div>
+      </a>
       <!-- <a href="{{ route('photos.index') }}">
         <div class="pageLink">Current Photos</div>
-      </a> -->
+      </a>
       <a href="https://classic.bobcat.ws/coppermine1" target="_blank">
         <div class="pageLink">Album 1</div>
       </a>
       <a href="https://classic.bobcat.ws/coppermine2" target="_blank">
         <div class="pageLink">Album 2</div>
-      </a>
+      </a> -->
     </div>
     <div>
       <div>MEMBERS ONLY</div>

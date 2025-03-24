@@ -71,9 +71,18 @@
                 @if ($all_photos != null)
                     <div class="allPhotos">
                         @foreach ($all_photos as $one_photo)
+                            @php 
+                                $params = ['id' => $one_photo->id];
+                                if (isset($_GET['album'])) {
+                                    $params['album'] = $_GET['album'];
+                                };
+                                if (isset($_GET['page'])) {
+                                    $params['page'] = $_GET['page'];
+                                };
+                            @endphp
                             @if ($one_photo->member_only == 0 || $current_user != null)
                                 <div class="onePhotoEl">
-                                    <a href="{{ route('photos.show', ['id' => $one_photo->id]) }}">
+                                    <a href="{{ route('photos.show', $params) }}">
                                         <div class="photoImg" style="background-image:url('/images/gallery/{{ $one_photo->photo_file }}')">
                                             <!-- The image goes here -->
                                         </div>

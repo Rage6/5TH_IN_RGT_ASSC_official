@@ -12,7 +12,16 @@
         </div>
         <div class="mainContent">
             <div class="menuColumn">
-                <a href="{{ route('photos.index') }}">
+                @php 
+                    $params = [];
+                    if (isset($_GET['album'])) {
+                        $params['album'] = $_GET['album'];
+                    };
+                    if (isset($_GET['page'])) {
+                        $params['page'] = $_GET['page'];
+                    };
+                @endphp
+                <a href="{{ route('photos.index', $params) }}">
                     <div><< RETURN</div>
                 </a>
             </div>

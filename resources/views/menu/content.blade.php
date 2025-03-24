@@ -88,15 +88,17 @@
       </div>
     </div>
     <div>
-      <div class="mainMenuBttn" data-bttn-num="4">
-        PHOTO ALBUM
-      </div>
-      <div class="mainMenuSubBox" data-box-num="4">
-        <!-- <a href="{{ route('photos.index') }}">
+      <a href="{{ route('photos.index') }}">
+        <div class="mainMenuBttn" data-bttn-num="4">
+          PHOTOS
+        </div>
+      </a>
+      <!-- <div class="mainMenuSubBox" data-box-num="4">
+        <a href="{{ route('photos.index') }}">
           <div class="mainMenuSubBttn">
             + Current Photos
           </div>
-        </a> -->
+        </a>
         <a href="https://classic.bobcat.ws/coppermine1/" target="_blank">
           <div class="mainMenuSubBttn">
             + Archive 1
@@ -107,7 +109,7 @@
             + Archive 2
           </div>
         </a>
-      </div>
+      </div> -->
     </div>
     @if (Route::has('login'))
       <div>
