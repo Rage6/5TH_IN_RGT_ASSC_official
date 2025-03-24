@@ -29,31 +29,34 @@
                     @endif
                 @endauth
                 <div class="viewPhotoEl">
-                    @if ($photo->title != null)
-                        <div class="viewTitle">
-                            {{ $photo->title }}
-                        </div>
-                    @endif
-
-                    <img src='/images/gallery/{{ $photo->photo_file }}' />
-                    @if ($photo->caption != null)
-                        <div>
-                            Caption: {{ $photo->caption }}
-                        </div>
-                    @endif
-                    @if ($photo->photographer != null)
-                        <div>
-                            Photo taken by {{ $photo->photographer }}
-                        </div>
-                    @endif
-                    @if ($photo->day_of_photo != null || $photo->month_of_photo != null || $photo->year_of_photo != null)
-                        <div>
-                            Date Taken: 
-                            @if ($photo->day_of_photo != null)
-                                {{ $photo->day_of_photo }}
-                            @endif
-                        </div>
-                    @endif
+                    <div class="viewImgEl">
+                        <img src='/images/gallery/{{ $photo->photo_file }}' />
+                    </div>
+                    <div class="viewInfoEl">
+                        @if ($photo->title != null)
+                            <div class="viewTitle">
+                                Title: {{ $photo->title }}
+                            </div>
+                        @endif
+                        @if ($photo->caption != null)
+                            <div>
+                                Caption: {{ $photo->caption }}
+                            </div>
+                        @endif
+                        @if ($photo->photographer != null)
+                            <div>
+                                Photo taken by {{ $photo->photographer }}
+                            </div>
+                        @endif
+                        @if ($photo->day_of_photo != null || $photo->month_of_photo != null || $photo->year_of_photo != null)
+                            <div>
+                                Date Taken: 
+                                @if ($photo->day_of_photo != null)
+                                    {{ $photo_date }}
+                                @endif
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

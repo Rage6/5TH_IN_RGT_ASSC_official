@@ -26,7 +26,7 @@ class PhotoController extends Controller
         $album_id = null;
         $public_album = false;
 
-        $photos_per_page = 20;
+        $photos_per_page = 24;
 
         if (isset($_GET['album'])) {
             if ($_GET['album'] == 'unassigned') {
@@ -185,11 +185,63 @@ class PhotoController extends Controller
 
         $photo = Photo::find($id);
 
+        // Day
+        if ($photo->day_of_photo == null) {
+            $day == "__";
+        } elseif ($photo->day_of_photo == 1 || $photo->day_of_photo == 21 || $photo->day_of_photo == 31) {
+            $day = $photo->day_of_photo."st";
+        } elseif ($photo->day_of_photo == 2 || $photo->day_of_photo == 22) {
+            $day = $photo->day_of_photo."nd";
+        } elseif ($photo->day_of_photo == 3 || $photo->day_of_photo == 23) {
+            $day = $photo->day_of_photo."rd";
+        } else {
+            $day = $photo->day_of_photo."th";
+        };
+
+        // Month
+        if ($photo->month_of_photo == 1) {
+            $month == "Jan.";
+        } elseif ($photo->month_of_photo == 2) {
+            $month = "Feb.";
+        } elseif ($photo->month_of_photo == 3) {
+            $month = "Mar.";
+        } elseif ($photo->month_of_photo == 4) {
+            $month = "Apr.";
+        } elseif ($photo->month_of_photo == 5) {
+            $month = "May";
+        } elseif ($photo->month_of_photo == 6) {
+            $month = "June";
+        } elseif ($photo->month_of_photo == 7) {
+            $month = "July";
+        } elseif ($photo->month_of_photo == 8) {
+            $month = "Aug.";
+        } elseif ($photo->month_of_photo == 9) {
+            $month = "Sept.";
+        } elseif ($photo->month_of_photo == 10) {
+            $month = "Oct.";
+        } elseif ($photo->month_of_photo == 11) {
+            $month = "Nov.";
+        } elseif ($photo->month_of_photo == 12) {
+            $month = "Dec.";
+        } else {
+            $month = "__";
+        };
+
+        // Year
+        if ($photo->year_of_photo == null) {
+            $year = "____";
+        } else {
+            $year = $photo->year_of_photo;
+        };
+
+        $photo_date = $month." ".$day.", ".$year;
+
         return view('photos.view',[
             'style' => 'album_style',
             'js' => '/js/my_custom/history/album/album.js',
             'content' => 'photo_content',
             'photo' => $photo,
+            'photo_date' => $photo_date,
             'cart_count' => $cart_count,
             'current_user' => $current_user
         ]);

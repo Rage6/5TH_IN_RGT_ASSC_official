@@ -31,7 +31,9 @@
         </div>
         <div class="photoMainTitle">
             <div>
-                Bobcat<br> 
+                Bobcat
+            </div>
+            <div> 
                 Gallery
             </div>
         </div>

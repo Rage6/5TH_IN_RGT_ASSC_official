@@ -36,21 +36,30 @@
 .albumList {
     background-color: black;
     height: 58vh;
+    overflow-y: scroll;
 }
 
 .albumList a {
     color: white;
 }
 
+.albumList a div {
+    overflow-x: hidden;
+}
+
 .photoMainTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border: 1px solid black;
-    padding: 20px;
+    /* padding: 20px; */
     background: linear-gradient(
         rgba(255,255,255,0.7),
         rgba(255,255,255,0.7)),
       url('/images/registration/collage.png');
     background-repeat: no-repeat, repeat;
     background-size: 100% 100%, 360px 360px;
+    height: 16vh;
 }
 
 .photoMainTitle div {
@@ -61,6 +70,7 @@
 
 .mainContent {
     display: grid;
+    min-height: 74vh;
 }
 
 .menuColumn {
@@ -155,7 +165,7 @@
 
 .photoTitle {
     margin-top: 5px;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-family: 'Bellefair', serif;
     text-align: center;
 }
@@ -169,22 +179,36 @@
 
 .viewPhotoEl {
     margin-top: 50px;
+    padding: 10px 0;
     display: flex;
     flex-direction: column;
     align-items: anchor-center;
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .viewPhotoEl div {
-    margin-bottom: 20px;
+    font-size: 1rem;
 }
 
-.viewTitle {
-    font-size: 1.5rem;
+.viewPhotoEl div.viewTitle {
+    font-size: 1.2rem;
 }
 
-.viewPhotoEl img {
-    margin-bottom: 20px;
+.viewImgEl {
+    display: flex;
+    justify-content: center;
+}
+
+.viewImgEl img {
     max-width: 96%;
+}
+
+.viewInfoEl {
+    margin-top: 20px;
+}
+
+.viewInfoEl div {
+    margin-bottom: 10px;
 }
 
 /* PAGINATION  */
