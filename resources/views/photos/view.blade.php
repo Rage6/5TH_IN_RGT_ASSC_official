@@ -57,6 +57,9 @@
                                 Photo taken by {{ $photo->photographer }}
                             </div>
                         @endif
+                        <div>
+                            Uploaded by {{ $uploaded_by }}
+                        </div>
                         @if ($photo->day_of_photo != null || $photo->month_of_photo != null || $photo->year_of_photo != null)
                             <div>
                                 Date Taken: 

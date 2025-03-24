@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Photo;
 use App\Models\Album;
+use App\Models\User;
 
 class PhotoController extends Controller
 {
@@ -185,6 +186,9 @@ class PhotoController extends Controller
 
         $photo = Photo::find($id);
 
+        $uploaded_by = User::find($photo->user_id);
+        $uploaded_by = $uploaded_by->first_name." ".$uploaded_by->last_name;
+
         // Day
         if ($photo->day_of_photo == null) {
             $day = "__";
@@ -242,6 +246,7 @@ class PhotoController extends Controller
             'content' => 'photo_content',
             'photo' => $photo,
             'photo_date' => $photo_date,
+            'uploaded_by' => $uploaded_by,
             'cart_count' => $cart_count,
             'current_user' => $current_user
         ]);
