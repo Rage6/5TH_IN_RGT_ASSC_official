@@ -58,7 +58,7 @@ body {
 .viewPhotoEl {
     margin: 0 1% 0 1%;
     display: grid;
-    grid-template-columns: 48% 48%;
+    grid-template-columns: 68% 28%;
     gap: 2%;
     align-items: unset;
 }
