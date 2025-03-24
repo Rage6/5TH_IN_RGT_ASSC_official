@@ -187,7 +187,7 @@ class PhotoController extends Controller
 
         // Day
         if ($photo->day_of_photo == null) {
-            $day == "__";
+            $day = "__";
         } elseif ($photo->day_of_photo == 1 || $photo->day_of_photo == 21 || $photo->day_of_photo == 31) {
             $day = $photo->day_of_photo."st";
         } elseif ($photo->day_of_photo == 2 || $photo->day_of_photo == 22) {
