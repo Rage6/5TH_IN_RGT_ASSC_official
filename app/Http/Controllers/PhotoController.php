@@ -49,7 +49,7 @@ class PhotoController extends Controller
                 ->orderBy('title','ASC')
                 ->get();
             if (!isset($_GET['album']) || $_GET['album'] == 'unassigned' || $public_album == true) {
-                $all_photos = Photo::where([['member_only',0],$album_where])
+                $all_photos = Photo::where([['members_only',0],$album_where])
                     ->paginate($photos_per_page);
             } else {
                 $all_photos = null;
@@ -158,7 +158,7 @@ class PhotoController extends Controller
             'month_of_photo' => $request->monthOfPhoto,
             'day_of_photo' => $request->dayOfPhoto,
             'year_of_photo' => $request->yearOfPhoto,
-            'members_only' => $request->membersOnly,
+            'members_only' => intval($request->membersOnly),
             'user_id' => $current_user->id,
             'album_id' => $request->albumId
         ]);
@@ -308,6 +308,8 @@ class PhotoController extends Controller
             $request['albumId'] = null;
         };
 
+        $request['membersOnly'] = intval($request['membersOnly']);
+
         $request->validate([
             'title'          => 'nullable|string|max:250',
             'photographer'   => 'nullable|string|max:250',
@@ -315,7 +317,7 @@ class PhotoController extends Controller
             'monthOfPhoto'   => 'nullable|integer|max:12|min:1',
             'dayOfPhoto'     => 'nullable|integer|max:31|min:1',
             'yearOfPhoto'    => 'nullable|integer|min:1830',
-            'memberOnly'     => 'required|integer',
+            'membersOnly'    => 'required|integer',
             'albumId'        => 'nullable|integer',
         ]);
 
@@ -327,7 +329,7 @@ class PhotoController extends Controller
             $photo->month_of_photo = $request['monthOfPhoto'];
             $photo->day_of_photo = $request['dayOfPhoto'];
             $photo->year_of_photo = $request['yearOfPhoto'];
-            $photo->member_only = $request['memberOnly'];
+            $photo->members_only = $request['membersOnly'];
             $photo->album_id = $request['albumId'];
 
             $photo->save();

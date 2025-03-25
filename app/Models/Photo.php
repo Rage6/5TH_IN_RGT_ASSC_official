@@ -17,7 +17,7 @@ class Photo extends Model
         'day_of_photo',
         'month_of_photo',
         'year_of_photo',
-        'member_only',
+        'members_only',
         'user_id',
         'album_id'
     ];

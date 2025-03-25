@@ -84,9 +84,9 @@
                           Do you want this photo to be visible to the public, or only to other members?
                         </div>
                         <div>
-                          <select name="memberOnly">
-                            <option @if ($photo->member_only == 1) selected @endif value="1">Only members</option>
-                            <option @if ($photo->member_only == 0) selected @endif value="0">Public</option>
+                          <select name="membersOnly">
+                            <option @if ($photo->members_only == 1) selected @endif value="1">Only members</option>
+                            <option @if ($photo->members_only == 0) selected @endif value="0">Public</option>
                           </select>
                         </div>
                         <button type="submit" name="addPhoto" class="btn btn-primary">
