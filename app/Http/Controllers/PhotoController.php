@@ -25,6 +25,7 @@ class PhotoController extends Controller
         $is_album_admin = false;
 
         $album_id = null;
+        $album_name = null;
         $public_album = false;
 
         $photos_per_page = 24;
@@ -36,6 +37,7 @@ class PhotoController extends Controller
                 $album_id = intval($_GET['album']);
                 $album_where = ['album_id',$album_id];
                 $selected_album = Album::where('id',$album_id)->first();
+                $album_name = $selected_album->title;
                 if ($selected_album->members_only == 0) {
                     $public_album = true;
                 };
@@ -83,6 +85,7 @@ class PhotoController extends Controller
             'cart_count' => $cart_count,
             'is_album_admin' => $is_album_admin,
             'album_id' => $album_id,
+            'album_name' => $album_name,
             'photos_per_page' => $photos_per_page
         ]);
     }

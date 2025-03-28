@@ -43,6 +43,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     text-align: center;
+    min-height: calc(100% - 2vh);
 }
 
 .returnArrow {

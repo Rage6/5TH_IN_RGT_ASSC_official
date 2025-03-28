@@ -76,11 +76,12 @@
 .menuColumn {
     display: flex;
     justify-content: space-between;
-    padding: 10px 2vw;
+    padding: 1vh 2vw;
     color: white;
     font-size: 1.1rem;
     font-family: 'Special Elite', cursive;
     background-color: rgba(139,0,0,0.8);
+    height: 3vh;
 }
 
 .filterBttn {
@@ -109,6 +110,19 @@
 
 .photosAndButtons {
     background-color: rgba(145,74,14,0.7);
+    min-height: 69vh;
+}
+
+.albumTitle {
+    padding: 20px 5vw;
+    font-family: 'Vollkorn SC', serif;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.albumTitle span {
+    border-bottom: 2px solid white;
+    font-size: 0.9rem;
 }
 
 .allButtons {
@@ -119,6 +133,7 @@
 
 .addPhoto {
     margin-top: 20px;
+    font-family: 'Special Elite', cursive;
 }
 
 .addPhoto a span {

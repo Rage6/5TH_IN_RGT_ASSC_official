@@ -47,6 +47,16 @@
                 </span>
             </div>
             <div class="photosAndButtons">
+                @if ($album_name)
+                    <div class="albumTitle">
+                        <span>
+                            Album
+                        </span>
+                        <div>
+                            {{ $album_name }}
+                        </div>
+                    </div>
+                @endif
                 @auth
                 <div class="allButtons">
                     <div class="addPhoto">
