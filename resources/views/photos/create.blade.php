@@ -41,6 +41,35 @@
                         </div>
                         <textarea name="caption" maxlength="1000" placeholder="Max. 1000 characters">
                         </textarea>
+                        <!-- <div>
+                          Category
+                        </div>
+                        <select name="category">
+                          <option value="none">
+                            None
+                          </option>
+                          <option value="afghanistan">
+                            Afghanistan
+                          </option>
+                          <option value="cold-war">
+                            Cold War
+                          </option>
+                          <option value="iraq">
+                            Iraq
+                          </option>
+                          <option value="korea">
+                            Korea
+                          </option>
+                          <option value="reunion">
+                            Reunion
+                          </option>
+                          <option value="vietnam">
+                            Vietnam
+                          </option>
+                          <option value="ww2">
+                            World War II
+                          </option>
+                        </select> -->
                         <div>
                           Date Picture Taken
                         </div>
@@ -72,8 +101,8 @@
                         </div>
                         <div>
                           <select name="membersOnly">
-                            <option selected value="1">Only members</option>
-                            <option value="0">Public</option>
+                            <option value="1">Only members</option>
+                            <option selected value="0">Public</option>
                           </select>
                         </div>
                         <button type="submit" name="addPhoto" class="btn btn-primary">

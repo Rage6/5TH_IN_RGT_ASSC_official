@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('EDIT A PHOTO') }}</div>
+                <div class="card-header">{{ __('EDIT AN ALBUM') }}</div>
 
                 <div class="card-body">
                   <div>
@@ -33,6 +33,32 @@
                         </div>
                         <textarea name="caption" maxlength="1000" value="{{ $album->caption }}" placeholder="Max. 1000 characters">
                         </textarea>
+                        <div>
+                          Category
+                        </div>
+                        <select name="category">
+                          <option @if ($album->category == null) selected @endif value="none">
+                            None
+                          </option>
+                          <option @if ($album->category == 'afghanistan') selected @endif value="afghanistan">
+                            Afghanistan
+                          </option>
+                          <option @if ($album->category == 'cold-war') selected @endif value="cold-war">
+                            Cold War
+                          </option>
+                          <option @if ($album->category == 'iraq') selected @endif value="iraq">
+                            Iraq
+                          </option>
+                          <option @if ($album->category == 'korea') selected @endif value="korea">
+                            Korea
+                          </option>
+                          <option @if ($album->category == 'reunion') selected @endif value="reunion">
+                            Reunion
+                          </option>
+                          <option @if ($album->category == 'vietnam') selected @endif value="vietnam">
+                            Vietnam
+                          </option>
+                        </select>
                         <div>
                           Do you want this album visibnle to the public or only other members?
                         </div>

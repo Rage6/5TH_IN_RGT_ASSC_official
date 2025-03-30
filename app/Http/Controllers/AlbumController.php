@@ -39,12 +39,14 @@ class AlbumController extends Controller
     $request->validate([
       'title'          => 'required|string|max:250|unique:photos,title',
       'caption'        => 'nullable|string|max:1000',
+      'category'       => 'nullable|string|max:255',
       'membersOnly'    => 'required|integer',
     ]);
 
     $album = Album::create([
         'title' => $request->title,
         'caption' => $request->caption,
+        'category' => $request->category,
         'members_only' => $request->membersOnly,
         'user_id' => $current_user->id
     ]);
@@ -77,6 +79,7 @@ class AlbumController extends Controller
         $request->validate([
           'title'             => 'nullable|string|max:250',
           'caption'           => 'nullable|string|max:1000',
+          'category'          => 'nullable|string|max:255',
           'membersOnly'       => 'required|integer',
           'onlyCreatorPhotos' => 'required|integer'
         ]);
@@ -84,6 +87,7 @@ class AlbumController extends Controller
         // $album = Album::find($id);
         $album->title = $request['title'];
         $album->caption = $request['caption'];
+        $album->category = $request['category'];
         $album->members_only = $request['membersOnly'];
         $album->only_creator_photos = $request['onlyCreatorPhotos'];
 

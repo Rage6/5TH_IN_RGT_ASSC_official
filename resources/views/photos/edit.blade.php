@@ -42,6 +42,32 @@
                           Caption
                         </div>
                         <textarea name="caption" maxlength="1000">{{ $photo->caption }}</textarea>
+                        <!-- <div>
+                          Category
+                        </div>
+                        <select name="category">
+                          <option @if ($photo->category == null) selected @endif value="none">
+                            None
+                          </option>
+                          <option @if ($photo->category == 'afghanistan') selected @endif value="afghanistan">
+                            Afghanistan
+                          </option>
+                          <option @if ($photo->category == 'cold-war') selected @endif value="cold-war">
+                            Cold War
+                          </option>
+                          <option @if ($photo->category == 'iraq') selected @endif value="iraq">
+                            Iraq
+                          </option>
+                          <option @if ($photo->category == 'korea') selected @endif value="korea">
+                            Korea
+                          </option>
+                          <option @if ($photo->category == 'reunion') selected @endif value="reunion">
+                            Reunion
+                          </option>
+                          <option @if ($photo->category == 'vietnam') selected @endif value="vietnam">
+                            Vietnam
+                          </option>
+                        </select> -->
                         <div>
                           Date Picture Taken
                         </div>

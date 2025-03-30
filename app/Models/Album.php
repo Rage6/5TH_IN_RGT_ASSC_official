@@ -12,6 +12,7 @@ class Album extends Model
     protected $fillable = [
         'title',
         'caption',
+        'category',
         'members_only',
         'only_creator_photos',
         'user_id'

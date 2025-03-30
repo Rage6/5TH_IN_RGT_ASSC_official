@@ -48,7 +48,7 @@ class PhotoController extends Controller
         
         if ($current_user == null) {
             $all_albums = Album::where('members_only',0)
-                ->orderBy('title','ASC')
+                ->orderByRaw('ISNULL(category), category ASC, title ASC')
                 ->get();
             if (!isset($_GET['album']) || $_GET['album'] == 'unassigned' || $public_album == true) {
                 $all_photos = Photo::where([['members_only',0],$album_where])
@@ -57,7 +57,8 @@ class PhotoController extends Controller
                 $all_photos = null;
             };
         } else {
-            $all_albums = Album::orderBy('title','ASC')
+            $all_albums = Album::orderBy('category','ASC')
+                ->orderBy('title','ASC')
                 ->get();
             if ($album_id != null) {
                 foreach ($all_albums as $one_album) {
@@ -71,6 +72,24 @@ class PhotoController extends Controller
                 ->paginate($photos_per_page);
         };
 
+        $album_statuses = array(
+            'afghanistan' => false,
+            'cold-war'    => false,
+            'iraq'        => false,
+            'korea'       => false,
+            'reunion'     => false,
+            'vietnam'     => false,
+        );
+
+        foreach ($all_albums as $one_album) {
+            for ($i = 0; count($album_statuses) > $i; $i++) {
+                $status = array_keys($album_statuses)[$i];
+                if ($one_album->category == $status) {
+                    $album_statuses[$status] = true;
+                };
+            };
+        };
+
         if (isset($_GET['album'])) {
             $all_photos->appends(['album' => $_GET['album']]);
         };
@@ -81,6 +100,7 @@ class PhotoController extends Controller
             'current_user' => $current_user,
             'content' => 'photos_content',
             'all_albums' => $all_albums,
+            'album_statuses' => $album_statuses,
             'all_photos' => $all_photos,
             'cart_count' => $cart_count,
             'is_album_admin' => $is_album_admin,
@@ -153,11 +173,16 @@ class PhotoController extends Controller
             'album_id'       => 'nullable|integer'
         ]);
 
+        // if ($request['category'] == 'none') {
+        //     $request['category'] == null;
+        // };
+
         $photo = Photo::create([
             'title' => $request->title,
             'photo_file' => $request->photo_file,
             'photographer' => $request->photographer,
             'caption' => $request->caption,
+            // 'category' => $request->category,
             'month_of_photo' => $request->monthOfPhoto,
             'day_of_photo' => $request->dayOfPhoto,
             'year_of_photo' => $request->yearOfPhoto,
@@ -317,6 +342,7 @@ class PhotoController extends Controller
             'title'          => 'nullable|string|max:250',
             'photographer'   => 'nullable|string|max:250',
             'caption'        => 'nullable|string|max:1000',
+            // 'category'       => 'string|max:255',
             'monthOfPhoto'   => 'nullable|integer|max:12|min:1',
             'dayOfPhoto'     => 'nullable|integer|max:31|min:1',
             'yearOfPhoto'    => 'nullable|integer|min:1830',
@@ -324,11 +350,16 @@ class PhotoController extends Controller
             'albumId'        => 'nullable|integer',
         ]);
 
+        // if ($request['category'] == 'none') {
+        //     $request['category'] == null;
+        // };
+
         $photo = Photo::find($id);
         if ($current_user->id == $photo->user_id) {
             $photo->title = $request['title'];
             $photo->photographer = $request['photographer'];
             $photo->caption = $request['caption'];
+            // $photo->category = $request['category'];
             $photo->month_of_photo = $request['monthOfPhoto'];
             $photo->day_of_photo = $request['dayOfPhoto'];
             $photo->year_of_photo = $request['yearOfPhoto'];

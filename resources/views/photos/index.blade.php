@@ -18,10 +18,77 @@
                     <a href="{{ route('photos.index') }}">
                         <div>All Photos</div>
                     </a>
+                    @php 
+                        $current_category = null;
+                    @endphp
+
                     @foreach ($all_albums as $one_album)
-                        <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
-                            <div>{{ $one_album->title }}</div>
-                        </a>
+
+                        @if (($current_category == null || $current_category != 'afghanistan') && $one_album->category == 'afghanistan' && $album_statuses['afghanistan'] == true)
+                            <div>-- Afghanistan --</div>
+                        @elseif (($current_category == null || $current_category != 'cold-war') && $one_album->category == 'cold-war' && $album_statuses['cold-war'] == true)
+                            <div>-- Cold War --</div>
+                        @elseif (($current_category == null || $current_category != 'iraq') && $one_album->category == 'iraq' && $album_statuses['iraq'] == true)
+                            <div>-- Iraq --</div>
+                        @elseif (($current_category == null || $current_category != 'korea') && $one_album->category == 'korea' && $album_statuses['korea'] == true)
+                            <div>-- Korea --</div>
+                        @elseif (($current_category == null || $current_category != 'reunion') && $one_album->category == 'reunion' && $album_statuses['reunion'] == true)
+                            <div>-- Reunion --</div>
+                        @elseif (($current_category == null || $current_category != 'vietnam') && $one_album->category == 'vietnam' && $album_statuses['vietnam'] == true)
+                            <div>-- Vietnam --</div>
+                        @elseif ($current_category != null && $one_album->category == null)
+                            <div>-- Random --</div>
+                        @endif
+
+                        @php 
+                            $current_category = $one_album->category 
+                        @endphp
+
+                        @if ($one_album->category == 'afghanistan' && $album_statuses['afghanistan'] == true)
+                            <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
+                                <div>{{ $one_album->title }}</div>
+                            </a>
+                        @endif
+                        @if ($one_album->category == 'cold-war' && $album_statuses['cold-war'] == true)
+                            @if ($one_album->category == 'cold-war')
+                                <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
+                                    <div>{{ $one_album->title }}</div>
+                                </a>
+                            @endif
+                        @endif
+                        @if ($one_album->category == 'iraq' && $album_statuses['iraq'] == true)
+                            @if ($one_album->category == 'iraq')
+                                <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
+                                    <div>{{ $one_album->title }}</div>
+                                </a>
+                            @endif
+                        @endif
+                        @if ($one_album->category == 'korea' && $album_statuses['korea'] == true)
+                            @if ($one_album->category == 'korea')
+                                <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
+                                    <div>{{ $one_album->title }}</div>
+                                </a>
+                            @endif
+                        @endif
+                        @if ($one_album->category == 'reunion' && $album_statuses['reunion'] == true)
+                            @if ($one_album->category == 'reunion')
+                                <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
+                                    <div>{{ $one_album->title }}</div>
+                                </a>
+                            @endif
+                        @endif
+                        @if ($one_album->category == 'vietnam' && $album_statuses['vietnam'] == true)
+                            @if ($one_album->category == 'vietnam')
+                                <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
+                                    <div>{{ $one_album->title }}</div>
+                                </a>
+                            @endif
+                        @endif
+                        @if ($one_album->category == null)
+                            <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
+                                <div>{{ $one_album->title }}</div>
+                            </a>
+                        @endif
                     @endforeach
                     <a href="{{ route('photos.index', ['album' => 'unassigned']) }}">
                         <div>Unassigned</div>

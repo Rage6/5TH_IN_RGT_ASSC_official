@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('ADD A PHOTO') }}</div>
+                <div class="card-header">{{ __('ADD AN ALBUM') }}</div>
 
                 <div class="card-body">
                   <div>
@@ -33,6 +33,35 @@
                         </div>
                         <textarea name="caption" maxlength="1000" placeholder="Max. 1000 characters">
                         </textarea>
+                        <div>
+                          Category
+                        </div>
+                        <select name="category">
+                          <option value="none">
+                            None
+                          </option>
+                          <option value="afghanistan">
+                            Afghanistan
+                          </option>
+                          <option value="cold-war">
+                            Cold War
+                          </option>
+                          <option value="iraq">
+                            Iraq
+                          </option>
+                          <option value="korea">
+                            Korea
+                          </option>
+                          <option value="reunion">
+                            Reunion
+                          </option>
+                          <option value="vietnam">
+                            Vietnam
+                          </option>
+                          <option value="ww2">
+                            World War II
+                          </option>
+                        </select>
                         <div>
                           Do you want this album to be visible to the public or only other members?
                         </div>
