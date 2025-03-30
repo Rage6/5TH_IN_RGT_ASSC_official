@@ -16,6 +16,7 @@
     display: none;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
@@ -26,17 +27,31 @@
 }
 
 .albumListEl {
-    margin: 0 10vw;
-    padding: 5vh 5vw;
+    /* margin: 0 10vw; */
+    padding: 10px;
+    font-family: 'Vollkorn SC', serif;
     color: white;
     background-color:rgb(139,0,0);
     height: 65vh;
+    width: 80vw;
+    max-width: 500px;
 }
 
 .albumList {
     background-color: black;
-    height: 58vh;
+    height: calc(65vh - 40px);
     overflow-y: scroll;
+}
+
+.albumList div {
+    padding: 5px 10px;
+    font-size: 1.3rem;
+}
+
+.categoryTitles {
+    font-style: italic;
+    text-align: center;
+    background-color: rgba(0, 100, 0);
 }
 
 .albumList a {
@@ -45,6 +60,7 @@
 
 .albumList a div {
     overflow-x: hidden;
+    text-wrap: nowrap;
 }
 
 .photoMainTitle {
@@ -89,8 +105,11 @@
 }
 
 .exitBttn {
+    margin-bottom: 10px;
     display: flex;
-    justify-content: right;
+    font-size: 1.1rem;
+    justify-content: space-between;
+    height: 30px;
 }
 
 .exitBttn span {

@@ -7,37 +7,44 @@
         <div class="albumListBkgrd">
             <div class="albumListEl">
                 <div class="exitBttn">
+                    <div>
+                        Choose an album
+                    </div>
                     <span data-button="hide">
                         &#10005;
                     </span>
-                </div>
-                <div>
-                    Choose an album
                 </div>
                 <div class="albumList">
                     <a href="{{ route('photos.index') }}">
                         <div>All Photos</div>
                     </a>
+                    <a href="{{ route('photos.index', ['album' => 'unassigned']) }}">
+                        <div style="background-color: dimgrey">Unassigned</div>
+                    </a>
                     @php 
                         $current_category = null;
+                        $current_bkgrd = 'black';
                     @endphp
 
                     @foreach ($all_albums as $one_album)
-
-                        @if (($current_category == null || $current_category != 'afghanistan') && $one_album->category == 'afghanistan' && $album_statuses['afghanistan'] == true)
-                            <div>-- Afghanistan --</div>
-                        @elseif (($current_category == null || $current_category != 'cold-war') && $one_album->category == 'cold-war' && $album_statuses['cold-war'] == true)
-                            <div>-- Cold War --</div>
-                        @elseif (($current_category == null || $current_category != 'iraq') && $one_album->category == 'iraq' && $album_statuses['iraq'] == true)
-                            <div>-- Iraq --</div>
-                        @elseif (($current_category == null || $current_category != 'korea') && $one_album->category == 'korea' && $album_statuses['korea'] == true)
-                            <div>-- Korea --</div>
-                        @elseif (($current_category == null || $current_category != 'reunion') && $one_album->category == 'reunion' && $album_statuses['reunion'] == true)
-                            <div>-- Reunion --</div>
-                        @elseif (($current_category == null || $current_category != 'vietnam') && $one_album->category == 'vietnam' && $album_statuses['vietnam'] == true)
-                            <div>-- Vietnam --</div>
-                        @elseif ($current_category != null && $one_album->category == null)
-                            <div>-- Random --</div>
+                        @if ($current_category != $one_album->category)
+                            <div class="categoryTitles">
+                                @if (($current_category == null || $current_category != 'afghanistan') && $one_album->category == 'afghanistan' && $album_statuses['afghanistan'] == true)
+                                    Afghanistan
+                                @elseif (($current_category == null || $current_category != 'cold-war') && $one_album->category == 'cold-war' && $album_statuses['cold-war'] == true)
+                                    Cold War
+                                @elseif (($current_category == null || $current_category != 'iraq') && $one_album->category == 'iraq' && $album_statuses['iraq'] == true)
+                                    Iraq
+                                @elseif (($current_category == null || $current_category != 'korea') && $one_album->category == 'korea' && $album_statuses['korea'] == true)
+                                    Korea
+                                @elseif (($current_category == null || $current_category != 'reunion') && $one_album->category == 'reunion' && $album_statuses['reunion'] == true)
+                                    Reunion
+                                @elseif (($current_category == null || $current_category != 'vietnam') && $one_album->category == 'vietnam' && $album_statuses['vietnam'] == true)
+                                    Vietnam
+                                @elseif ($current_category != null && $one_album->category == null)
+                                    Random
+                                @endif
+                            </div>
                         @endif
 
                         @php 
@@ -46,53 +53,57 @@
 
                         @if ($one_album->category == 'afghanistan' && $album_statuses['afghanistan'] == true)
                             <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
-                                <div>{{ $one_album->title }}</div>
+                                <div style="background-color: {{ $current_bkgrd }}">{{ $one_album->title }}</div>
                             </a>
                         @endif
                         @if ($one_album->category == 'cold-war' && $album_statuses['cold-war'] == true)
                             @if ($one_album->category == 'cold-war')
                                 <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
-                                    <div>{{ $one_album->title }}</div>
+                                    <div style="background-color: {{ $current_bkgrd }}">{{ $one_album->title }}</div>
                                 </a>
                             @endif
                         @endif
                         @if ($one_album->category == 'iraq' && $album_statuses['iraq'] == true)
                             @if ($one_album->category == 'iraq')
                                 <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
-                                    <div>{{ $one_album->title }}</div>
+                                    <div style="background-color: {{ $current_bkgrd }}">{{ $one_album->title }}</div>
                                 </a>
                             @endif
                         @endif
                         @if ($one_album->category == 'korea' && $album_statuses['korea'] == true)
                             @if ($one_album->category == 'korea')
                                 <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
-                                    <div>{{ $one_album->title }}</div>
+                                    <div style="background-color: {{ $current_bkgrd }}">{{ $one_album->title }}</div>
                                 </a>
                             @endif
                         @endif
                         @if ($one_album->category == 'reunion' && $album_statuses['reunion'] == true)
                             @if ($one_album->category == 'reunion')
                                 <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
-                                    <div>{{ $one_album->title }}</div>
+                                    <div style="background-color: {{ $current_bkgrd }}">{{ $one_album->title }}</div>
                                 </a>
                             @endif
                         @endif
                         @if ($one_album->category == 'vietnam' && $album_statuses['vietnam'] == true)
                             @if ($one_album->category == 'vietnam')
                                 <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
-                                    <div>{{ $one_album->title }}</div>
+                                    <div style="background-color: {{ $current_bkgrd }}">{{ $one_album->title }}</div>
                                 </a>
                             @endif
                         @endif
                         @if ($one_album->category == null)
                             <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
-                                <div>{{ $one_album->title }}</div>
+                                <div style="background-color: {{ $current_bkgrd }}">{{ $one_album->title }}</div>
                             </a>
                         @endif
+                        @php 
+                            if ($current_bkgrd == 'dimgrey') {
+                                $current_bkgrd = 'black';
+                            } else {
+                                $current_bkgrd = 'dimgrey';
+                            };
+                        @endphp
                     @endforeach
-                    <a href="{{ route('photos.index', ['album' => 'unassigned']) }}">
-                        <div>Unassigned</div>
-                    </a>
                 </div>
             </div>
         </div>
