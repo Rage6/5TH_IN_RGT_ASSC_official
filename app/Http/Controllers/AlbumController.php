@@ -43,6 +43,10 @@ class AlbumController extends Controller
       'membersOnly'    => 'required|integer',
     ]);
 
+    if ($request->category == 'none') {
+      $request->category = null;
+    };
+
     $album = Album::create([
         'title' => $request->title,
         'caption' => $request->caption,
@@ -83,6 +87,10 @@ class AlbumController extends Controller
           'membersOnly'       => 'required|integer',
           'onlyCreatorPhotos' => 'required|integer'
         ]);
+
+        if ($request->category == 'none') {
+          $request->category = null;
+        };
 
         // $album = Album::find($id);
         $album->title = $request['title'];

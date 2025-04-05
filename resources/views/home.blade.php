@@ -20,6 +20,11 @@
                           <div>FIND A BOBCAT</div>
                         </div>
                       </a>
+                      <a href="{{ route('photos.index') }}">
+                        <div class="homeButton contentButton">
+                          <div>PHOTOS</div>
+                        </div>
+                      </a>
                       <a href="{{ route('newsletter.index') }}">
                         <div class="homeButton contentButton">
                           <div>NEWSLETTERS</div>
