@@ -348,6 +348,7 @@ class PhotoController extends Controller
             'yearOfPhoto'    => 'nullable|integer|min:1830',
             'membersOnly'    => 'required|integer',
             'albumId'        => 'nullable|integer',
+            'page'           => 'nullable|integer'
         ]);
 
         // if ($request['category'] == 'none') {
@@ -369,7 +370,7 @@ class PhotoController extends Controller
             $photo->save();
         };
           
-        return redirect()->route('photos.show', ['id' => $photo->id]);
+        return redirect()->route('photos.show', ['id' => $photo->id, 'album' => $request['album'], 'page' => $request['page']]);
     }
 
     /**

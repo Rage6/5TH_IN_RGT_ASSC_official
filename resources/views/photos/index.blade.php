@@ -175,11 +175,18 @@
                                             <!-- The image goes here -->
                                         </div>
                                     </a>
-                                    <a href="{{ route('photos.show', ['id' => $one_photo->id]) }}">
-                                        <div class="photoTitle">
+                                    <div class="photoTitle">
+                                        <a href="{{ route('photos.show', ['id' => $one_photo->id]) }}">
                                             {{ $one_photo->title }}
+                                        </a>
+                                    </div>
+                                    @if (isset($current_user->id) && $one_photo->user_id == $current_user->id)
+                                        <div class="photoBttnRow">
+                                            <a href="{{ route('gallery.photo.edit', ['id' => $one_photo->id]) }}?{{ isset($_GET['album']) ? 'album='.$_GET['album'] : '' }}&{{ isset($_GET['page']) ? 'page='.$_GET['page'] : '' }}">
+                                                <img class="editSymbolBttn" src="/images/photos/edit_symbol.png" />
+                                            </a>
                                         </div>
-                                    </a>
+                                    @endif
                                 </div>
                             @endif
                         @endforeach

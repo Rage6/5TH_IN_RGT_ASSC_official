@@ -11,7 +11,7 @@
 
                 <div class="card-body">
                   <div>
-                    <a href="{{ route('photos.show', ['id' => $photo->id]) }}">
+                    <a href="{{ route('photos.show', ['id' => $photo->id]) }}?{{ isset($_GET['album']) ? 'album='.$_GET['album'] : '' }}&{{ isset($_GET['page']) ? 'page='.$_GET['page'] : '' }}">
                       << BACK
                     </a>
                     <form method="POST" action="{{ route('gallery.photo.update', ['id'=>$photo->id]) }}" enctype="multipart/form-data">
@@ -115,11 +115,15 @@
                             <option @if ($photo->members_only == 0) selected @endif value="0">Public</option>
                           </select>
                         </div>
+                        <input type="hidden" name="album" value="{{ isset($_GET['album']) ? $_GET['album'] : null }}">
+                        <input type="hidden" name="page" value="{{ isset($_GET['page']) ? $_GET['page'] : null }}">
+                      </div>
+                      <div style="display:flex; justify-content:space-between">
                         <button type="submit" name="addPhoto" class="btn btn-primary">
                           EDIT THIS IMAGE
                         </button>
                         <div>
-                          <a href="{{ route('gallery.photo.delete', ['id' => $photo->id]) }}">DELETE THIS IMAGE</a>
+                          <a style="color:red" href="{{ route('gallery.photo.delete', ['id' => $photo->id]) }}">DELETE THIS IMAGE</a>
                         </div>
                       </div>
                     </form>

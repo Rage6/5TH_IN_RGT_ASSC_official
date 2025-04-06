@@ -5,6 +5,11 @@
   width: 1720px;
 }
 
+.scholarshipBottomView {
+  top: 93vh;
+  height: 7vh;
+}
+
 .mainMenuTopBttn img {
   height: 8vh;
 }

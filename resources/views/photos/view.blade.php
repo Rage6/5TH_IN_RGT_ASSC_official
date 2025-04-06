@@ -30,7 +30,7 @@
                     @if ($current_user->id == $photo->user_id)
                         <div class="allButtons">
                             <div class="addPhoto">
-                                <a href="{{ route('gallery.photo.edit', ['id' => $photo->id]) }}">
+                                <a href="{{ route('gallery.photo.edit', ['id' => $photo->id]) }}?{{ isset($_GET['album']) ? 'album='.$_GET['album'] : '' }}&{{ isset($_GET['page']) ? 'page='.$_GET['page'] : '' }}">
                                     <span>+ EDIT A PHOTO</span>
                                 </a>
                             </div>

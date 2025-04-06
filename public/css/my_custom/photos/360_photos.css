@@ -204,6 +204,17 @@
     text-align: center;
 }
 
+.photoBttnRow {
+    display: flex;
+    justify-content: flex-end;
+    height: 20px;
+}
+
+.editSymbolBttn {
+    height: 20px;
+    width: 30px;
+}
+
 .editPhoto {
     height: 150px;
     background-size: contain;
@@ -231,6 +242,7 @@
 .viewImgEl {
     display: flex;
     justify-content: center;
+    max-height: 400px;
 }
 
 .viewImgEl img {
