@@ -30,35 +30,44 @@ class PhotoController extends Controller
 
         $photos_per_page = 24;
 
+        // The $album_where variable will collect the necessary arguments for the 'where' clause in the Photo query
+        $album_where = [];
+        // a) It will search by album or by category, if at all
         if (isset($_GET['album'])) {
             if ($_GET['album'] == 'unassigned') {
-                $album_where = ['album_id',null];
+                $album_where[] = ['album_id',null];
             } else {
                 $album_id = intval($_GET['album']);
-                $album_where = ['album_id',$album_id];
+                $album_where[] = ['album_id',$album_id];
                 $selected_album = Album::where('id',$album_id)->first();
                 $album_name = $selected_album->title;
                 if ($selected_album->members_only == 0) {
                     $public_album = true;
                 };
             };
-        } else {
-            $album_where = [null];
+        } elseif (isset($_GET['category'])) {
+            $album_where[] = ['category',$_GET['category']];
+        };
+        // b) If it is a guest user, then it prevents them from 'member_only' images
+        if ($current_user == null) {
+            $album_where[] = ['members_only',0];
+        };
+        // c) Finally, it runs the query for all of the photos
+        $all_photos = Photo::where($album_where)->paginate($photos_per_page);
+        // d) If the query was run by either album_id or category, then the appropriate parameters need to be added by the URL
+        if (isset($_GET['album'])) {
+            $all_photos->appends(['album' => $_GET['album']]);
+        } elseif (isset($_GET['category'])) {
+            $all_photos->appends(['category' => $_GET['category']]);
         };
         
+        // This is where it gets all of the necessary album for the drop down menu of albums
         if ($current_user == null) {
             $all_albums = Album::where('members_only',0)
                 ->orderByRaw('ISNULL(category), category ASC, title ASC')
                 ->get();
-            if (!isset($_GET['album']) || $_GET['album'] == 'unassigned' || $public_album == true) {
-                $all_photos = Photo::where([['members_only',0],$album_where])
-                    ->paginate($photos_per_page);
-            } else {
-                $all_photos = null;
-            };
         } else {
-            $all_albums = Album::orderBy('category','ASC')
-                ->orderBy('title','ASC')
+            $all_albums = Album::orderByRaw('ISNULL(category), category ASC, title ASC')
                 ->get();
             if ($album_id != null) {
                 foreach ($all_albums as $one_album) {
@@ -67,9 +76,6 @@ class PhotoController extends Controller
                     };
                 };
             };
-
-            $all_photos = Photo::where([$album_where])
-                ->paginate($photos_per_page);
         };
 
         $album_statuses = array(
@@ -79,6 +85,7 @@ class PhotoController extends Controller
             'korea'       => false,
             'reunion'     => false,
             'vietnam'     => false,
+            'ww2'         => false
         );
 
         foreach ($all_albums as $one_album) {
@@ -90,9 +97,9 @@ class PhotoController extends Controller
             };
         };
 
-        if (isset($_GET['album'])) {
-            $all_photos->appends(['album' => $_GET['album']]);
-        };
+        // if (isset($_GET['album'])) {
+        //     $all_photos->appends(['album' => $_GET['album']]);
+        // };
 
         return view('photos.index',[
             'style' => 'album_style',
@@ -159,6 +166,11 @@ class PhotoController extends Controller
 
         if ($request->albumId == "none") {
             $request->albumId = null;
+            $request->category = null;
+        } else {
+            $this_album = Album::where('id',$request->albumId)->first();
+            $request->albumId = $this_album->id;
+            $request->category = $this_album->category;
         };
 
         $request->validate([
@@ -170,7 +182,7 @@ class PhotoController extends Controller
             'dayOfPhoto'     => 'nullable|integer|max:31|min:1',
             'yearOfPhoto'    => 'nullable|integer|min:1830',
             'membersOnly'    => 'required|integer',
-            'album_id'       => 'nullable|integer'
+            'albumId'        => 'nullable|integer'
         ]);
 
         // if ($request['category'] == 'none') {
@@ -182,11 +194,12 @@ class PhotoController extends Controller
             'photo_file' => $request->photo_file,
             'photographer' => $request->photographer,
             'caption' => $request->caption,
-            // 'category' => $request->category,
+            'category' => $request->category,
             'month_of_photo' => $request->monthOfPhoto,
             'day_of_photo' => $request->dayOfPhoto,
             'year_of_photo' => $request->yearOfPhoto,
             'members_only' => intval($request->membersOnly),
+            'category' => $request->category,
             'user_id' => $current_user->id,
             'album_id' => $request->albumId
         ]);
@@ -334,6 +347,10 @@ class PhotoController extends Controller
 
         if ($request['albumId'] == "none") {
             $request['albumId'] = null;
+            $request['category'] = null;
+        } else {
+            $this_album = Album::where('id', $request['albumId'])->first();
+            $request['category'] = $this_album->category;
         };
 
         $request['membersOnly'] = intval($request['membersOnly']);
@@ -342,7 +359,7 @@ class PhotoController extends Controller
             'title'          => 'nullable|string|max:250',
             'photographer'   => 'nullable|string|max:250',
             'caption'        => 'nullable|string|max:1000',
-            // 'category'       => 'string|max:255',
+            'category'       => 'string|max:255',
             'monthOfPhoto'   => 'nullable|integer|max:12|min:1',
             'dayOfPhoto'     => 'nullable|integer|max:31|min:1',
             'yearOfPhoto'    => 'nullable|integer|min:1830',
@@ -360,7 +377,7 @@ class PhotoController extends Controller
             $photo->title = $request['title'];
             $photo->photographer = $request['photographer'];
             $photo->caption = $request['caption'];
-            // $photo->category = $request['category'];
+            $photo->category = $request['category'];
             $photo->month_of_photo = $request['monthOfPhoto'];
             $photo->day_of_photo = $request['dayOfPhoto'];
             $photo->year_of_photo = $request['yearOfPhoto'];

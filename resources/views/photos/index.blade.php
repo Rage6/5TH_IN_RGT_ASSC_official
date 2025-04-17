@@ -41,6 +41,8 @@
                                     Reunion
                                 @elseif (($current_category == null || $current_category != 'vietnam') && $one_album->category == 'vietnam' && $album_statuses['vietnam'] == true)
                                     Vietnam
+                                @elseif (($current_category == null || $current_category != 'ww2') && $one_album->category == 'ww2' && $album_statuses['ww2'] == true)
+                                    World War II
                                 @elseif ($current_category != null && $one_album->category == null)
                                     Random
                                 @endif
@@ -86,6 +88,13 @@
                         @endif
                         @if ($one_album->category == 'vietnam' && $album_statuses['vietnam'] == true)
                             @if ($one_album->category == 'vietnam')
+                                <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
+                                    <div style="background-color: {{ $current_bkgrd }}">{{ $one_album->title }}</div>
+                                </a>
+                            @endif
+                        @endif
+                        @if ($one_album->category == 'ww2' && $album_statuses['ww2'] == true)
+                            @if ($one_album->category == 'ww2')
                                 <a href="{{ route('photos.index', ['album' => $one_album->id]) }}">
                                     <div style="background-color: {{ $current_bkgrd }}">{{ $one_album->title }}</div>
                                 </a>

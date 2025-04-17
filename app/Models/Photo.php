@@ -14,6 +14,7 @@ class Photo extends Model
         'title',
         'photographer',
         'caption',
+        'category',
         'day_of_photo',
         'month_of_photo',
         'year_of_photo',

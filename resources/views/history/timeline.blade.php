@@ -232,7 +232,10 @@
             <div class="linkBox">
               <div class="linkTitle learnMore">LEARN MORE</div>
               <ul class="linkContent">
-                <a href="{{ url('/history/album/ww2') }}">
+                <!-- <a href="{{ url('/history/album/ww2') }}">
+                  <li>Photo Album</li>
+                </a> -->
+                <a href="{{ url('/photos?category=ww2') }}">
                   <li>Photo Album</li>
                 </a>
                 <a href="{{ route('ww2.company') }}">
@@ -312,8 +315,11 @@
             <div class="linkBox">
               <div class="linkTitle learnMore">LEARN MORE</div>
               <ul class="linkContent">
-                <a href="{{ url('/history/album/korea') }}">
+                <!-- <a href="{{ url('/history/album/korea') }}">
                   <li>Photo Album</li>
+                </a> -->
+                <a href="{{ url('/photos?category=korea') }}">
+                  <li>Photo Gallery</li>
                 </a>
                 <a href="{{ route('korea.stuffelbeam') }}">
                   <li>Myron Stuffelbeam - 50th Year Recognition</li>

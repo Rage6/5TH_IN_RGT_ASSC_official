@@ -36,16 +36,16 @@ class AlbumController extends Controller
 
     $current_user = Auth::user();
 
+    if ($request->category == 'none') {
+      $request->category = null;
+    };
+
     $request->validate([
       'title'          => 'required|string|max:250|unique:photos,title',
       'caption'        => 'nullable|string|max:1000',
       'category'       => 'nullable|string|max:255',
       'membersOnly'    => 'required|integer',
     ]);
-
-    if ($request->category == 'none') {
-      $request->category = null;
-    };
 
     $album = Album::create([
         'title' => $request->title,
@@ -80,6 +80,11 @@ class AlbumController extends Controller
       $album = Album::find($id);
 
       if ($current_user->id == $album->user_id) {  
+        
+        if ($request['category'] == 'none') {
+          $request['category'] = null;
+        };
+
         $request->validate([
           'title'             => 'nullable|string|max:250',
           'caption'           => 'nullable|string|max:1000',
@@ -87,10 +92,6 @@ class AlbumController extends Controller
           'membersOnly'       => 'required|integer',
           'onlyCreatorPhotos' => 'required|integer'
         ]);
-
-        if ($request->category == 'none') {
-          $request->category = null;
-        };
 
         // $album = Album::find($id);
         $album->title = $request['title'];
@@ -100,6 +101,10 @@ class AlbumController extends Controller
         $album->only_creator_photos = $request['onlyCreatorPhotos'];
 
         $album->save();
+
+        DB::table('photos')
+          ->where('album_id',$id)
+          ->update(['category' => $request['category']]);
       };
           
       return redirect()->route('photos.index',['album' => $id]);

@@ -58,6 +58,9 @@
                           <option @if ($album->category == 'vietnam') selected @endif value="vietnam">
                             Vietnam
                           </option>
+                          <option @if ($album->category == 'ww2') selected @endif value="ww2">
+                            World War II
+                          </option>
                         </select>
                         <div>
                           Do you want this album visibnle to the public or only other members?
