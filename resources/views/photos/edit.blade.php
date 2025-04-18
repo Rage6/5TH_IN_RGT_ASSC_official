@@ -117,16 +117,23 @@
                         </div>
                         <input type="hidden" name="album" value="{{ isset($_GET['album']) ? $_GET['album'] : null }}">
                         <input type="hidden" name="page" value="{{ isset($_GET['page']) ? $_GET['page'] : null }}">
-                      </div>
-                      <div style="display:flex; justify-content:space-between">
                         <button type="submit" name="addPhoto" class="btn btn-primary">
-                          EDIT THIS IMAGE
+                          EDIT THIS PHOTO
                         </button>
-                        <div>
-                          <a style="color:red" href="{{ route('gallery.photo.delete', ['id' => $photo->id]) }}">DELETE THIS IMAGE</a>
+                        <div class="deleteAlbumBttn">
+                          <span data-deletebttn="photo">DELETE THIS PHOTO</span>
                         </div>
                       </div>
                     </form>
+                    <div class="deleteAlbumEl" data-deleteel="photo">
+                      <div>
+                        Are you sure that you want to delete this album? Its photos will <u>NOT</u> be deleted, but they will be treated as "Unassigned" photos.
+                      </div>
+                        <a style="color:red" href="{{ route('gallery.photo.delete', ['id' => $photo->id]) }}">
+                          <span>YES, DELETE THIS PHOTO</span>
+                        </a>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -120,7 +120,33 @@
 }
 
 .deleteAlbumBttn {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.basicInfoGrid > .deleteAlbumBttn > span {
+    color: red;
+}
+
+.deleteAlbumEl {
+    display: none;
+    border: 1px solid red;
+    padding: 5px;
+}
+
+.deleteAlbumEl div {
+    margin-bottom: 30px;
+}
+
+.deleteAlbumEl a {
+    color: red;
+}
+
+.deleteAlbumEl a span {
+    border-radius: 15px;
+    padding: 5px;
+    color: white;
+    background-color: red;
 }
 
 .menuColumn a {

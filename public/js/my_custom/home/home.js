@@ -139,5 +139,16 @@ $(document).ready(() => {
     var trueHiddenInput = hiddenInput + " > input";
     $(trueHiddenInput).val('');
   });
+  
+  // Open and close a "deletion" element
+  $('[data-deletebttn]').click(function() {
+    var value = event.target.dataset.deletebttn;
+    var status = $("[data-deleteel='"+value+"']").css('display');
+    if (status == 'block') {
+      $("[data-deleteel='"+value+"']").css('display','none');
+    } else {
+      $("[data-deleteel='"+value+"']").css('display','block');
+    };
+  });
 
 });

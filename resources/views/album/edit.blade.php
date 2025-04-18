@@ -84,10 +84,18 @@
                           EDIT THE ALBUM
                         </button>
                         <div class="deleteAlbumBttn">
-                          <a href="{{ route('gallery.album.delete', ['id' => $album->id]) }}">DELETE THIS ALBUM</a>
+                          <span data-deletebttn="album">DELETE THIS ALBUM</span>
                         </div>
                       </div>
                     </form>
+                    <div class="deleteAlbumEl" data-deleteel="album">
+                      <div>
+                        Are you sure that you want to delete this album? Its photos will <u>NOT</u> be deleted, but they will be treated as "Unassigned" photos.
+                      </div>
+                      <a href="{{ route('gallery.album.delete', ['id' => $album->id]) }}">
+                        <span>YES, DELETE THIS ALBUM</span>
+                      </a>
+                    </div>
                 </div>
             </div>
         </div>
