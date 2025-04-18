@@ -235,9 +235,9 @@
                 <!-- <a href="{{ url('/history/album/ww2') }}">
                   <li>Photo Album</li>
                 </a> -->
-                <a href="{{ url('/photos?category=ww2') }}">
+                <!-- <a href="{{ url('/photos?category=ww2') }}">
                   <li>Photo Album</li>
-                </a>
+                </a> -->
                 <a href="{{ route('ww2.company') }}">
                   <li>History of Company C</li>
                 </a>
@@ -408,6 +408,9 @@
             <div class="linkTitle learnMore">LEARN MORE</div>
             <ul class="linkContent">
               <!-- <a href="http://bobcat.ws/after-action-reports.html"> -->
+              <a href="{{ url('/photos?category=vietnam') }}">
+                <li>Photo Gallery</li>
+              </a>
               <a href="{{ route('vietnam.aar') }}">
                 <li>After Action Reports (AAR)</li>
               </a>
@@ -578,6 +581,16 @@
                 <!-- <a href="{{ url('/history/album/gwot') }}">
                   <li>Photo Album</li>
                 </a> -->
+                <li>
+                  <a href="{{ url('/photos?category=afghanistan') }}">
+                    Afghanistan Photo Gallery
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ url('/photos?category=iraq') }}">
+                    Iraq Photo Gallery
+                  </a>
+                </li>
                 <li>
                   <a href="{{ route('afghanistan.2004') }}">
                     2004, Afghanistan - 2nd Battalion
