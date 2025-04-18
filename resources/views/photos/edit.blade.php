@@ -127,7 +127,7 @@
                     </form>
                     <div class="deleteAlbumEl" data-deleteel="photo">
                       <div>
-                        Are you sure that you want to delete this album? Its photos will <u>NOT</u> be deleted, but they will be treated as "Unassigned" photos.
+                        Are you sure that you want to delete this photo?
                       </div>
                         <a style="color:red" href="{{ route('gallery.photo.delete', ['id' => $photo->id]) }}">
                           <span>YES, DELETE THIS PHOTO</span>
