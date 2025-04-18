@@ -172,6 +172,8 @@
                                 $params = ['id' => $one_photo->id];
                                 if (isset($_GET['album'])) {
                                     $params['album'] = $_GET['album'];
+                                } elseif (isset($_GET['category'])) {
+                                    $params['category'] = $_GET['category'];
                                 };
                                 if (isset($_GET['page'])) {
                                     $params['page'] = $_GET['page'];
