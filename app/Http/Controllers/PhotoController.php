@@ -178,6 +178,7 @@ class PhotoController extends Controller
             'photo_file'     => 'required|file|max:2048', // <-- 8192 KB == 8 MB
             'photographer'   => 'nullable|string|max:255',
             'caption'        => 'nullable|string|max:1000',
+            'category'       => 'nullable|string|max:255',
             'monthOfPhoto'   => 'nullable|integer|max:12|min:1',
             'dayOfPhoto'     => 'nullable|integer|max:31|min:1',
             'yearOfPhoto'    => 'nullable|integer|min:1830',
@@ -359,7 +360,7 @@ class PhotoController extends Controller
             'title'          => 'nullable|string|max:250',
             'photographer'   => 'nullable|string|max:250',
             'caption'        => 'nullable|string|max:1000',
-            'category'       => 'string|max:255',
+            'category'       => 'nullable|string|max:255',
             'monthOfPhoto'   => 'nullable|integer|max:12|min:1',
             'dayOfPhoto'     => 'nullable|integer|max:31|min:1',
             'yearOfPhoto'    => 'nullable|integer|min:1830',
