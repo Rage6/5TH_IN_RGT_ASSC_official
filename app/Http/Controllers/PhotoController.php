@@ -165,12 +165,12 @@ class PhotoController extends Controller
         $current_user = Auth::user();
 
         if ($request->albumId == "none") {
-            $request->albumId = null;
-            $request->category = null;
+            $request["albumId"] = null;
+            $request["category"] = null;
         } else {
             $this_album = Album::where('id',$request->albumId)->first();
-            $request->albumId = $this_album->id;
-            $request->category = $this_album->category;
+            $request["albumId"] = $this_album->id;
+            $request["category"] = $this_album->category;
         };
 
         $request->validate([
