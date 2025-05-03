@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Photo;
 use App\Models\Album;
@@ -228,6 +229,33 @@ class PhotoController extends Controller
 
         $photo = Photo::find($id);
 
+        if (isset($_GET['album'])) {
+            $prior_id = Photo::where('id','<',$photo->id) 
+                ->where('album_id','=',$photo->album_id)
+                ->orderBy('id','DESC')
+                ->first();
+            $next_id = Photo::where('id','>',$photo->id) 
+                ->where('album_id','=',$photo->album_id)
+                ->orderBy('id','ASC')
+                ->first();
+        } elseif (isset($_GET['category'])) {
+            $prior_id = Photo::where('id','<',$photo->id) 
+                ->where('category','=',$photo->category)
+                ->orderBy('id','DESC')
+                ->first();
+            $next_id = Photo::where('id','>',$photo->id) 
+                ->where('category','=',$photo->category)
+                ->orderBy('id','ASC')
+                ->first();
+        } else {
+            $prior_id = Photo::where('id','<',$photo->id) 
+                ->orderBy('id','DESC')
+                ->first();
+            $next_id = Photo::where('id','>',$photo->id) 
+                ->orderBy('id','ASC')
+                ->first();
+        };
+
         $uploaded_by = User::find($photo->user_id);
         $uploaded_by = $uploaded_by->first_name." ".$uploaded_by->last_name;
 
@@ -290,7 +318,9 @@ class PhotoController extends Controller
             'photo_date' => $photo_date,
             'uploaded_by' => $uploaded_by,
             'cart_count' => $cart_count,
-            'current_user' => $current_user
+            'current_user' => $current_user,
+            'prior_id' => $prior_id,
+            'next_id' => $next_id
         ]);
     }
 
