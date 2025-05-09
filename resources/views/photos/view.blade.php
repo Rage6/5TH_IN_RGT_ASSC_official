@@ -41,7 +41,33 @@
                 @endauth
                 <div class="viewPhotoEl">
                     <div class="viewImgEl">
-                        <img src='/images/gallery/{{ $photo->photo_file }}' />
+                        @if ($prior_id)
+                            @php 
+                                $prior_params = $params;
+                                $prior_params['id'] = $prior_id;
+                            @endphp
+                            <div class="previous">
+                                <span class="photoSpan previous">
+                                    <a href="{{ route('photos.show', $prior_params) }}">PREVIOUS</a>
+                                </span>
+                            </div>
+                        @else
+                            <span class="previous"></span>
+                        @endif
+                        @if ($next_id)
+                            @php 
+                                $next_params = $params;
+                                $next_params['id'] = $next_id;
+                            @endphp
+                            <div class="next">
+                                <span class="photoSpan">
+                                    <a href="{{ route('photos.show', $next_params) }}">NEXT</a>
+                                </span>
+                            </div>
+                        @else
+                            <span class="next"></span>
+                        @endif
+                        <img class="photo" src='/images/gallery/{{ $photo->photo_file }}' />
                     </div>
                     <div class="viewInfoEl">
                         @if ($photo->title != null)
@@ -70,26 +96,6 @@
                                 @endif
                             </div>
                         @endif
-                        <div>
-                            @if ($prior_id)
-                                @php 
-                                    $prior_params = $params;
-                                    $prior_params['id'] = $prior_id;
-                                @endphp
-                                <span>
-                                    <a href="{{ route('photos.show', $prior_params) }}">PRIOR</a>
-                                </span>
-                            @endif
-                            @if ($next_id)
-                                @php 
-                                    $next_params = $params;
-                                    $next_params['id'] = $next_id;
-                                @endphp
-                                <span>
-                                    <a href="{{ route('photos.show', $next_params) }}">NEXT</a>
-                                </span>
-                            @endif
-                        </div>
                     </div>
                 </div>
             </div>

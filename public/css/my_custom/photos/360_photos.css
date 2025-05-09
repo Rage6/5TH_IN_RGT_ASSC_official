@@ -250,11 +250,23 @@
 
 .viewPhotoEl {
     margin-top: 50px;
-    padding: 10px 0;
+    padding: 20px 0 10px 0;
     display: flex;
     flex-direction: column;
     align-items: anchor-center;
     background-color: rgba(255, 255, 255, 0.6);
+}
+
+.photoSpan {
+    border: 2px solid white;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-family: 'Special Elite', cursive;
+    background-color: rgba(139,0,0,0.8);
+}
+
+.photoSpan > a {
+    color: white;
 }
 
 .viewPhotoEl div {
@@ -263,16 +275,35 @@
 
 .viewPhotoEl div.viewTitle {
     font-size: 1.2rem;
+    font-family: 'Bellefair', serif;
 }
 
 .viewImgEl {
-    display: flex;
-    justify-content: center;
-    max-height: 400px;
+    display: grid;
+    grid-template-areas: 
+        "previous next"
+        "photo photo";
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    justify-items: center;
+}
+
+.previous {
+    grid-area: previous;
+}
+
+.next {
+    grid-area: next;
+}
+
+.photo {
+    grid-area: photo;
 }
 
 .viewImgEl img {
+    margin-top: 20px;
     max-width: 96%;
+    max-height: 400px;
 }
 
 .viewInfoEl {
