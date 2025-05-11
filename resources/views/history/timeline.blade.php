@@ -235,9 +235,9 @@
                 <!-- <a href="{{ url('/history/album/ww2') }}">
                   <li>Photo Album</li>
                 </a> -->
-                <!-- <a href="{{ url('/photos?category=ww2') }}">
-                  <li>Photo Album</li>
-                </a> -->
+                <a href="{{ url('/photos?category=ww2') }}">
+                  <li>Photo Gallery</li>
+                </a>
                 <a href="{{ route('ww2.company') }}">
                   <li>History of Company C</li>
                 </a>
