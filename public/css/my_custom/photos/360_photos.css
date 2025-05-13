@@ -269,14 +269,9 @@
     color: white;
 }
 
-.viewPhotoEl div {
+/* .viewPhotoEl div {
     font-size: 1rem;
-}
-
-.viewPhotoEl div.viewTitle {
-    font-size: 1.2rem;
-    font-family: 'Bellefair', serif;
-}
+} */
 
 .viewImgEl {
     display: grid;
@@ -298,6 +293,8 @@
 
 .photo {
     grid-area: photo;
+    border: 1px solid rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.5);
 }
 
 .viewImgEl img {
@@ -309,10 +306,17 @@
 .viewInfoEl {
     margin-top: 20px;
     padding: 0 5%;
+    font-size: 1.4rem;
+    font-family: 'Bellefair', serif;
 }
 
 .viewInfoEl div {
     margin-bottom: 10px;
+}
+
+.photoLabel {
+    color: rgba(139,0,0,1);
+    text-decoration: underline;
 }
 
 /* PAGINATION  */

@@ -71,26 +71,26 @@
                     </div>
                     <div class="viewInfoEl">
                         @if ($photo->title != null)
-                            <div class="viewTitle">
-                                Title: {{ $photo->title }}
+                            <div>
+                                <span class="photoLabel">Title:</span> {{ $photo->title }}
                             </div>
                         @endif
                         @if ($photo->caption != null)
                             <div>
-                                Caption: {{ $photo->caption }}
+                                <span class="photoLabel">Caption:</span> {{ $photo->caption }}
                             </div>
                         @endif
                         @if ($photo->photographer != null)
                             <div>
-                                Photo taken by {{ $photo->photographer }}
+                                <span class="photoLabel">Taken by:</span> {{ $photo->photographer }}
                             </div>
                         @endif
                         <div>
-                            Uploaded by {{ $uploaded_by }}
+                            <span class="photoLabel">Uploaded by:</span> {{ $uploaded_by }}
                         </div>
                         @if ($photo->day_of_photo != null || $photo->month_of_photo != null || $photo->year_of_photo != null)
                             <div>
-                                Date Taken: 
+                                <span class="photoLabel">Date Taken:</span> 
                                 @if ($photo->day_of_photo != null)
                                     {{ $photo_date }}
                                 @endif
