@@ -36,6 +36,16 @@
     });
   };
 
+  function openAndCloseCancellation() {
+    let policyDisplay = document.getElementById("cancellationContent").style.display;
+    console.log(policyDisplay);
+    if (policyDisplay == 'none') {
+      document.getElementById("cancellationContent").style.display = "block";
+    } else {
+      document.getElementById("cancellationContent").style.display = "none";
+    };
+  };
+
   function clickSection(id,type) {
   // function clickSection(section,type) {
     // Opens the correct box...

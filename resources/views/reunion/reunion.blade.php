@@ -100,6 +100,14 @@
                   </div>
                 @endfor
                 <textarea rows="4" class="commentArea" name='comments' placeholder='Comments...'></textarea>
+                <div class="cancellationEl" onclick="openAndCloseCancellation()">
+                  <div class="cancellationTitle">
+                    Reunion Cancellation Policy
+                  </div>
+                  <div style="display:none" class="cancellationContent" id="cancellationContent">
+                    Members will not be reimbursed for costs incurred by the Association when cancellations are made in less than 30 days before the reunion except in the case of death related reasons.
+                  </div>
+                </div>
               </div>
             </div>
             <button

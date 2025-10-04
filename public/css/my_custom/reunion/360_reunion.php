@@ -176,6 +176,20 @@
   margin-top: 0;
 }
 
+.cancellationEl {
+  border: 1px dashed white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.cancellationTitle {
+  text-align: center;
+}
+
+.cancellationContent {
+  display: none;
+}
+
 .radioTypeBox {
   margin-bottom: 30px;
 }
