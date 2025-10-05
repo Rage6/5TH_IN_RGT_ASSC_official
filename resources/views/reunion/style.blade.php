@@ -72,12 +72,14 @@
       'first_name',
       'last_name',
       'email',
-      'phone_number'
+      'phone_number',
+      'policy_confirmed'
     ];
     let validPost = true;
     for (let i = 0; i < listOfRequired.length; i++) {
       let input = document.getElementsByName(listOfRequired[i]);
-      if (input[0]['value'] == null || input[0]['value'] == "") {
+      console.log(listOfRequired[i]);
+      if (input[0]['value'] == null || input[0]['value'] == "" || input[0].checked == false) {
         console.log(listOfRequired[i]);
         validPost = false;
       };

@@ -195,6 +195,7 @@
 }
 
 .commentArea {
+  margin-bottom: 30px;
   border-width: 0;
   padding: 0;
   width: 100%;

@@ -108,6 +108,9 @@
                     Members will not be reimbursed for costs incurred by the Association when cancellations are made in less than 30 days before the reunion except in the case of death related reasons.
                   </div>
                 </div>
+                <div>
+                  <input required type="checkbox" name="policy_confirmed"> Yes, I understand the reunion cancellation policy.
+                </div>
               </div>
             </div>
             <button
