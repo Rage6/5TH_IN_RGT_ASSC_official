@@ -13,7 +13,7 @@
           <div>
             APPLICATIONS ARE NOW ACCEPTED!
           </div>
-          Applications are accepted from <u>Mar. 1st to Apr. 30th</u>. <b>Please read/use the "Application", "Criteria", "Biography", and "Criteria Supplement"</b> files when applying. If you have any questions, please <a href="mailto:general.anderson.scholarship.info@gmail.com">email us</a>.
+          Applications are accepted from <u>Mar. 1st to Apr. 30th</u>. <b>Please read/use the "Application", "Criteria", "Biography", and "Criteria Supplement"</b> files when applying. If you have any questions, please <a href="mailto:mg_andrew_anderson_scholarship@bobcat.ws">email us</a>.
         </div>
       </div>
     </div>
@@ -162,7 +162,7 @@
               + Who Can Answer Questions About The Scholarship?
             </div>
             <div data-answer="ask">
-              Scholarship and application inquiries should be directed to <a href="mailto:general.anderson.scholarship.info@gmail.com"><u><b>general.anderson.scholarship.info@gmail.com</b></u></a>
+              Scholarship and application inquiries should be directed to <a href="mailto:mg_andrew_anderson_scholarship@bobcat.ws"><u><b>mg_andrew_anderson_scholarship@bobcat.ws</b></u></a>
             </div>
           </div>
           <div class="regSection">
